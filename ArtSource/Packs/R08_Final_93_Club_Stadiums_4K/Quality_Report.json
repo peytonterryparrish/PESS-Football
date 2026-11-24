@@ -1,0 +1,18 @@
+{
+  "clubs": 93,
+  "variants": 279,
+  "stadium_tiers": 5,
+  "resolution": [
+    3840,
+    2160
+  ],
+  "sha256_and_complete_roster": "Manifest.json",
+  "checks": [
+    "Every PNG reopened and verified",
+    "Unique club \u00d7 stage paths and SHA-256 recorded for every plate",
+    "All 15 tier-lighting cases preserve pitch pixels",
+    "Same-tier differences are restricted to seats",
+    "Both end banks use exact approved home-primary tint",
+    "Tier 5 South uses V9 in all three stages"
+  ]
+}

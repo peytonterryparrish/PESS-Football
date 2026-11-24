@@ -1,0 +1,54 @@
+{
+ "rejected": {
+  "north-east/sit_ground": "too_small 363/830"
+ },
+ "notes": {
+  "south/fall_ground": [
+   "touches_edge"
+  ],
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/pass_strike": [
+   "blob9"
+  ],
+  "south-east/jog_contactR": [
+   "blob18"
+  ],
+  "south-east/fall_ground": [
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/celebrate_point": [
+   "blob10"
+  ],
+  "east/shot_plant": [
+   "blob8"
+  ],
+  "east/fall_ground": [
+   "blob12",
+   "blob9",
+   "touches_edge"
+  ],
+  "east/block": [
+   "blob14",
+   "touches_edge"
+  ],
+  "north-east/fall_ground": [
+   "blob22"
+  ],
+  "north/header": [
+   "blob27"
+  ]
+ },
+ "frames": 232,
+ "palette": 71
+}

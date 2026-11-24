@@ -1,0 +1,35 @@
+{
+  "ball_count": 30,
+  "flag_count": 30,
+  "ball_native_size": [
+    32,
+    32
+  ],
+  "flag_native_size": [
+    42,
+    46
+  ],
+  "ball_pivot_px": [
+    15.5,
+    15.5
+  ],
+  "flag_ground_anchor_px": [
+    20,
+    42
+  ],
+  "motion_note": "Ball V1–V3 are static sampled angles on the same spherical motif. They are not a completed animation or a promise of seamless rolling; optional game code may select them to imply turns. Flag states are selectable wind/facing alternatives without timing.",
+  "approved_ball_source": "PIX_2006_07_10_Logo_Free_Ball_Sprites.zip (Ball_Index.json, original Match/Winter pivots and palette inspiration only; prior artwork not duplicated)",
+  "source_ball_reference_entries": 10,
+  "projection_source": "R08_Final_93_Club_Stadiums_4K.zip / Projection.json; projected Z basis guides mast slope",
+  "period_sources": [
+    {
+      "url": "https://www.premierleague.com/en/news/903532",
+      "cue": "Official league history identifies the Geo Merlin at the beginning of the 2000/01 partnership; used for era context, not reproduced."
+    },
+    {
+      "url": "https://www.premierleague.com/en/news/4155220",
+      "cue": "Official league history records a 2004/05 bright-yellow winter ball and yellow/purple successor in 2006."
+    }
+  ],
+  "originality": "All 10 balls and 6 flag palettes are original logo-free pixel patterns inspired by era conventions. No exact club, brand, product or league replica claimed."
+}

@@ -1,0 +1,109 @@
+{
+ "rejected": {
+  "south/fall_ground": "too_small 302/716"
+ },
+ "notes": {
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/slide": [
+   "ball_removed"
+  ],
+  "south-east/fall_ground": [
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/header_stand": [
+   "blob10",
+   "blob9"
+  ],
+  "east/shot_strike": [
+   "ball_removed"
+  ],
+  "east/shot_follow": [
+   "colour_drift105"
+  ],
+  "east/pass_strike": [
+   "ball_removed"
+  ],
+  "east/slide": [
+   "ball_removed"
+  ],
+  "east/sprint_contactR": [
+   "ball_removed",
+   "colour_drift97"
+  ],
+  "east/sprint_passR": [
+   "ball_removed"
+  ],
+  "east/jog_contactL": [
+   "colour_drift97"
+  ],
+  "east/dribble_touchR": [
+   "colour_drift97"
+  ],
+  "east/dribble_touchL": [
+   "colour_drift97"
+  ],
+  "east/volley_strike": [
+   "ball_removed",
+   "colour_drift97"
+  ],
+  "east/fall_ground": [
+   "touches_edge"
+  ],
+  "east/celebrate_point": [
+   "touches_edge"
+  ],
+  "east/header_stand": [
+   "blob14",
+   "blob10",
+   "blob9"
+  ],
+  "east/block": [
+   "touches_edge"
+  ],
+  "north-east/run_passR": [
+   "ball_removed",
+   "ball_removed"
+  ],
+  "north-east/run_contactL": [
+   "ball_removed"
+  ],
+  "north-east/run_downL": [
+   "ball_removed"
+  ],
+  "north-east/shot_strike": [
+   "ball_removed"
+  ],
+  "north-east/pass_strike": [
+   "ball_removed"
+  ],
+  "north-east/slide": [
+   "ball_removed"
+  ],
+  "north-east/sit_ground": [
+   "blob28"
+  ],
+  "north-east/header_stand": [
+   "blob10",
+   "blob6"
+  ],
+  "north/celebrate_arms_up": [
+   "blob10"
+  ],
+  "north/celebrate_point": [
+   "ball_removed"
+  ],
+  "north/hands_on_head": [
+   "ball_removed"
+  ]
+ },
+ "frames": 232,
+ "palette": 50
+}

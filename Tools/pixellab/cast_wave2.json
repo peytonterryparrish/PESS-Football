@@ -1,0 +1,366 @@
+[
+ {
+  "id": "O17",
+  "src_char": "F002",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F002.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, warm brown long center-part hair, broad athletic shoulders build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O18",
+  "src_char": "F004",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F004.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, fair skin, black medium loose curls, stocky muscular athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O19",
+  "src_char": "F006",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F006.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, golden tan skin, dark brown short tight curls, medium balanced athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O20",
+  "src_char": "F007",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F007.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, black mid-length dreadlocks, long-legged athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O21",
+  "src_char": "F009",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F009.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, golden tan skin, warm brown short frosted spikes, broad athletic shoulders build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O22",
+  "src_char": "F010",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F010.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, ginger tight braids, long-legged athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O23",
+  "src_char": "F021",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F021.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, golden tan skin, dark blonde shaggy youthful fringe, medium balanced athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O24",
+  "src_char": "F022",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F022.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, dark brown large sweeping waves, broad athletic shoulders build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O25",
+  "src_char": "F026",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F026.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, dark brown shaggy youthful fringe, medium balanced athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O26",
+  "src_char": "F027",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F027.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, deep brown skin, warm brown long center-part hair, tall slender athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O27",
+  "src_char": "F029",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F029.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, fair skin, brown mid-length dreadlocks, long-legged athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O28",
+  "src_char": "F030",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F030.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, black large high afro, lean compact athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O29",
+  "src_char": "F041",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F041.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, deep brown skin, brown short high fade, tall slender athletic build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O30",
+  "src_char": "F042",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F042.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, dark blonde mid-length spiked hair, broad athletic shoulders build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O31",
+  "src_char": "F043",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F043.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, auburn mid-length spiked hair, broad athletic shoulders build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "O32",
+  "src_char": "F045",
+  "kind": "outfield",
+  "template_kit": true,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/portsmouth/South_Native64/home/F045.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art footballer, warm brown skin, black medium swept fringe, broad athletic shoulders build, blue shirt with pink trim, green shorts, red socks, black boots, empty hands, no ball"
+ },
+ {
+  "id": "K05",
+  "src_char": "G015",
+  "kind": "keeper",
+  "template_kit": false,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/arsenal/South_Native64/keeper2/G015.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art football goalkeeper, fair skin, dark brown large high afro, goalkeeper jersey #68717f, dark shorts, goalkeeper gloves, black boots, no ball",
+  "action": "goalkeeper poses, no ball"
+ },
+ {
+  "id": "K06",
+  "src_char": "G027",
+  "kind": "keeper",
+  "template_kit": false,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/liverpool/South_Native64/keeper1/G027.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art football goalkeeper, golden tan skin, ginger long center-part hair, goalkeeper jersey #4C8A56, dark shorts, goalkeeper gloves, black boots, no ball",
+  "action": "goalkeeper poses, no ball"
+ },
+ {
+  "id": "K07",
+  "src_char": "G041",
+  "kind": "keeper",
+  "template_kit": false,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/aston-villa/South_Native64/keeper2/G041.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art football goalkeeper, golden tan skin, black long tied-back dreadlocks, goalkeeper jersey #1E2C4B, dark shorts, goalkeeper gloves, black boots, no ball",
+  "action": "goalkeeper poses, no ball"
+ },
+ {
+  "id": "K08",
+  "src_char": "G005",
+  "kind": "keeper",
+  "template_kit": false,
+  "src": "ArtSource/Packs/R08_93_Clubs_South_Idle_Only/Clubs/everton/South_Native64/keeper1/G005.png",
+  "dirs": [
+   "south",
+   "south-east",
+   "east",
+   "north-east",
+   "north",
+   "north-west",
+   "west",
+   "south-west"
+  ],
+  "desc": "retro 16-bit pixel art football goalkeeper, warm brown skin, auburn long center-part hair, goalkeeper jersey #212840, dark shorts, goalkeeper gloves, black boots, no ball",
+  "action": "goalkeeper poses, no ball"
+ }
+]

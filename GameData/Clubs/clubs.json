@@ -1,0 +1,4187 @@
+[
+ {
+  "id": "C001",
+  "slug": "chelsea",
+  "name": "Westmere Borough FC",
+  "short": "WMB",
+  "tier": 5,
+  "tier_label": "Elite",
+  "division_2005_06": "Premier League",
+  "home_hex": "#2459A3",
+  "kits": {
+   "home": {
+    "shirt": "#2459A3",
+    "trim": "#B99A57",
+    "shorts": "#2459A3",
+    "socks": "#2459A3",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#CADAE5",
+    "trim": "#252735",
+    "shorts": "#CADAE5",
+    "socks": "#CADAE5",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#20232B",
+    "trim": "#C0A157",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "solid"
+   },
+   "keeper2": {
+    "shirt": "#EDCE3C",
+    "trim": "#262527",
+    "shorts": "#141923",
+    "socks": "#EDCE3C",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C001.png",
+  "badge_small": "GameData/Badges/C001_80.png",
+  "jersey_home": "GameData/Jerseys/C001_home.png",
+  "jersey_away": "GameData/Jerseys/C001_away.png",
+  "stadium": "chelsea"
+ },
+ {
+  "id": "C002",
+  "slug": "manchester-united",
+  "name": "Ironswick Athletic FC",
+  "short": "IWA",
+  "tier": 5,
+  "tier_label": "Elite",
+  "division_2005_06": "Premier League",
+  "home_hex": "#D31B35",
+  "kits": {
+   "home": {
+    "shirt": "#D31B35",
+    "trim": "#F2F3EE",
+    "shorts": "#F2F3EE",
+    "socks": "#141923",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#2355AA",
+    "trim": "#D72B38",
+    "shorts": "#2355AA",
+    "socks": "#2355AA",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#4D9958",
+    "trim": "#313F33",
+    "shorts": "#141923",
+    "socks": "#4D9958",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#21252A",
+    "trim": "#808083",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C002.png",
+  "badge_small": "GameData/Badges/C002_80.png",
+  "jersey_home": "GameData/Jerseys/C002_home.png",
+  "jersey_away": "GameData/Jerseys/C002_away.png",
+  "stadium": "manchester-united"
+ },
+ {
+  "id": "C003",
+  "slug": "liverpool",
+  "name": "Eastwater Port FC",
+  "short": "EWP",
+  "tier": 5,
+  "tier_label": "Elite",
+  "division_2005_06": "Premier League",
+  "home_hex": "#D11D32",
+  "kits": {
+   "home": {
+    "shirt": "#D11D32",
+    "trim": "#F2F3EE",
+    "shorts": "#D11D32",
+    "socks": "#D11D32",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F2F3EE",
+    "trim": "#CE1831",
+    "shorts": "#141923",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#4C8A56",
+    "trim": "#26292C",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "sleeves"
+   },
+   "keeper2": {
+    "shirt": "#E6C732",
+    "trim": "#22262B",
+    "shorts": "#141923",
+    "socks": "#E6C732",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C003.png",
+  "badge_small": "GameData/Badges/C003_80.png",
+  "jersey_home": "GameData/Jerseys/C003_home.png",
+  "jersey_away": "GameData/Jerseys/C003_away.png",
+  "stadium": "liverpool"
+ },
+ {
+  "id": "C004",
+  "slug": "arsenal",
+  "name": "Kerrsden FC",
+  "short": "KDN",
+  "tier": 5,
+  "tier_label": "Elite",
+  "division_2005_06": "Premier League",
+  "home_hex": "#791f2d",
+  "kits": {
+   "home": {
+    "shirt": "#791f2d",
+    "trim": "#ca9b54",
+    "shorts": "#ebe0d3",
+    "socks": "#681a29",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#f4c62c",
+    "trim": "#272a30",
+    "shorts": "#252730",
+    "socks": "#eac125",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#50264f",
+    "trim": "#292337",
+    "shorts": "#272634",
+    "socks": "#462245",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#68717f",
+    "trim": "#373c49",
+    "shorts": "#32323b",
+    "socks": "#333742",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C004.png",
+  "badge_small": "GameData/Badges/C004_80.png",
+  "jersey_home": "GameData/Jerseys/C004_home.png",
+  "jersey_away": "GameData/Jerseys/C004_away.png",
+  "stadium": "arsenal"
+ },
+ {
+  "id": "C005",
+  "slug": "tottenham-hotspur",
+  "name": "Bellhurst Sporting FC",
+  "short": "BHS",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Premier League",
+  "home_hex": "#F2F3EE",
+  "kits": {
+   "home": {
+    "shirt": "#F2F3EE",
+    "trim": "#192238",
+    "shorts": "#192238",
+    "socks": "#F2F3EE",
+    "pattern": "sleeves"
+   },
+   "away": {
+    "shirt": "#2346AC",
+    "trim": "#F0C538",
+    "shorts": "#2346AC",
+    "socks": "#2346AC",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#21242B",
+    "trim": "#F2F3EE",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "solid"
+   },
+   "keeper2": {
+    "shirt": "#458C58",
+    "trim": "#397448",
+    "shorts": "#141923",
+    "socks": "#458C58",
+    "pattern": "solid"
+   }
+  },
+  "badge": "GameData/Badges/C005.png",
+  "badge_small": "GameData/Badges/C005_80.png",
+  "jersey_home": "GameData/Jerseys/C005_home.png",
+  "jersey_away": "GameData/Jerseys/C005_away.png",
+  "stadium": "tottenham-hotspur"
+ },
+ {
+  "id": "C006",
+  "slug": "blackburn-rovers",
+  "name": "Birkenfold Union FC",
+  "short": "BFU",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Premier League",
+  "home_hex": "#174C9E",
+  "kits": {
+   "home": {
+    "shirt": "#174C9E",
+    "trim": "#F2F3EE",
+    "shorts": "#F2F3EE",
+    "socks": "#174C9E",
+    "pattern": "halves"
+   },
+   "away": {
+    "shirt": "#15191E",
+    "trim": "#F2F3EE",
+    "shorts": "#15191E",
+    "socks": "#15191E",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#BD493D",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#BD493D",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#388F5D",
+    "trim": "#F2F3EE",
+    "shorts": "#141923",
+    "socks": "#388F5D",
+    "pattern": "solid"
+   }
+  },
+  "badge": "GameData/Badges/C006.png",
+  "badge_small": "GameData/Badges/C006_80.png",
+  "jersey_home": "GameData/Jerseys/C006_home.png",
+  "jersey_away": "GameData/Jerseys/C006_away.png",
+  "stadium": "blackburn-rovers"
+ },
+ {
+  "id": "C007",
+  "slug": "newcastle-united",
+  "name": "Northcalder City FC",
+  "short": "NCC",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Premier League",
+  "home_hex": "#141923",
+  "kits": {
+   "home": {
+    "shirt": "#141923",
+    "trim": "#F2F3EE",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#263747",
+    "trim": "#425667",
+    "shorts": "#263747",
+    "socks": "#263747",
+    "pattern": "vertical"
+   },
+   "keeper1": {
+    "shirt": "#356CA9",
+    "trim": "#DFEDF7",
+    "shorts": "#19263D",
+    "socks": "#19263D",
+    "pattern": "solid"
+   },
+   "keeper2": {
+    "shirt": "#E5C544",
+    "trim": "#262828",
+    "shorts": "#141923",
+    "socks": "#E5C544",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C007.png",
+  "badge_small": "GameData/Badges/C007_80.png",
+  "jersey_home": "GameData/Jerseys/C007_home.png",
+  "jersey_away": "GameData/Jerseys/C007_away.png",
+  "stadium": "newcastle-united"
+ },
+ {
+  "id": "C008",
+  "slug": "bolton-wanderers",
+  "name": "Alderclough County FC",
+  "short": "ACC",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Premier League",
+  "home_hex": "#F2F3EE",
+  "kits": {
+   "home": {
+    "shirt": "#F2F3EE",
+    "trim": "#19263D",
+    "shorts": "#19263D",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#242D42",
+    "trim": "#BCBEC1",
+    "shorts": "#242D42",
+    "socks": "#242D42",
+    "pattern": "pinstripes"
+   },
+   "keeper1": {
+    "shirt": "#428855",
+    "trim": "#22292C",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "sleeves"
+   },
+   "keeper2": {
+    "shirt": "#E6C438",
+    "trim": "#202124",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C008.png",
+  "badge_small": "GameData/Badges/C008_80.png",
+  "jersey_home": "GameData/Jerseys/C008_home.png",
+  "jersey_away": "GameData/Jerseys/C008_away.png",
+  "stadium": "bolton-wanderers"
+ },
+ {
+  "id": "C009",
+  "slug": "west-ham-united",
+  "name": "Ferrywick Rovers FC",
+  "short": "FWR",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Premier League",
+  "home_hex": "#852644",
+  "kits": {
+   "home": {
+    "shirt": "#852644",
+    "trim": "#76B7DE",
+    "shorts": "#F2F3EE",
+    "socks": "#F2F3EE",
+    "pattern": "sleeves"
+   },
+   "away": {
+    "shirt": "#F2F3EE",
+    "trim": "#19263D",
+    "shorts": "#19263D",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#242B49",
+    "trim": "#756592",
+    "shorts": "#19263D",
+    "socks": "#19263D",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E6C139",
+    "trim": "#22272C",
+    "shorts": "#141923",
+    "socks": "#E6C139",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C009.png",
+  "badge_small": "GameData/Badges/C009_80.png",
+  "jersey_home": "GameData/Jerseys/C009_home.png",
+  "jersey_away": "GameData/Jerseys/C009_away.png",
+  "stadium": "west-ham-united"
+ },
+ {
+  "id": "C010",
+  "slug": "wigan-athletic",
+  "name": "Marlbank FC",
+  "short": "MLB",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Premier League",
+  "home_hex": "#2359A5",
+  "kits": {
+   "home": {
+    "shirt": "#2359A5",
+    "trim": "#F2F3EE",
+    "shorts": "#2359A5",
+    "socks": "#F2F3EE",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#E6BB32",
+    "trim": "#202C49",
+    "shorts": "#202C49",
+    "socks": "#E6BB32",
+    "pattern": "sleeves"
+   },
+   "keeper1": {
+    "shirt": "#4F8D53",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#4F8D53",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E7813C",
+    "trim": "#212C4A",
+    "shorts": "#19263D",
+    "socks": "#E7813C",
+    "pattern": "solid"
+   }
+  },
+  "badge": "GameData/Badges/C010.png",
+  "badge_small": "GameData/Badges/C010_80.png",
+  "jersey_home": "GameData/Jerseys/C010_home.png",
+  "jersey_away": "GameData/Jerseys/C010_away.png",
+  "stadium": "wigan-athletic"
+ },
+ {
+  "id": "C011",
+  "slug": "everton",
+  "name": "Blueferne United FC",
+  "short": "BFN",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Premier League",
+  "home_hex": "#234994",
+  "kits": {
+   "home": {
+    "shirt": "#234994",
+    "trim": "#F2F3EE",
+    "shorts": "#F2F3EE",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F2F3EE",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#212840",
+    "trim": "#DC81AE",
+    "shorts": "#19263D",
+    "socks": "#19263D",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#4C9A57",
+    "trim": "#F2F3EE",
+    "shorts": "#141923",
+    "socks": "#4C9A57",
+    "pattern": "solid"
+   }
+  },
+  "badge": "GameData/Badges/C011.png",
+  "badge_small": "GameData/Badges/C011_80.png",
+  "jersey_home": "GameData/Jerseys/C011_home.png",
+  "jersey_away": "GameData/Jerseys/C011_away.png",
+  "stadium": "everton"
+ },
+ {
+  "id": "C012",
+  "slug": "fulham",
+  "name": "Harrowfen FC",
+  "short": "HFN",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Premier League",
+  "home_hex": "#F2F3EE",
+  "kits": {
+   "home": {
+    "shirt": "#F2F3EE",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#CE1831",
+    "trim": "#F2F3EE",
+    "shorts": "#CE1831",
+    "socks": "#CE1831",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#22252C",
+    "trim": "#92323B",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#437D49",
+    "trim": "#252A28",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C012.png",
+  "badge_small": "GameData/Badges/C012_80.png",
+  "jersey_home": "GameData/Jerseys/C012_home.png",
+  "jersey_away": "GameData/Jerseys/C012_away.png",
+  "stadium": "fulham"
+ },
+ {
+  "id": "C013",
+  "slug": "charlton-athletic",
+  "name": "Lindenthorpe Town FC",
+  "short": "LTT",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Premier League",
+  "home_hex": "#CE1831",
+  "kits": {
+   "home": {
+    "shirt": "#CE1831",
+    "trim": "#F2F3EE",
+    "shorts": "#F2F3EE",
+    "socks": "#CE1831",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F2F3EE",
+    "trim": "#CE1831",
+    "shorts": "#141923",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#E7BC31",
+    "trim": "#202738",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#1B2027",
+    "trim": "#F2F3EE",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C013.png",
+  "badge_small": "GameData/Badges/C013_80.png",
+  "jersey_home": "GameData/Jerseys/C013_home.png",
+  "jersey_away": "GameData/Jerseys/C013_away.png",
+  "stadium": "charlton-athletic"
+ },
+ {
+  "id": "C014",
+  "slug": "middlesbrough",
+  "name": "Teescombe Borough FC",
+  "short": "TCB",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Premier League",
+  "home_hex": "#CB1A30",
+  "kits": {
+   "home": {
+    "shirt": "#CB1A30",
+    "trim": "#F2F3EE",
+    "shorts": "#CB1A30",
+    "socks": "#CB1A30",
+    "pattern": "hoops"
+   },
+   "away": {
+    "shirt": "#215AA3",
+    "trim": "#DE3349",
+    "shorts": "#215AA3",
+    "socks": "#215AA3",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#4C8655",
+    "trim": "#242827",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "solid"
+   },
+   "keeper2": {
+    "shirt": "#EAA53C",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#EAA53C",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C014.png",
+  "badge_small": "GameData/Badges/C014_80.png",
+  "jersey_home": "GameData/Jerseys/C014_home.png",
+  "jersey_away": "GameData/Jerseys/C014_away.png",
+  "stadium": "middlesbrough"
+ },
+ {
+  "id": "C015",
+  "slug": "manchester-city",
+  "name": "Bellford Metropolitan FC",
+  "short": "BFM",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Premier League",
+  "home_hex": "#86BADE",
+  "kits": {
+   "home": {
+    "shirt": "#86BADE",
+    "trim": "#F2F3EE",
+    "shorts": "#F2F3EE",
+    "socks": "#86BADE",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#202A41",
+    "trim": "#F2F3EE",
+    "shorts": "#202A41",
+    "socks": "#202A41",
+    "pattern": "pinstripes"
+   },
+   "keeper1": {
+    "shirt": "#41A258",
+    "trim": "#20262B",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#EBEEE7",
+    "trim": "#283246",
+    "shorts": "#19263D",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C015.png",
+  "badge_small": "GameData/Badges/C015_80.png",
+  "jersey_home": "GameData/Jerseys/C015_home.png",
+  "jersey_away": "GameData/Jerseys/C015_away.png",
+  "stadium": "manchester-city"
+ },
+ {
+  "id": "C016",
+  "slug": "aston-villa",
+  "name": "Hollowcross FC",
+  "short": "HCF",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Premier League",
+  "home_hex": "#7F2041",
+  "kits": {
+   "home": {
+    "shirt": "#7F2041",
+    "trim": "#76B7DE",
+    "shorts": "#F2F3EE",
+    "socks": "#76B7DE",
+    "pattern": "sleeves"
+   },
+   "away": {
+    "shirt": "#ECCE37",
+    "trim": "#19263D",
+    "shorts": "#19263D",
+    "socks": "#ECCE37",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#9DA4AB",
+    "trim": "#23252C",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "vertical"
+   },
+   "keeper2": {
+    "shirt": "#1E2C4B",
+    "trim": "#76B7DE",
+    "shorts": "#19263D",
+    "socks": "#19263D",
+    "pattern": "solid"
+   }
+  },
+  "badge": "GameData/Badges/C016.png",
+  "badge_small": "GameData/Badges/C016_80.png",
+  "jersey_home": "GameData/Jerseys/C016_home.png",
+  "jersey_away": "GameData/Jerseys/C016_away.png",
+  "stadium": "aston-villa"
+ },
+ {
+  "id": "C017",
+  "slug": "portsmouth",
+  "name": "Spindlehaven FC",
+  "short": "SPH",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Premier League",
+  "home_hex": "#2458A8",
+  "kits": {
+   "home": {
+    "shirt": "#2458A8",
+    "trim": "#F2F3EE",
+    "shorts": "#F2F3EE",
+    "socks": "#CE1831",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#D32029",
+    "trim": "#E4D8AD",
+    "shorts": "#D32029",
+    "socks": "#D32029",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#6C5040",
+    "trim": "#E5C550",
+    "shorts": "#141923",
+    "socks": "#6C5040",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#D5AB3B",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#D5AB3B",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C017.png",
+  "badge_small": "GameData/Badges/C017_80.png",
+  "jersey_home": "GameData/Jerseys/C017_home.png",
+  "jersey_away": "GameData/Jerseys/C017_away.png",
+  "stadium": "portsmouth"
+ },
+ {
+  "id": "C018",
+  "slug": "birmingham-city",
+  "name": "Foundrymere FC",
+  "short": "FDM",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Premier League",
+  "home_hex": "#174C9E",
+  "kits": {
+   "home": {
+    "shirt": "#174C9E",
+    "trim": "#F2F3EE",
+    "shorts": "#F2F3EE",
+    "socks": "#174C9E",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F2F3EE",
+    "trim": "#CE1831",
+    "shorts": "#CE1831",
+    "socks": "#F2F3EE",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#36955C",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#36955C",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#F3AA37",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#F3AA37",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C018.png",
+  "badge_small": "GameData/Badges/C018_80.png",
+  "jersey_home": "GameData/Jerseys/C018_home.png",
+  "jersey_away": "GameData/Jerseys/C018_away.png",
+  "stadium": "birmingham-city"
+ },
+ {
+  "id": "C019",
+  "slug": "west-bromwich-albion",
+  "name": "Ochrewick Sporting FC",
+  "short": "OWS",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Premier League",
+  "home_hex": "#1D2741",
+  "kits": {
+   "home": {
+    "shirt": "#1D2741",
+    "trim": "#F2F3EE",
+    "shorts": "#F2F3EE",
+    "socks": "#F2F3EE",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#212840",
+    "trim": "#CF2638",
+    "shorts": "#212840",
+    "socks": "#212840",
+    "pattern": "sash"
+   },
+   "keeper1": {
+    "shirt": "#67A143",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#67A143",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#DDA741",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#DDA741",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C019.png",
+  "badge_small": "GameData/Badges/C019_80.png",
+  "jersey_home": "GameData/Jerseys/C019_home.png",
+  "jersey_away": "GameData/Jerseys/C019_away.png",
+  "stadium": "west-bromwich-albion"
+ },
+ {
+  "id": "C020",
+  "slug": "sunderland",
+  "name": "Wearminster FC",
+  "short": "WMF",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Premier League",
+  "home_hex": "#DA2438",
+  "kits": {
+   "home": {
+    "shirt": "#DA2438",
+    "trim": "#F2F3EE",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#171C20",
+    "trim": "#C93039",
+    "shorts": "#171C20",
+    "socks": "#171C20",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#A1A6AA",
+    "trim": "#A42D3D",
+    "shorts": "#141923",
+    "socks": "#141923",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#EBB84A",
+    "trim": "#141923",
+    "shorts": "#141923",
+    "socks": "#EBB84A",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C020.png",
+  "badge_small": "GameData/Badges/C020_80.png",
+  "jersey_home": "GameData/Jerseys/C020_home.png",
+  "jersey_away": "GameData/Jerseys/C020_away.png",
+  "stadium": "sunderland"
+ },
+ {
+  "id": "C021",
+  "slug": "blackpool",
+  "name": "Brinefold Borough FC",
+  "short": "BFB",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#E97230",
+  "kits": {
+   "home": {
+    "shirt": "#E97230",
+    "trim": "#F1EEE8",
+    "shorts": "#F1EEE8",
+    "socks": "#E97230",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#F1EEE8",
+    "trim": "#E97230",
+    "shorts": "#F1EEE8",
+    "socks": "#F1EEE8",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#829AC1",
+    "trim": "#182D4C",
+    "shorts": "#263650",
+    "socks": "#819FC2",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E5A934",
+    "trim": "#42334D",
+    "shorts": "#2A2840",
+    "socks": "#CC9438",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C021.png",
+  "badge_small": "GameData/Badges/C021_80.png",
+  "jersey_home": "GameData/Jerseys/C021_home.png",
+  "jersey_away": "GameData/Jerseys/C021_away.png",
+  "stadium": "blackpool"
+ },
+ {
+  "id": "C022",
+  "slug": "bradford-city",
+  "name": "Westloom City FC",
+  "short": "WLC",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#DEA334",
+  "kits": {
+   "home": {
+    "shirt": "#DEA334",
+    "trim": "#823447",
+    "shorts": "#21242D",
+    "socks": "#813348",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#85BFE1",
+    "trim": "#4E87B5",
+    "shorts": "#76A9D2",
+    "socks": "#81B7DF",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#408951",
+    "trim": "#DAEB88",
+    "shorts": "#294034",
+    "socks": "#4B8554",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#7671AE",
+    "trim": "#E6D9E7",
+    "shorts": "#38364D",
+    "socks": "#6A63A0",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C022.png",
+  "badge_small": "GameData/Badges/C022_80.png",
+  "jersey_home": "GameData/Jerseys/C022_home.png",
+  "jersey_away": "GameData/Jerseys/C022_away.png",
+  "stadium": "bradford-city"
+ },
+ {
+  "id": "C023",
+  "slug": "brighton-hove-albion",
+  "name": "Foambridge Athletic FC",
+  "short": "FBA",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#77C4E7",
+  "kits": {
+   "home": {
+    "shirt": "#77C4E7",
+    "trim": "#F0F2ED",
+    "shorts": "#4798C8",
+    "socks": "#ECEFED",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#7C293E",
+    "trim": "#242C4B",
+    "shorts": "#25304E",
+    "socks": "#742C40",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#418953",
+    "trim": "#E5EA76",
+    "shorts": "#294033",
+    "socks": "#458956",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#F0A643",
+    "trim": "#53336F",
+    "shorts": "#352B45",
+    "socks": "#E1A047",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C023.png",
+  "badge_small": "GameData/Badges/C023_80.png",
+  "jersey_home": "GameData/Jerseys/C023_home.png",
+  "jersey_away": "GameData/Jerseys/C023_away.png",
+  "stadium": "brighton-hove-albion"
+ },
+ {
+  "id": "C024",
+  "slug": "bristol-city",
+  "name": "Avonleigh Borough FC",
+  "short": "ALB",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#CD293F",
+  "kits": {
+   "home": {
+    "shirt": "#CD293F",
+    "trim": "#F4EFEC",
+    "shorts": "#EDEEEA",
+    "socks": "#CB2E41",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#EFCA33",
+    "trim": "#85C5E9",
+    "shorts": "#72ACDB",
+    "socks": "#EACA3B",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#318457",
+    "trim": "#D4E875",
+    "shorts": "#253F36",
+    "socks": "#3C8757",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#7662A3",
+    "trim": "#DFE2F3",
+    "shorts": "#3F3659",
+    "socks": "#7563A5",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C024.png",
+  "badge_small": "GameData/Badges/C024_80.png",
+  "jersey_home": "GameData/Jerseys/C024_home.png",
+  "jersey_away": "GameData/Jerseys/C024_away.png",
+  "stadium": "bristol-city"
+ },
+ {
+  "id": "C025",
+  "slug": "burnley",
+  "name": "Cinderclough FC",
+  "short": "CCF",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "Championship",
+  "home_hex": "#712840",
+  "kits": {
+   "home": {
+    "shirt": "#712840",
+    "trim": "#81B8E5",
+    "shorts": "#F1EEE8",
+    "socks": "#712840",
+    "pattern": "sleeves"
+   },
+   "away": {
+    "shirt": "#F1EEE8",
+    "trim": "#81B8E5",
+    "shorts": "#F1EEE8",
+    "socks": "#F1EEE8",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#50BD7D",
+    "trim": "#1B4243",
+    "shorts": "#254853",
+    "socks": "#4CAA72",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#8B69BC",
+    "trim": "#272842",
+    "shorts": "#282442",
+    "socks": "#8567AD",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C025.png",
+  "badge_small": "GameData/Badges/C025_80.png",
+  "jersey_home": "GameData/Jerseys/C025_home.png",
+  "jersey_away": "GameData/Jerseys/C025_away.png",
+  "stadium": "burnley"
+ },
+ {
+  "id": "C026",
+  "slug": "bury",
+  "name": "Pennswake Town FC",
+  "short": "PWT",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#F1EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE8",
+    "trim": "#2156AC",
+    "shorts": "#192D57",
+    "socks": "#F1EEE8",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#EBC33D",
+    "trim": "#192D57",
+    "shorts": "#192D57",
+    "socks": "#EBC33D",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#6C9BC3",
+    "trim": "#293E52",
+    "shorts": "#273644",
+    "socks": "#728CAA",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#50BD7D",
+    "trim": "#1B4243",
+    "shorts": "#254853",
+    "socks": "#4CAA72",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C026.png",
+  "badge_small": "GameData/Badges/C026_80.png",
+  "jersey_home": "GameData/Jerseys/C026_home.png",
+  "jersey_away": "GameData/Jerseys/C026_away.png",
+  "stadium": "bury"
+ },
+ {
+  "id": "C027",
+  "slug": "coventry-city",
+  "name": "Covenswick City FC",
+  "short": "CVC",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#79BFEA",
+  "kits": {
+   "home": {
+    "shirt": "#79BFEA",
+    "trim": "#E8F2F6",
+    "shorts": "#EAF1F3",
+    "socks": "#75BAE3",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#242936",
+    "trim": "#79BFEA",
+    "shorts": "#1C202A",
+    "socks": "#252935",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#49854F",
+    "trim": "#DDE376",
+    "shorts": "#294334",
+    "socks": "#4A8652",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#EE933D",
+    "trim": "#47419A",
+    "shorts": "#26243D",
+    "socks": "#EE9241",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C027.png",
+  "badge_small": "GameData/Badges/C027_80.png",
+  "jersey_home": "GameData/Jerseys/C027_home.png",
+  "jersey_away": "GameData/Jerseys/C027_away.png",
+  "stadium": "coventry-city"
+ },
+ {
+  "id": "C028",
+  "slug": "crystal-palace",
+  "name": "Glasslyn Borough FC",
+  "short": "GLB",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#2360B8",
+  "kits": {
+   "home": {
+    "shirt": "#2360B8",
+    "trim": "#D33043",
+    "shorts": "#2753A1",
+    "socks": "#2C58A7",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#22232B",
+    "trim": "#D72C47",
+    "shorts": "#1B2027",
+    "socks": "#252631",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#52A45B",
+    "trim": "#F4D754",
+    "shorts": "#263C2F",
+    "socks": "#4E9B60",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E9AA42",
+    "trim": "#553C85",
+    "shorts": "#25233E",
+    "socks": "#CF9536",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C028.png",
+  "badge_small": "GameData/Badges/C028_80.png",
+  "jersey_home": "GameData/Jerseys/C028_home.png",
+  "jersey_away": "GameData/Jerseys/C028_away.png",
+  "stadium": "crystal-palace"
+ },
+ {
+  "id": "C029",
+  "slug": "derby-county",
+  "name": "Dalecrank County FC",
+  "short": "DCC",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#F1EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE8",
+    "trim": "#1C1D25",
+    "shorts": "#1C1D25",
+    "socks": "#F1EEE8",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#192D57",
+    "trim": "#EBC33D",
+    "shorts": "#192D57",
+    "socks": "#192D57",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#69C492",
+    "trim": "#213E4D",
+    "shorts": "#243D4F",
+    "socks": "#5DBB90",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#6C9BC3",
+    "trim": "#293E52",
+    "shorts": "#273644",
+    "socks": "#728CAA",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C029.png",
+  "badge_small": "GameData/Badges/C029_80.png",
+  "jersey_home": "GameData/Jerseys/C029_home.png",
+  "jersey_away": "GameData/Jerseys/C029_away.png",
+  "stadium": "derby-county"
+ },
+ {
+  "id": "C030",
+  "slug": "grimsby-town",
+  "name": "Saltmarsh Dock FC",
+  "short": "SMD",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#F1EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE8",
+    "trim": "#1C1D25",
+    "shorts": "#1C1D25",
+    "socks": "#1C1D25",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#2156AC",
+    "trim": "#F1EEE8",
+    "shorts": "#2156AC",
+    "socks": "#2156AC",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#55BC91",
+    "trim": "#203A59",
+    "shorts": "#222D45",
+    "socks": "#50AA83",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#829AC1",
+    "trim": "#182D4C",
+    "shorts": "#263650",
+    "socks": "#819FC2",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C030.png",
+  "badge_small": "GameData/Badges/C030_80.png",
+  "jersey_home": "GameData/Jerseys/C030_home.png",
+  "jersey_away": "GameData/Jerseys/C030_away.png",
+  "stadium": "grimsby-town"
+ },
+ {
+  "id": "C031",
+  "slug": "huddersfield-town",
+  "name": "Woolcombe United FC",
+  "short": "WCU",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#F1EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE8",
+    "trim": "#2156AC",
+    "shorts": "#F1EEE8",
+    "socks": "#2156AC",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#F1EEE8",
+    "trim": "#2156AC",
+    "shorts": "#2156AC",
+    "socks": "#F1EEE8",
+    "pattern": "hoops"
+   },
+   "keeper1": {
+    "shirt": "#50BD7D",
+    "trim": "#1B4243",
+    "shorts": "#254853",
+    "socks": "#4CAA72",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#8B69BC",
+    "trim": "#272842",
+    "shorts": "#282442",
+    "socks": "#8567AD",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C031.png",
+  "badge_small": "GameData/Badges/C031_80.png",
+  "jersey_home": "GameData/Jerseys/C031_home.png",
+  "jersey_away": "GameData/Jerseys/C031_away.png",
+  "stadium": "huddersfield-town"
+ },
+ {
+  "id": "C032",
+  "slug": "ipswich-town",
+  "name": "Orwellmere FC",
+  "short": "OMF",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#2156AC",
+  "kits": {
+   "home": {
+    "shirt": "#2156AC",
+    "trim": "#F1EEE8",
+    "shorts": "#F1EEE8",
+    "socks": "#2156AC",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#E97230",
+    "trim": "#1C1D25",
+    "shorts": "#1C1D25",
+    "socks": "#E97230",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#85974A",
+    "trim": "#324032",
+    "shorts": "#2B3B32",
+    "socks": "#8B9F53",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#69C492",
+    "trim": "#213E4D",
+    "shorts": "#243D4F",
+    "socks": "#5DBB90",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C032.png",
+  "badge_small": "GameData/Badges/C032_80.png",
+  "jersey_home": "GameData/Jerseys/C032_home.png",
+  "jersey_away": "GameData/Jerseys/C032_away.png",
+  "stadium": "ipswich-town"
+ },
+ {
+  "id": "C033",
+  "slug": "leeds-united",
+  "name": "Wharfendale City FC",
+  "short": "WDC",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "Championship",
+  "home_hex": "#F1EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE8",
+    "trim": "#192D57",
+    "shorts": "#F1EEE8",
+    "socks": "#F1EEE8",
+    "pattern": "pinstripes"
+   },
+   "away": {
+    "shirt": "#192D57",
+    "trim": "#81B8E5",
+    "shorts": "#192D57",
+    "socks": "#192D57",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#527BAE",
+    "trim": "#1F345A",
+    "shorts": "#202740",
+    "socks": "#647AAB",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#85974A",
+    "trim": "#324032",
+    "shorts": "#2B3B32",
+    "socks": "#8B9F53",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C033.png",
+  "badge_small": "GameData/Badges/C033_80.png",
+  "jersey_home": "GameData/Jerseys/C033_home.png",
+  "jersey_away": "GameData/Jerseys/C033_away.png",
+  "stadium": "leeds-united"
+ },
+ {
+  "id": "C034",
+  "slug": "leicester-city",
+  "name": "Soarwick Athletic FC",
+  "short": "SWA",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#2156AC",
+  "kits": {
+   "home": {
+    "shirt": "#2156AC",
+    "trim": "#F1EEE8",
+    "shorts": "#F1EEE8",
+    "socks": "#2156AC",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#F1EEE8",
+    "trim": "#81B8E5",
+    "shorts": "#F1EEE8",
+    "socks": "#F1EEE8",
+    "pattern": "sash"
+   },
+   "keeper1": {
+    "shirt": "#8B69BC",
+    "trim": "#272842",
+    "shorts": "#282442",
+    "socks": "#8567AD",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#55BC91",
+    "trim": "#203A59",
+    "shorts": "#222D45",
+    "socks": "#50AA83",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C034.png",
+  "badge_small": "GameData/Badges/C034_80.png",
+  "jersey_home": "GameData/Jerseys/C034_home.png",
+  "jersey_away": "GameData/Jerseys/C034_away.png",
+  "stadium": "leicester-city"
+ },
+ {
+  "id": "C035",
+  "slug": "luton-town",
+  "name": "Hatchett Vale FC",
+  "short": "HVF",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "Championship",
+  "home_hex": "#EDEEEA",
+  "kits": {
+   "home": {
+    "shirt": "#EDEEEA",
+    "trim": "#F27934",
+    "shorts": "#25272D",
+    "socks": "#ECEDEA",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#282A30",
+    "trim": "#F1EEEA",
+    "shorts": "#22252D",
+    "socks": "#282C34",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#428A54",
+    "trim": "#E1E875",
+    "shorts": "#294731",
+    "socks": "#458953",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#5C88C1",
+    "trim": "#E6DEF4",
+    "shorts": "#34364B",
+    "socks": "#5B83BE",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C035.png",
+  "badge_small": "GameData/Badges/C035_80.png",
+  "jersey_home": "GameData/Jerseys/C035_home.png",
+  "jersey_away": "GameData/Jerseys/C035_away.png",
+  "stadium": "luton-town"
+ },
+ {
+  "id": "C036",
+  "slug": "millwall",
+  "name": "Southquay Borough FC",
+  "short": "SQB",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#214E92",
+  "kits": {
+   "home": {
+    "shirt": "#214E92",
+    "trim": "#EBEDEB",
+    "shorts": "#EBEDEB",
+    "socks": "#2C5090",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#E7BC42",
+    "trim": "#242F4D",
+    "shorts": "#262F48",
+    "socks": "#E0BA42",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#478B58",
+    "trim": "#D6E687",
+    "shorts": "#293F35",
+    "socks": "#4B8C54",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E87642",
+    "trim": "#562A50",
+    "shorts": "#33243B",
+    "socks": "#E1723F",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C036.png",
+  "badge_small": "GameData/Badges/C036_80.png",
+  "jersey_home": "GameData/Jerseys/C036_home.png",
+  "jersey_away": "GameData/Jerseys/C036_away.png",
+  "stadium": "millwall"
+ },
+ {
+  "id": "C037",
+  "slug": "nottingham-forest",
+  "name": "Trentbough FC",
+  "short": "TBF",
+  "tier": 4,
+  "tier_label": "Major Heritage",
+  "division_2005_06": "League One",
+  "home_hex": "#BD292D",
+  "kits": {
+   "home": {
+    "shirt": "#BD292D",
+    "trim": "#F1EEE8",
+    "shorts": "#F1EEE8",
+    "socks": "#BD292D",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#EBC33D",
+    "trim": "#192D57",
+    "shorts": "#192D57",
+    "socks": "#EBC33D",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#829AC1",
+    "trim": "#182D4C",
+    "shorts": "#263650",
+    "socks": "#819FC2",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E5A934",
+    "trim": "#42334D",
+    "shorts": "#2A2840",
+    "socks": "#CC9438",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C037.png",
+  "badge_small": "GameData/Badges/C037_80.png",
+  "jersey_home": "GameData/Jerseys/C037_home.png",
+  "jersey_away": "GameData/Jerseys/C037_away.png",
+  "stadium": "nottingham-forest"
+ },
+ {
+  "id": "C038",
+  "slug": "notts-county",
+  "name": "Marlash County FC",
+  "short": "MAC",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#F1EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE8",
+    "trim": "#1C1D25",
+    "shorts": "#1C1D25",
+    "socks": "#1C1D25",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#81B8E5",
+    "trim": "#192D57",
+    "shorts": "#81B8E5",
+    "socks": "#81B8E5",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#527BAE",
+    "trim": "#1F345A",
+    "shorts": "#202740",
+    "socks": "#647AAB",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#85974A",
+    "trim": "#324032",
+    "shorts": "#2B3B32",
+    "socks": "#8B9F53",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C038.png",
+  "badge_small": "GameData/Badges/C038_80.png",
+  "jersey_home": "GameData/Jerseys/C038_home.png",
+  "jersey_away": "GameData/Jerseys/C038_away.png",
+  "stadium": "notts-county"
+ },
+ {
+  "id": "C039",
+  "slug": "oldham-athletic",
+  "name": "Stoneweald Athletic FC",
+  "short": "STA",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#2C62BE",
+  "kits": {
+   "home": {
+    "shirt": "#2C62BE",
+    "trim": "#F1EFEB",
+    "shorts": "#2358AE",
+    "socks": "#2F5DB0",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F1F0EB",
+    "trim": "#356BB6",
+    "shorts": "#EDEEEB",
+    "socks": "#ECEEEA",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#47A153",
+    "trim": "#DBE879",
+    "shorts": "#284233",
+    "socks": "#449650",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E99442",
+    "trim": "#62346D",
+    "shorts": "#382B4B",
+    "socks": "#E18D43",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C039.png",
+  "badge_small": "GameData/Badges/C039_80.png",
+  "jersey_home": "GameData/Jerseys/C039_home.png",
+  "jersey_away": "GameData/Jerseys/C039_away.png",
+  "stadium": "oldham-athletic"
+ },
+ {
+  "id": "C040",
+  "slug": "oxford-united",
+  "name": "Isleford Rovers FC",
+  "short": "IFR",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#EFC631",
+  "kits": {
+   "home": {
+    "shirt": "#EFC631",
+    "trim": "#263852",
+    "shorts": "#263851",
+    "socks": "#EFC631",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#25252B",
+    "trim": "#42444D",
+    "shorts": "#212128",
+    "socks": "#25252C",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#348C66",
+    "trim": "#D0E78F",
+    "shorts": "#243F38",
+    "socks": "#3D926A",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#DE5F57",
+    "trim": "#EED0C4",
+    "shorts": "#513545",
+    "socks": "#D05A54",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C040.png",
+  "badge_small": "GameData/Badges/C040_80.png",
+  "jersey_home": "GameData/Jerseys/C040_home.png",
+  "jersey_away": "GameData/Jerseys/C040_away.png",
+  "stadium": "oxford-united"
+ },
+ {
+  "id": "C041",
+  "slug": "preston-north-end",
+  "name": "Northmoss Borough FC",
+  "short": "NMB",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#F1EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE8",
+    "trim": "#192D57",
+    "shorts": "#192D57",
+    "socks": "#F1EEE8",
+    "pattern": "sleeves"
+   },
+   "away": {
+    "shirt": "#81B8E5",
+    "trim": "#192D57",
+    "shorts": "#192D57",
+    "socks": "#81B8E5",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#5BB49D",
+    "trim": "#2B4C54",
+    "shorts": "#24374E",
+    "socks": "#4F9884",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#527BAE",
+    "trim": "#1F345A",
+    "shorts": "#202740",
+    "socks": "#647AAB",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C041.png",
+  "badge_small": "GameData/Badges/C041_80.png",
+  "jersey_home": "GameData/Jerseys/C041_home.png",
+  "jersey_away": "GameData/Jerseys/C041_away.png",
+  "stadium": "preston-north-end"
+ },
+ {
+  "id": "C042",
+  "slug": "queens-park-rangers",
+  "name": "Westlatch Sporting FC",
+  "short": "WLS",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#2962BF",
+  "kits": {
+   "home": {
+    "shirt": "#2962BF",
+    "trim": "#F1F3EF",
+    "shorts": "#ECEEEF",
+    "socks": "#EDEFEF",
+    "pattern": "hoops"
+   },
+   "away": {
+    "shirt": "#C2283D",
+    "trim": "#22232C",
+    "shorts": "#20232B",
+    "socks": "#C02B3B",
+    "pattern": "vertical"
+   },
+   "keeper1": {
+    "shirt": "#468957",
+    "trim": "#D9E585",
+    "shorts": "#283B34",
+    "socks": "#488451",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#F6C746",
+    "trim": "#552467",
+    "shorts": "#252538",
+    "socks": "#DCAF42",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C042.png",
+  "badge_small": "GameData/Badges/C042_80.png",
+  "jersey_home": "GameData/Jerseys/C042_home.png",
+  "jersey_away": "GameData/Jerseys/C042_away.png",
+  "stadium": "queens-park-rangers"
+ },
+ {
+  "id": "C043",
+  "slug": "reading",
+  "name": "Kennetworks FC",
+  "short": "KNW",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#2867BC",
+  "kits": {
+   "home": {
+    "shirt": "#2867BC",
+    "trim": "#F1F2ED",
+    "shorts": "#F2F2EF",
+    "socks": "#EDEEEB",
+    "pattern": "hoops"
+   },
+   "away": {
+    "shirt": "#232B48",
+    "trim": "#D3D8E0",
+    "shorts": "#212840",
+    "socks": "#222B49",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#47874C",
+    "trim": "#E5F08B",
+    "shorts": "#293F32",
+    "socks": "#4E8656",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#EF8040",
+    "trim": "#472B64",
+    "shorts": "#30273D",
+    "socks": "#DD7838",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C043.png",
+  "badge_small": "GameData/Badges/C043_80.png",
+  "jersey_home": "GameData/Jerseys/C043_home.png",
+  "jersey_away": "GameData/Jerseys/C043_away.png",
+  "stadium": "reading"
+ },
+ {
+  "id": "C044",
+  "slug": "sheffield-united",
+  "name": "Sablebridge Sporting FC",
+  "short": "SBS",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#BD292D",
+  "kits": {
+   "home": {
+    "shirt": "#BD292D",
+    "trim": "#F1EEE8",
+    "shorts": "#1C1D25",
+    "socks": "#1C1D25",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#F1EEE8",
+    "trim": "#1C1D25",
+    "shorts": "#F1EEE8",
+    "socks": "#F1EEE8",
+    "pattern": "sleeves"
+   },
+   "keeper1": {
+    "shirt": "#E5A934",
+    "trim": "#42334D",
+    "shorts": "#2A2840",
+    "socks": "#CC9438",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#5BB49D",
+    "trim": "#2B4C54",
+    "shorts": "#24374E",
+    "socks": "#4F9884",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C044.png",
+  "badge_small": "GameData/Badges/C044_80.png",
+  "jersey_home": "GameData/Jerseys/C044_home.png",
+  "jersey_away": "GameData/Jerseys/C044_away.png",
+  "stadium": "sheffield-united"
+ },
+ {
+  "id": "C045",
+  "slug": "sheffield-wednesday",
+  "name": "Peakwater City FC",
+  "short": "PWC",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#2156AC",
+  "kits": {
+   "home": {
+    "shirt": "#2156AC",
+    "trim": "#F1EEE8",
+    "shorts": "#1C1D25",
+    "socks": "#1C1D25",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#1C1D25",
+    "trim": "#81B8E5",
+    "shorts": "#1C1D25",
+    "socks": "#1C1D25",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#55BC91",
+    "trim": "#203A59",
+    "shorts": "#222D45",
+    "socks": "#50AA83",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#829AC1",
+    "trim": "#182D4C",
+    "shorts": "#263650",
+    "socks": "#819FC2",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C045.png",
+  "badge_small": "GameData/Badges/C045_80.png",
+  "jersey_home": "GameData/Jerseys/C045_home.png",
+  "jersey_away": "GameData/Jerseys/C045_away.png",
+  "stadium": "sheffield-wednesday"
+ },
+ {
+  "id": "C046",
+  "slug": "southampton",
+  "name": "Solentfold FC",
+  "short": "SLF",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#D92E44",
+  "kits": {
+   "home": {
+    "shirt": "#D92E44",
+    "trim": "#F1F0EB",
+    "shorts": "#21242B",
+    "socks": "#EEEFEB",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#F2D23E",
+    "trim": "#2D60A1",
+    "shorts": "#2D4D81",
+    "socks": "#EBC83E",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#399153",
+    "trim": "#CDE576",
+    "shorts": "#264335",
+    "socks": "#3B9056",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#67529A",
+    "trim": "#D9DDF2",
+    "shorts": "#372E53",
+    "socks": "#6C57A0",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C046.png",
+  "badge_small": "GameData/Badges/C046_80.png",
+  "jersey_home": "GameData/Jerseys/C046_home.png",
+  "jersey_away": "GameData/Jerseys/C046_away.png",
+  "stadium": "southampton"
+ },
+ {
+  "id": "C047",
+  "slug": "swindon-town",
+  "name": "Redwillow United FC",
+  "short": "RWU",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#CF293E",
+  "kits": {
+   "home": {
+    "shirt": "#CF293E",
+    "trim": "#F1F1ED",
+    "shorts": "#F2F2EF",
+    "socks": "#CD3043",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F0F0EA",
+    "trim": "#3167B9",
+    "shorts": "#2A59A5",
+    "socks": "#EDF1EF",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#39834E",
+    "trim": "#E3E975",
+    "shorts": "#293F33",
+    "socks": "#478750",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#EDAE3D",
+    "trim": "#52396E",
+    "shorts": "#312749",
+    "socks": "#E6A538",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C047.png",
+  "badge_small": "GameData/Badges/C047_80.png",
+  "jersey_home": "GameData/Jerseys/C047_home.png",
+  "jersey_away": "GameData/Jerseys/C047_away.png",
+  "stadium": "swindon-town"
+ },
+ {
+  "id": "C048",
+  "slug": "watford",
+  "name": "Chalklatch FC",
+  "short": "CKL",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#F2CC31",
+  "kits": {
+   "home": {
+    "shirt": "#F2CC31",
+    "trim": "#282326",
+    "shorts": "#231F23",
+    "socks": "#F2CC31",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#C42738",
+    "trim": "#E03947",
+    "shorts": "#C22638",
+    "socks": "#C62D3B",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#3473BE",
+    "trim": "#E9EDF3",
+    "shorts": "#232C56",
+    "socks": "#3477BC",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#4B955E",
+    "trim": "#D8F188",
+    "shorts": "#26384A",
+    "socks": "#4E9860",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C048.png",
+  "badge_small": "GameData/Badges/C048_80.png",
+  "jersey_home": "GameData/Jerseys/C048_home.png",
+  "jersey_away": "GameData/Jerseys/C048_away.png",
+  "stadium": "watford"
+ },
+ {
+  "id": "C049",
+  "slug": "wimbledon-fc",
+  "name": "Mertonquill FC",
+  "short": "MQF",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Bonus \u2014 Heritage",
+  "home_hex": "#29549B",
+  "kits": {
+   "home": {
+    "shirt": "#29549B",
+    "trim": "#EFC748",
+    "shorts": "#2B5096",
+    "socks": "#31579C",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#C53D48",
+    "trim": "#2F684B",
+    "shorts": "#BF3C43",
+    "socks": "#C43C48",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#3F965B",
+    "trim": "#EAE781",
+    "shorts": "#2D4937",
+    "socks": "#438E57",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E5933E",
+    "trim": "#583D7A",
+    "shorts": "#342945",
+    "socks": "#E19844",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C049.png",
+  "badge_small": "GameData/Badges/C049_80.png",
+  "jersey_home": "GameData/Jerseys/C049_home.png",
+  "jersey_away": "GameData/Jerseys/C049_away.png",
+  "stadium": "wimbledon-fc"
+ },
+ {
+  "id": "C050",
+  "slug": "wolverhampton-wanderers",
+  "name": "Greyminster FC",
+  "short": "GMF",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#E9AA36",
+  "kits": {
+   "home": {
+    "shirt": "#E9AA36",
+    "trim": "#1C1D25",
+    "shorts": "#1C1D25",
+    "socks": "#E9AA36",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#1C1D25",
+    "trim": "#E9AA36",
+    "shorts": "#1C1D25",
+    "socks": "#1C1D25",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#6C9BC3",
+    "trim": "#293E52",
+    "shorts": "#273644",
+    "socks": "#728CAA",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#50BD7D",
+    "trim": "#1B4243",
+    "shorts": "#254853",
+    "socks": "#4CAA72",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C050.png",
+  "badge_small": "GameData/Badges/C050_80.png",
+  "jersey_home": "GameData/Jerseys/C050_home.png",
+  "jersey_away": "GameData/Jerseys/C050_away.png",
+  "stadium": "wolverhampton-wanderers"
+ },
+ {
+  "id": "C051",
+  "slug": "norwich-city",
+  "name": "Wensmere City FC",
+  "short": "WEC",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#F8C82C",
+  "kits": {
+   "home": {
+    "shirt": "#F8C82C",
+    "trim": "#227745",
+    "shorts": "#226842",
+    "socks": "#F8C82C",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#225A39",
+    "trim": "#142A24",
+    "shorts": "#17291F",
+    "socks": "#1F4930",
+    "pattern": "vertical"
+   },
+   "keeper1": {
+    "shirt": "#1B302A",
+    "trim": "#9B303E",
+    "shorts": "#1C2A26",
+    "socks": "#1C2A26",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#627BA7",
+    "trim": "#DCE2C4",
+    "shorts": "#202B3D",
+    "socks": "#627BA7",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C051.png",
+  "badge_small": "GameData/Badges/C051_80.png",
+  "jersey_home": "GameData/Jerseys/C051_home.png",
+  "jersey_away": "GameData/Jerseys/C051_away.png",
+  "stadium": "norwich-city"
+ },
+ {
+  "id": "C052",
+  "slug": "cardiff-city",
+  "name": "Taffrill Sporting FC",
+  "short": "TRS",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#1545A6",
+  "kits": {
+   "home": {
+    "shirt": "#1545A6",
+    "trim": "#F0F1EB",
+    "shorts": "#1846A3",
+    "socks": "#1846A3",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#EBD331",
+    "trim": "#204CA1",
+    "shorts": "#204CA1",
+    "socks": "#EBD331",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#8799A5",
+    "trim": "#282C36",
+    "shorts": "#2D3238",
+    "socks": "#8799A5",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#5A8C45",
+    "trim": "#202A32",
+    "shorts": "#202A32",
+    "socks": "#5A8C45",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C052.png",
+  "badge_small": "GameData/Badges/C052_80.png",
+  "jersey_home": "GameData/Jerseys/C052_home.png",
+  "jersey_away": "GameData/Jerseys/C052_away.png",
+  "stadium": "cardiff-city"
+ },
+ {
+  "id": "C053",
+  "slug": "stoke-city",
+  "name": "Kilnley Borough FC",
+  "short": "KLB",
+  "tier": 3,
+  "tier_label": "High Profile",
+  "division_2005_06": "Championship",
+  "home_hex": "#C92637",
+  "kits": {
+   "home": {
+    "shirt": "#C92637",
+    "trim": "#EFF0E8",
+    "shorts": "#EFF0E8",
+    "socks": "#EFF0E8",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#22252A",
+    "trim": "#BA2437",
+    "shorts": "#22252A",
+    "socks": "#22252A",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#C6C4B3",
+    "trim": "#2B3135",
+    "shorts": "#D3CFBF",
+    "socks": "#D5D2C4",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#5D9A54",
+    "trim": "#253331",
+    "shorts": "#253331",
+    "socks": "#5D9A54",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C053.png",
+  "badge_small": "GameData/Badges/C053_80.png",
+  "jersey_home": "GameData/Jerseys/C053_home.png",
+  "jersey_away": "GameData/Jerseys/C053_away.png",
+  "stadium": "stoke-city"
+ },
+ {
+  "id": "C054",
+  "slug": "plymouth-argyle",
+  "name": "Soundcliff Athletic FC",
+  "short": "SCA",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "Championship",
+  "home_hex": "#123D33",
+  "kits": {
+   "home": {
+    "shirt": "#123D33",
+    "trim": "#E9F0E6",
+    "shorts": "#E9F0E6",
+    "socks": "#123D33",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F0F2EA",
+    "trim": "#1B543F",
+    "shorts": "#1B543F",
+    "socks": "#EFEFE7",
+    "pattern": "sleeves"
+   },
+   "keeper1": {
+    "shirt": "#D7D9D5",
+    "trim": "#25354A",
+    "shorts": "#263445",
+    "socks": "#D7D9D5",
+    "pattern": "sleeves"
+   },
+   "keeper2": {
+    "shirt": "#202B3B",
+    "trim": "#DCE1DA",
+    "shorts": "#202B3B",
+    "socks": "#202B3B",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C054.png",
+  "badge_small": "GameData/Badges/C054_80.png",
+  "jersey_home": "GameData/Jerseys/C054_home.png",
+  "jersey_away": "GameData/Jerseys/C054_away.png",
+  "stadium": "plymouth-argyle"
+ },
+ {
+  "id": "C055",
+  "slug": "hull-city",
+  "name": "Ambermarsh County FC",
+  "short": "AMC",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "Championship",
+  "home_hex": "#EA9A31",
+  "kits": {
+   "home": {
+    "shirt": "#EA9A31",
+    "trim": "#1C2026",
+    "shorts": "#1C2026",
+    "socks": "#EA9A31",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#202127",
+    "trim": "#F0EEE6",
+    "shorts": "#202127",
+    "socks": "#202127",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#6D9BBC",
+    "trim": "#242D3C",
+    "shorts": "#293846",
+    "socks": "#6D9BBC",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#7960A2",
+    "trim": "#24283A",
+    "shorts": "#24283A",
+    "socks": "#7960A2",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C055.png",
+  "badge_small": "GameData/Badges/C055_80.png",
+  "jersey_home": "GameData/Jerseys/C055_home.png",
+  "jersey_away": "GameData/Jerseys/C055_away.png",
+  "stadium": "hull-city"
+ },
+ {
+  "id": "C056",
+  "slug": "crewe-alexandra",
+  "name": "Cresterrail FC",
+  "short": "CRF",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "Championship",
+  "home_hex": "#D72B3B",
+  "kits": {
+   "home": {
+    "shirt": "#D72B3B",
+    "trim": "#F1EEE7",
+    "shorts": "#F1EEE7",
+    "socks": "#D72B3B",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#2A54AD",
+    "trim": "#ECEDE8",
+    "shorts": "#2A54AD",
+    "socks": "#2A54AD",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#CFC037",
+    "trim": "#202732",
+    "shorts": "#202732",
+    "socks": "#CFC037",
+    "pattern": "sleeves"
+   },
+   "keeper2": {
+    "shirt": "#428774",
+    "trim": "#202635",
+    "shorts": "#202635",
+    "socks": "#428774",
+    "pattern": "panel"
+   }
+  },
+  "badge": "GameData/Badges/C056.png",
+  "badge_small": "GameData/Badges/C056_80.png",
+  "jersey_home": "GameData/Jerseys/C056_home.png",
+  "jersey_away": "GameData/Jerseys/C056_away.png",
+  "stadium": "crewe-alexandra"
+ },
+ {
+  "id": "C057",
+  "slug": "southend-united",
+  "name": "Shoalwick Borough FC",
+  "short": "SWB",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#192C50",
+  "kits": {
+   "home": {
+    "shirt": "#192C50",
+    "trim": "#F1EFE8",
+    "shorts": "#192C50",
+    "socks": "#192C50",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#F1EFE8",
+    "trim": "#22242A",
+    "shorts": "#22242A",
+    "socks": "#F1EFE8",
+    "pattern": "sleeves"
+   },
+   "keeper1": {
+    "shirt": "#52B877",
+    "trim": "#213844",
+    "shorts": "#26323E",
+    "socks": "#55B67C",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#429AAB",
+    "trim": "#263453",
+    "shorts": "#263453",
+    "socks": "#429AAB",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C057.png",
+  "badge_small": "GameData/Badges/C057_80.png",
+  "jersey_home": "GameData/Jerseys/C057_home.png",
+  "jersey_away": "GameData/Jerseys/C057_away.png",
+  "stadium": "southend-united"
+ },
+ {
+  "id": "C058",
+  "slug": "colchester-united",
+  "name": "Garrisonmere Town FC",
+  "short": "GMT",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#2355A7",
+  "kits": {
+   "home": {
+    "shirt": "#2355A7",
+    "trim": "#F1EFE8",
+    "shorts": "#2355A7",
+    "socks": "#F1EFE8",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#EBC542",
+    "trim": "#2355A7",
+    "shorts": "#2355A7",
+    "socks": "#EBC542",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#7953A5",
+    "trim": "#2A2345",
+    "shorts": "#393048",
+    "socks": "#7953A5",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#CA6A8F",
+    "trim": "#473248",
+    "shorts": "#2D2F46",
+    "socks": "#CB6C93",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C058.png",
+  "badge_small": "GameData/Badges/C058_80.png",
+  "jersey_home": "GameData/Jerseys/C058_home.png",
+  "jersey_away": "GameData/Jerseys/C058_away.png",
+  "stadium": "colchester-united"
+ },
+ {
+  "id": "C059",
+  "slug": "brentford",
+  "name": "Willowbarge FC",
+  "short": "WBG",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#BA2837",
+  "kits": {
+   "home": {
+    "shirt": "#BA2837",
+    "trim": "#F1EFE8",
+    "shorts": "#22242A",
+    "socks": "#22242A",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#F1EFE8",
+    "trim": "#BA2837",
+    "shorts": "#F1EFE8",
+    "socks": "#F1EFE8",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#DD8842",
+    "trim": "#333B52",
+    "shorts": "#343A48",
+    "socks": "#DB8849",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#9998B8",
+    "trim": "#313553",
+    "shorts": "#373C59",
+    "socks": "#969CC0",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C059.png",
+  "badge_small": "GameData/Badges/C059_80.png",
+  "jersey_home": "GameData/Jerseys/C059_home.png",
+  "jersey_away": "GameData/Jerseys/C059_away.png",
+  "stadium": "brentford"
+ },
+ {
+  "id": "C060",
+  "slug": "barnsley",
+  "name": "Dearnebank City FC",
+  "short": "DBC",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#BA2837",
+  "kits": {
+   "home": {
+    "shirt": "#BA2837",
+    "trim": "#F1EFE8",
+    "shorts": "#F1EFE8",
+    "socks": "#BA2837",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#80BCE7",
+    "trim": "#192C50",
+    "shorts": "#192C50",
+    "socks": "#80BCE7",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#8CAE52",
+    "trim": "#30413B",
+    "shorts": "#263A38",
+    "socks": "#8CAE52",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E4B942",
+    "trim": "#4C4151",
+    "shorts": "#383449",
+    "socks": "#E4B942",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C060.png",
+  "badge_small": "GameData/Badges/C060_80.png",
+  "jersey_home": "GameData/Jerseys/C060_home.png",
+  "jersey_away": "GameData/Jerseys/C060_away.png",
+  "stadium": "barnsley"
+ },
+ {
+  "id": "C061",
+  "slug": "swansea-city",
+  "name": "Afanmere Athletic FC",
+  "short": "AMA",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#F1EFE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EFE8",
+    "trim": "#22242A",
+    "shorts": "#F1EFE8",
+    "socks": "#F1EFE8",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#22242A",
+    "trim": "#F1EFE8",
+    "shorts": "#22242A",
+    "socks": "#22242A",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#429AAB",
+    "trim": "#263453",
+    "shorts": "#263453",
+    "socks": "#429AAB",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#3CAE84",
+    "trim": "#243647",
+    "shorts": "#2D3046",
+    "socks": "#3CAE84",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C061.png",
+  "badge_small": "GameData/Badges/C061_80.png",
+  "jersey_home": "GameData/Jerseys/C061_home.png",
+  "jersey_away": "GameData/Jerseys/C061_away.png",
+  "stadium": "swansea-city"
+ },
+ {
+  "id": "C062",
+  "slug": "doncaster-rovers",
+  "name": "Dunwold Sporting FC",
+  "short": "DWS",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#BA2837",
+  "kits": {
+   "home": {
+    "shirt": "#BA2837",
+    "trim": "#F1EFE8",
+    "shorts": "#22242A",
+    "socks": "#BA2837",
+    "pattern": "hoops"
+   },
+   "away": {
+    "shirt": "#22242A",
+    "trim": "#BA2837",
+    "shorts": "#22242A",
+    "socks": "#22242A",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#CA6A8F",
+    "trim": "#473248",
+    "shorts": "#2D2F46",
+    "socks": "#CB6C93",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#52B877",
+    "trim": "#213844",
+    "shorts": "#26323E",
+    "socks": "#55B67C",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C062.png",
+  "badge_small": "GameData/Badges/C062_80.png",
+  "jersey_home": "GameData/Jerseys/C062_home.png",
+  "jersey_away": "GameData/Jerseys/C062_away.png",
+  "stadium": "doncaster-rovers"
+ },
+ {
+  "id": "C063",
+  "slug": "scunthorpe-united",
+  "name": "Cinderfen Town FC",
+  "short": "CFT",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#772D48",
+  "kits": {
+   "home": {
+    "shirt": "#772D48",
+    "trim": "#80BCE7",
+    "shorts": "#F1EFE8",
+    "socks": "#772D48",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#EBC542",
+    "trim": "#22242A",
+    "shorts": "#22242A",
+    "socks": "#EBC542",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#9998B8",
+    "trim": "#313553",
+    "shorts": "#373C59",
+    "socks": "#969CC0",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#7953A5",
+    "trim": "#2A2345",
+    "shorts": "#393048",
+    "socks": "#7953A5",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C063.png",
+  "badge_small": "GameData/Badges/C063_80.png",
+  "jersey_home": "GameData/Jerseys/C063_home.png",
+  "jersey_away": "GameData/Jerseys/C063_away.png",
+  "stadium": "scunthorpe-united"
+ },
+ {
+  "id": "C064",
+  "slug": "port-vale",
+  "name": "Moorlatch County FC",
+  "short": "MOC",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#F1EFE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EFE8",
+    "trim": "#22242A",
+    "shorts": "#22242A",
+    "socks": "#F1EFE8",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#22242A",
+    "trim": "#C99B39",
+    "shorts": "#22242A",
+    "socks": "#22242A",
+    "pattern": "vertical"
+   },
+   "keeper1": {
+    "shirt": "#E4B942",
+    "trim": "#4C4151",
+    "shorts": "#383449",
+    "socks": "#E4B942",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#DD8842",
+    "trim": "#333B52",
+    "shorts": "#343A48",
+    "socks": "#DB8849",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C064.png",
+  "badge_small": "GameData/Badges/C064_80.png",
+  "jersey_home": "GameData/Jerseys/C064_home.png",
+  "jersey_away": "GameData/Jerseys/C064_away.png",
+  "stadium": "port-vale"
+ },
+ {
+  "id": "C065",
+  "slug": "gillingham",
+  "name": "Medway Hurst FC",
+  "short": "MHF",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#2355A7",
+  "kits": {
+   "home": {
+    "shirt": "#2355A7",
+    "trim": "#F1EFE8",
+    "shorts": "#F1EFE8",
+    "socks": "#2355A7",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#EBC542",
+    "trim": "#2355A7",
+    "shorts": "#2355A7",
+    "socks": "#EBC542",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#3CAE84",
+    "trim": "#243647",
+    "shorts": "#2D3046",
+    "socks": "#3CAE84",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#8CAE52",
+    "trim": "#30413B",
+    "shorts": "#263A38",
+    "socks": "#8CAE52",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C065.png",
+  "badge_small": "GameData/Badges/C065_80.png",
+  "jersey_home": "GameData/Jerseys/C065_home.png",
+  "jersey_away": "GameData/Jerseys/C065_away.png",
+  "stadium": "gillingham"
+ },
+ {
+  "id": "C066",
+  "slug": "yeovil-town",
+  "name": "Yarcombe Vale FC",
+  "short": "YCV",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League One",
+  "home_hex": "#2B8859",
+  "kits": {
+   "home": {
+    "shirt": "#2B8859",
+    "trim": "#F0F2EA",
+    "shorts": "#F0F2E9",
+    "socks": "#F2F1EA",
+    "pattern": "hoops"
+   },
+   "away": {
+    "shirt": "#333A4B",
+    "trim": "#E6803E",
+    "shorts": "#2C3244",
+    "socks": "#363B4A",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#534884",
+    "trim": "#D5CDEB",
+    "shorts": "#322B4B",
+    "socks": "#564980",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#CECC4C",
+    "trim": "#493371",
+    "shorts": "#383343",
+    "socks": "#C0B946",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C066.png",
+  "badge_small": "GameData/Badges/C066_80.png",
+  "jersey_home": "GameData/Jerseys/C066_home.png",
+  "jersey_away": "GameData/Jerseys/C066_away.png",
+  "stadium": "yeovil-town"
+ },
+ {
+  "id": "C067",
+  "slug": "chesterfield",
+  "name": "Crookedridge FC",
+  "short": "CRG",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#2F62B3",
+  "kits": {
+   "home": {
+    "shirt": "#2F62B3",
+    "trim": "#EFEFEC",
+    "shorts": "#EFF0ED",
+    "socks": "#3261AC",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#88BEDD",
+    "trim": "#263654",
+    "shorts": "#263653",
+    "socks": "#80B8DA",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#449253",
+    "trim": "#D3DB78",
+    "shorts": "#263D30",
+    "socks": "#438952",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E18240",
+    "trim": "#5C3A77",
+    "shorts": "#34283F",
+    "socks": "#DA7F42",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C067.png",
+  "badge_small": "GameData/Badges/C067_80.png",
+  "jersey_home": "GameData/Jerseys/C067_home.png",
+  "jersey_away": "GameData/Jerseys/C067_away.png",
+  "stadium": "chesterfield"
+ },
+ {
+  "id": "C068",
+  "slug": "afc-bournemouth",
+  "name": "Pinebarrow FC",
+  "short": "PBF",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#C93242",
+  "kits": {
+   "home": {
+    "shirt": "#C93242",
+    "trim": "#26242B",
+    "shorts": "#25252B",
+    "socks": "#C83342",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#26334F",
+    "trim": "#77B9E7",
+    "shorts": "#26314C",
+    "socks": "#263650",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#448E5A",
+    "trim": "#D4E97D",
+    "shorts": "#274435",
+    "socks": "#478754",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E7B43D",
+    "trim": "#54438A",
+    "shorts": "#3C3053",
+    "socks": "#E1AD3E",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C068.png",
+  "badge_small": "GameData/Badges/C068_80.png",
+  "jersey_home": "GameData/Jerseys/C068_home.png",
+  "jersey_away": "GameData/Jerseys/C068_away.png",
+  "stadium": "afc-bournemouth"
+ },
+ {
+  "id": "C069",
+  "slug": "tranmere-rovers",
+  "name": "Estmerrow Sporting FC",
+  "short": "EMS",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#EEF0EE",
+  "kits": {
+   "home": {
+    "shirt": "#EEF0EE",
+    "trim": "#3564B1",
+    "shorts": "#EDF0EB",
+    "socks": "#F0F0EB",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#EBC83C",
+    "trim": "#25262C",
+    "shorts": "#25262A",
+    "socks": "#E8C541",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#388B62",
+    "trim": "#D5E57C",
+    "shorts": "#294338",
+    "socks": "#428B60",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#CC594E",
+    "trim": "#E6DCE6",
+    "shorts": "#463247",
+    "socks": "#C45C4D",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C069.png",
+  "badge_small": "GameData/Badges/C069_80.png",
+  "jersey_home": "GameData/Jerseys/C069_home.png",
+  "jersey_away": "GameData/Jerseys/C069_away.png",
+  "stadium": "tranmere-rovers"
+ },
+ {
+  "id": "C070",
+  "slug": "rotherham-united",
+  "name": "Ironweir Borough FC",
+  "short": "IWB",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#C83143",
+  "kits": {
+   "home": {
+    "shirt": "#C83143",
+    "trim": "#F0ECE8",
+    "shorts": "#EEEFEB",
+    "socks": "#C73545",
+    "pattern": "sleeves"
+   },
+   "away": {
+    "shirt": "#25262C",
+    "trim": "#ECEDE9",
+    "shorts": "#252731",
+    "socks": "#272931",
+    "pattern": "vertical"
+   },
+   "keeper1": {
+    "shirt": "#448F58",
+    "trim": "#E3E583",
+    "shorts": "#284434",
+    "socks": "#438D54",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#467AB6",
+    "trim": "#E0E4F7",
+    "shorts": "#302D50",
+    "socks": "#4276AC",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C070.png",
+  "badge_small": "GameData/Badges/C070_80.png",
+  "jersey_home": "GameData/Jerseys/C070_home.png",
+  "jersey_away": "GameData/Jerseys/C070_away.png",
+  "stadium": "rotherham-united"
+ },
+ {
+  "id": "C071",
+  "slug": "hartlepool-united",
+  "name": "Gullwick Town FC",
+  "short": "GWT",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#3267BA",
+  "kits": {
+   "home": {
+    "shirt": "#3267BA",
+    "trim": "#F0F1EF",
+    "shorts": "#2F5CAB",
+    "socks": "#EFEFED",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#25262F",
+    "trim": "#EFEFEB",
+    "shorts": "#282A32",
+    "socks": "#252832",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#509059",
+    "trim": "#D5E97D",
+    "shorts": "#294436",
+    "socks": "#4D8D5A",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E08242",
+    "trim": "#614077",
+    "shorts": "#362D48",
+    "socks": "#DC7E40",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C071.png",
+  "badge_small": "GameData/Badges/C071_80.png",
+  "jersey_home": "GameData/Jerseys/C071_home.png",
+  "jersey_away": "GameData/Jerseys/C071_away.png",
+  "stadium": "hartlepool-united"
+ },
+ {
+  "id": "C072",
+  "slug": "milton-keynes-dons",
+  "name": "Gridmere Athletic FC",
+  "short": "GMA",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League One",
+  "home_hex": "#F0EFED",
+  "kits": {
+   "home": {
+    "shirt": "#F0EFED",
+    "trim": "#B79653",
+    "shorts": "#262934",
+    "socks": "#EEEFED",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#C63443",
+    "trim": "#C29A55",
+    "shorts": "#262731",
+    "socks": "#CC3642",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#458D61",
+    "trim": "#E1E884",
+    "shorts": "#2E4538",
+    "socks": "#478B5E",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#527FC0",
+    "trim": "#DCDDF4",
+    "shorts": "#30344D",
+    "socks": "#4F7AB6",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C072.png",
+  "badge_small": "GameData/Badges/C072_80.png",
+  "jersey_home": "GameData/Jerseys/C072_home.png",
+  "jersey_away": "GameData/Jerseys/C072_away.png",
+  "stadium": "milton-keynes-dons"
+ },
+ {
+  "id": "C073",
+  "slug": "walsall",
+  "name": "Saddlecroft FC",
+  "short": "SCF",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League One",
+  "home_hex": "#CC2A3D",
+  "kits": {
+   "home": {
+    "shirt": "#CC2A3D",
+    "trim": "#F3EFE9",
+    "shorts": "#EAEAEB",
+    "socks": "#CF3142",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#252E51",
+    "trim": "#EFEFED",
+    "shorts": "#262F4F",
+    "socks": "#293455",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#4A9380",
+    "trim": "#D7E279",
+    "shorts": "#30483E",
+    "socks": "#4A8D7B",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#E2BB48",
+    "trim": "#614186",
+    "shorts": "#3A3051",
+    "socks": "#DDB447",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C073.png",
+  "badge_small": "GameData/Badges/C073_80.png",
+  "jersey_home": "GameData/Jerseys/C073_home.png",
+  "jersey_away": "GameData/Jerseys/C073_away.png",
+  "stadium": "walsall"
+ },
+ {
+  "id": "C074",
+  "slug": "barnet",
+  "name": "Highbracken Borough FC",
+  "short": "HBB",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#202126",
+  "kits": {
+   "home": {
+    "shirt": "#202126",
+    "trim": "#E59826",
+    "shorts": "#202126",
+    "socks": "#202126",
+    "pattern": "pinstripes"
+   },
+   "away": {
+    "shirt": "#F0EEE5",
+    "trim": "#253958",
+    "shorts": "#253958",
+    "socks": "#F0EEE5",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#42AD77",
+    "trim": "#213F3E",
+    "shorts": "#213F3E",
+    "socks": "#42AD77",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#D8AC42",
+    "trim": "#493349",
+    "shorts": "#493349",
+    "socks": "#D8AC42",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C074.png",
+  "badge_small": "GameData/Badges/C074_80.png",
+  "jersey_home": "GameData/Jerseys/C074_home.png",
+  "jersey_away": "GameData/Jerseys/C074_away.png",
+  "stadium": "barnet"
+ },
+ {
+  "id": "C075",
+  "slug": "bristol-rovers",
+  "name": "Bridgestoke FC",
+  "short": "BSF",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#F0EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F0EEE8",
+    "trim": "#224FA4",
+    "shorts": "#254B96",
+    "socks": "#254B96",
+    "pattern": "quarters"
+   },
+   "away": {
+    "shirt": "#F3C744",
+    "trim": "#23232B",
+    "shorts": "#22232A",
+    "socks": "#F3C744",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#6087C0",
+    "trim": "#183B58",
+    "shorts": "#183B58",
+    "socks": "#6087C0",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#DD7551",
+    "trim": "#50323E",
+    "shorts": "#50323E",
+    "socks": "#DD7551",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C075.png",
+  "badge_small": "GameData/Badges/C075_80.png",
+  "jersey_home": "GameData/Jerseys/C075_home.png",
+  "jersey_away": "GameData/Jerseys/C075_away.png",
+  "stadium": "bristol-rovers"
+ },
+ {
+  "id": "C076",
+  "slug": "cheltenham-town",
+  "name": "Cotsmere Sporting FC",
+  "short": "CMS",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#F0EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F0EEE8",
+    "trim": "#B92830",
+    "shorts": "#20252A",
+    "socks": "#B92830",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#EACA45",
+    "trim": "#272831",
+    "shorts": "#292A31",
+    "socks": "#EACE46",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#B983BA",
+    "trim": "#373048",
+    "shorts": "#373048",
+    "socks": "#B983BA",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#4EA5A5",
+    "trim": "#213A4D",
+    "shorts": "#213A4D",
+    "socks": "#4EA5A5",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C076.png",
+  "badge_small": "GameData/Badges/C076_80.png",
+  "jersey_home": "GameData/Jerseys/C076_home.png",
+  "jersey_away": "GameData/Jerseys/C076_away.png",
+  "stadium": "cheltenham-town"
+ },
+ {
+  "id": "C077",
+  "slug": "leyton-orient",
+  "name": "Rookwell Borough FC",
+  "short": "RWB",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#C83239",
+  "kits": {
+   "home": {
+    "shirt": "#C83239",
+    "trim": "#F1EEE4",
+    "shorts": "#BD3038",
+    "socks": "#C13239",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F1EEE7",
+    "trim": "#C63138",
+    "shorts": "#F0EEE7",
+    "socks": "#EFEFE5",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#D8AC42",
+    "trim": "#493349",
+    "shorts": "#493349",
+    "socks": "#D8AC42",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#87B84D",
+    "trim": "#31463C",
+    "shorts": "#31463C",
+    "socks": "#87B84D",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C077.png",
+  "badge_small": "GameData/Badges/C077_80.png",
+  "jersey_home": "GameData/Jerseys/C077_home.png",
+  "jersey_away": "GameData/Jerseys/C077_away.png",
+  "stadium": "leyton-orient"
+ },
+ {
+  "id": "C078",
+  "slug": "macclesfield-town",
+  "name": "Silkclough Town FC",
+  "short": "SLT",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#2460A9",
+  "kits": {
+   "home": {
+    "shirt": "#2460A9",
+    "trim": "#F2EFE8",
+    "shorts": "#242A35",
+    "socks": "#245BA4",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#EBC64F",
+    "trim": "#21477A",
+    "shorts": "#213554",
+    "socks": "#E0B944",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#DD7551",
+    "trim": "#50323E",
+    "shorts": "#50323E",
+    "socks": "#DD7551",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#6B64C5",
+    "trim": "#25284B",
+    "shorts": "#25284B",
+    "socks": "#6B64C5",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C078.png",
+  "badge_small": "GameData/Badges/C078_80.png",
+  "jersey_home": "GameData/Jerseys/C078_home.png",
+  "jersey_away": "GameData/Jerseys/C078_away.png",
+  "stadium": "macclesfield-town"
+ },
+ {
+  "id": "C079",
+  "slug": "lincoln-city",
+  "name": "Withamwick FC",
+  "short": "WWF",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#F1EEE8",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE8",
+    "trim": "#C63339",
+    "shorts": "#26272C",
+    "socks": "#CC383B",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#243755",
+    "trim": "#C43B44",
+    "shorts": "#23344D",
+    "socks": "#243755",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#4EA5A5",
+    "trim": "#213A4D",
+    "shorts": "#213A4D",
+    "socks": "#4EA5A5",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#CC4976",
+    "trim": "#472B48",
+    "shorts": "#472B48",
+    "socks": "#CC4976",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C079.png",
+  "badge_small": "GameData/Badges/C079_80.png",
+  "jersey_home": "GameData/Jerseys/C079_home.png",
+  "jersey_away": "GameData/Jerseys/C079_away.png",
+  "stadium": "lincoln-city"
+ },
+ {
+  "id": "C080",
+  "slug": "northampton-town",
+  "name": "Cobbleridge Athletic FC",
+  "short": "CRA",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#893044",
+  "kits": {
+   "home": {
+    "shirt": "#893044",
+    "trim": "#F1E5DD",
+    "shorts": "#F1EEE8",
+    "socks": "#81334B",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#25262E",
+    "trim": "#EAE8E0",
+    "shorts": "#242631",
+    "socks": "#23252E",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#87B84D",
+    "trim": "#31463C",
+    "shorts": "#31463C",
+    "socks": "#87B84D",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#7FCBD0",
+    "trim": "#214D61",
+    "shorts": "#214D61",
+    "socks": "#7FCBD0",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C080.png",
+  "badge_small": "GameData/Badges/C080_80.png",
+  "jersey_home": "GameData/Jerseys/C080_home.png",
+  "jersey_away": "GameData/Jerseys/C080_away.png",
+  "stadium": "northampton-town"
+ },
+ {
+  "id": "C081",
+  "slug": "peterborough-united",
+  "name": "Sokehurst United FC",
+  "short": "SHU",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#245AA6",
+  "kits": {
+   "home": {
+    "shirt": "#245AA6",
+    "trim": "#F0EEE7",
+    "shorts": "#F1EFE8",
+    "socks": "#2858A2",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#EAC64E",
+    "trim": "#285CA9",
+    "shorts": "#27549A",
+    "socks": "#EAC64E",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#6B64C5",
+    "trim": "#25284B",
+    "shorts": "#25284B",
+    "socks": "#6B64C5",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#42AD77",
+    "trim": "#213F3E",
+    "shorts": "#213F3E",
+    "socks": "#42AD77",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C081.png",
+  "badge_small": "GameData/Badges/C081_80.png",
+  "jersey_home": "GameData/Jerseys/C081_home.png",
+  "jersey_away": "GameData/Jerseys/C081_away.png",
+  "stadium": "peterborough-united"
+ },
+ {
+  "id": "C082",
+  "slug": "chester-city",
+  "name": "Deemarch Borough FC",
+  "short": "DMB",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#F1EEE9",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE9",
+    "trim": "#285CAA",
+    "shorts": "#2459A6",
+    "socks": "#F1EEE9",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#82BCE1",
+    "trim": "#F0F1EA",
+    "shorts": "#F0EEE9",
+    "socks": "#7FBBE2",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#CC4976",
+    "trim": "#472B48",
+    "shorts": "#472B48",
+    "socks": "#CC4976",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#6087C0",
+    "trim": "#183B58",
+    "shorts": "#183B58",
+    "socks": "#6087C0",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C082.png",
+  "badge_small": "GameData/Badges/C082_80.png",
+  "jersey_home": "GameData/Jerseys/C082_home.png",
+  "jersey_away": "GameData/Jerseys/C082_away.png",
+  "stadium": "chester-city"
+ },
+ {
+  "id": "C083",
+  "slug": "rushden-and-diamonds",
+  "name": "Nenecrest FC",
+  "short": "NCF",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#F1EEE7",
+  "kits": {
+   "home": {
+    "shirt": "#F1EEE7",
+    "trim": "#BD2F3C",
+    "shorts": "#BD2F3C",
+    "socks": "#F0EFE9",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#285CA7",
+    "trim": "#F1EEE8",
+    "shorts": "#2859A0",
+    "socks": "#2859A0",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#7FCBD0",
+    "trim": "#214D61",
+    "shorts": "#214D61",
+    "socks": "#7FCBD0",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#B983BA",
+    "trim": "#373048",
+    "shorts": "#373048",
+    "socks": "#B983BA",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C083.png",
+  "badge_small": "GameData/Badges/C083_80.png",
+  "jersey_home": "GameData/Jerseys/C083_home.png",
+  "jersey_away": "GameData/Jerseys/C083_away.png",
+  "stadium": "rushden-and-diamonds"
+ },
+ {
+  "id": "C084",
+  "slug": "darlington",
+  "name": "Teeslark Sporting FC",
+  "short": "TLS",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#F3EEE3",
+  "kits": {
+   "home": {
+    "shirt": "#F3EEE3",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#F3EEE3",
+    "pattern": "hoops"
+   },
+   "away": {
+    "shirt": "#24232C",
+    "trim": "#F3EEE3",
+    "shorts": "#24232C",
+    "socks": "#24232C",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#339653",
+    "trim": "#19345C",
+    "shorts": "#24232C",
+    "socks": "#339653",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#735295",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#735295",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C084.png",
+  "badge_small": "GameData/Badges/C084_80.png",
+  "jersey_home": "GameData/Jerseys/C084_home.png",
+  "jersey_away": "GameData/Jerseys/C084_away.png",
+  "stadium": "darlington"
+ },
+ {
+  "id": "C085",
+  "slug": "shrewsbury-town",
+  "name": "Severnholt Town FC",
+  "short": "SVT",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#2458A9",
+  "kits": {
+   "home": {
+    "shirt": "#2458A9",
+    "trim": "#EDBA2C",
+    "shorts": "#2458A9",
+    "socks": "#2458A9",
+    "pattern": "vertical"
+   },
+   "away": {
+    "shirt": "#B82735",
+    "trim": "#19345C",
+    "shorts": "#19345C",
+    "socks": "#B82735",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#4E9D9A",
+    "trim": "#19345C",
+    "shorts": "#24232C",
+    "socks": "#4E9D9A",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#555B69",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#555B69",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C085.png",
+  "badge_small": "GameData/Badges/C085_80.png",
+  "jersey_home": "GameData/Jerseys/C085_home.png",
+  "jersey_away": "GameData/Jerseys/C085_away.png",
+  "stadium": "shrewsbury-town"
+ },
+ {
+  "id": "C086",
+  "slug": "rochdale",
+  "name": "Redbrook Vale FC",
+  "short": "RBV",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#2458A9",
+  "kits": {
+   "home": {
+    "shirt": "#2458A9",
+    "trim": "#F3EEE3",
+    "shorts": "#2458A9",
+    "socks": "#2458A9",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#EDBA2C",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#EDBA2C",
+    "pattern": "solid"
+   },
+   "keeper1": {
+    "shirt": "#C64D75",
+    "trim": "#19345C",
+    "shorts": "#24232C",
+    "socks": "#C64D75",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#4E9D9A",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#4E9D9A",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C086.png",
+  "badge_small": "GameData/Badges/C086_80.png",
+  "jersey_home": "GameData/Jerseys/C086_home.png",
+  "jersey_away": "GameData/Jerseys/C086_away.png",
+  "stadium": "rochdale"
+ },
+ {
+  "id": "C087",
+  "slug": "stockport-county",
+  "name": "Tamefield County FC",
+  "short": "TFC",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#1955AA",
+  "kits": {
+   "home": {
+    "shirt": "#1955AA",
+    "trim": "#318CD4",
+    "shorts": "#2458A9",
+    "socks": "#2458A9",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#24232C",
+    "trim": "#EDBA2C",
+    "shorts": "#24232C",
+    "socks": "#24232C",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#339653",
+    "trim": "#19345C",
+    "shorts": "#24232C",
+    "socks": "#339653",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#735295",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#735295",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C087.png",
+  "badge_small": "GameData/Badges/C087_80.png",
+  "jersey_home": "GameData/Jerseys/C087_home.png",
+  "jersey_away": "GameData/Jerseys/C087_away.png",
+  "stadium": "stockport-county"
+ },
+ {
+  "id": "C088",
+  "slug": "mansfield-town",
+  "name": "Sherwood Edge FC",
+  "short": "SWE",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#EDBA2C",
+  "kits": {
+   "home": {
+    "shirt": "#EDBA2C",
+    "trim": "#2458A9",
+    "shorts": "#2458A9",
+    "socks": "#EDBA2C",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#F3EEE3",
+    "trim": "#2458A9",
+    "shorts": "#2458A9",
+    "socks": "#F3EEE3",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#C64D75",
+    "trim": "#19345C",
+    "shorts": "#24232C",
+    "socks": "#C64D75",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#4E9D9A",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#4E9D9A",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C088.png",
+  "badge_small": "GameData/Badges/C088_80.png",
+  "jersey_home": "GameData/Jerseys/C088_home.png",
+  "jersey_away": "GameData/Jerseys/C088_away.png",
+  "stadium": "mansfield-town"
+ },
+ {
+  "id": "C089",
+  "slug": "torquay-united",
+  "name": "Tidecombe Athletic FC",
+  "short": "TDA",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#EDBA2C",
+  "kits": {
+   "home": {
+    "shirt": "#EDBA2C",
+    "trim": "#175C98",
+    "shorts": "#2458A9",
+    "socks": "#EDBA2C",
+    "pattern": "sleeves"
+   },
+   "away": {
+    "shirt": "#F3EEE3",
+    "trim": "#83BBD6",
+    "shorts": "#F3EEE3",
+    "socks": "#6DBEE8",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#735295",
+    "trim": "#19345C",
+    "shorts": "#24232C",
+    "socks": "#735295",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#339653",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#339653",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C089.png",
+  "badge_small": "GameData/Badges/C089_80.png",
+  "jersey_home": "GameData/Jerseys/C089_home.png",
+  "jersey_away": "GameData/Jerseys/C089_away.png",
+  "stadium": "torquay-united"
+ },
+ {
+  "id": "C090",
+  "slug": "wrexham",
+  "name": "Clwydgate FC",
+  "short": "CYG",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#B82735",
+  "kits": {
+   "home": {
+    "shirt": "#B82735",
+    "trim": "#F3EEE3",
+    "shorts": "#F3EEE3",
+    "socks": "#B82735",
+    "pattern": "solid"
+   },
+   "away": {
+    "shirt": "#ACD9ED",
+    "trim": "#19345C",
+    "shorts": "#19345C",
+    "socks": "#6DBEE8",
+    "pattern": "sleeves"
+   },
+   "keeper1": {
+    "shirt": "#555B69",
+    "trim": "#19345C",
+    "shorts": "#24232C",
+    "socks": "#555B69",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#339653",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#339653",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C090.png",
+  "badge_small": "GameData/Badges/C090_80.png",
+  "jersey_home": "GameData/Jerseys/C090_home.png",
+  "jersey_away": "GameData/Jerseys/C090_away.png",
+  "stadium": "wrexham"
+ },
+ {
+  "id": "C091",
+  "slug": "boston-united",
+  "name": "Fenstow Borough FC",
+  "short": "FSB",
+  "tier": 1,
+  "tier_label": "Grassroots",
+  "division_2005_06": "League Two",
+  "home_hex": "#EDBA2C",
+  "kits": {
+   "home": {
+    "shirt": "#EDBA2C",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#EDBA2C",
+    "pattern": "hoops"
+   },
+   "away": {
+    "shirt": "#264184",
+    "trim": "#F3EEE3",
+    "shorts": "#19345C",
+    "socks": "#2458A9",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#4E9D9A",
+    "trim": "#19345C",
+    "shorts": "#24232C",
+    "socks": "#4E9D9A",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#C64D75",
+    "trim": "#24232C",
+    "shorts": "#24232C",
+    "socks": "#C64D75",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C091.png",
+  "badge_small": "GameData/Badges/C091_80.png",
+  "jersey_home": "GameData/Jerseys/C091_home.png",
+  "jersey_away": "GameData/Jerseys/C091_away.png",
+  "stadium": "boston-united"
+ },
+ {
+  "id": "C092",
+  "slug": "wycombe-wanderers",
+  "name": "Chilternfold FC",
+  "short": "CHD",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#19345C",
+  "kits": {
+   "home": {
+    "shirt": "#19345C",
+    "trim": "#6DBEE8",
+    "shorts": "#19345C",
+    "socks": "#19345C",
+    "pattern": "quarters"
+   },
+   "away": {
+    "shirt": "#F3EEE3",
+    "trim": "#6DBEE8",
+    "shorts": "#19345C",
+    "socks": "#F3EEE3",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#ac6b35",
+    "trim": "#203050",
+    "shorts": "#203050",
+    "socks": "#ac6b35",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#4b7095",
+    "trim": "#17263c",
+    "shorts": "#17263c",
+    "socks": "#4b7095",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C092.png",
+  "badge_small": "GameData/Badges/C092_80.png",
+  "jersey_home": "GameData/Jerseys/C092_home.png",
+  "jersey_away": "GameData/Jerseys/C092_away.png",
+  "stadium": "wycombe-wanderers"
+ },
+ {
+  "id": "C093",
+  "slug": "carlisle-united",
+  "name": "Edenwold United FC",
+  "short": "EWU",
+  "tier": 2,
+  "tier_label": "Established",
+  "division_2005_06": "League Two",
+  "home_hex": "#2458A9",
+  "kits": {
+   "home": {
+    "shirt": "#2458A9",
+    "trim": "#F3EEE3",
+    "shorts": "#2458A9",
+    "socks": "#2458A9",
+    "pattern": "panel"
+   },
+   "away": {
+    "shirt": "#B82735",
+    "trim": "#F3EEE3",
+    "shorts": "#B82735",
+    "socks": "#B82735",
+    "pattern": "panel"
+   },
+   "keeper1": {
+    "shirt": "#6e617f",
+    "trim": "#242334",
+    "shorts": "#272533",
+    "socks": "#6e617f",
+    "pattern": "panel"
+   },
+   "keeper2": {
+    "shirt": "#43937b",
+    "trim": "#1d3e43",
+    "shorts": "#233539",
+    "socks": "#43937b",
+    "pattern": "sleeves"
+   }
+  },
+  "badge": "GameData/Badges/C093.png",
+  "badge_small": "GameData/Badges/C093_80.png",
+  "jersey_home": "GameData/Jerseys/C093_home.png",
+  "jersey_away": "GameData/Jerseys/C093_away.png",
+  "stadium": "carlisle-united"
+ }
+]

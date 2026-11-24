@@ -1,0 +1,13 @@
+{
+ "rejected": {},
+ "notes": {
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ]
+ },
+ "frames": 83,
+ "palette": 63
+}

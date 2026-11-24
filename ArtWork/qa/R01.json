@@ -1,0 +1,17 @@
+{
+ "rejected": {},
+ "notes": {
+  "east/jog_contactL": [
+   "blob27"
+  ],
+  "east/run_contactR": [
+   "blob28",
+   "blob16"
+  ],
+  "east/lino_flag_up": [
+   "blob27"
+  ]
+ },
+ "frames": 83,
+ "palette": 110
+}

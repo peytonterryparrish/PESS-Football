@@ -1,0 +1,19 @@
+{
+ "rejected": {},
+ "notes": {
+  "south/ref_card": [
+   "touches_edge"
+  ],
+  "south/ref_advantage": [
+   "blob22"
+  ],
+  "south/lino_flag_up": [
+   "touches_edge"
+  ],
+  "south-east/walk_contactL": [
+   "blob10"
+  ]
+ },
+ "frames": 83,
+ "palette": 123
+}

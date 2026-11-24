@@ -1,0 +1,134 @@
+{
+ "rejected": {},
+ "notes": {
+  "south/slide": [
+   "touches_edge"
+  ],
+  "south/chest_control": [
+   "blob6"
+  ],
+  "south/volley_strike": [
+   "touches_edge"
+  ],
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/shot_follow": [
+   "ball_removed"
+  ],
+  "south-east/slide": [
+   "ball_removed"
+  ],
+  "south-east/throwin_back": [
+   "ball_removed"
+  ],
+  "south-east/fall_ground": [
+   "ball_removed",
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/celebrate_arms_up": [
+   "ball_removed"
+  ],
+  "south-east/celebrate_airplane": [
+   "ball_removed"
+  ],
+  "east/idle_breathe": [
+   "blob25"
+  ],
+  "east/sprint_contactR": [
+   "blob27",
+   "ball_removed"
+  ],
+  "east/volley_strike": [
+   "ball_removed"
+  ],
+  "east/throwin_release": [
+   "ball_removed"
+  ],
+  "east/fall_ground": [
+   "blob8",
+   "blob6"
+  ],
+  "east/celebrate_airplane": [
+   "colour_drift105"
+  ],
+  "east/header_stand": [
+   "blob14",
+   "blob8"
+  ],
+  "east/block": [
+   "blob6",
+   "touches_edge"
+  ],
+  "east/hands_on_head": [
+   "ball_removed"
+  ],
+  "north-east/shot_back": [
+   "ball_removed"
+  ],
+  "north-east/shot_follow": [
+   "ball_removed"
+  ],
+  "north-east/throwin_back": [
+   "ball_removed"
+  ],
+  "north-east/throwin_release": [
+   "ball_removed"
+  ],
+  "north-east/fall_ground": [
+   "touches_edge"
+  ],
+  "north-east/header_stand": [
+   "blob29",
+   "blob19"
+  ],
+  "north/shot_strike": [
+   "ball_removed"
+  ],
+  "north/shot_follow": [
+   "ball_removed",
+   "ball_removed"
+  ],
+  "north-west/fall_ground": [
+   "touches_edge"
+  ],
+  "north-west/header_stand": [
+   "blob29",
+   "blob15",
+   "blob6"
+  ],
+  "west/shot_follow": [
+   "blob17"
+  ],
+  "west/volley_strike": [
+   "ball_removed",
+   "ball_removed"
+  ],
+  "west/throwin_back": [
+   "ball_removed"
+  ],
+  "west/fall_ground": [
+   "touches_edge"
+  ],
+  "west/sit_ground": [
+   "touches_edge"
+  ],
+  "west/header_dive": [
+   "touches_edge"
+  ],
+  "south-west/fall_ground": [
+   "blob13"
+  ],
+  "south-west/sit_ground": [
+   "touches_edge"
+  ]
+ },
+ "frames": 368,
+ "palette": 57
+}

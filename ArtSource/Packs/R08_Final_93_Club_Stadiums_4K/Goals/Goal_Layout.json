@@ -1,0 +1,689 @@
+{
+  "clear_opening_m": [
+    7.32,
+    2.44
+  ],
+  "post_radius_m": 0.06,
+  "tube_centerline_height_m": 2.5,
+  "goal_line_world_x_m": {
+    "South_Goal": -52.5,
+    "North_Goal": 52.5
+  },
+  "close_pixels_per_atlas_pixel": 6,
+  "layer_order": [
+    "Shadow",
+    "Rear_Net",
+    "Actors (depth-sort as needed)",
+    "Front_Frame"
+  ],
+  "composite": "Convenience RGBA only; do not stack with separate goal layers.",
+  "usage": "Map the two resolutions to the same world-space placement via each component xywh_4k_px. Close PNGs have six native samples per 4K atlas texel. Use closest practical texture LOD or point sampling for the retro look.",
+  "stages": {
+    "Daylight": {
+      "South_Goal": {
+        "Atlas": {
+          "Shadow": {
+            "filename": "Atlas/Daylight/South_Goal_Shadow.png",
+            "xywh_4k_px": [
+              648.0,
+              1135.0,
+              164.0,
+              87.0
+            ],
+            "native_png_wh": [
+              164,
+              87
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Atlas/Daylight/South_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              681.0,
+              1093.0,
+              134.0,
+              128.0
+            ],
+            "native_png_wh": [
+              134,
+              128
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Atlas/Daylight/South_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              731.0,
+              1092.0,
+              85.0,
+              126.0
+            ],
+            "native_png_wh": [
+              85,
+              126
+            ]
+          },
+          "Composite": {
+            "filename": "Atlas/Daylight/South_Goal_Composite.png",
+            "xywh_4k_px": [
+              648.0,
+              1092.0,
+              168.0,
+              130.0
+            ],
+            "native_png_wh": [
+              168,
+              130
+            ]
+          }
+        },
+        "Close_6x": {
+          "Shadow": {
+            "filename": "Close_6x/Daylight/South_Goal_Shadow.png",
+            "xywh_4k_px": [
+              648.8333333333334,
+              1134.8333333333333,
+              162.33333333333334,
+              86.5
+            ],
+            "native_png_wh": [
+              974,
+              519
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Close_6x/Daylight/South_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              681.6666666666666,
+              1093.0,
+              133.0,
+              128.0
+            ],
+            "native_png_wh": [
+              798,
+              768
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Close_6x/Daylight/South_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              731.0,
+              1092.1666666666667,
+              85.0,
+              125.16666666666667
+            ],
+            "native_png_wh": [
+              510,
+              751
+            ]
+          },
+          "Composite": {
+            "filename": "Close_6x/Daylight/South_Goal_Composite.png",
+            "xywh_4k_px": [
+              648.8333333333334,
+              1092.1666666666667,
+              167.16666666666666,
+              129.16666666666666
+            ],
+            "native_png_wh": [
+              1003,
+              775
+            ]
+          }
+        }
+      },
+      "North_Goal": {
+        "Atlas": {
+          "Shadow": {
+            "filename": "Atlas/Daylight/North_Goal_Shadow.png",
+            "xywh_4k_px": [
+              2979.0,
+              928.0,
+              180.0,
+              85.0
+            ],
+            "native_png_wh": [
+              180,
+              85
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Atlas/Daylight/North_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              3030.0,
+              886.0,
+              129.0,
+              125.0
+            ],
+            "native_png_wh": [
+              129,
+              125
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Atlas/Daylight/North_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              3029.0,
+              886.0,
+              86.0,
+              126.0
+            ],
+            "native_png_wh": [
+              86,
+              126
+            ]
+          },
+          "Composite": {
+            "filename": "Atlas/Daylight/North_Goal_Composite.png",
+            "xywh_4k_px": [
+              2979.0,
+              886.0,
+              180.0,
+              127.0
+            ],
+            "native_png_wh": [
+              180,
+              127
+            ]
+          }
+        },
+        "Close_6x": {
+          "Shadow": {
+            "filename": "Close_6x/Daylight/North_Goal_Shadow.png",
+            "xywh_4k_px": [
+              2979.3333333333335,
+              928.6666666666666,
+              179.66666666666666,
+              83.5
+            ],
+            "native_png_wh": [
+              1078,
+              501
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Close_6x/Daylight/North_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              3030.6666666666665,
+              886.1666666666666,
+              127.83333333333333,
+              124.66666666666667
+            ],
+            "native_png_wh": [
+              767,
+              748
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Close_6x/Daylight/North_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              3029.3333333333335,
+              886.3333333333334,
+              85.0,
+              125.16666666666667
+            ],
+            "native_png_wh": [
+              510,
+              751
+            ]
+          },
+          "Composite": {
+            "filename": "Close_6x/Daylight/North_Goal_Composite.png",
+            "xywh_4k_px": [
+              2979.3333333333335,
+              886.1666666666666,
+              179.66666666666666,
+              126.0
+            ],
+            "native_png_wh": [
+              1078,
+              756
+            ]
+          }
+        }
+      }
+    },
+    "Sunset": {
+      "South_Goal": {
+        "Atlas": {
+          "Shadow": {
+            "filename": "Atlas/Sunset/South_Goal_Shadow.png",
+            "xywh_4k_px": [
+              681.0,
+              1147.0,
+              227.0,
+              83.0
+            ],
+            "native_png_wh": [
+              227,
+              83
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Atlas/Sunset/South_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              681.0,
+              1093.0,
+              134.0,
+              128.0
+            ],
+            "native_png_wh": [
+              134,
+              128
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Atlas/Sunset/South_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              731.0,
+              1092.0,
+              85.0,
+              126.0
+            ],
+            "native_png_wh": [
+              85,
+              126
+            ]
+          },
+          "Composite": {
+            "filename": "Atlas/Sunset/South_Goal_Composite.png",
+            "xywh_4k_px": [
+              681.0,
+              1092.0,
+              227.0,
+              138.0
+            ],
+            "native_png_wh": [
+              227,
+              138
+            ]
+          }
+        },
+        "Close_6x": {
+          "Shadow": {
+            "filename": "Close_6x/Sunset/South_Goal_Shadow.png",
+            "xywh_4k_px": [
+              681.0,
+              1147.6666666666667,
+              227.16666666666666,
+              82.0
+            ],
+            "native_png_wh": [
+              1363,
+              492
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Close_6x/Sunset/South_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              681.6666666666666,
+              1093.0,
+              133.0,
+              128.0
+            ],
+            "native_png_wh": [
+              798,
+              768
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Close_6x/Sunset/South_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              731.0,
+              1092.1666666666667,
+              85.0,
+              125.16666666666667
+            ],
+            "native_png_wh": [
+              510,
+              751
+            ]
+          },
+          "Composite": {
+            "filename": "Close_6x/Sunset/South_Goal_Composite.png",
+            "xywh_4k_px": [
+              681.0,
+              1092.1666666666667,
+              227.16666666666666,
+              137.5
+            ],
+            "native_png_wh": [
+              1363,
+              825
+            ]
+          }
+        }
+      },
+      "North_Goal": {
+        "Atlas": {
+          "Shadow": {
+            "filename": "Atlas/Sunset/North_Goal_Shadow.png",
+            "xywh_4k_px": [
+              3028.0,
+              938.0,
+              209.0,
+              86.0
+            ],
+            "native_png_wh": [
+              209,
+              86
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Atlas/Sunset/North_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              3030.0,
+              886.0,
+              129.0,
+              125.0
+            ],
+            "native_png_wh": [
+              129,
+              125
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Atlas/Sunset/North_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              3029.0,
+              886.0,
+              86.0,
+              126.0
+            ],
+            "native_png_wh": [
+              86,
+              126
+            ]
+          },
+          "Composite": {
+            "filename": "Atlas/Sunset/North_Goal_Composite.png",
+            "xywh_4k_px": [
+              3028.0,
+              886.0,
+              209.0,
+              138.0
+            ],
+            "native_png_wh": [
+              209,
+              138
+            ]
+          }
+        },
+        "Close_6x": {
+          "Shadow": {
+            "filename": "Close_6x/Sunset/North_Goal_Shadow.png",
+            "xywh_4k_px": [
+              3028.8333333333335,
+              938.6666666666666,
+              207.83333333333334,
+              84.66666666666667
+            ],
+            "native_png_wh": [
+              1247,
+              508
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Close_6x/Sunset/North_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              3030.6666666666665,
+              886.1666666666666,
+              127.83333333333333,
+              124.66666666666667
+            ],
+            "native_png_wh": [
+              767,
+              748
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Close_6x/Sunset/North_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              3029.3333333333335,
+              886.3333333333334,
+              85.0,
+              125.16666666666667
+            ],
+            "native_png_wh": [
+              510,
+              751
+            ]
+          },
+          "Composite": {
+            "filename": "Close_6x/Sunset/North_Goal_Composite.png",
+            "xywh_4k_px": [
+              3028.8333333333335,
+              886.1666666666666,
+              207.83333333333334,
+              137.16666666666666
+            ],
+            "native_png_wh": [
+              1247,
+              823
+            ]
+          }
+        }
+      }
+    },
+    "Floodlit_Night": {
+      "South_Goal": {
+        "Atlas": {
+          "Shadow": {
+            "filename": "Atlas/Floodlit_Night/South_Goal_Shadow.png",
+            "xywh_4k_px": [
+              681.0,
+              1135.0,
+              136.0,
+              87.0
+            ],
+            "native_png_wh": [
+              136,
+              87
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Atlas/Floodlit_Night/South_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              681.0,
+              1093.0,
+              134.0,
+              128.0
+            ],
+            "native_png_wh": [
+              134,
+              128
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Atlas/Floodlit_Night/South_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              731.0,
+              1092.0,
+              85.0,
+              126.0
+            ],
+            "native_png_wh": [
+              85,
+              126
+            ]
+          },
+          "Composite": {
+            "filename": "Atlas/Floodlit_Night/South_Goal_Composite.png",
+            "xywh_4k_px": [
+              681.0,
+              1092.0,
+              136.0,
+              130.0
+            ],
+            "native_png_wh": [
+              136,
+              130
+            ]
+          }
+        },
+        "Close_6x": {
+          "Shadow": {
+            "filename": "Close_6x/Floodlit_Night/South_Goal_Shadow.png",
+            "xywh_4k_px": [
+              681.0,
+              1135.3333333333333,
+              135.66666666666666,
+              86.0
+            ],
+            "native_png_wh": [
+              814,
+              516
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Close_6x/Floodlit_Night/South_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              681.6666666666666,
+              1093.0,
+              133.0,
+              128.0
+            ],
+            "native_png_wh": [
+              798,
+              768
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Close_6x/Floodlit_Night/South_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              731.0,
+              1092.1666666666667,
+              85.0,
+              125.16666666666667
+            ],
+            "native_png_wh": [
+              510,
+              751
+            ]
+          },
+          "Composite": {
+            "filename": "Close_6x/Floodlit_Night/South_Goal_Composite.png",
+            "xywh_4k_px": [
+              681.0,
+              1092.1666666666667,
+              135.66666666666666,
+              129.16666666666666
+            ],
+            "native_png_wh": [
+              814,
+              775
+            ]
+          }
+        }
+      },
+      "North_Goal": {
+        "Atlas": {
+          "Shadow": {
+            "filename": "Atlas/Floodlit_Night/North_Goal_Shadow.png",
+            "xywh_4k_px": [
+              3028.0,
+              928.0,
+              131.0,
+              85.0
+            ],
+            "native_png_wh": [
+              131,
+              85
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Atlas/Floodlit_Night/North_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              3030.0,
+              886.0,
+              129.0,
+              125.0
+            ],
+            "native_png_wh": [
+              129,
+              125
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Atlas/Floodlit_Night/North_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              3029.0,
+              886.0,
+              86.0,
+              126.0
+            ],
+            "native_png_wh": [
+              86,
+              126
+            ]
+          },
+          "Composite": {
+            "filename": "Atlas/Floodlit_Night/North_Goal_Composite.png",
+            "xywh_4k_px": [
+              3028.0,
+              886.0,
+              131.0,
+              127.0
+            ],
+            "native_png_wh": [
+              131,
+              127
+            ]
+          }
+        },
+        "Close_6x": {
+          "Shadow": {
+            "filename": "Close_6x/Floodlit_Night/North_Goal_Shadow.png",
+            "xywh_4k_px": [
+              3028.6666666666665,
+              928.6666666666666,
+              130.33333333333334,
+              83.5
+            ],
+            "native_png_wh": [
+              782,
+              501
+            ]
+          },
+          "Rear_Net": {
+            "filename": "Close_6x/Floodlit_Night/North_Goal_Rear_Net.png",
+            "xywh_4k_px": [
+              3030.6666666666665,
+              886.1666666666666,
+              127.83333333333333,
+              124.66666666666667
+            ],
+            "native_png_wh": [
+              767,
+              748
+            ]
+          },
+          "Front_Frame": {
+            "filename": "Close_6x/Floodlit_Night/North_Goal_Front_Frame.png",
+            "xywh_4k_px": [
+              3029.3333333333335,
+              886.3333333333334,
+              85.0,
+              125.16666666666667
+            ],
+            "native_png_wh": [
+              510,
+              751
+            ]
+          },
+          "Composite": {
+            "filename": "Close_6x/Floodlit_Night/North_Goal_Composite.png",
+            "xywh_4k_px": [
+              3028.6666666666665,
+              886.1666666666666,
+              130.33333333333334,
+              126.0
+            ],
+            "native_png_wh": [
+              782,
+              756
+            ]
+          }
+        }
+      }
+    }
+  }
+}

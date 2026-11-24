@@ -1,0 +1,57 @@
+{
+ "rejected": {
+  "east/header_stand": "double_figure",
+  "north-east/header_stand": "double_figure"
+ },
+ "notes": {
+  "south/fall_ground": [
+   "touches_edge"
+  ],
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/jog_contactR": [
+   "blob29"
+  ],
+  "south-east/fall_ground": [
+   "blob7"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/header_stand": [
+   "blob7",
+   "blob6"
+  ],
+  "east/shot_strike": [
+   "ball_removed"
+  ],
+  "east/volley_strike": [
+   "ball_removed"
+  ],
+  "east/fall_ground": [
+   "touches_edge"
+  ],
+  "east/header_dive": [
+   "touches_edge"
+  ],
+  "north-east/fall_ground": [
+   "blob26"
+  ],
+  "north/shot_follow": [
+   "ball_removed",
+   "ball_removed"
+  ],
+  "north/pass_back": [
+   "ball_removed"
+  ]
+ },
+ "frames": 231,
+ "palette": 65
+}

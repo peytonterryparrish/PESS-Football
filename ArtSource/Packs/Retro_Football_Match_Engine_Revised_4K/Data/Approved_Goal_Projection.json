@@ -1,0 +1,102 @@
+{
+  "native_size_px": [
+    1280,
+    720
+  ],
+  "atlas_4k_size_px": [
+    3840,
+    2160
+  ],
+  "origin_native_px": [
+    640.0,
+    360.0
+  ],
+  "origin_4k_px": [
+    1920.0,
+    1080.0
+  ],
+  "native_to_4k_scale": 3,
+  "world_xy_to_native": [
+    [
+      7.296316142264979,
+      -3.432677472309019
+    ],
+    [
+      -0.6531816884905295,
+      -2.9466507314720034
+    ]
+  ],
+  "world_xyz_to_4k": [
+    [
+      21.88894842679494,
+      -10.298032416927057,
+      2.136458397476269
+    ],
+    [
+      -1.9595450654715885,
+      -8.83995219441601,
+      -22.53342889380002
+    ]
+  ],
+  "native_to_reference_scale": 0.224,
+  "four_k_to_normalized_uv": [
+    0.00026041666666666666,
+    0.000462962962962963
+  ],
+  "kickoff_reference_16x9_crop_xywh_4k_px": [
+    1495.1040641708082,
+    850.267221868175,
+    716.8000000000001,
+    403.20000000000005
+  ],
+  "example_crop_by_focus": "target_on_atlas - kickoff_crop_size * reference_center_fraction; keep clamp extents within atlas.",
+  "reference_center_fraction": [
+    0.5927677676188502,
+    0.5697737552872645
+  ],
+  "output_ground_units": "metres",
+  "pitch_world_bounds_m": [
+    -52.5,
+    -34.0,
+    52.5,
+    34.0
+  ],
+  "corner_anchors_atlas_4k_px": [
+    [
+      1120.9633097687856,
+      1483.4344905474027
+    ],
+    [
+      420.6971054177458,
+      882.3177413271139
+    ],
+    [
+      2719.0366902312144,
+      676.5655094525972
+    ],
+    [
+      3419.302894582254,
+      1277.682258672886
+    ]
+  ],
+  "protected_goal": {
+    "south_goal_world": [
+      -52.5,
+      0,
+      0
+    ],
+    "north_goal_world": [
+      52.5,
+      0,
+      0
+    ],
+    "south_clear_end_corridor_x_y_m": [
+      -73,
+      -16,
+      -52.5,
+      16
+    ],
+    "foreground_touchline_y_m": -34,
+    "notes": "No elevated props or seats in the south goal access lane or on the foreground touchline. Only goal/net geometry overlaps play. South means X-negative goal in world, not lower screen edge."
+  }
+}

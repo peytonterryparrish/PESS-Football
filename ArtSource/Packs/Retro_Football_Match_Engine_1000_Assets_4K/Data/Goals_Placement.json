@@ -1,0 +1,3857 @@
+{
+  "atlas_size": [
+    3840,
+    2160
+  ],
+  "sampling": "point/nearest at cutout placement; no normalized re-scaling",
+  "placement_basis": "Original approved 4K world projection; x negative South, x positive North. Cropped tiles use top-left XY plus integral pixel WH. No AA resampling.",
+  "layer_order": [
+    "shadow",
+    "rear_net",
+    "actors (depth sorted)",
+    "front_frame"
+  ],
+  "composite_note": "Alternative preview/convenience only; do not add with component layers.",
+  "assets": {
+    "goal_01_south_shadow": {
+      "title": "Foundry Timber",
+      "era": "1890s\u20131910s",
+      "note": "Squared ivory timber; sparse knotted jute-colored wedge net",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.85,
+        "back_top_depth_m": 0.12,
+        "back_top_height_m": 0.05
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        77
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_01_south_rear_net": {
+      "title": "Foundry Timber",
+      "era": "1890s\u20131910s",
+      "note": "Squared ivory timber; sparse knotted jute-colored wedge net",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.85,
+        "back_top_depth_m": 0.12,
+        "back_top_height_m": 0.05
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        692,
+        1094,
+        123,
+        127
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_01_south_front_frame": {
+      "title": "Foundry Timber",
+      "era": "1890s\u20131910s",
+      "note": "Squared ivory timber; sparse knotted jute-colored wedge net",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.85,
+        "back_top_depth_m": 0.12,
+        "back_top_height_m": 0.05
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_01_south_composite": {
+      "title": "Foundry Timber",
+      "era": "1890s\u20131910s",
+      "note": "Squared ivory timber; sparse knotted jute-colored wedge net",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.85,
+        "back_top_depth_m": 0.12,
+        "back_top_height_m": 0.05
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        129
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_01_north_shadow": {
+      "title": "Foundry Timber",
+      "era": "1890s\u20131910s",
+      "note": "Squared ivory timber; sparse knotted jute-colored wedge net",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.85,
+        "back_top_depth_m": 0.12,
+        "back_top_height_m": 0.05
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        185,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_01_north_rear_net": {
+      "title": "Foundry Timber",
+      "era": "1890s\u20131910s",
+      "note": "Squared ivory timber; sparse knotted jute-colored wedge net",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.85,
+        "back_top_depth_m": 0.12,
+        "back_top_height_m": 0.05
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3030,
+        888,
+        119,
+        123
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_01_north_front_frame": {
+      "title": "Foundry Timber",
+      "era": "1890s\u20131910s",
+      "note": "Squared ivory timber; sparse knotted jute-colored wedge net",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.85,
+        "back_top_depth_m": 0.12,
+        "back_top_height_m": 0.05
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_01_north_composite": {
+      "title": "Foundry Timber",
+      "era": "1890s\u20131910s",
+      "note": "Squared ivory timber; sparse knotted jute-colored wedge net",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.85,
+        "back_top_depth_m": 0.12,
+        "back_top_height_m": 0.05
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        886,
+        185,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_02_south_shadow": {
+      "title": "Municipal Lattice",
+      "era": "1920s\u20131930s",
+      "note": "Painted municipal frame, kicked steel brackets and tall low rail",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.05,
+        "back_top_depth_m": 0.46,
+        "back_top_height_m": 0.37
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        78
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_02_south_rear_net": {
+      "title": "Municipal Lattice",
+      "era": "1920s\u20131930s",
+      "note": "Painted municipal frame, kicked steel brackets and tall low rail",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.05,
+        "back_top_depth_m": 0.46,
+        "back_top_height_m": 0.37
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        687,
+        1094,
+        129,
+        127
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_02_south_front_frame": {
+      "title": "Municipal Lattice",
+      "era": "1920s\u20131930s",
+      "note": "Painted municipal frame, kicked steel brackets and tall low rail",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.05,
+        "back_top_depth_m": 0.46,
+        "back_top_height_m": 0.37
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_02_south_composite": {
+      "title": "Municipal Lattice",
+      "era": "1920s\u20131930s",
+      "note": "Painted municipal frame, kicked steel brackets and tall low rail",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.05,
+        "back_top_depth_m": 0.46,
+        "back_top_height_m": 0.37
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        130
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_02_north_shadow": {
+      "title": "Municipal Lattice",
+      "era": "1920s\u20131930s",
+      "note": "Painted municipal frame, kicked steel brackets and tall low rail",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.05,
+        "back_top_depth_m": 0.46,
+        "back_top_height_m": 0.37
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        189,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_02_north_rear_net": {
+      "title": "Municipal Lattice",
+      "era": "1920s\u20131930s",
+      "note": "Painted municipal frame, kicked steel brackets and tall low rail",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.05,
+        "back_top_depth_m": 0.46,
+        "back_top_height_m": 0.37
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3030,
+        888,
+        124,
+        123
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_02_north_front_frame": {
+      "title": "Municipal Lattice",
+      "era": "1920s\u20131930s",
+      "note": "Painted municipal frame, kicked steel brackets and tall low rail",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.05,
+        "back_top_depth_m": 0.46,
+        "back_top_height_m": 0.37
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_02_north_composite": {
+      "title": "Municipal Lattice",
+      "era": "1920s\u20131930s",
+      "note": "Painted municipal frame, kicked steel brackets and tall low rail",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.05,
+        "back_top_depth_m": 0.46,
+        "back_top_height_m": 0.37
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        886,
+        189,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_03_south_shadow": {
+      "title": "Postwar Stanchion",
+      "era": "1940s\u20131950s",
+      "note": "Round ivory tubes, offset bowed stanchions and diamond cotton cord",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.92,
+        "back_top_depth_m": 0.88,
+        "back_top_height_m": 0.19
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        77
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_03_south_rear_net": {
+      "title": "Postwar Stanchion",
+      "era": "1940s\u20131950s",
+      "note": "Round ivory tubes, offset bowed stanchions and diamond cotton cord",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.92,
+        "back_top_depth_m": 0.88,
+        "back_top_height_m": 0.19
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        690,
+        1093,
+        126,
+        128
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_03_south_front_frame": {
+      "title": "Postwar Stanchion",
+      "era": "1940s\u20131950s",
+      "note": "Round ivory tubes, offset bowed stanchions and diamond cotton cord",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.92,
+        "back_top_depth_m": 0.88,
+        "back_top_height_m": 0.19
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_03_south_composite": {
+      "title": "Postwar Stanchion",
+      "era": "1940s\u20131950s",
+      "note": "Round ivory tubes, offset bowed stanchions and diamond cotton cord",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.92,
+        "back_top_depth_m": 0.88,
+        "back_top_height_m": 0.19
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        129
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_03_north_shadow": {
+      "title": "Postwar Stanchion",
+      "era": "1940s\u20131950s",
+      "note": "Round ivory tubes, offset bowed stanchions and diamond cotton cord",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.92,
+        "back_top_depth_m": 0.88,
+        "back_top_height_m": 0.19
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        186,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_03_north_rear_net": {
+      "title": "Postwar Stanchion",
+      "era": "1940s\u20131950s",
+      "note": "Round ivory tubes, offset bowed stanchions and diamond cotton cord",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.92,
+        "back_top_depth_m": 0.88,
+        "back_top_height_m": 0.19
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3031,
+        887,
+        121,
+        124
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_03_north_front_frame": {
+      "title": "Postwar Stanchion",
+      "era": "1940s\u20131950s",
+      "note": "Round ivory tubes, offset bowed stanchions and diamond cotton cord",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.92,
+        "back_top_depth_m": 0.88,
+        "back_top_height_m": 0.19
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_03_north_composite": {
+      "title": "Postwar Stanchion",
+      "era": "1940s\u20131950s",
+      "note": "Round ivory tubes, offset bowed stanchions and diamond cotton cord",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.92,
+        "back_top_depth_m": 0.88,
+        "back_top_height_m": 0.19
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        886,
+        186,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_04_south_shadow": {
+      "title": "Television Arc",
+      "era": "1960s",
+      "note": "Broad bowed supports; bright frame and rectangular broadcast mesh",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.22,
+        "back_top_depth_m": 0.96,
+        "back_top_height_m": 0.18
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        78
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_04_south_rear_net": {
+      "title": "Television Arc",
+      "era": "1960s",
+      "note": "Broad bowed supports; bright frame and rectangular broadcast mesh",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.22,
+        "back_top_depth_m": 0.96,
+        "back_top_height_m": 0.18
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        683,
+        1093,
+        133,
+        128
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_04_south_front_frame": {
+      "title": "Television Arc",
+      "era": "1960s",
+      "note": "Broad bowed supports; bright frame and rectangular broadcast mesh",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.22,
+        "back_top_depth_m": 0.96,
+        "back_top_height_m": 0.18
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_04_south_composite": {
+      "title": "Television Arc",
+      "era": "1960s",
+      "note": "Broad bowed supports; bright frame and rectangular broadcast mesh",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.22,
+        "back_top_depth_m": 0.96,
+        "back_top_height_m": 0.18
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        130
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_04_north_shadow": {
+      "title": "Television Arc",
+      "era": "1960s",
+      "note": "Broad bowed supports; bright frame and rectangular broadcast mesh",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.22,
+        "back_top_depth_m": 0.96,
+        "back_top_height_m": 0.18
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        193,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_04_north_rear_net": {
+      "title": "Television Arc",
+      "era": "1960s",
+      "note": "Broad bowed supports; bright frame and rectangular broadcast mesh",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.22,
+        "back_top_depth_m": 0.96,
+        "back_top_height_m": 0.18
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3031,
+        887,
+        127,
+        124
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_04_north_front_frame": {
+      "title": "Television Arc",
+      "era": "1960s",
+      "note": "Broad bowed supports; bright frame and rectangular broadcast mesh",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.22,
+        "back_top_depth_m": 0.96,
+        "back_top_height_m": 0.18
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_04_north_composite": {
+      "title": "Television Arc",
+      "era": "1960s",
+      "note": "Broad bowed supports; bright frame and rectangular broadcast mesh",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.22,
+        "back_top_depth_m": 0.96,
+        "back_top_height_m": 0.18
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        886,
+        193,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_05_south_shadow": {
+      "title": "Terrace Candystripe",
+      "era": "1970s",
+      "note": "Painted cream-and-claret lower banding and deep diamond mesh",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.0,
+        "back_top_depth_m": 0.73,
+        "back_top_height_m": 0.1
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        78
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_05_south_rear_net": {
+      "title": "Terrace Candystripe",
+      "era": "1970s",
+      "note": "Painted cream-and-claret lower banding and deep diamond mesh",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.0,
+        "back_top_depth_m": 0.73,
+        "back_top_height_m": 0.1
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        688,
+        1094,
+        127,
+        127
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_05_south_front_frame": {
+      "title": "Terrace Candystripe",
+      "era": "1970s",
+      "note": "Painted cream-and-claret lower banding and deep diamond mesh",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.0,
+        "back_top_depth_m": 0.73,
+        "back_top_height_m": 0.1
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_05_south_composite": {
+      "title": "Terrace Candystripe",
+      "era": "1970s",
+      "note": "Painted cream-and-claret lower banding and deep diamond mesh",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.0,
+        "back_top_depth_m": 0.73,
+        "back_top_height_m": 0.1
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        130
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_05_north_shadow": {
+      "title": "Terrace Candystripe",
+      "era": "1970s",
+      "note": "Painted cream-and-claret lower banding and deep diamond mesh",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.0,
+        "back_top_depth_m": 0.73,
+        "back_top_height_m": 0.1
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        188,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_05_north_rear_net": {
+      "title": "Terrace Candystripe",
+      "era": "1970s",
+      "note": "Painted cream-and-claret lower banding and deep diamond mesh",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.0,
+        "back_top_depth_m": 0.73,
+        "back_top_height_m": 0.1
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3030,
+        888,
+        123,
+        123
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_05_north_front_frame": {
+      "title": "Terrace Candystripe",
+      "era": "1970s",
+      "note": "Painted cream-and-claret lower banding and deep diamond mesh",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.0,
+        "back_top_depth_m": 0.73,
+        "back_top_height_m": 0.1
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_05_north_composite": {
+      "title": "Terrace Candystripe",
+      "era": "1970s",
+      "note": "Painted cream-and-claret lower banding and deep diamond mesh",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.0,
+        "back_top_depth_m": 0.73,
+        "back_top_height_m": 0.1
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        886,
+        188,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_06_south_shadow": {
+      "title": "Floodlight Hook",
+      "era": "1980s",
+      "note": "Deep hooked rear corners and silvery open hexagonal pattern",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.31,
+        "back_top_depth_m": 1.21,
+        "back_top_height_m": 0.13
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        78
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_06_south_rear_net": {
+      "title": "Floodlight Hook",
+      "era": "1980s",
+      "note": "Deep hooked rear corners and silvery open hexagonal pattern",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.31,
+        "back_top_depth_m": 1.21,
+        "back_top_height_m": 0.13
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        681,
+        1093,
+        135,
+        128
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_06_south_front_frame": {
+      "title": "Floodlight Hook",
+      "era": "1980s",
+      "note": "Deep hooked rear corners and silvery open hexagonal pattern",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.31,
+        "back_top_depth_m": 1.21,
+        "back_top_height_m": 0.13
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_06_south_composite": {
+      "title": "Floodlight Hook",
+      "era": "1980s",
+      "note": "Deep hooked rear corners and silvery open hexagonal pattern",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.31,
+        "back_top_depth_m": 1.21,
+        "back_top_height_m": 0.13
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        130
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_06_north_shadow": {
+      "title": "Floodlight Hook",
+      "era": "1980s",
+      "note": "Deep hooked rear corners and silvery open hexagonal pattern",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.31,
+        "back_top_depth_m": 1.21,
+        "back_top_height_m": 0.13
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        195,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_06_north_rear_net": {
+      "title": "Floodlight Hook",
+      "era": "1980s",
+      "note": "Deep hooked rear corners and silvery open hexagonal pattern",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.31,
+        "back_top_depth_m": 1.21,
+        "back_top_height_m": 0.13
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3031,
+        887,
+        129,
+        124
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_06_north_front_frame": {
+      "title": "Floodlight Hook",
+      "era": "1980s",
+      "note": "Deep hooked rear corners and silvery open hexagonal pattern",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.31,
+        "back_top_depth_m": 1.21,
+        "back_top_height_m": 0.13
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_06_north_composite": {
+      "title": "Floodlight Hook",
+      "era": "1980s",
+      "note": "Deep hooked rear corners and silvery open hexagonal pattern",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.31,
+        "back_top_depth_m": 1.21,
+        "back_top_height_m": 0.13
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        886,
+        195,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_07_south_shadow": {
+      "title": "Continental Box",
+      "era": "1990s",
+      "note": "Full depth freestanding rectangle; discreet rear tension poles",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.38,
+        "back_top_depth_m": 2.39,
+        "back_top_height_m": 2.5
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        78
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_07_south_rear_net": {
+      "title": "Continental Box",
+      "era": "1990s",
+      "note": "Full depth freestanding rectangle; discreet rear tension poles",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.38,
+        "back_top_depth_m": 2.39,
+        "back_top_height_m": 2.5
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        679,
+        1094,
+        136,
+        128
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_07_south_front_frame": {
+      "title": "Continental Box",
+      "era": "1990s",
+      "note": "Full depth freestanding rectangle; discreet rear tension poles",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.38,
+        "back_top_depth_m": 2.39,
+        "back_top_height_m": 2.5
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_07_south_composite": {
+      "title": "Continental Box",
+      "era": "1990s",
+      "note": "Full depth freestanding rectangle; discreet rear tension poles",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.38,
+        "back_top_depth_m": 2.39,
+        "back_top_height_m": 2.5
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        130
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_07_north_shadow": {
+      "title": "Continental Box",
+      "era": "1990s",
+      "note": "Full depth freestanding rectangle; discreet rear tension poles",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.38,
+        "back_top_depth_m": 2.39,
+        "back_top_height_m": 2.5
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        196,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_07_north_rear_net": {
+      "title": "Continental Box",
+      "era": "1990s",
+      "note": "Full depth freestanding rectangle; discreet rear tension poles",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.38,
+        "back_top_depth_m": 2.39,
+        "back_top_height_m": 2.5
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3031,
+        882,
+        136,
+        129
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_07_north_front_frame": {
+      "title": "Continental Box",
+      "era": "1990s",
+      "note": "Full depth freestanding rectangle; discreet rear tension poles",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.38,
+        "back_top_depth_m": 2.39,
+        "back_top_height_m": 2.5
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_07_north_composite": {
+      "title": "Continental Box",
+      "era": "1990s",
+      "note": "Full depth freestanding rectangle; discreet rear tension poles",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.38,
+        "back_top_depth_m": 2.39,
+        "back_top_height_m": 2.5
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        882,
+        197,
+        130
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_08_south_shadow": {
+      "title": "Millennium Mono",
+      "era": "2000s",
+      "note": "Pale aluminium and large tensioned hex mesh; slight rear roof drop",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.13,
+        "back_top_depth_m": 2.12,
+        "back_top_height_m": 2.28
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        78
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_08_south_rear_net": {
+      "title": "Millennium Mono",
+      "era": "2000s",
+      "note": "Pale aluminium and large tensioned hex mesh; slight rear roof drop",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.13,
+        "back_top_depth_m": 2.12,
+        "back_top_height_m": 2.28
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        685,
+        1094,
+        130,
+        127
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_08_south_front_frame": {
+      "title": "Millennium Mono",
+      "era": "2000s",
+      "note": "Pale aluminium and large tensioned hex mesh; slight rear roof drop",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.13,
+        "back_top_depth_m": 2.12,
+        "back_top_height_m": 2.28
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_08_south_composite": {
+      "title": "Millennium Mono",
+      "era": "2000s",
+      "note": "Pale aluminium and large tensioned hex mesh; slight rear roof drop",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.13,
+        "back_top_depth_m": 2.12,
+        "back_top_height_m": 2.28
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        130
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_08_north_shadow": {
+      "title": "Millennium Mono",
+      "era": "2000s",
+      "note": "Pale aluminium and large tensioned hex mesh; slight rear roof drop",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.13,
+        "back_top_depth_m": 2.12,
+        "back_top_height_m": 2.28
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        191,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_08_north_rear_net": {
+      "title": "Millennium Mono",
+      "era": "2000s",
+      "note": "Pale aluminium and large tensioned hex mesh; slight rear roof drop",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.13,
+        "back_top_depth_m": 2.12,
+        "back_top_height_m": 2.28
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3031,
+        888,
+        129,
+        123
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_08_north_front_frame": {
+      "title": "Millennium Mono",
+      "era": "2000s",
+      "note": "Pale aluminium and large tensioned hex mesh; slight rear roof drop",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.13,
+        "back_top_depth_m": 2.12,
+        "back_top_height_m": 2.28
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_08_north_composite": {
+      "title": "Millennium Mono",
+      "era": "2000s",
+      "note": "Pale aluminium and large tensioned hex mesh; slight rear roof drop",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.13,
+        "back_top_depth_m": 2.12,
+        "back_top_height_m": 2.28
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        886,
+        191,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_09_south_shadow": {
+      "title": "Two-Tone Cup",
+      "era": "2010s",
+      "note": "White and cobalt two-tone net paneling; floating roof",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.26,
+        "back_top_depth_m": 2.25,
+        "back_top_height_m": 2.37
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        78
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_09_south_rear_net": {
+      "title": "Two-Tone Cup",
+      "era": "2010s",
+      "note": "White and cobalt two-tone net paneling; floating roof",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.26,
+        "back_top_depth_m": 2.25,
+        "back_top_height_m": 2.37
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        682,
+        1094,
+        133,
+        127
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_09_south_front_frame": {
+      "title": "Two-Tone Cup",
+      "era": "2010s",
+      "note": "White and cobalt two-tone net paneling; floating roof",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.26,
+        "back_top_depth_m": 2.25,
+        "back_top_height_m": 2.37
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_09_south_composite": {
+      "title": "Two-Tone Cup",
+      "era": "2010s",
+      "note": "White and cobalt two-tone net paneling; floating roof",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.26,
+        "back_top_depth_m": 2.25,
+        "back_top_height_m": 2.37
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        130
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_09_north_shadow": {
+      "title": "Two-Tone Cup",
+      "era": "2010s",
+      "note": "White and cobalt two-tone net paneling; floating roof",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.26,
+        "back_top_depth_m": 2.25,
+        "back_top_height_m": 2.37
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        194,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_09_north_rear_net": {
+      "title": "Two-Tone Cup",
+      "era": "2010s",
+      "note": "White and cobalt two-tone net paneling; floating roof",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.26,
+        "back_top_depth_m": 2.25,
+        "back_top_height_m": 2.37
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3031,
+        885,
+        132,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_09_north_front_frame": {
+      "title": "Two-Tone Cup",
+      "era": "2010s",
+      "note": "White and cobalt two-tone net paneling; floating roof",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.26,
+        "back_top_depth_m": 2.25,
+        "back_top_height_m": 2.37
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_09_north_composite": {
+      "title": "Two-Tone Cup",
+      "era": "2010s",
+      "note": "White and cobalt two-tone net paneling; floating roof",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 2.26,
+        "back_top_depth_m": 2.25,
+        "back_top_height_m": 2.37
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        885,
+        194,
+        127
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_10_south_shadow": {
+      "title": "Modern Slimline",
+      "era": "2020s",
+      "note": "Compact thin high-frequency mint mesh; hidden rear tie points",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.8,
+        "back_top_depth_m": 1.76,
+        "back_top_height_m": 2.39
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1144,
+        143,
+        77
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_10_south_rear_net": {
+      "title": "Modern Slimline",
+      "era": "2020s",
+      "note": "Compact thin high-frequency mint mesh; hidden rear tie points",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.8,
+        "back_top_depth_m": 1.76,
+        "back_top_height_m": 2.39
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        692,
+        1094,
+        123,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_10_south_front_frame": {
+      "title": "Modern Slimline",
+      "era": "2020s",
+      "note": "Compact thin high-frequency mint mesh; hidden rear tie points",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.8,
+        "back_top_depth_m": 1.76,
+        "back_top_height_m": 2.39
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        732,
+        1092,
+        85,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_10_south_composite": {
+      "title": "Modern Slimline",
+      "era": "2020s",
+      "note": "Compact thin high-frequency mint mesh; hidden rear tie points",
+      "geometry": {
+        "front_world_x_m": -52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.8,
+        "back_top_depth_m": 1.76,
+        "back_top_height_m": 2.39
+      },
+      "post_anchors_4k_px": [
+        [
+          809.1388881842342,
+          1215.760738100486
+        ],
+        [
+          814.4800341779251,
+          1159.427165865986
+        ],
+        [
+          737.8626729959876,
+          1093.657921539531
+        ],
+        [
+          732.521527002297,
+          1149.991493774031
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        672,
+        1092,
+        145,
+        129
+      ],
+      "position_bottom_center_4k_px": [
+        770.8302075932656,
+        1182.8761159372584
+      ]
+    },
+    "goal_10_north_shadow": {
+      "title": "Modern Slimline",
+      "era": "2020s",
+      "note": "Compact thin high-frequency mint mesh; hidden rear tie points",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.8,
+        "back_top_depth_m": 1.76,
+        "back_top_height_m": 2.39
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        938,
+        184,
+        74
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_10_north_rear_net": {
+      "title": "Modern Slimline",
+      "era": "2020s",
+      "note": "Compact thin high-frequency mint mesh; hidden rear tie points",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.8,
+        "back_top_depth_m": 1.76,
+        "back_top_height_m": 2.39
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3031,
+        886,
+        121,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_10_north_front_frame": {
+      "title": "Modern Slimline",
+      "era": "2020s",
+      "note": "Compact thin high-frequency mint mesh; hidden rear tie points",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.8,
+        "back_top_depth_m": 1.76,
+        "back_top_height_m": 2.39
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        3029,
+        886,
+        86,
+        125
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    },
+    "goal_10_north_composite": {
+      "title": "Modern Slimline",
+      "era": "2020s",
+      "note": "Compact thin high-frequency mint mesh; hidden rear tie points",
+      "geometry": {
+        "front_world_x_m": 52.5,
+        "bar_center_height_m": 2.5,
+        "post_center_y_m": [
+          -3.72,
+          3.72
+        ],
+        "clear_opening_m": [
+          7.32,
+          2.44
+        ],
+        "back_ground_depth_m": 1.8,
+        "back_top_depth_m": 1.76,
+        "back_top_height_m": 2.39
+      },
+      "post_anchors_4k_px": [
+        [
+          3107.4784729977027,
+          1010.0085062259692
+        ],
+        [
+          3112.819618991394,
+          953.6749339914691
+        ],
+        [
+          3036.2022578094566,
+          887.905689665014
+        ],
+        [
+          3030.861111815766,
+          944.2392618995141
+        ]
+      ],
+      "atlas_xywh_4k_px": [
+        2970,
+        886,
+        184,
+        126
+      ],
+      "position_bottom_center_4k_px": [
+        3069.1697924067344,
+        977.1238840627416
+      ]
+    }
+  }
+}
