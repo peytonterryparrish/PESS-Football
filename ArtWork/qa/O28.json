@@ -1,0 +1,91 @@
+{
+ "rejected": {},
+ "notes": {
+  "south/fall_ground": [
+   "touches_edge"
+  ],
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/celebrate_point": [
+   "blob9"
+  ],
+  "south-east/idle_breathe": [
+   "blob9"
+  ],
+  "south-east/fall_ground": [
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/celebrate_arms_up": [
+   "blob13"
+  ],
+  "south-east/celebrate_fist": [
+   "ball_removed"
+  ],
+  "east/sprint_passR": [
+   "blob23"
+  ],
+  "east/volley_strike": [
+   "blob28"
+  ],
+  "east/throwin_back": [
+   "blob27"
+  ],
+  "east/fall_ground": [
+   "touches_edge"
+  ],
+  "east/sit_ground": [
+   "touches_edge"
+  ],
+  "east/block": [
+   "touches_edge"
+  ],
+  "north-east/fall_ground": [
+   "touches_edge"
+  ],
+  "north-east/header_stand": [
+   "blob11"
+  ],
+  "north-west/fall_ground": [
+   "touches_edge"
+  ],
+  "north-west/block": [
+   "blob19"
+  ],
+  "west/tackle_stand": [
+   "blob6"
+  ],
+  "west/idle_breathe": [
+   "blob6"
+  ],
+  "west/fall_ground": [
+   "touches_edge"
+  ],
+  "west/sit_ground": [
+   "touches_edge"
+  ],
+  "west/header_dive": [
+   "touches_edge"
+  ],
+  "south-west/idle_breathe": [
+   "blob10"
+  ],
+  "south-west/throwin_release": [
+   "touches_edge"
+  ],
+  "south-west/fall_ground": [
+   "touches_edge"
+  ],
+  "south-west/sit_ground": [
+   "touches_edge"
+  ]
+ },
+ "frames": 368,
+ "palette": 70
+}

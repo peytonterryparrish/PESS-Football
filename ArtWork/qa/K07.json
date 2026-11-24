@@ -1,0 +1,90 @@
+{
+ "rejected": {
+  "south/gk_dive_low_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south/gk_dive_high_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south/gk_dive_low_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south/gk_dive_high_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south/gk_lying_ball": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-east/gk_dive_low_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-east/gk_dive_high_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-east/gk_dive_low_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-east/gk_dive_high_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-east/gk_lying_ball": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "east/gk_dive_low_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "east/gk_dive_high_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "east/gk_dive_low_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "east/gk_dive_high_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "east/gk_lying_ball": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-east/gk_dive_low_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-east/gk_dive_high_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-east/gk_dive_low_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-east/gk_dive_high_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-east/gk_lying_ball": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north/gk_dive_low_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north/gk_dive_high_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north/gk_dive_low_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north/gk_dive_high_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north/gk_lying_ball": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-west/gk_dive_low_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-west/gk_dive_high_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-west/gk_dive_low_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-west/gk_dive_high_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "north-west/gk_lying_ball": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "west/gk_dive_low_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "west/gk_dive_high_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "west/gk_dive_low_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "west/gk_dive_high_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "west/gk_lying_ball": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-west/gk_dive_low_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-west/gk_dive_high_R2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-west/gk_dive_low_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-west/gk_dive_high_L2": "pose excluded (near-horizontal body breaks the skeleton model)",
+  "south-west/gk_lying_ball": "pose excluded (near-horizontal body breaks the skeleton model)"
+ },
+ "notes": {
+  "south/gk_dive_high_R1": [
+   "touches_edge"
+  ],
+  "south/gk_dive_high_L1": [
+   "touches_edge"
+  ],
+  "south/gk_hold_ball": [
+   "ball_removed"
+  ],
+  "south-east/gk_shuffleL": [
+   "blob19"
+  ],
+  "south-east/gk_dive_high_R1": [
+   "blob11"
+  ],
+  "south-east/gk_dive_high_L1": [
+   "touches_edge"
+  ],
+  "south-east/gk_catch_high": [
+   "blob20"
+  ],
+  "east/gk_dive_high_L1": [
+   "touches_edge"
+  ],
+  "north-east/gk_dive_high_L1": [
+   "touches_edge"
+  ],
+  "north/gk_dive_high_R1": [
+   "touches_edge"
+  ],
+  "north/gk_dive_high_L1": [
+   "touches_edge"
+  ],
+  "north-west/gk_dive_high_R1": [
+   "touches_edge"
+  ],
+  "west/gk_dive_high_R1": [
+   "touches_edge"
+  ],
+  "south-west/gk_dive_high_R1": [
+   "touches_edge"
+  ]
+ },
+ "frames": 208,
+ "palette": 95
+}

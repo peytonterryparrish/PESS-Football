@@ -1,0 +1,127 @@
+{
+ "rejected": {
+  "east/header_stand": "double_figure",
+  "north-east/fall_ground": "double_figure",
+  "north-west/block": "too_small 271/695"
+ },
+ "notes": {
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/shot_strike": [
+   "ball_removed"
+  ],
+  "south-east/volley_strike": [
+   "blob9",
+   "ball_removed"
+  ],
+  "south-east/throwin_release": [
+   "ball_removed"
+  ],
+  "south-east/fall_ground": [
+   "blob13"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/getup_kneel": [
+   "touches_edge"
+  ],
+  "east/shot_follow": [
+   "blob6"
+  ],
+  "east/volley_strike": [
+   "ball_removed"
+  ],
+  "east/fall_ground": [
+   "blob9",
+   "touches_edge"
+  ],
+  "east/sit_ground": [
+   "blob9"
+  ],
+  "east/header_dive": [
+   "touches_edge"
+  ],
+  "north-east/sit_ground": [
+   "blob25"
+  ],
+  "north-east/celebrate_arms_up": [
+   "ball_removed"
+  ],
+  "north-east/header_stand": [
+   "blob16",
+   "blob12"
+  ],
+  "north/pass_back": [
+   "ball_removed"
+  ],
+  "north/slide": [
+   "ball_removed"
+  ],
+  "north/celebrate_arms_up": [
+   "ball_removed"
+  ],
+  "north/celebrate_point": [
+   "ball_removed"
+  ],
+  "north/walk_contactR": [
+   "ball_removed"
+  ],
+  "north/hands_on_head": [
+   "ball_removed"
+  ],
+  "north-west/fall_ground": [
+   "touches_edge"
+  ],
+  "north-west/celebrate_arms_up": [
+   "ball_removed"
+  ],
+  "north-west/celebrate_knee_slide": [
+   "blob7"
+  ],
+  "west/shot_follow": [
+   "ball_removed"
+  ],
+  "west/slide": [
+   "ball_removed"
+  ],
+  "west/sprint_passR": [
+   "blob26"
+  ],
+  "west/chest_control": [
+   "ball_removed"
+  ],
+  "west/throwin_back": [
+   "blob15",
+   "ball_removed"
+  ],
+  "west/fall_ground": [
+   "touches_edge"
+  ],
+  "west/sit_ground": [
+   "touches_edge"
+  ],
+  "west/celebrate_arms_up": [
+   "ball_removed"
+  ],
+  "west/block": [
+   "blob25",
+   "touches_edge"
+  ],
+  "south-west/fall_ground": [
+   "touches_edge"
+  ],
+  "south-west/sit_ground": [
+   "touches_edge"
+  ],
+  "south-west/celebrate_arms_up": [
+   "ball_removed"
+  ]
+ },
+ "frames": 365,
+ "palette": 63
+}
