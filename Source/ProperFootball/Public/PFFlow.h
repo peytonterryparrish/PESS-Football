@@ -38,7 +38,7 @@ struct FPFMenuItem
 };
 
 UENUM()
-enum class EPFScreen : uint8 { Title, Main, Friendly, Match, Result, Career, Options };
+enum class EPFScreen : uint8 { Title, Main, Friendly, Match, Result, Career, Options, PreMatch };
 
 UCLASS()
 class PROPERFOOTBALL_API UPFFlow : public UGameInstanceSubsystem
@@ -86,6 +86,7 @@ public:
 	FPFMatch* LastMatch = nullptr;
 	TWeakObjectPtr<UWorld> WorldRef;
 	bool bManageView = false;      // career "manage it": fast dots, real sprites for highlights
+	float PreMatchT = 0;
 	int32 ShotsLeft = 0, ShotIndex = 0;
 	float ShotGap = 3.f, NextShot = 4.f, QuitAt = -1.f;
 

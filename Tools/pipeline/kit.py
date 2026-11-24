@@ -31,6 +31,8 @@ def hue_d(a, b): d = abs(a - b) % 360; return min(d, 360 - d)
 def kit_region(c, min_sat=0.45, max_hue=28):
     """Return region name if colour c is a template-kit colour, else None."""
     h, s, v = hsv(c)
+    # magenta trim: nothing natural on a footballer is magenta, so light/pale trim pinks count too
+    if 282 <= h <= 318 and s > 0.20 and v > 0.25: return "trim"
     if s < min_sat or v < 0.12: return None
     best = min(REGION_HUE, key=lambda r: hue_d(h, REGION_HUE[r]))
     if hue_d(h, REGION_HUE[best]) > max_hue: return None

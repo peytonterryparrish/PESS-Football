@@ -98,6 +98,7 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 	BallTex = PF::LoadTexture(TEXT("GameData/Ball/ball_sheet.png"));
 	ShadowTex = MakeEllipse(24, 10, false);
 	RingTex = MakeEllipse(30, 12, true);
+	CursorTex = PF::LoadTexture(TEXT("GameData/UI/ico_cursor_south.png"));
 
 	// goal layers (atlas-resolution set, so they share the stadium's pixel grid)
 	if (TSharedPtr<FJsonObject> GL = PF::LoadJson(TEXT("ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Goals/Goal_Layout.json")))
@@ -188,6 +189,7 @@ void FPFMatch::AddReferencedObjects(FReferenceCollector& Collector)
 	Collector.AddReferencedObject(BallTex);
 	Collector.AddReferencedObject(ShadowTex);
 	Collector.AddReferencedObject(RingTex);
+	Collector.AddReferencedObject(CursorTex);
 	for (int32 g = 0; g < 2; ++g) { Collector.AddReferencedObject(GoalShadow[g].Tex); Collector.AddReferencedObject(GoalRear[g].Tex); Collector.AddReferencedObject(GoalFront[g].Tex); }
 	for (FPFSpriteSet& S : Sets) Collector.AddReferencedObject(S.Atlas);
 	for (auto& KV : Mids) Collector.AddReferencedObject(KV.Value);
@@ -459,6 +461,7 @@ void FPFMatch::Step(float Dt, const FPFPadInput& Pad)
 	TeamAI(0, Dt);
 	TeamAI(1, Dt);
 	if (Human >= 0 && !Setup.bWatchOnly) HumanControl(Dt, Pad);
+	if (Ball.Owner >= 0) PossT[P[Ball.Owner].Team] += Dt; else if (Ball.LastTeam >= 0 && Ball.LastTeam < 2) PossT[Ball.LastTeam] += Dt;
 	MovePlayers(Dt);
 	MoveOfficials(Dt);
 	MoveManagers(Dt);
@@ -1164,6 +1167,7 @@ void FPFMatch::CheckOut()
 		if (Ball.LastTeam == Defending)
 		{
 			Restart = EPFRestart::Corner; RestartTeam = 1 - Defending;
+			Corners[RestartTeam]++;
 			RestartSpot = FVector2D(Side * (HalfLen - 0.3f), FMath::Sign(B.Y) * (HalfWid - 0.3f));
 			SetBanner(TEXT("CORNER KICK"));
 		}
@@ -1236,6 +1240,7 @@ void FPFMatch::Foul(FPFPlayer& Off, FPFPlayer& Vic)
 		if (Off.Index == Human) { const int32 N = NearestToBall(Off.Team, true); if (N >= 0) SwitchHuman(N); }
 	}
 	else if (R < 0.30f) { Off.bBooked = true; Yellows[Off.Team]++; Card = TEXT("YELLOW CARD"); }
+	CardColor = Card == TEXT("RED CARD") ? FLinearColor(0.85f, 0.05f, 0.05f) : FLinearColor(1.f, 0.85f, 0.05f);
 	if (Officials.Num())
 	{
 		FPFPlayer& Ref = Officials[0];
@@ -1459,6 +1464,25 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		if (F.bFlip) Swap(UV0.X, UV1.X);
 		FCanvasTileItem T(Pos, Mid->GetRenderProxy(), Size, UV0, UV1);
 		C->DrawItem(T);
+		// the card in the referee's raised hand
+		if (It.Kind == 2 && It.Idx == 0 && Pl.Act == EPFAct::Clip && Pl.Clip == TEXT("ref_card") && Pose == TEXT("ref_card"))
+		{
+			const FVector2D Hand(Feet.X + (F.bFlip ? -6.f : 6.f) * SpriteScale, Feet.Y - 74.f * SpriteScale);
+			FCanvasTileItem Cd(FVector2D(FMath::RoundToFloat(Hand.X - 3 * SpriteScale), FMath::RoundToFloat(Hand.Y - 5 * SpriteScale)), GWhiteTexture, FVector2D(6, 8) * SpriteScale, CardColor);
+			C->DrawItem(Cd);
+		}
 	}
 	for (int32 g = 0; g < 2; ++g) DrawTex(GoalFront[g].Tex, GoalFront[g].XY, GoalFront[g].WH);
+	// cursor over the controlled player (bobs gently)
+	if (Human >= 0 && !Setup.bWatchOnly && CursorTex && P.IsValidIndex(Human) && !P[Human].bSentOff)
+	{
+		const FPFPlayer& H = P[Human];
+		const FVector2D Feet = ToScreen(Proj.GroundToAtlas(H.Pos));
+		const float Bob = FMath::RoundToFloat(FMath::Sin(Accum * 0.f + MatchClock * 40.f) * 2.f) * SpriteScale;
+		const FVector2D Sz(16 * SpriteScale, 16 * SpriteScale);
+		FCanvasTileItem T(FVector2D(FMath::RoundToFloat(Feet.X - Sz.X * 0.5f), FMath::RoundToFloat(Feet.Y - 84 * SpriteScale + Bob)), CursorTex->GetResource(), Sz,
+			H.Team == 0 ? FLinearColor(0.45f, 0.65f, 1.f) : FLinearColor(1.f, 0.5f, 0.35f));
+		T.BlendMode = SE_BLEND_Translucent;
+		C->DrawItem(T);
+	}
 }

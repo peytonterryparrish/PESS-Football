@@ -248,7 +248,8 @@ void UPFFlow::StartMatch(const FPFMatchSetup& S, TFunction<void(const FPFMatch&)
 	if (!MatchActor && WorldRef.IsValid()) MatchActor = WorldRef->SpawnActor<APFMatchActor>();
 	MatchActor->StartMatch(S);
 	MatchDone = OnDone;
-	Go(EPFScreen::Match);
+	Go(EPFScreen::PreMatch);
+	PreMatchT = 0;
 }
 
 void UPFFlow::StartFriendly()
@@ -355,6 +356,10 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 	}
 	case EPFScreen::Result:
 		if (Pad.pA || Pad.pB || Pad.pStart) Go(EPFScreen::Main);
+		break;
+	case EPFScreen::PreMatch:
+		PreMatchT += Dt;
+		if (Pad.pA || Pad.pStart || (MatchActor && MatchActor->Match.Setup.bWatchOnly && PreMatchT > 2.f) || ShotsLeft > 0) { Go(EPFScreen::Match); PlaySfx(TEXT("whistle_short"), 0.7f); }
 		break;
 	case EPFScreen::Career:
 		if (UPFCareer* Car = UPFCareer::Get(this)) Car->Tick(Dt, Pad);
@@ -604,17 +609,59 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 			Text(C, FString::Printf(TEXT("%d - %d"), M.Score[0], M.Score[1]), CX, 300 * U, 3.f, FLinearColor::White, EPFAlign::Center);
 			Text(C, M.Setup.Home.Name, CX - 540 * U, 480 * U, 0.9f, FLinearColor::White, EPFAlign::Center, true);
 			Text(C, M.Setup.Away.Name, CX + 540 * U, 480 * U, 0.9f, FLinearColor::White, EPFAlign::Center, true);
-			float Ly = 560 * U;
-			for (const FPFMatchEvent& E : M.Events)
+			float Ly = 540 * U;
+			for (int32 e = 0; e < M.Events.Num() && e < 4; ++e)
 			{
+				const FPFMatchEvent& E = M.Events[e];
 				Text(C, E.Text, E.Team == 0 ? CX - 80 * U : CX + 80 * U, Ly, 0.8f, FLinearColor(0.85f, 0.9f, 1.f), E.Team == 0 ? EPFAlign::Right : EPFAlign::Left, true);
-				Ly += 40 * U;
+				Ly += 36 * U;
 			}
-			Text(C, FString::Printf(TEXT("SHOTS  %d - %d"), M.Shots[0], M.Shots[1]), CX, 820 * U, 0.9f, FLinearColor(0.7f, 0.8f, 1.f), EPFAlign::Center, true);
+			const float PT = FMath::Max(1.f, M.PossT[0] + M.PossT[1]);
+			const int32 PossH = FMath::RoundToInt(100.f * M.PossT[0] / PT);
+			const FString Rows[][3] = {
+				{ FString::FromInt(PossH) + TEXT("%"), TEXT("POSSESSION"), FString::FromInt(100 - PossH) + TEXT("%") },
+				{ FString::FromInt(M.Shots[0]), TEXT("SHOTS"), FString::FromInt(M.Shots[1]) },
+				{ FString::FromInt(M.Corners[0]), TEXT("CORNERS"), FString::FromInt(M.Corners[1]) },
+				{ FString::FromInt(M.Fouls[0]), TEXT("FOULS"), FString::FromInt(M.Fouls[1]) },
+				{ FString::FromInt(M.Yellows[0]), TEXT("YELLOW CARDS"), FString::FromInt(M.Yellows[1]) },
+				{ FString::FromInt(M.Reds[0]), TEXT("RED CARDS"), FString::FromInt(M.Reds[1]) } };
+			for (int32 r = 0; r < 6; ++r)
+			{
+				const float RY = 700 * U + r * 32 * U;
+				Text(C, Rows[r][0], CX - 260 * U, RY, 0.7f, FLinearColor::White, EPFAlign::Right, true);
+				Text(C, Rows[r][1], CX, RY, 0.7f, FLinearColor(0.7f, 0.8f, 1.f), EPFAlign::Center, true);
+				Text(C, Rows[r][2], CX + 260 * U, RY, 0.7f, FLinearColor::White, EPFAlign::Left, true);
+			}
 		}
 		break;
 	case EPFScreen::Career:
 		if (UPFCareer* Car = UPFCareer::Get(this)) Car->Draw(C, SpriteMat);
+		break;
+	case EPFScreen::PreMatch:
+		if (MatchActor)
+		{
+			const FPFMatchSetup& S = MatchActor->Match.Setup;
+			DrawBackground(C, 0.35f);
+			const float CX = C->ClipX * 0.5f;
+			Box(C, CX - 760 * U, 150 * U, 1520 * U, 760 * U, FLinearColor(0.01f, 0.02f, 0.08f, 0.88f));
+			Text(C, S.bWatchOnly ? TEXT("TODAY'S MATCH") : TEXT("KICK-OFF"), CX, 180 * U, 1.3f, FLinearColor(1, 0.85f, 0.3f), EPFAlign::Center);
+			Tex(C, S.Home.BadgePath, CX - 660 * U, 290 * U, 256 * U, 256 * U);
+			Tex(C, S.Away.BadgePath, CX + 404 * U, 290 * U, 256 * U, 256 * U);
+			Text(C, TEXT("V"), CX, 380 * U, 2.4f, FLinearColor::White, EPFAlign::Center);
+			Text(C, S.Home.Name.ToUpper(), CX - 532 * U, 580 * U, 0.8f, FLinearColor::White, EPFAlign::Center, true);
+			Text(C, S.Away.Name.ToUpper(), CX + 532 * U, 580 * U, 0.8f, FLinearColor::White, EPFAlign::Center, true);
+			// kit swatches (shirt / shorts / socks) so you know who is who
+			auto Swatch = [&](float X, const FPFKit& K)
+			{
+				Box(C, X - 60 * U, 630 * U, 120 * U, 60 * U, K.Shirt); Box(C, X - 60 * U, 690 * U, 120 * U, 34 * U, K.Shorts); Box(C, X - 60 * U, 724 * U, 120 * U, 20 * U, K.Socks);
+				if (K.Pattern == 1) for (int32 i = 0; i < 6; i += 2) Box(C, X - 60 * U + i * 20 * U, 630 * U, 20 * U, 60 * U, K.Trim);
+			};
+			Swatch(CX - 532 * U, S.Home.Kit); Swatch(CX + 532 * U, S.Away.Kit);
+			static const TMap<FString, FString> StageName = { { TEXT("Daylight"), TEXT("3PM KICK-OFF") }, { TEXT("Sunset"), TEXT("EVENING KICK-OFF") }, { TEXT("Floodlit_Night"), TEXT("UNDER THE LIGHTS") } };
+			const FString* SN = StageName.Find(S.Stage);
+			Text(C, SN ? *SN : S.Stage, CX, 620 * U, 0.75f, FLinearColor(0.7f, 0.8f, 1.f), EPFAlign::Center, true);
+			if (!S.bWatchOnly && FMath::Fmod(Time, 1.f) < 0.7f) Text(C, TEXT("PRESS A"), CX, 820 * U, 1.1f, FLinearColor(1, 0.85f, 0.3f), EPFAlign::Center);
+		}
 		break;
 	default: break;
 	}

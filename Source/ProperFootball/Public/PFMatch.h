@@ -156,6 +156,8 @@ public:
 	TArray<FPFMatchEvent> Events;
 	int32 Shots[2] = { 0, 0 };
 	int32 Fouls[2] = { 0, 0 }, Yellows[2] = { 0, 0 }, Reds[2] = { 0, 0 };
+	float PossT[2] = { 0, 0 };
+	int32 Corners[2] = { 0, 0 };
 	int32 Human = -1;          // controlled player index
 	FPFMatchSetup Setup;
 	TArray<FPFPlayer> P;
@@ -169,7 +171,8 @@ public:
 	bool bFinished = false;
 	FVector2D CamCenter;       // atlas px
 	float Highlight = 0;
-	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
+	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)
+	FLinearColor CardColor = FLinearColor::Yellow;   // the card the referee is holding up (while his ref_card clip plays)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
 
 private:
 	FPFProjection Proj;
@@ -178,7 +181,7 @@ private:
 	TMap<FString, int32> SetIndex;
 	TObjectPtr<UTexture2D> Stadium = nullptr;
 	TObjectPtr<UTexture2D> BallTex = nullptr;
-	TObjectPtr<UTexture2D> ShadowTex = nullptr, RingTex = nullptr;
+	TObjectPtr<UTexture2D> ShadowTex = nullptr, RingTex = nullptr, CursorTex = nullptr;
 	struct FGoalLayer { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D XY, WH; };
 	FGoalLayer GoalShadow[2], GoalRear[2], GoalFront[2];
 	TMap<uint64, TObjectPtr<UMaterialInstanceDynamic>> Mids;
