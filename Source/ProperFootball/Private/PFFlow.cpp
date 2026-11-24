@@ -9,6 +9,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "UnrealClient.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "Sound/SoundBase.h"
 #include "Components/AudioComponent.h"
 #include "Misc/CommandLine.h"
@@ -61,6 +63,7 @@ void UPFFlow::Initialize(FSubsystemCollectionBase& Collection)
 	if (FontSquad.Tex) Keep.Add(FontSquad.Tex);
 	PFWorld::Clubs();
 	PickBackground(TEXT("England"));
+	LoadOptions();
 }
 
 void UPFFlow::PickBackground(const FString& Collection)
@@ -207,8 +210,33 @@ void UPFFlow::RunCareerTest(int32 Seasons)
 	QuitAt = Time + 0.5f;
 }
 
+void UPFFlow::LoadOptions()
+{
+	FString S;
+	if (FFileHelper::LoadFileToString(S, *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt"))))
+	{
+		TArray<FString> L; S.ParseIntoArrayLines(L);
+		for (const FString& Ln : L)
+		{
+			FString K, V;
+			if (!Ln.Split(TEXT("="), &K, &V)) continue;
+			if (K == TEXT("music")) MusicVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
+			if (K == TEXT("sfx")) SfxVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
+			if (K == TEXT("halflen")) FriendlyLen = FMath::Clamp(FCString::Atoi(*V), 0, 3);
+		}
+	}
+}
+
+void UPFFlow::SaveOptions()
+{
+	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\n"), MusicVol, SfxVol, FriendlyLen), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
+	if (Music) Music->SetVolumeMultiplier((MusicName == TEXT("crowd_loop") ? 0.55f * SfxVol : 0.45f * MusicVol) / 10.f);
+}
+
 void UPFFlow::PlaySfx(FName Name, float Volume)
 {
+	Volume *= SfxVol / 10.f;
+	if (Volume <= 0.f) return;
 	if (Name.IsNone() || !WorldRef.IsValid()) return;
 	TObjectPtr<USoundBase>* F = Sounds.Find(Name);
 	if (!F) { USoundBase* S = LoadObject<USoundBase>(nullptr, *FString::Printf(TEXT("/Game/PF/Audio/%s.%s"), *Name.ToString(), *Name.ToString())); F = &Sounds.Add(Name, S); }
@@ -223,7 +251,7 @@ void UPFFlow::SetMusic(FName Name)
 	if (Name.IsNone() || !WorldRef.IsValid()) return;
 	if (USoundBase* S = LoadObject<USoundBase>(nullptr, *FString::Printf(TEXT("/Game/PF/Audio/%s.%s"), *Name.ToString(), *Name.ToString())))
 	{
-		Music = UGameplayStatics::CreateSound2D(WorldRef.Get(), S, Name == TEXT("crowd_loop") ? 0.55f : 0.45f, 1.f, 0.f, nullptr, true);
+		Music = UGameplayStatics::CreateSound2D(WorldRef.Get(), S, (Name == TEXT("crowd_loop") ? 0.55f * SfxVol : 0.45f * MusicVol) / 10.f + 0.0001f, 1.f, 0.f, nullptr, true);
 		if (Music) Music->Play();
 	}
 }
@@ -298,6 +326,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		TArray<FPFMenuItem> Items;
 		Items.Add({ TEXT("CAREER"), nullptr, nullptr, [this]() { Go(EPFScreen::Career); if (UPFCareer* Car = UPFCareer::Get(this)) Car->Enter(); } });
 		Items.Add({ TEXT("FRIENDLY MATCH"), nullptr, nullptr, [this]() { Go(EPFScreen::Friendly); } });
+		Items.Add({ TEXT("OPTIONS"), nullptr, nullptr, [this]() { Go(EPFScreen::Options); } });
 		Items.Add({ TEXT("QUIT"), nullptr, nullptr, [this]() { if (WorldRef.IsValid()) UKismetSystemLibrary::QuitGame(WorldRef.Get(), nullptr, EQuitPreference::Quit, false); } });
 		MenuInput(Items, Sel, Pad);
 		if (Pad.pB) Go(EPFScreen::Title);
@@ -357,6 +386,17 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 	case EPFScreen::Result:
 		if (Pad.pA || Pad.pB || Pad.pStart) Go(EPFScreen::Main);
 		break;
+	case EPFScreen::Options:
+	{
+		TArray<FPFMenuItem> Items;
+		Items.Add({ TEXT("MUSIC"), nullptr, [this](int32 D) { MusicVol = FMath::Clamp(MusicVol + D, 0, 10); SaveOptions(); } });
+		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), nullptr, [this](int32 D) { SfxVol = FMath::Clamp(SfxVol + D, 0, 10); SaveOptions(); PlaySfx(TEXT("ui_select")); } });
+		Items.Add({ TEXT("HALF LENGTH"), nullptr, [this](int32 D) { FriendlyLen = (FriendlyLen + D + 4) % 4; SaveOptions(); } });
+		Items.Add({ TEXT("BACK"), nullptr, nullptr, [this]() { Go(EPFScreen::Main); } });
+		MenuInput(Items, Sel, Pad);
+		if (Pad.pB) Go(EPFScreen::Main);
+		break;
+	}
 	case EPFScreen::PreMatch:
 		PreMatchT += Dt;
 		if (Pad.pA || Pad.pStart || (MatchActor && MatchActor->Match.Setup.bWatchOnly && PreMatchT > 2.f) || ShotsLeft > 0) { Go(EPFScreen::Match); PlaySfx(TEXT("whistle_short"), 0.7f); }
@@ -555,7 +595,7 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	{
 		DrawBackground(C, 0.25f);
 		TArray<FPFMenuItem> Items;
-		Items.Add({ TEXT("CAREER") }); Items.Add({ TEXT("FRIENDLY MATCH") }); Items.Add({ TEXT("QUIT") });
+		Items.Add({ TEXT("CAREER") }); Items.Add({ TEXT("FRIENDLY MATCH") }); Items.Add({ TEXT("OPTIONS") }); Items.Add({ TEXT("QUIT") });
 		Text(C, TEXT("PROPER FOOTBALL"), C->ClipX * 0.5f, 120 * U, 2.4f, FLinearColor::White, EPFAlign::Center);
 		DrawMenu(C, TEXT("MAIN MENU"), Items, Sel, C->ClipX * 0.5f - 260 * U, C->ClipY * 0.45f, 520 * U);
 		Text(C, TEXT("A  SELECT      B  BACK"), C->ClipX * 0.5f, C->ClipY - 70 * U, 0.8f, FLinearColor(0.7f, 0.75f, 0.9f), EPFAlign::Center, true);
@@ -637,6 +677,20 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	case EPFScreen::Career:
 		if (UPFCareer* Car = UPFCareer::Get(this)) Car->Draw(C, SpriteMat);
 		break;
+	case EPFScreen::Options:
+	{
+		DrawBackground(C, 0.35f);
+		auto Bar = [](int32 V) { FString S; for (int32 i = 0; i < 10; ++i) S += i < V ? TEXT("|") : TEXT("."); return S; };
+		static const TCHAR* L[] = { TEXT("1.5 MIN"), TEXT("2.5 MIN"), TEXT("4 MIN"), TEXT("5 MIN") };
+		const FString M = Bar(MusicVol), S2 = Bar(SfxVol), H = L[FriendlyLen % 4];
+		TArray<FPFMenuItem> Items;
+		Items.Add({ TEXT("MUSIC"), [M]() { return M; }, [](int32) {} });
+		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), [S2]() { return S2; }, [](int32) {} });
+		Items.Add({ TEXT("HALF LENGTH"), [H]() { return H; }, [](int32) {} });
+		Items.Add({ TEXT("BACK") });
+		DrawMenu(C, TEXT("OPTIONS"), Items, Sel, C->ClipX * 0.5f - 420 * U, C->ClipY * 0.4f, 840 * U);
+		break;
+	}
 	case EPFScreen::PreMatch:
 		if (MatchActor)
 		{

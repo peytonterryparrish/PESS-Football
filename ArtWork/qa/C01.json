@@ -1,0 +1,17 @@
+{
+ "rejected": {},
+ "notes": {
+  "south/sit_ground": [
+   "blob12",
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "north-east/coach_celebrate": [
+   "blob7"
+  ]
+ },
+ "frames": 83,
+ "palette": 64
+}

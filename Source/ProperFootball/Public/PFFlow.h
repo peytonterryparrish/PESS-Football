@@ -87,6 +87,9 @@ public:
 	TWeakObjectPtr<UWorld> WorldRef;
 	bool bManageView = false;      // career "manage it": fast dots, real sprites for highlights
 	float PreMatchT = 0;
+	int32 MusicVol = 7, SfxVol = 8;     // 0..10, saved in Saved/pf_options.txt
+	void LoadOptions();
+	void SaveOptions();
 	int32 ShotsLeft = 0, ShotIndex = 0;
 	float ShotGap = 3.f, NextShot = 4.f, QuitAt = -1.f;
 

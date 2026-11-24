@@ -36,23 +36,23 @@
   ],
   "east/sprint_contactR": [
    "ball_removed",
-   "colour_drift94"
+   "colour_drift97"
   ],
   "east/sprint_passR": [
    "ball_removed"
   ],
   "east/jog_contactL": [
-   "colour_drift94"
+   "colour_drift97"
   ],
   "east/dribble_touchR": [
-   "colour_drift94"
+   "colour_drift97"
   ],
   "east/dribble_touchL": [
-   "colour_drift94"
+   "colour_drift97"
   ],
   "east/volley_strike": [
    "ball_removed",
-   "colour_drift94"
+   "colour_drift97"
   ],
   "east/fall_ground": [
    "touches_edge"
@@ -105,5 +105,5 @@
   ]
  },
  "frames": 232,
- "palette": 55
+ "palette": 50
 }

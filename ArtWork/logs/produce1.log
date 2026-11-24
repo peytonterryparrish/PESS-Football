@@ -354,3 +354,19 @@ OSError: [Errno 28] No space left on device
 21:55:22 [288/305] R02 north-east 0 ok
 21:55:41 [289/305] C01 south 0 ok
 21:55:48 [290/305] R02 north 0 ok
+21:56:29 [291/305] C01 south-east 0 ok
+21:56:41 [292/305] C01 north-east 0 ok
+21:57:00 [293/305] C01 north 0 ok
+21:57:04 [294/305] C01 east 0 ok
+21:57:51 [295/305] C02 south 0 ok
+21:57:59 [296/305] C02 east 0 ok
+21:58:10 [297/305] C02 north 0 ok
+21:58:15 [298/305] C02 north-east 0 ok
+21:58:29 [299/305] C03 south 0 ok
+21:58:42 [300/305] C03 south-east 0 ok
+21:59:26 [301/305] C02 south-east 0 ok
+21:59:55 [302/305] C03 north-east 0 ok
+21:59:55 [303/305] C03 east 0 ok
+22:00:20 [304/305] K04 south-east 1 ok
+22:00:41 [305/305] C03 north 0 ok
+22:00:42 finished  balance $303.27

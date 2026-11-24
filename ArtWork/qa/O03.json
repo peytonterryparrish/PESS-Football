@@ -40,7 +40,8 @@
    "touches_edge"
   ],
   "south-east/celebrate_arms_up": [
-   "ball_removed"
+   "ball_removed",
+   "colour_drift93"
   ],
   "south-east/celebrate_knee_slide": [
    "ball_removed"
@@ -83,5 +84,5 @@
   ]
  },
  "frames": 232,
- "palette": 59
+ "palette": 51
 }

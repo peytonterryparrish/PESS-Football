@@ -19,6 +19,8 @@ import kit, poses, poses_more, sheet
 
 RAW = os.path.join(ROOT, "ArtWork", "raw")
 CELL = 96; COLS = 20
+# poses PixelLab's skeleton posing cannot draw (body near horizontal): excluded, the game holds stage 1 instead
+BROKEN_POSES = {"gk_dive_low_R2", "gk_dive_low_L2", "gk_dive_high_R2", "gk_dive_high_L2", "gk_lying_ball"}
 DIRS8 = ["south", "south-east", "east", "north-east", "north", "north-west", "west", "south-west"]
 
 def hsv(c): return colorsys.rgb_to_hsv(c[0] / 255, c[1] / 255, c[2] / 255)
@@ -123,6 +125,7 @@ def build(cid, cast):
         for n in poses_all:
             p = os.path.join(d, x, n + ".png")
             if not os.path.exists(p): continue
+            if n in BROKEN_POSES: qa["rejected"][f"{x}/{n}"] = "pose excluded (near-horizontal body breaks the skeleton model)"; continue
             im, notes = clean(Image.open(p), ib, idle_cols)
             bb = im.getbbox()
             n_op = sum(1 for c in im.get_flattened_data() if c[3])
