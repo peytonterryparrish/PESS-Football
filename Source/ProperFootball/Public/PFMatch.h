@@ -26,6 +26,7 @@ struct FPFAbility
 	float SprintMul = 1.2f;
 	float Accel = 12.f;        // m/s^2
 	float TurnRate = 540.f;    // deg/s
+	float TurnKeep = 0.6f;     // fraction of speed kept through a sharp cut
 	float TouchDist = 1.2f;    // how far ahead each dribble touch pushes the ball (heavy touch = big)
 	float FirstTouchErr = 0.3f;// chance-scale of a miscontrol on receiving
 	float PassErrDeg = 6.f;
@@ -106,7 +107,11 @@ struct FPFPlayer
 	int32 KickTarget = -1;
 	float Charge = 0;      // shot charge 0..1
 	bool bCharging = false;
-	float Stride = 0;      // metres travelled (drives the run cycle)
+	float Stride = 0;      // metres travelled (officials/managers)
+	float Gait = 0;        // run-cycle phase in cycles (1 cycle = two steps); advanced by cadence, not raw distance
+	float TouchPhase = 0;  // dribble: phase of the current touch (0 = on the foot)
+	FVector2D DribbleDir = FVector2D(1, 0);
+	FVector2D AIDir = FVector2D::ZeroVector;   // AI carrier's committed running line (changes at human-like speed)
 	float NoTouch = 0;     // seconds before this player may touch the ball again
 	float ReactWait = 0;
 	float Stamina = 1;
@@ -123,6 +128,7 @@ struct FPFBall
 	FVector Pos = FVector::ZeroVector, Vel = FVector::ZeroVector;
 	int32 Owner = -1;
 	int32 LastTouch = -1;
+	int32 LastKind = 0;    // last EPFKick that moved it (16 = poked away)
 	int32 LastTeam = 0;
 	float Roll = 0;   // distance rolled (sprite rotation)
 	float Curl = 0;
@@ -169,7 +175,12 @@ public:
 	FString Banner;            // "GOAL!", "CORNER KICK" ...
 	float BannerT = 0;
 	bool bFinished = false;
+	bool bQuit = false;        // left from the pause menu (career: the rest is simulated)
 	FVector2D CamCenter;       // atlas px
+	static float CamZoom;
+	// test diagnostics: 0 shots, 1 shot dist sum (dm), 2 saves (dive+standing), 3 AI tackles tried, 4 won, 5 slides, 6 lost on cut, 7 passes, 8 intercept/loose pickups, 9 shots inside 12 m
+	static int64 Diag[32];      // stadium pixels -> screen pixels at 1080p (options: near / medium / far)
+	static constexpr float PlayerHeightM = 1.82f;   // the sprite figure (64 px tall) is drawn at this real height
 	float Highlight = 0;
 	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)
 	FLinearColor CardColor = FLinearColor::Yellow;   // the card the referee is holding up (while his ref_card clip plays)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
@@ -194,6 +205,7 @@ private:
 	FVector2D RestartSpot;
 	int32 RestartTaker = -1;
 	int32 KickoffTeam = 0;
+	int32 FirstKickoffTeam = 0;
 	float Accum = 0;
 	float StuckT = 0;
 	int32 LastShotTeam = -1;

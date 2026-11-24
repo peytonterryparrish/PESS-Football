@@ -124,6 +124,7 @@ void UPFFlow::RunMatchTest(int32 N)
 	int32 TotGoals = 0, TotShots = 0, Stuck = 0;
 	TMap<int32, int32> GoalHist;
 	const double T0 = FPlatformTime::Seconds();
+	FMemory::Memzero(FPFMatch::Diag, sizeof(FPFMatch::Diag));
 	for (int32 m = 0; m < N; ++m)
 	{
 		FPFMatch M;
@@ -148,6 +149,15 @@ void UPFFlow::RunMatchTest(int32 N)
 		GoalHist.FindOrAdd(M.Score[0] + M.Score[1])++;
 		UE_LOG(LogPF, Display, TEXT("PFSIM %2d  %s %d-%d %s  shots %d-%d  fouls %d yel %d red %d  restarts %d  maxstill %.1fs  finished %d  (str %d v %d)"), m, *S.Home.Short, M.Score[0], M.Score[1], *S.Away.Short,
 			M.Shots[0], M.Shots[1], M.Fouls[0] + M.Fouls[1], M.Yellows[0] + M.Yellows[1], M.Reds[0] + M.Reds[1], Restarts, MaxStill, M.bFinished ? 1 : 0, C[H].Tier, C[A].Tier);
+	}
+	{
+		const int64* Dg = FPFMatch::Diag; const float Nn = float(FMath::Max(1, N));
+		UE_LOG(LogPF, Display, TEXT("PFSIM diag per match: shots %.1f (avg %.1f m, %.1f inside 12 m), standing saves %.1f, AI tackles %.1f won %.1f, slides %.1f, lost on cut %.1f, passes %.1f"),
+			Dg[0] / Nn, Dg[0] ? Dg[1] / 10.f / Dg[0] : 0.f, Dg[9] / Nn, Dg[2] / Nn, Dg[3] / Nn, Dg[4] / Nn, Dg[5] / Nn, Dg[6] / Nn, Dg[7] / Nn);
+		UE_LOG(LogPF, Display, TEXT("PFSIM keepers per match: dives %.1f, dive saves %.1f, goals with keeper off his line %.1f; raw cut/og %lld passes/gkgoal %lld"), Dg[8] / Nn, Dg[10] / Nn, Dg[11] / Nn, Dg[6], Dg[7]);
+		UE_LOG(LogPF, Display, TEXT("PFSIM goals by last kick: none %lld pass %lld lob %lld through %lld shot %lld clear %lld volley %lld header %lld punt %lld throw %lld poke %lld"), Dg[16], Dg[17], Dg[18], Dg[19], Dg[20], Dg[21], Dg[22], Dg[23], Dg[24], Dg[25], Dg[31]);
+		UE_LOG(LogPF, Display, TEXT("PFSIM goal ball: loose %lld, carried in by attacker %lld, by defender %lld; blocks per match %.1f"), Dg[26], Dg[27], Dg[28], Dg[29] / Nn);
+		UE_LOG(LogPF, Display, TEXT("PFSIM presser: ticks %lld, avg dist to ball %.2f m, in reach %.1f%%, avg speed %.2f"), Dg[12], Dg[12] ? Dg[13] / 100.f / Dg[12] : 0.f, Dg[12] ? 100.f * Dg[14] / Dg[12] : 0.f, Dg[12] ? Dg[15] / 100.f / Dg[12] : 0.f);
 	}
 	UE_LOG(LogPF, Display, TEXT("PFSIM total: %d matches, %.2f goals/match, %.1f shots/match, stuck %d, %.1fs"), N, TotGoals / float(FMath::Max(1, N)), TotShots / float(FMath::Max(1, N)), Stuck, FPlatformTime::Seconds() - T0);
 	QuitAt = Time + 0.5f;
@@ -223,13 +233,22 @@ void UPFFlow::LoadOptions()
 			if (K == TEXT("music")) MusicVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("sfx")) SfxVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("halflen")) FriendlyLen = FMath::Clamp(FCString::Atoi(*V), 0, 3);
+			if (K == TEXT("camera")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 2);
 		}
 	}
+	ApplyCamera();
+}
+
+void UPFFlow::ApplyCamera()
+{
+	static const float Z[] = { 2.85f, 2.5f, 2.2f };   // near / medium / far (screen px per stadium px at 1080p)
+	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 2)];
 }
 
 void UPFFlow::SaveOptions()
 {
-	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\n"), MusicVol, SfxVol, FriendlyLen), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
+	ApplyCamera();
+	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncamera=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
 	if (Music) Music->SetVolumeMultiplier((MusicName == TEXT("crowd_loop") ? 0.55f * SfxVol : 0.45f * MusicVol) / 10.f);
 }
 
@@ -355,7 +374,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		{
 			TArray<FPFMenuItem> Items;
 			Items.Add({ TEXT("RESUME"), nullptr, nullptr, [this]() { bPause = false; } });
-			Items.Add({ TEXT("QUIT MATCH"), nullptr, nullptr, [this, &M]() { bPause = false; M.bFinished = true; } });
+			Items.Add({ TEXT("QUIT MATCH"), nullptr, nullptr, [this, &M]() { bPause = false; M.bQuit = true; M.bFinished = true; } });
 			MenuInput(Items, PauseSel, Pad);
 			if (Pad.pB) bPause = false;
 			break;
@@ -392,6 +411,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		Items.Add({ TEXT("MUSIC"), nullptr, [this](int32 D) { MusicVol = FMath::Clamp(MusicVol + D, 0, 10); SaveOptions(); } });
 		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), nullptr, [this](int32 D) { SfxVol = FMath::Clamp(SfxVol + D, 0, 10); SaveOptions(); PlaySfx(TEXT("ui_select")); } });
 		Items.Add({ TEXT("HALF LENGTH"), nullptr, [this](int32 D) { FriendlyLen = (FriendlyLen + D + 4) % 4; SaveOptions(); } });
+		Items.Add({ TEXT("CAMERA"), nullptr, [this](int32 D) { CameraOpt = (CameraOpt + D + 3) % 3; SaveOptions(); } });
 		Items.Add({ TEXT("BACK"), nullptr, nullptr, [this]() { Go(EPFScreen::Main); } });
 		MenuInput(Items, Sel, Pad);
 		if (Pad.pB) Go(EPFScreen::Main);
@@ -687,6 +707,9 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		Items.Add({ TEXT("MUSIC"), [M]() { return M; }, [](int32) {} });
 		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), [S2]() { return S2; }, [](int32) {} });
 		Items.Add({ TEXT("HALF LENGTH"), [H]() { return H; }, [](int32) {} });
+		static const TCHAR* CamL[] = { TEXT("NEAR"), TEXT("MEDIUM"), TEXT("FAR") };
+		const FString Cm = CamL[FMath::Clamp(CameraOpt, 0, 2)];
+		Items.Add({ TEXT("CAMERA"), [Cm]() { return Cm; }, [](int32) {} });
 		Items.Add({ TEXT("BACK") });
 		DrawMenu(C, TEXT("OPTIONS"), Items, Sel, C->ClipX * 0.5f - 420 * U, C->ClipY * 0.4f, 840 * U);
 		break;
