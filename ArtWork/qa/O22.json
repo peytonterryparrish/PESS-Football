@@ -1,0 +1,127 @@
+{
+ "rejected": {},
+ "notes": {
+  "south/turn_plant": [
+   "blob16"
+  ],
+  "south/fall_ground": [
+   "blob12",
+   "touches_edge"
+  ],
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/shot_strike": [
+   "ball_removed"
+  ],
+  "south-east/shot_follow": [
+   "ball_removed"
+  ],
+  "south-east/pass_back": [
+   "ball_removed",
+   "ball_removed"
+  ],
+  "south-east/sprint_passR": [
+   "ball_removed"
+  ],
+  "south-east/jog_contactL": [
+   "ball_removed"
+  ],
+  "south-east/chest_control": [
+   "blob10"
+  ],
+  "south-east/volley_strike": [
+   "ball_removed"
+  ],
+  "south-east/fall_ground": [
+   "ball_removed",
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/celebrate_arms_up": [
+   "ball_removed"
+  ],
+  "south-east/celebrate_airplane": [
+   "ball_removed"
+  ],
+  "south-east/hands_on_head": [
+   "ball_removed"
+  ],
+  "east/slide": [
+   "ball_removed"
+  ],
+  "east/volley_strike": [
+   "ball_removed"
+  ],
+  "east/fall_ground": [
+   "blob6"
+  ],
+  "east/celebrate_arms_up": [
+   "ball_removed"
+  ],
+  "east/block": [
+   "touches_edge"
+  ],
+  "north-east/pass_back": [
+   "ball_removed"
+  ],
+  "north-east/pass_strike": [
+   "ball_removed"
+  ],
+  "north-east/idle_breathe": [
+   "blob16"
+  ],
+  "north-east/fall_ground": [
+   "blob7"
+  ],
+  "north-east/celebrate_knee_slide": [
+   "blob7"
+  ],
+  "north-east/header_stand": [
+   "blob19",
+   "blob12"
+  ],
+  "north/pass_back": [
+   "ball_removed"
+  ],
+  "north/celebrate_airplane": [
+   "blob22"
+  ],
+  "north/hands_on_head": [
+   "ball_removed"
+  ],
+  "north-west/fall_ground": [
+   "touches_edge"
+  ],
+  "west/fall_ground": [
+   "blob22",
+   "touches_edge"
+  ],
+  "west/sit_ground": [
+   "touches_edge"
+  ],
+  "west/header_dive": [
+   "touches_edge"
+  ],
+  "west/hands_on_head": [
+   "ball_removed"
+  ],
+  "south-west/fall_ground": [
+   "blob26",
+   "blob21",
+   "blob10",
+   "blob10",
+   "blob6"
+  ],
+  "south-west/sit_ground": [
+   "touches_edge"
+  ]
+ },
+ "frames": 368,
+ "palette": 59
+}

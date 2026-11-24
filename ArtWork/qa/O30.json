@@ -1,0 +1,80 @@
+{
+ "rejected": {
+  "south-west/fall_ground": "double_figure"
+ },
+ "notes": {
+  "south/volley_strike": [
+   "touches_edge"
+  ],
+  "south/fall_ground": [
+   "blob11",
+   "touches_edge"
+  ],
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south/celebrate_fist": [
+   "blob7"
+  ],
+  "south-east/fall_ground": [
+   "blob6",
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "east/shot_follow": [
+   "blob9"
+  ],
+  "east/pass_back": [
+   "blob12",
+   "blob6"
+  ],
+  "east/pass_strike": [
+   "blob9"
+  ],
+  "east/chest_control": [
+   "blob24"
+  ],
+  "east/fall_ground": [
+   "blob22",
+   "touches_edge"
+  ],
+  "east/celebrate_fist": [
+   "blob6"
+  ],
+  "east/header_stand": [
+   "blob19"
+  ],
+  "east/block": [
+   "touches_edge"
+  ],
+  "north-east/fall_ground": [
+   "touches_edge"
+  ],
+  "north-west/fall_ground": [
+   "touches_edge"
+  ],
+  "north-west/block": [
+   "blob16",
+   "blob7"
+  ],
+  "west/fall_ground": [
+   "touches_edge"
+  ],
+  "west/sit_ground": [
+   "touches_edge"
+  ],
+  "west/header_dive": [
+   "touches_edge"
+  ],
+  "south-west/sit_ground": [
+   "touches_edge"
+  ]
+ },
+ "frames": 367,
+ "palette": 55
+}

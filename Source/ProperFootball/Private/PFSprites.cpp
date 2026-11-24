@@ -83,13 +83,13 @@ namespace PFClips
 			M.Add(FName(Name), C);
 		};
 		// timings in seconds at animation rate 1.0; the ball leaves on EventIndex
-		Add(TEXT("shot"),     { TEXT("shot_plant"), TEXT("shot_back"), TEXT("shot_strike"), TEXT("shot_follow"), TEXT("idle") }, { 0.07f, 0.09f, 0.08f, 0.16f, 0.06f }, 2);
-		Add(TEXT("pass"),     { TEXT("pass_back"), TEXT("pass_strike"), TEXT("idle") }, { 0.08f, 0.10f, 0.06f }, 1);
-		Add(TEXT("lob"),      { TEXT("shot_back"), TEXT("shot_strike"), TEXT("shot_follow") }, { 0.09f, 0.08f, 0.14f }, 1);
+		Add(TEXT("shot"),     { TEXT("shot_plant"), TEXT("shot_back"), TEXT("shot_strike"), TEXT("shot_follow"), TEXT("idle") }, { 0.05f, 0.06f, 0.07f, 0.14f, 0.05f }, 2);
+		Add(TEXT("pass"),     { TEXT("pass_back"), TEXT("pass_strike"), TEXT("idle") }, { 0.05f, 0.09f, 0.05f }, 1);
+		Add(TEXT("lob"),      { TEXT("shot_back"), TEXT("shot_strike"), TEXT("shot_follow") }, { 0.06f, 0.08f, 0.12f }, 1);
 		Add(TEXT("volley"),   { TEXT("volley_strike"), TEXT("shot_follow") }, { 0.10f, 0.14f }, 0);
 		Add(TEXT("header"),   { TEXT("header_stand"), TEXT("header"), TEXT("header_stand") }, { 0.10f, 0.18f, 0.10f }, 1);
 		Add(TEXT("slide"),    { TEXT("tackle_stand"), TEXT("slide"), TEXT("slide"), TEXT("getup_kneel"), TEXT("idle") }, { 0.06f, 0.30f, 0.25f, 0.22f, 0.05f }, 1);
-		Add(TEXT("tackle"),   { TEXT("tackle_stand"), TEXT("block"), TEXT("idle") }, { 0.10f, 0.16f, 0.06f }, 0);
+		Add(TEXT("tackle"),   { TEXT("tackle_stand"), TEXT("block"), TEXT("idle") }, { 0.08f, 0.14f, 0.05f }, 0);
 		Add(TEXT("fall"),     { TEXT("stumble"), TEXT("fall_ground"), TEXT("fall_ground"), TEXT("getup_kneel"), TEXT("idle") }, { 0.12f, 0.35f, 0.35f, 0.25f, 0.05f });
 		Add(TEXT("celebrate"),{ TEXT("celebrate_arms_up"), TEXT("celebrate_fist"), TEXT("celebrate_arms_up"), TEXT("celebrate_airplane") }, { 0.4f, 0.4f, 0.4f, 0.8f });
 		Add(TEXT("knee_slide"),{ TEXT("celebrate_knee_slide"), TEXT("celebrate_arms_up") }, { 1.0f, 1.0f });

@@ -2,6 +2,7 @@
 #include "PFFlow.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "EnhancedPlayerInput.h"
 #include "InputAction.h"
 #include "InputMappingContext.h"
 #include "InputModifiers.h"
@@ -47,6 +48,8 @@ void APFMatchActor::Tick(float Dt)
 APFPlayerController::APFPlayerController()
 {
 	bShowMouseCursor = false;
+	// Enhanced Input must be the player-input class; don't rely on DefaultInput.ini alone (v0.1.0 shipped without it and ignored every key).
+	OverridePlayerInputClass = UEnhancedPlayerInput::StaticClass();
 }
 
 static UInputAction* MakeAction(UObject* Outer, const TCHAR* Name, EInputActionValueType Type)
@@ -91,6 +94,7 @@ void APFPlayerController::SetupInputComponent()
 		{ EKeys::Gamepad_RightTrigger, EKeys::LeftShift, EKeys::RightShift },          // Sprint
 	};
 	Buttons.Reset();
+	ButtonKeys = Keys;
 	for (int32 i = 0; i < Keys.Num(); ++i)
 	{
 		UInputAction* A = MakeAction(this, *FString::Printf(TEXT("IA_Btn%d"), i), EInputActionValueType::Boolean);
@@ -116,6 +120,8 @@ void APFPlayerController::PlayerTick(float Dt)
 	UEnhancedInputLocalPlayerSubsystem* Sub = GetLocalPlayer() ? GetLocalPlayer()->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>() : nullptr;
 	auto Held = [&](int32 i) -> bool
 	{
+		if (ButtonKeys.IsValidIndex(i))
+			for (const FKey& K : ButtonKeys[i]) if (IsInputKeyDown(K)) return true;
 		if (!Sub || !Buttons.IsValidIndex(i)) return false;
 		const FInputActionValue V = Sub->GetPlayerInput() ? Sub->GetPlayerInput()->GetActionValue(Buttons[i]) : FInputActionValue();
 		return V.Get<bool>();
@@ -125,6 +131,12 @@ void APFPlayerController::PlayerTick(float Dt)
 	// Gamepad_Left2D reports up as +Y; the game uses screen space (y down). Keyboard mappings were built y-down already,
 	// so flip only when the stick is the source: sticks never produce exact axis-aligned unit values like keys do.
 	FVector2D M = MoveRaw;
+	{	// direct key read as well (keyboard and d-pad), in screen space (y down)
+		auto D = [&](FKey A, FKey B, FKey C) { return IsInputKeyDown(A) || IsInputKeyDown(B) || IsInputKeyDown(C) ? 1.f : 0.f; };
+		const FVector2D K(D(EKeys::D, EKeys::Right, EKeys::Gamepad_DPad_Right) - D(EKeys::A, EKeys::Left, EKeys::Gamepad_DPad_Left),
+		                  D(EKeys::S, EKeys::Down, EKeys::Gamepad_DPad_Down) - D(EKeys::W, EKeys::Up, EKeys::Gamepad_DPad_Up));
+		if (!K.IsZero()) M = K;
+	}
 	const float StickY = GetInputAnalogKeyState(EKeys::Gamepad_LeftY);
 	const float StickX = GetInputAnalogKeyState(EKeys::Gamepad_LeftX);
 	if (FVector2D(StickX, StickY).SizeSquared() > 0.03f) M = FVector2D(StickX, -StickY);
@@ -140,6 +152,9 @@ void APFPlayerController::PlayerTick(float Dt)
 	else if (!Nav.IsZero()) { NavRepeat -= Dt; if (NavRepeat <= 0) { NavRepeat = 0.11f; N.pLeft = Nav.X < 0; N.pRight = Nav.X > 0; N.pUp = Nav.Y < 0; N.pDown = Nav.Y > 0; } }
 	PrevNav = Nav;
 	Pad = N;
+	if (N.pA || N.pB || N.pStart || N.pUp || N.pDown || N.pLeft || N.pRight)
+		UE_LOG(LogPF, Log, TEXT("PF input A%d B%d Start%d U%d D%d L%d R%d (player input %s)"), N.pA, N.pB, N.pStart, N.pUp, N.pDown, N.pLeft, N.pRight,
+			PlayerInput ? *PlayerInput->GetClass()->GetName() : TEXT("none"));
 	if (UPFFlow* Flow = UPFFlow::Get(this)) Flow->Tick(Dt, Pad);
 }
 

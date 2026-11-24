@@ -31,7 +31,9 @@ Controls (pad first, keyboard fallback):
 | Through ball | Y | I |
 | Switch player | LB | Q |
 | Sprint | RT | Shift |
-| Pause | Start | Esc |
+| Pause | Start | Esc / P |
+
+Options has music, effects, half length and camera distance (near / medium / far).
 
 ## Where things are
 

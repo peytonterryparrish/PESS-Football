@@ -82,9 +82,13 @@ bool FPFCareerSim::Load(const FString& Slot)
 	FMemoryReader R(Bytes);
 	uint32 Magic = 0; R << Magic;
 	if (Magic != 0x50465356) return false;
-	R << S;
-	uint64 RS = 0; R << RS; Rng.S = RS ? RS : 1;
-	return !R.IsError();
+	FPFCareerState T;
+	const int32 Want = T.Version;
+	R << T;
+	uint64 RS = 0; R << RS;
+	if (R.IsError() || T.Version != Want) { UE_LOG(LogPF, Warning, TEXT("PF save %s: version %d, expected %d"), *Slot, T.Version, Want); return false; }
+	S = MoveTemp(T); Rng.S = RS ? RS : 1;
+	return true;
 }
 
 bool FPFCareerSim::SaveExists(const FString& Slot) { return IFileManager::Get().FileExists(*SavePath(Slot)); }
@@ -426,7 +430,7 @@ void FPFCareerSim::ApplyResult(FPFFixture& F, int32 HG, int32 AG, int32 PenWinne
 		// knocks
 		if (Rng.Unit() < 0.25f && XI.Num()) if (FPFPerson* P = Person(XI[Rng.Int(XI.Num())])) P->InjuryWeeks = 1 + Rng.Int(4);
 	}
-	if (F.Home == S.UserClub || F.Away == S.UserClub)
+	if (!S.bUnemployed && (F.Home == S.UserClub || F.Away == S.UserClub))
 	{
 		const bool bHome = F.Home == S.UserClub;
 		BoardAfterMatch(bHome ? HG : AG, bHome ? AG : HG, bHome);
@@ -669,8 +673,9 @@ void FPFCareerSim::EndSeason()
 			if (Retire.Contains(P->Id)) { C.Squad.RemoveAt(k); continue; }
 			if (P->ContractYears <= 0)
 			{
-				if (i != S.UserClub && Rng.Unit() < 0.75f) P->ContractYears = 1 + Rng.Int(3);
-				else if (i == S.UserClub) { AddNews(FString::Printf(TEXT("%s leaves %s as his contract runs out."), *P->Name, *C.Name)); P->Club = -1; P->bDropped = false; C.Squad.RemoveAt(k); }
+				const bool bMine = i == S.UserClub && !S.bUnemployed;
+				if (!bMine && Rng.Unit() < 0.75f) P->ContractYears = 1 + Rng.Int(3);
+				else if (bMine) { AddNews(FString::Printf(TEXT("%s leaves %s as his contract runs out."), *P->Name, *C.Name)); P->Club = -1; P->bDropped = false; C.Squad.RemoveAt(k); }
 				else { P->Club = -1; C.Squad.RemoveAt(k); }
 			}
 		}
@@ -816,8 +821,10 @@ FString FPFCareerSim::MakeBid(int32 Id, int64 Fee, int32 Wage)
 	if (!P || S.bUnemployed) return TEXT("No.");
 	if (!S.bWindowOpen && P->Club >= 0) return TEXT("The transfer window is closed.");
 	if (P->Club == S.UserClub) return TEXT("He already plays for you.");
-	if (Fee > UserClub().TransferBudget) return TEXT("Not enough in the transfer budget.");
-	if (SquadWages(S.UserClub) + Wage > UserClub().WageBudget * 1.15f) return TEXT("The board won't sanction those wages.");
+	int64 PendingFee = 0; int32 PendingWage = 0;
+	for (const FPFBid& Pb : S.Bids) if (Pb.bByUser && Pb.Status == 0) { PendingFee += Pb.Fee; PendingWage += Pb.Wage; }
+	if (Fee + PendingFee > UserClub().TransferBudget) return PendingFee > 0 ? TEXT("Not enough left once your other bids are counted.") : TEXT("Not enough in the transfer budget.");
+	if (SquadWages(S.UserClub) + PendingWage + Wage > UserClub().WageBudget * 1.15f) return TEXT("The board won't sanction those wages.");
 	for (const FPFBid& B : S.Bids) if (B.bByUser && B.Person == Id && B.Status == 0) return TEXT("You already have a bid in.");
 	FPFBid B; B.Person = Id; B.FromClub = S.UserClub; B.Fee = Fee; B.Wage = Wage; B.bByUser = true;
 	S.Bids.Add(B);
@@ -871,6 +878,7 @@ void FPFCareerSim::ProcessBids()
 		{
 			const FPFBid& B = S.Bids[i];
 			const FPFCareerClub& C = S.Clubs[B.FromClub];
+			if (C.TransferBudget < B.Fee) { S.Bids[i].Status = 4; S.Bids[i].Note = TEXT("The money isn't there any more."); continue; }
 			const float Demand = WageDemand(*P, B.FromClub);
 			if (B.Wage < Demand * 0.9f) { S.Bids[i].Status = 4; S.Bids[i].Note = FString::Printf(TEXT("He wants %d a week."), int32(Demand)); continue; }
 			const float Score = B.Wage * (1.f + (4 - C.Division) * 0.25f + C.Prestige * 0.05f) + Rng.Range(0.f, B.Wage * 0.15f);
@@ -918,7 +926,7 @@ void FPFCareerSim::SellToBest(int32 Id)
 	if (Best < 0) return;
 	FPFBid& B = S.Bids[Best];
 	UserClub().Squad.Remove(Id); UserClub().Balance += B.Fee; UserClub().TransferBudget += B.Fee;
-	S.Clubs[B.FromClub].Squad.Add(Id); S.Clubs[B.FromClub].TransferBudget -= B.Fee;
+	S.Clubs[B.FromClub].Squad.Add(Id); S.Clubs[B.FromClub].TransferBudget -= B.Fee; S.Clubs[B.FromClub].Balance -= B.Fee;
 	P->Club = B.FromClub; P->Wage = B.Wage; P->bListed = false; P->ContractYears = 3;
 	B.Status = 3; B.Note = TEXT("Sold.");
 	AddNews(FString::Printf(TEXT("%s sold to %s for %lld."), *P->Name, *S.Clubs[B.FromClub].Name, B.Fee));
@@ -1001,10 +1009,11 @@ TArray<int32> FPFCareerSim::YouthMatchSquad(EPFRegion Region, int32 Count, uint6
 	return Out;
 }
 
-FPFMatchSetup FPFCareerSim::YouthMatchSetup(EPFRegion Region, uint64 Seed) const
+FPFMatchSetup FPFCareerSim::YouthMatchSetup(EPFRegion Region, uint64 Seed, TArray<int32>* OutKids) const
 {
 	FPFCareerSim* Self = const_cast<FPFCareerSim*>(this);
 	TArray<int32> Kids = Self->YouthMatchSquad(Region, 22, Seed);
+	if (OutKids) *OutKids = Kids;
 	FPFMatchSetup M;
 	M.Seed = Seed;
 	M.bWatchOnly = true;

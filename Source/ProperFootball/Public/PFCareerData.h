@@ -178,7 +178,7 @@ public:
 	void PromoteYouth(int32 Person);
 	void ReleasePlayer(int32 Person);
 	FString OfferContract(int32 Person);
-	FPFMatchSetup YouthMatchSetup(EPFRegion Region, uint64 Seed) const;
+	FPFMatchSetup YouthMatchSetup(EPFRegion Region, uint64 Seed, TArray<int32>* OutKids = nullptr) const;
 
 	void AddNews(const FString& T);
 	FString DivisionName(int32 D) const;

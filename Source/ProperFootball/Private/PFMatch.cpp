@@ -24,6 +24,9 @@ int32 FPFStats::Overall(bool bKeeper) const
 	return FMath::RoundToInt((Pace + Accel + Agility + Control + Passing + Shooting + Tackling + Positioning + Reactions + Heading) / 10.f);
 }
 
+float FPFMatch::CamZoom = 2.5f;
+int64 FPFMatch::Diag[32] = {};
+
 FPFAbility PFAbility(const FPFStats& S, bool bKeeper)
 {
 	// Wide, non-linear spreads on purpose (docs/DESIGN.md, "Talent you can see").
@@ -32,8 +35,9 @@ FPFAbility PFAbility(const FPFStats& S, bool bKeeper)
 		Sho = T01(S.Shooting), Tac = T01(S.Tackling), Rea = T01(S.Reactions), Hea = T01(S.Heading), Kee = T01(S.Keeping);
 	A.MaxSpeed = 3.4f + 5.9f * FMath::Pow(Pace, 1.35f);          // 3.4 m/s (plodder) .. 9.3 m/s (flyer)
 	A.SprintMul = 1.12f + 0.16f * Pace;
-	A.Accel = 3.5f + 24.f * FMath::Pow(Acc, 1.5f);               // sluggish .. explosive
-	A.TurnRate = 160.f + 820.f * FMath::Pow(Agi, 1.3f);          // deg/s
+	A.Accel = 11.f + 30.f * FMath::Pow(Acc, 1.5f);               // 0 -> 7 m/s in ~0.6 s (sluggish) .. ~0.17 s (explosive)
+	A.TurnRate = 1100.f + 1700.f * FMath::Pow(Agi, 1.3f);        // deg/s: a full about-turn in 0.16 s .. 0.06 s (arcade)
+	A.TurnKeep = 0.35f + 0.5f * FMath::Pow(Agi, 1.1f);           // speed kept through a sharp cut
 	A.TouchDist = 2.9f - 2.35f * FMath::Pow(Ctl, 0.8f);          // 2.9 m heavy touch .. 0.55 m glued
 	A.FirstTouchErr = 0.95f * FMath::Pow(1.f - Ctl, 1.4f);
 	A.PassErrDeg = 15.f - 14.f * FMath::Pow(Pas, 0.9f);
@@ -41,12 +45,12 @@ FPFAbility PFAbility(const FPFStats& S, bool bKeeper)
 	A.ShotErrDeg = 19.f - 15.f * FMath::Pow(Sho, 0.9f);
 	A.ShotPower = 17.f + 16.f * Sho;
 	A.ReactSec = 0.65f - 0.55f * Rea;
-	A.AnimRate = 0.72f + 0.6f * (Pace * 0.5f + Agi * 0.5f);
+	A.AnimRate = 0.95f + 0.4f * (Pace * 0.5f + Agi * 0.5f);
 	A.TackleReach = 0.9f + 0.9f * Tac;
 	A.TackleWin = 0.15f + 0.75f * Tac;
 	A.HeadReach = 1.6f + 1.2f * Hea;
-	A.KeeperReach = bKeeper ? 1.8f + 2.4f * FMath::Pow(Kee, 1.1f) : 0.8f;
-	A.KeeperReact = bKeeper ? 0.32f - 0.27f * Kee : 0.6f;
+	A.KeeperReach = bKeeper ? 2.2f + 2.4f * FMath::Pow(Kee, 1.1f) : 0.8f;
+	A.KeeperReact = bKeeper ? 0.24f - 0.21f * Kee : 0.6f;
 	return A;
 }
 
@@ -179,6 +183,7 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 	Score[0] = Score[1] = 0;
 	Half = 1; HalfT = 0; MatchClock = 0;
 	KickoffTeam = Rng.Int(2);
+	FirstKickoffTeam = KickoffTeam;
 	PlaceForKickoff(KickoffTeam);
 	CamCenter = Proj.GroundToAtlas(FVector2D::ZeroVector);
 }
@@ -233,6 +238,7 @@ void FPFMatch::PlaceForKickoff(int32 KickTeam)
 	Ball.Pos = FVector(0, 0, 0.11f);
 	for (FPFPlayer& Pl : P)
 	{
+		if (Pl.bSentOff) { Pl.Pos = FVector2D(Pl.Pos.X, -HalfWid - 6.f); Pl.Vel = FVector2D::ZeroVector; Pl.Act = EPFAct::None; continue; }
 		const int32 D = AttackDir(Pl.Team);
 		FVector2D S = FormationSpot(Pl);
 		S.X = FMath::Clamp(S.X * D, -50.f, -1.5f) * D;   // own half
@@ -243,7 +249,7 @@ void FPFMatch::PlaceForKickoff(int32 KickTeam)
 	// two strikers on the spot for the kicking team
 	int32 Taker = -1, Mate = -1;
 	for (FPFPlayer& Pl : P)
-		if (Pl.Team == KickTeam && !Pl.bKeeper)
+		if (Pl.Team == KickTeam && !Pl.bKeeper && !Pl.bSentOff)
 		{
 			if (Taker < 0 || Pl.Setup.Slot.X > P[Taker].Setup.Slot.X) { Mate = Taker; Taker = Pl.Index; }
 			else if (Mate < 0 || Pl.Setup.Slot.X > P[Mate].Setup.Slot.X) Mate = Pl.Index;
@@ -268,13 +274,13 @@ void FPFMatch::PlaceForRestart()
 	int32 Taker = -1;
 	if (Restart == EPFRestart::GoalKick)
 	{
-		for (FPFPlayer& Pl : P) if (Pl.Team == RestartTeam && Pl.bKeeper) Taker = Pl.Index;
+		for (FPFPlayer& Pl : P) if (Pl.Team == RestartTeam && Pl.bKeeper && !Pl.bSentOff) Taker = Pl.Index;
 	}
 	if (Taker < 0)
 	{
 		float Best = 1e9;
 		for (FPFPlayer& Pl : P)
-			if (Pl.Team == RestartTeam && !Pl.bKeeper)
+			if (Pl.Team == RestartTeam && !Pl.bKeeper && !Pl.bSentOff)
 			{
 				const float Dd = FVector2D::DistSquared(Pl.Pos, RestartSpot);
 				if (Dd < Best) { Best = Dd; Taker = Pl.Index; }
@@ -283,7 +289,7 @@ void FPFMatch::PlaceForRestart()
 	for (FPFPlayer& Pl : P)
 	{
 		Pl.Act = EPFAct::None; Pl.PendingKick = EPFKick::None; Pl.bCharging = false;
-		if (Restart == EPFRestart::Corner && !Pl.bKeeper)
+		if (Restart == EPFRestart::Corner && !Pl.bKeeper && !Pl.bSentOff)
 		{
 			// crowd the box
 			const FVector2D GoalC = FVector2D(FMath::Sign(RestartSpot.X) * HalfLen, 0);
@@ -316,7 +322,7 @@ int32 FPFMatch::NearestToBall(int32 Team, bool bOutfieldOnly) const
 	int32 Best = -1; float BD = 1e9;
 	for (const FPFPlayer& Pl : P)
 	{
-		if (Pl.Team != Team || (bOutfieldOnly && Pl.bKeeper)) continue;
+		if (Pl.Team != Team || Pl.bSentOff || (bOutfieldOnly && Pl.bKeeper)) continue;
 		const float D = FVector2D::DistSquared(Pl.Pos, V2(Ball.Pos));
 		if (D < BD) { BD = D; Best = Pl.Index; }
 	}
@@ -379,7 +385,7 @@ void FPFMatch::Step(float Dt, const FPFPadInput& Pad)
 		if (PhaseT > 3.2f) PlaceForKickoff(KickoffTeam);
 		return;
 	case EPFPhase::HalfTime:
-		if (PhaseT > 3.f) { Half = 2; HalfT = 0; PlaceForKickoff(1 - KickoffTeam); }
+		if (PhaseT > 3.f) { Half = 2; HalfT = 0; PlaceForKickoff(1 - FirstKickoffTeam); }
 		return;
 	case EPFPhase::FullTime:
 		bFinished = PhaseT > 3.f;
@@ -387,7 +393,7 @@ void FPFMatch::Step(float Dt, const FPFPadInput& Pad)
 	case EPFPhase::Restart:
 	{
 		// players drift to shape while the taker waits
-		for (FPFPlayer& Pl : P) if (Pl.Index != RestartTaker && Pl.Index != Human) { const FVector2D S = FormationSpot(Pl); Pl.Wish = SafeN(S - Pl.Pos, FVector2D::ZeroVector) * FMath::Clamp(FVector2D::Distance(S, Pl.Pos) / 3.f, 0.f, 0.6f); }
+		for (FPFPlayer& Pl : P) if (Pl.Index != RestartTaker && Pl.Index != Human && !Pl.bSentOff) { const FVector2D S = FormationSpot(Pl); Pl.Wish = SafeN(S - Pl.Pos, FVector2D::ZeroVector) * FMath::Clamp(FVector2D::Distance(S, Pl.Pos) / 3.f, 0.f, 0.6f); }
 		MovePlayers(Dt);
 		if (RestartTaker >= 0)
 		{
@@ -441,6 +447,7 @@ void FPFMatch::Step(float Dt, const FPFPadInput& Pad)
 				}
 			}
 		}
+		else { Phase = EPFPhase::Play; PhaseT = 0; }
 		return;
 	}
 	default: break;
@@ -523,7 +530,13 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 {
 	FPFPlayer& H = P[Human];
 	const FVector2D Stick = Pad.Move.SizeSquared() > 0.03f ? Pad.Move : FVector2D::ZeroVector;
-	FVector2D WDir = Stick.IsZero() ? FVector2D::ZeroVector : SafeN(Proj.ScreenDirToWorld(Stick));
+	FVector2D Snapped = Stick;
+	if (!Stick.IsZero())
+	{
+		const float Ang = FMath::RoundToFloat(FMath::Atan2(Stick.Y, Stick.X) / (PI / 4.f)) * (PI / 4.f);
+		Snapped = FVector2D(FMath::Cos(Ang), FMath::Sin(Ang));
+	}
+	FVector2D WDir = Stick.IsZero() ? FVector2D::ZeroVector : SafeN(Proj.ScreenDirToWorld(Snapped));
 	const float Mag = FMath::Clamp(Stick.Size(), 0.f, 1.f);
 	if (H.Act == EPFAct::None || H.Act == EPFAct::Clip) { H.Wish = WDir * Mag; H.bSprint = Pad.bSprint; }
 	const FVector2D AimDir = WDir.IsZero() ? H.Facing : WDir;
@@ -561,7 +574,7 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 		// next-best teammate to the ball (ISS style)
 		int32 Best = -1; float BD = 1e9;
 		for (const FPFPlayer& Pl : P)
-			if (Pl.Team == H.Team && !Pl.bKeeper && Pl.Index != Human)
+			if (Pl.Team == H.Team && !Pl.bKeeper && !Pl.bSentOff && Pl.Index != Human)
 			{
 				const float D = FVector2D::DistSquared(Pl.Pos, V2(Ball.Pos));
 				if (D < BD) { BD = D; Best = Pl.Index; }
@@ -586,7 +599,7 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 				const float Win = H.A.TackleWin - O.A.TouchDist * 0.08f + (1.f - O.A.FirstTouchErr) * -0.15f;
 				if (Rng.Unit() < FMath::Clamp(Win, 0.1f, 0.9f))
 				{
-					Ball.Owner = -1; Ball.Vel = FVector(SafeN(V2(Ball.Pos) - H.Pos + H.Facing) * 4.f, 0.f); O.NoTouch = 0.5f; Ball.LastTouch = Human; Ball.LastTeam = H.Team;
+					Ball.Owner = Human; Ball.Vel = FVector::ZeroVector; O.NoTouch = 0.5f; Ball.LastTouch = Human; Ball.LastTeam = H.Team;
 				}
 			}
 		}
@@ -599,7 +612,7 @@ int32 FPFMatch::BestPassTarget(const FPFPlayer& From, FVector2D Dir, bool bThrou
 	int32 Best = -1; float BestScore = -1e9;
 	for (const FPFPlayer& Pl : P)
 	{
-		if (Pl.Team != From.Team || Pl.Index == From.Index) continue;
+		if (Pl.Team != From.Team || Pl.Index == From.Index || Pl.bSentOff) continue;
 		const FVector2D To = Pl.Pos - From.Pos;
 		const float D = To.Size();
 		if (D < 4.f || D > 55.f) continue;
@@ -632,7 +645,7 @@ void FPFMatch::TeamAI(int32 Team, float Dt)
 	const FVector2D BallG = V2(Ball.Pos) + V2(Ball.Vel) * 0.35f;
 	for (const FPFPlayer& Pl : P)
 	{
-		if (Pl.Team != Team || Pl.bKeeper) continue;
+		if (Pl.Team != Team || Pl.bKeeper || Pl.bSentOff) continue;
 		const float D = FVector2D::DistSquared(Pl.Pos, BallG) / FMath::Square(FMath::Max(Pl.A.MaxSpeed, 1.f));
 		if (D < B1) { B2 = B1; Cover = Press; B1 = D; Press = Pl.Index; }
 		else if (D < B2) { B2 = D; Cover = Pl.Index; }
@@ -645,7 +658,7 @@ void FPFMatch::TeamAI(int32 Team, float Dt)
 		if (Pl.Act == EPFAct::Slide || Pl.Act == EPFAct::Fall || Pl.Act == EPFAct::Celebrate) continue;
 		if (Ball.Owner == Pl.Index) { CarrierAI(Pl, Dt); continue; }
 		FVector2D Target = FormationSpot(Pl);
-		float Urgency = 0.55f;
+		float Urgency = 0.7f;
 		// a pass is coming to me: go and meet it
 		if (Ball.Owner < 0 && Ball.LastTeam == Team && P.IsValidIndex(Ball.LastTouch) && P[Ball.LastTouch].KickTarget == Pl.Index && Ball.Vel.SizeSquared() > 1.f)
 		{
@@ -656,22 +669,26 @@ void FPFMatch::TeamAI(int32 Team, float Dt)
 			Target = BallG; Urgency = 1.f; Pl.bSprint = FVector2D::Distance(Pl.Pos, BallG) > 6.f;
 			// tackle attempts (reaction-gated so poor players are late)
 			Pl.AIThink -= Dt;
-			if (Ball.Owner >= 0 && Pl.AIThink <= 0 && Pl.Act == EPFAct::None)
+			const float DB = FVector2D::Distance(Pl.Pos, V2(Ball.Pos));
+			// in reach: go in once his reactions allow (time spent in reach), then a reaction-long recovery after each try
+			if (Ball.Owner >= 0 && DB < Pl.A.TackleReach) Pl.ReactWait += Dt; else Pl.ReactWait = 0;
+			if (Ball.Owner >= 0) { Diag[12]++; Diag[13] += int64(DB * 100); if (DB < Pl.A.TackleReach) Diag[14]++; Diag[15] += int64(Pl.Vel.Size() * 100); }
+			if (Ball.Owner >= 0 && Pl.AIThink <= 0 && Pl.Act == EPFAct::None && (DB >= Pl.A.TackleReach ? DB < 3.2f : Pl.ReactWait > Pl.A.ReactSec))
 			{
-				Pl.AIThink = Pl.A.ReactSec + Rng.Range(0.1f, 0.5f);
-				const float D = FVector2D::Distance(Pl.Pos, V2(Ball.Pos));
+				Pl.AIThink = Pl.A.ReactSec * 1.5f + Rng.Range(0.4f, 1.0f);
+				const float D = DB;
 				if (D < Pl.A.TackleReach)
 				{
 					FPFPlayer& O = P[Ball.Owner];
-					StartClip(Pl, TEXT("tackle"));
+					StartClip(Pl, TEXT("tackle")); Diag[3]++;
 					if (Rng.Unit() < FMath::Clamp(Pl.A.TackleWin * 0.7f + O.A.TouchDist * 0.08f, 0.08f, 0.85f))
 					{
-						Ball.Owner = -1; Ball.Vel = FVector(SafeN(V2(Ball.Pos) - Pl.Pos) * 3.5f, 0.f); O.NoTouch = 0.45f; Ball.LastTouch = Pl.Index; Ball.LastTeam = Team;
+						Ball.Owner = Pl.Index; Ball.Vel = FVector::ZeroVector; O.NoTouch = 0.45f; Ball.LastTouch = Pl.Index; Ball.LastTeam = Team; Diag[4]++;
 					}
 				}
 				else if (D < 3.2f && Rng.Unit() < 0.18f)
 				{
-					Pl.Act = EPFAct::Slide; Pl.Clip = TEXT("slide"); Pl.ActT = 0; Pl.ActLen = PFClips::Get(Pl.Clip).Length() / Pl.A.AnimRate;
+					Pl.Act = EPFAct::Slide; Pl.Clip = TEXT("slide"); Pl.ActT = 0; Pl.ActLen = PFClips::Get(Pl.Clip).Length() / Pl.A.AnimRate; Diag[5]++;
 					Pl.Facing = SafeN(V2(Ball.Pos) - Pl.Pos); Pl.Vel = Pl.Facing * FMath::Max(7.f, Pl.Vel.Size() + 2.f);
 					Sfx.Add(TEXT("slide"));
 				}
@@ -683,6 +700,19 @@ void FPFMatch::TeamAI(int32 Team, float Dt)
 			const FVector2D OwnGoal = GoalCentre(Team, false);
 			Target = BallG + SafeN(OwnGoal - BallG) * 7.f; Urgency = 0.85f;
 		}
+		else if (!bInPoss && Pl.Setup.Role != EPFRole::FWD && V2(Ball.Pos).X * AttackDir(Team) < 8.f)
+		{
+			// marking: pick up the nearest attacker in my zone and stay goal-side of him
+			const FVector2D OwnGoal = GoalCentre(Team, false);
+			int32 Mk = -1; float MB = 14.f * 14.f;
+			for (const FPFPlayer& O : P)
+				if (O.Team != Team && !O.bSentOff && !O.bKeeper && O.Index != Ball.Owner)
+				{
+					const float Dd = FVector2D::DistSquared(O.Pos, Target);
+					if (Dd < MB) { MB = Dd; Mk = O.Index; }
+				}
+			if (Mk >= 0) { Target = P[Mk].Pos + SafeN(OwnGoal - P[Mk].Pos) * 1.6f; Urgency = 0.95f; }
+		}
 		else if (bInPoss && Pl.Setup.Role == EPFRole::FWD)
 		{
 			// forwards make runs beyond
@@ -691,7 +721,9 @@ void FPFMatch::TeamAI(int32 Team, float Dt)
 		}
 		const FVector2D To = Target - Pl.Pos;
 		const float D = To.Size();
-		Pl.Wish = D > 0.6f ? SafeN(To) * FMath::Clamp(D / 4.f, 0.f, 1.f) * Urgency : FVector2D::ZeroVector;
+		// chasers (presser, pass receiver) stay at full speed right onto the ball; everyone else eases into position
+		const bool bChase = Urgency >= 1.f;
+		Pl.Wish = (D > 0.6f || (bChase && D > 0.25f)) ? SafeN(To) * (bChase ? 1.f : FMath::Clamp(D / 3.f, 0.f, 1.f) * Urgency) : FVector2D::ZeroVector;
 		if (D < 0.6f && Ball.Owner != Pl.Index) Pl.Facing = SafeN(FMath::Lerp(Pl.Facing, SafeN(V2(Ball.Pos) - Pl.Pos), 0.05f));
 	}
 }
@@ -705,13 +737,29 @@ void FPFMatch::CarrierAI(FPFPlayer& Pl, float Dt)
 	for (const FPFPlayer& O : P) if (O.Team != Pl.Team) { const float D = FVector2D::Distance(O.Pos, Pl.Pos); if (D < Near) { Near = D; NearPos = O.Pos; } }
 	FVector2D Dir = SafeN(Goal - Pl.Pos);
 	if (Near < 5.f) Dir = SafeN(Dir * 1.f + SafeN(Pl.Pos - NearPos) * 0.6f);
-	Pl.Wish = Dir; Pl.bSprint = Near > 3.f && DG > 25.f;
+	// commit to a line and change it at a human rate (reactions), not instantly every tick
+	if (Pl.AIDir.IsNearlyZero()) Pl.AIDir = Pl.Facing;
+	const float Rea = T01(Pl.Setup.Stats.Reactions);
+	Pl.AIDir = SafeN(FMath::Lerp(Pl.AIDir, Dir, FMath::Min(1.f, Dt * (1.5f + 3.5f * Rea))), Dir);
+	Pl.Wish = Pl.AIDir; Pl.bSprint = Near > 3.f && DG > 25.f;
 	Pl.AIThink -= Dt;
-	if (Pl.AIThink > 0 || Pl.Act != EPFAct::None) return;
+	if (Pl.Act != EPFAct::None) return;
+	if (Pl.AIThink > 0 && DG > 8.5f) return;   // in close he shoots at once, never walks it in
 	Pl.AIThink = Pl.A.ReactSec * 0.6f + Rng.Range(0.05f, 0.25f);
 	const float Angle = FMath::Abs(FMath::Atan2(FMath::Abs(Pl.Pos.Y), FMath::Abs(Goal.X - Pl.Pos.X)));
-	const float ShootWill = DG < 12.f ? 0.7f : DG < 20.f ? 0.35f : DG < 28.f ? 0.12f * (0.5f + T01(Pl.Setup.Stats.Shooting)) : 0.f;
-	if (Angle < 0.85f && Rng.Unit() < ShootWill)
+	// a decent sight of goal, not a reflex: closer and better shooters pull the trigger sooner
+	const float ShootWill = DG < 7.f ? 1.f : DG < 11.f ? 0.45f : DG < 18.f ? 0.22f * (0.6f + T01(Pl.Setup.Stats.Shooting)) : DG < 26.f ? 0.06f * (0.4f + T01(Pl.Setup.Stats.Shooting)) : 0.f;
+	// a body in the shooting lane puts most players off (they look for a pass or keep going)
+	int32 InLane = 0;
+	for (const FPFPlayer& O : P)
+		if (O.Team != Pl.Team && !O.bKeeper && !O.bSentOff)
+		{
+			const FVector2D Rel = O.Pos - Pl.Pos; const FVector2D L = SafeN(Goal - Pl.Pos);
+			const float Along = FVector2D::DotProduct(Rel, L);
+			if (Along > 0.5f && Along < DG && FMath::Abs(FVector2D::CrossProduct(L, Rel)) < 1.3f) InLane++;
+		}
+	const float Will = ShootWill; (void)InLane;
+	if (Angle < 0.85f && Rng.Unit() < Will)
 	{
 		StartClip(Pl, TEXT("shot"), EPFKick::Shot);
 		Pl.KickAim = Goal + FVector2D(0, Rng.Range(-GoalHalf + 0.5f, GoalHalf - 0.5f)); Pl.KickPower = Rng.Range(0.55f, 1.f); Pl.KickTarget = -1;
@@ -775,7 +823,7 @@ void FPFMatch::KeeperAI(FPFPlayer& K, float Dt)
 					else
 					{
 						const FName C = bHigh ? (bRight ? TEXT("gk_dive_high_R") : TEXT("gk_dive_high_L")) : (bRight ? TEXT("gk_dive_low_R") : TEXT("gk_dive_low_L"));
-						StartClip(K, C); K.Act = EPFAct::Dive;
+						StartClip(K, C); K.Act = EPFAct::Dive; Diag[8]++;
 						K.DiveDir = FVector2D(0, FMath::Sign(Off));
 					}
 					K.Facing = FVector2D(-FMath::Sign(Goal.X), 0);
@@ -790,9 +838,35 @@ void FPFMatch::KeeperAI(FPFPlayer& K, float Dt)
 	FVector2D Spot = Goal + SafeN(BallG - Goal) * FMath::Clamp(Dist * 0.12f, 1.f, 6.f);
 	Spot.Y = FMath::Clamp(Spot.Y, -GoalHalf, GoalHalf);
 	// rush a loose ball in the box
-	if (Ball.Owner < 0 && Dist < 15.f && FMath::Abs(BallG.Y) < 18.f && Ball.Pos.Z < 1.f) Spot = BallG;
+	if (Ball.Owner < 0 && Dist < 15.f && FMath::Abs(BallG.Y) < 18.f && Ball.Pos.Z < 1.f)
+	{
+		float Opp = 1e9;
+		for (const FPFPlayer& O : P) if (O.Team != K.Team && !O.bSentOff) Opp = FMath::Min(Opp, (float)FVector2D::Distance(O.Pos, BallG));
+		if (FVector2D::Distance(K.Pos, BallG) < Opp * 0.8f) Spot = BallG;
+	}
+	// an opponent running at goal with the ball: come off the line to narrow the angle, and smother at his feet
+	bool bCharge = false;
+	if (Ball.Owner >= 0 && P[Ball.Owner].Team != K.Team && Dist < 16.f)
+	{
+		Spot = Goal + SafeN(BallG - Goal) * FMath::Clamp(Dist - 1.2f, 1.f, Dist < 9.f ? 7.f : 4.f);
+		bCharge = Dist < 9.f;
+		K.AIThink -= Dt;
+		if (FVector2D::Distance(K.Pos, BallG) < 1.4f && K.AIThink <= 0 && K.Act == EPFAct::None)
+		{
+			K.AIThink = 0.45f;
+			const float Kee = T01(K.Setup.Stats.Keeping);
+			FPFPlayer& O = P[Ball.Owner];
+			StartClip(K, TEXT("gk_catch")); K.Act = EPFAct::Dive; K.DiveDir = SafeN(BallG - K.Pos) * 0.3f;
+			if (Rng.Unit() < 0.3f + 0.5f * Kee - O.A.TouchDist * 0.04f)
+			{
+				Ball.Owner = K.Index; Ball.Vel = FVector::ZeroVector; Ball.LastTouch = K.Index; Ball.LastTeam = K.Team; O.NoTouch = 0.6f; K.AIThink = 1.2f;
+				SetBanner(TEXT("SAVE!"), 0.8f); Sfx.Add(TEXT("catch")); Diag[2]++;
+			}
+			return;
+		}
+	}
 	const FVector2D To = Spot - K.Pos;
-	K.Wish = To.Size() > 0.3f ? SafeN(To) * FMath::Clamp(To.Size() / 3.f, 0.f, 1.f) : FVector2D::ZeroVector;
+	K.Wish = To.Size() > 0.3f ? SafeN(To) * (bCharge ? 1.f : FMath::Clamp(To.Size() / 3.f, 0.f, 1.f)) : FVector2D::ZeroVector;
 	if (To.Size() < 0.5f) K.Facing = SafeN(BallG - K.Pos);
 }
 
@@ -808,6 +882,7 @@ void FPFMatch::MovePlayers(float Dt)
 {
 	for (FPFPlayer& Pl : P)
 	{
+		if (Pl.bSentOff) continue;
 		// actions
 		if (Pl.Act != EPFAct::None)
 		{
@@ -855,11 +930,11 @@ void FPFMatch::MovePlayers(float Dt)
 				{
 					const float Speed = Ball.Vel.Size();
 					const bool bCatch = Speed < 16.f + 12.f * T01(Pl.Setup.Stats.Keeping) && Rng.Unit() < 0.45f + 0.5f * T01(Pl.Setup.Stats.Keeping);
-					if (bCatch) { Ball.Owner = Pl.Index; Ball.Vel = FVector::ZeroVector; Pl.AIThink = 1.2f; SetBanner(TEXT("SAVE!"), 1.0f); Sfx.Add(TEXT("catch")); }
+					if (bCatch) { Ball.Owner = Pl.Index; Ball.Vel = FVector::ZeroVector; Pl.AIThink = 1.2f; SetBanner(TEXT("SAVE!"), 1.0f); Sfx.Add(TEXT("catch")); Diag[10]++; }
 					else
 					{
 						Ball.Vel = FVector(-Ball.Vel.X * 0.35f, Ball.Vel.Y * 0.4f + Pl.DiveDir.Y * 5.f, 3.f);
-						SetBanner(TEXT("SAVE!"), 1.0f); Sfx.Add(TEXT("crowd_ooh"));
+						SetBanner(TEXT("SAVE!"), 1.0f); Sfx.Add(TEXT("crowd_ooh")); Diag[10]++;
 					}
 					Ball.LastTouch = Pl.Index; Ball.LastTeam = Pl.Team; Pl.NoTouch = 0.4f;
 				}
@@ -880,24 +955,49 @@ void FPFMatch::MovePlayers(float Dt)
 		}
 		const bool bKicking = Pl.Act == EPFAct::Clip && !Pl.bEventFired && Pl.PendingKick != EPFKick::None;
 		float MaxV = Pl.A.MaxSpeed * (Pl.bSprint ? Pl.A.SprintMul : 1.f) * (Pl.bKeeper ? 0.85f : 1.f);
-		if (Ball.Owner == Pl.Index) MaxV *= 0.9f;
-		if (bKicking) MaxV *= 0.35f;
+		const bool bOnBall = Ball.Owner == Pl.Index;
+		if (bOnBall) MaxV *= 0.8f;
+		if (bKicking) MaxV *= (Pl.PendingKick == EPFKick::Shot ? 0.55f : 0.8f);
 		FVector2D Wish = Pl.Wish;
 		if (Wish.SizeSquared() > 1.f) Wish = SafeN(Wish);
-		// turning: rotate facing toward the wish at a stat-limited rate (clumsy players swing wide)
-		if (Wish.SizeSquared() > 0.01f && !bKicking)
+		// Arcade movement: the body goes where the stick points straight away (no drifting sideways). Talent shows in how
+		// much speed survives a sharp cut, how fast the top speed comes, and how fast the body turns to face the new way.
+		float Speed = Pl.Vel.Size();
+		const float WantSpeed = Wish.IsNearlyZero() ? 0.f : MaxV * Wish.Size();
+		if (!Wish.IsNearlyZero())
 		{
 			const FVector2D Want = SafeN(Wish);
-			const float Ang = FMath::RadiansToDegrees(FMath::Atan2(FVector2D::CrossProduct(Pl.Facing, Want), FVector2D::DotProduct(Pl.Facing, Want)));
-			const float MaxTurn = Pl.A.TurnRate * Dt * (Pl.Vel.Size() > 5.f ? 0.7f : 1.f);
-			Pl.Facing = SafeN(Rot(Pl.Facing, FMath::Clamp(Ang, -MaxTurn, MaxTurn)));
+			if (Speed > 0.05f)
+			{
+				const float Cos = FVector2D::DotProduct(Pl.Vel / Speed, Want);
+				const float K = FMath::Clamp((Cos + 1.f) * 0.5f, 0.f, 1.f);
+				if (Cos < 0.92f) Speed *= FMath::Lerp(Pl.A.TurnKeep * (bOnBall ? 0.75f : 1.f), 1.f, K * K);
+			}
+			if (!bKicking)
+			{
+				const float Ang = FMath::RadiansToDegrees(FMath::Atan2(FVector2D::CrossProduct(Pl.Facing, Want), FVector2D::DotProduct(Pl.Facing, Want)));
+				const float MaxTurn = Pl.A.TurnRate * Dt;
+				Pl.Facing = SafeN(Rot(Pl.Facing, FMath::Clamp(Ang, -MaxTurn, MaxTurn)));
+			}
+			Speed = Speed < WantSpeed ? FMath::Min(WantSpeed, Speed + Pl.A.Accel * Dt) : FMath::Max(WantSpeed, Speed - 32.f * Dt);
+			Pl.Vel = (bKicking ? SafeN(Pl.Vel, Want) : Want) * Speed;
 		}
-		const FVector2D TargetV = Wish.IsNearlyZero() ? FVector2D::ZeroVector : Pl.Facing * MaxV * Wish.Size();
-		const FVector2D DV = TargetV - Pl.Vel;
-		const float Acc = (TargetV.SizeSquared() < Pl.Vel.SizeSquared() ? Pl.A.Accel * 1.6f : Pl.A.Accel);
-		Pl.Vel += DV.GetClampedToMaxSize(Acc * Dt);
+		else
+		{
+			Speed = FMath::Max(0.f, Speed - 30.f * Dt);   // stop in about a quarter of a second
+			Pl.Vel = SafeN(Pl.Vel, Pl.Facing) * Speed;
+		}
 		Pl.Pos += Pl.Vel * Dt;
-		Pl.Stride += Pl.Vel.Size() * Dt;
+		Pl.Stride += Speed * Dt;
+		// keepers shuffle facing the ball (they never turn their back on play), and face up the pitch with it in their hands
+		if (Pl.bKeeper && Pl.Act == EPFAct::None)
+			Pl.Facing = Ball.Owner == Pl.Index ? FVector2D(AttackDir(Pl.Team), 0) : SafeN(V2(Ball.Pos) - Pl.Pos, Pl.Facing);
+		// run cycle: cadence from a realistic stride length (longer strides when faster), so feet never blur
+		if (Speed > 0.35f)
+		{
+			const float CycleLen = Speed < 2.2f ? 1.5f : FMath::Clamp(1.25f + 0.33f * Speed, 2.2f, 4.6f);   // metres per two steps
+			Pl.Gait += Speed / CycleLen * Dt;
+		}
 		Pl.Pos.X = FMath::Clamp(Pl.Pos.X, -HalfLen - 4.f, HalfLen + 4.f);
 		Pl.Pos.Y = FMath::Clamp(Pl.Pos.Y, -HalfWid - 3.f, HalfWid + 3.f);
 	}
@@ -905,6 +1005,7 @@ void FPFMatch::MovePlayers(float Dt)
 	for (int32 i = 0; i < P.Num(); ++i)
 		for (int32 j = i + 1; j < P.Num(); ++j)
 		{
+			if (P[i].bSentOff || P[j].bSentOff) continue;
 			FVector2D D = P[j].Pos - P[i].Pos;
 			const float L = D.Size();
 			if (L < 0.55f && L > 1e-3f) { const FVector2D Push = D / L * (0.55f - L) * 0.5f; P[i].Pos -= Push; P[j].Pos += Push; }
@@ -947,6 +1048,7 @@ void FPFMatch::Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, 
 		V = FVector(Dir * Spd, 1.0f + Power * 4.5f + Rng.Range(-0.5f, 1.5f) + FMath::Max(0.f, (D - 18.f) * 0.08f));
 		Shots[Pl.Team]++;
 		LastShotTeam = Pl.Team;
+		Diag[0]++; { const float Dg = FVector2D::Distance(Pl.Pos, GoalCentre(Pl.Team, true)); Diag[1] += int64(Dg * 10); if (Dg < 12.f) Diag[9]++; }
 		Highlight = FMath::Max(Highlight, 2.5f);
 		break;
 	}
@@ -975,6 +1077,7 @@ void FPFMatch::Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, 
 	}
 	default:  // ground pass / through ball
 	{
+		Diag[7]++;
 		Err = Pl.A.PassErrDeg * (Pl.bSprint ? 1.4f : 1.f);
 		Dir = Rot(Dir, Rng.Gauss() * Err * 0.5f);
 		const float Spd = FMath::Clamp((7.f + D * 0.75f) * Pl.A.PassPower, 8.f, 27.f);
@@ -984,6 +1087,7 @@ void FPFMatch::Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, 
 	}
 	Ball.Owner = -1;
 	Ball.Vel = V;
+	Ball.LastKind = (int32)Type;
 	Ball.Pos.Z = FMath::Max(Ball.Pos.Z, 0.11f);
 	Sfx.Add(Type == EPFKick::Shot || Type == EPFKick::Punt || Type == EPFKick::Clear ? FName(TEXT("kick_shot")) : Type == EPFKick::Header ? FName(TEXT("kick_header")) : Type == EPFKick::Throw ? FName() : FName(TEXT("kick_pass")));
 	Ball.LastTouch = Pl.Index; Ball.LastTeam = Pl.Team;
@@ -1003,40 +1107,65 @@ void FPFMatch::BallPhysics(float Dt)
 		const FVector2D Foot = O.Pos + O.Facing * 0.55f;
 		const FVector2D BP = V2(Ball.Pos);
 		const float Spd = O.Vel.Size();
-		if (O.bKeeper && O.Act != EPFAct::Clip) { Ball.Pos = FVector(O.Pos + O.Facing * 0.3f, 1.0f); Ball.Vel = FVector::ZeroVector; return; }
+		if (O.bKeeper && O.Act != EPFAct::Clip)
+		{
+			// held in the gloves, never behind his own line
+			FVector2D Hold = O.Pos + O.Facing * 0.3f;
+			Hold.X = FMath::Clamp(Hold.X, -HalfLen + 0.35f, HalfLen - 0.35f);
+			Ball.Pos = FVector(Hold, 1.0f); Ball.Vel = FVector::ZeroVector; return;
+		}
 		if (O.Act == EPFAct::Clip && (O.PendingKick == EPFKick::Throw || (O.bKeeper && O.PendingKick == EPFKick::Punt)))
 		{
 			// held in the hands until the release frame (throw-ins are taken from just outside the line)
 			FVector2D Hold = O.Pos + O.Facing * 0.3f;
 			Hold.Y = FMath::Clamp(Hold.Y, -HalfWid + 0.25f, HalfWid - 0.25f);
+			Hold.X = FMath::Clamp(Hold.X, -HalfLen + 0.35f, HalfLen - 0.35f);
 			Ball.Pos = FVector(Hold, O.bKeeper ? 1.0f : 1.9f); Ball.Vel = FVector::ZeroVector;
 			return;
 		}
 		if (Spd < 1.2f)
 		{
 			// standing: ball settles at the feet
-			const FVector2D NP = FMath::Lerp(BP, Foot, FMath::Min(1.f, Dt * 8.f));
-			Ball.Vel = FVector((NP - BP) / Dt, 0); Ball.Pos = FVector(NP, 0.11f);
+			const FVector2D NP = FMath::Lerp(BP, Foot, FMath::Min(1.f, Dt * 10.f));
+			Ball.Vel = FVector(O.Vel, 0); Ball.Pos = FVector(NP, 0.11f);
+			O.DribbleDir = O.Facing; O.TouchPhase = 0;
 		}
 		else
 		{
-			// dribbling: discrete touches. Ahead of the foot and slower than the player = touch it on.
-			const FVector2D Rel = BP - O.Pos;
-			const float Ahead = FVector2D::DotProduct(Rel, O.Facing);
-			const float Side = FMath::Abs(FVector2D::CrossProduct(O.Facing, Rel));
-			const FVector2D BV = V2(Ball.Vel);
-			if (Ahead < 0.65f || Side > 0.7f || FVector2D::DotProduct(BV, O.Facing) < Spd * 0.85f)
+			// Dribbling is scripted, not simulated: the ball is touched on the foot-contact frames of the run cycle
+			// (every step for good close control, every other step when sprinting or for heavy-touch players), then
+			// rolls out ahead and comes back to the next contact. Control sets how far it runs from the boots.
+			const FVector2D Mv = SafeN(O.Vel, O.Facing);
+			// a sharp cut at speed can lose a poorly controlled ball (the old direction keeps it)
+			const bool bCut = FVector2D::DotProduct(Mv, O.DribbleDir) < -0.1f;
+			if (bCut && Spd > 4.f && Rng.Unit() < O.A.FirstTouchErr * 0.5f)   // one roll per cut: the ball snaps round if he keeps it
 			{
-				if (FVector2D::Distance(BP, Foot) < 1.0f || Ahead < 0.65f)
-				{
-					const float Heavy = O.A.TouchDist * (O.bSprint ? 1.6f : 1.f);
-					const FVector2D NV = O.Facing * (Spd + Heavy * 2.2f) + FVector2D(Rng.Gauss(), Rng.Gauss()) * Heavy * 0.25f;
-					Ball.Vel = FVector(NV, 0);
-					Ball.Pos = FVector(Foot, 0.11f);
-				}
+				Ball.Owner = -1; Ball.Vel = FVector(O.DribbleDir * Spd * 1.1f, 0); O.NoTouch = 0.3f; Ball.LastTouch = O.Index; Ball.LastTeam = O.Team; Diag[6]++;
+				return;
 			}
-			// lose it if it runs away
-			if (FVector2D::Distance(BP, O.Pos) > 3.2f) { Ball.Owner = -1; O.NoTouch = 0.25f; }
+			O.DribbleDir = bCut ? Mv : SafeN(FMath::Lerp(O.DribbleDir, Mv, FMath::Min(1.f, Dt * 14.f)), Mv);
+			const bool bLong = O.bSprint || O.A.TouchDist > 1.6f;
+			const float Steps = O.Gait * 2.f;                     // steps taken
+			const float U = FMath::Frac(bLong ? Steps * 0.5f : Steps);
+			const float Amp = FMath::Clamp(O.A.TouchDist * (bLong ? 0.75f : 0.45f), 0.18f, 1.9f);
+			const float Ahead = 0.42f + Amp * FMath::Sin(U * PI);
+			const float Side = 0.08f * FMath::Cos(PI * Steps);       // swaps feet smoothly, one step to the next
+			const FVector2D Lat(-O.DribbleDir.Y, O.DribbleDir.X);
+			const FVector2D NP = O.Pos + O.DribbleDir * Ahead + Lat * Side;
+			// the ball's velocity is the carrier's: AI prediction, the camera lead and anyone reading Ball.Vel see a smooth run,
+			// not the in-out of the touches
+			Ball.Vel = FVector(O.Vel, 0);
+			Ball.Pos = FVector(NP, 0.11f);
+			// a touch that runs out from the boots can be nicked by an opponent who gets a foot to it
+			if (Ahead > 1.1f)
+				for (FPFPlayer& D : P)
+					if (D.Team != O.Team && !D.bSentOff && !D.bKeeper && D.NoTouch <= 0 && D.Act == EPFAct::None && FVector2D::Distance(D.Pos + D.Facing * 0.3f, NP) < 0.45f && Rng.Unit() < 0.04f)
+					{
+						Ball.Owner = -1; { const FVector2D Lt(-O.DribbleDir.Y, O.DribbleDir.X); const float Sg = FVector2D::DotProduct(D.Pos - O.Pos, Lt) > 0 ? -1.f : 1.f; Ball.Vel = FVector(SafeN(Lt * Sg - O.DribbleDir * 0.3f) * 3.5f, 0.f); Ball.LastKind = 16; } Ball.LastTouch = D.Index; Ball.LastTeam = D.Team;
+						O.NoTouch = 0.4f; Diag[4]++;
+						break;
+					}
+			O.TouchPhase = U;
 		}
 	}
 	// integrate
@@ -1063,6 +1192,21 @@ void FPFMatch::BallPhysics(float Dt)
 		else V.Z = 0;
 	}
 	Ball.Roll += FVector2D(V.X, V.Y).Size() * Dt;
+	// shots can be blocked by a body in the way
+	if (Ball.Owner < 0 && Ball.LastKind == (int32)EPFKick::Shot && Ball.Pos.Z < 1.4f && FVector2D(V.X, V.Y).SizeSquared() > 100.f)
+		for (FPFPlayer& B : P)
+		{
+			if (B.Team == Ball.LastTeam || B.bKeeper || B.bSentOff || B.NoTouch > 0 || B.Act == EPFAct::Fall) continue;
+			if (FVector2D::Distance(B.Pos, V2(Ball.Pos)) < 0.5f)
+			{
+				const float Sp = FVector2D(V.X, V.Y).Size() * Rng.Range(0.2f, 0.45f);
+				const FVector2D Dir = SafeN(Rot(-FVector2D(V.X, V.Y), Rng.Range(-70.f, 70.f)));
+				V = FVector(Dir * Sp, Rng.Range(0.5f, 3.f));
+				Ball.LastTouch = B.Index; Ball.LastTeam = B.Team; Ball.LastKind = 17; B.NoTouch = 0.25f;
+				Sfx.Add(TEXT("ball_bounce")); Diag[29]++;
+				break;
+			}
+		}
 	// keepers block shots that come at them (no dive needed)
 	if (Ball.Owner < 0 && FVector2D(V.X, V.Y).SizeSquared() > 64.f)
 		for (FPFPlayer& K : P)
@@ -1075,7 +1219,7 @@ void FPFMatch::BallPhysics(float Dt)
 				if (bCatch) { Ball.Owner = K.Index; Ball.Vel = FVector::ZeroVector; K.AIThink = 1.2f; StartClip(K, Ball.Pos.Z > 1.4f ? TEXT("gk_catch_high") : TEXT("gk_catch")); K.Act = EPFAct::None; }
 				else { V = FVector(-V.X * 0.3f, V.Y * 0.5f + Rng.Range(-4.f, 4.f), 2.f); }
 				Ball.LastTouch = K.Index; Ball.LastTeam = K.Team; K.NoTouch = 0.3f;
-				SetBanner(TEXT("SAVE!"), 0.8f);
+				SetBanner(TEXT("SAVE!"), 0.8f); Diag[2]++;
 				Sfx.Add(bCatch ? FName(TEXT("catch")) : FName(TEXT("crowd_ooh")));
 				break;
 			}
@@ -1101,7 +1245,7 @@ void FPFMatch::Possession(float Dt)
 	{
 		for (FPFPlayer& Pl : P)
 		{
-			if (Pl.bKeeper || Pl.NoTouch > 0 || Pl.Act != EPFAct::None) continue;
+			if (Pl.bKeeper || Pl.bSentOff || Pl.NoTouch > 0 || Pl.Act != EPFAct::None) continue;
 			if (FVector2D::Distance(Pl.Pos, V2(Ball.Pos)) > 0.5f + Pl.A.HeadReach * 0.25f) continue;
 			if (Rng.Unit() > 0.15f + 0.6f * T01(Pl.Setup.Stats.Heading)) { Pl.NoTouch = 0.3f; continue; }
 			StartClip(Pl, TEXT("header"));
@@ -1195,6 +1339,11 @@ void FPFMatch::Goal(int32 ScoringTeam)
 {
 	Score[ScoringTeam]++;
 	const bool bOwnGoal = Ball.LastTeam != ScoringTeam;
+	for (const FPFPlayer& K : P) if (K.bKeeper && K.Team != ScoringTeam) { if (FMath::Abs(K.Pos.X) < HalfLen - 3.f || FMath::Abs(K.Pos.Y) > GoalHalf + 1.f) Diag[11]++; }
+	if (bOwnGoal) Diag[6] += 1000;
+	Diag[16 + FMath::Clamp(Ball.LastKind, 0, 15)]++;
+	Diag[26 + (Ball.Owner < 0 ? 0 : P[Ball.Owner].Team == ScoringTeam ? 1 : 2)]++;   // 26 loose, 27 carried in by scorer, 28 carried in by defender
+	if (P.IsValidIndex(Ball.LastTouch) && P[Ball.LastTouch].bKeeper) Diag[7] += 100000;
 	FString Who = P.IsValidIndex(Ball.LastTouch) ? P[Ball.LastTouch].Setup.Name : TEXT("");
 	Log(ScoringTeam, FString::Printf(TEXT("%d' %s%s"), FMath::Max(1, FMath::CeilToInt(MatchClock)), *Who, bOwnGoal ? TEXT(" (o.g.)") : TEXT("")));
 	SetBanner(TEXT("GOAL!"), 3.f);
@@ -1308,14 +1457,14 @@ FName FPFMatch::PoseFor(const FPFPlayer& Pl) const
 	}
 	if (Pl.bCharging) return TEXT("shot_plant");
 	// distance-driven cycles: the feet stay planted because frames advance with ground covered
+	const float Ph = FMath::Frac(Pl.Gait);
 	if (S < 2.2f)
 	{
 		static const FName W[] = { TEXT("walk_contactR"), TEXT("idle"), TEXT("walk_contactL"), TEXT("idle") };
-		return W[int32(Pl.Stride / 0.42f) % 4];
+		return W[FMath::Min(3, int32(Ph * 4.f))];
 	}
-	const bool bSprint = S > Pl.A.MaxSpeed * 1.04f && !Pl.bKeeper;
-	const float Cycle = bSprint ? 3.6f : 2.3f + S * 0.12f;   // metres per full cycle (two strides)
-	const int32 F = int32(Pl.Stride / (Cycle / 6.f)) % 6;
+	const bool bSprint = Pl.bSprint && S > Pl.A.MaxSpeed * 0.9f && !Pl.bKeeper;
+	const int32 F = FMath::Min(5, int32(Ph * 6.f));
 	if (Ball.Owner == Pl.Index && S < 5.5f)
 	{
 		static const FName D[] = { TEXT("dribble_touchR"), TEXT("run_downR"), TEXT("run_passR"), TEXT("dribble_touchL"), TEXT("run_downL"), TEXT("run_passL") };
@@ -1355,9 +1504,11 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 {
 	if (!C) return;
 	const float SW = C->ClipX, SH = C->ClipY;
-	// ISS-close camera pulled out a touch: ~40 m of pitch across. 6 screen px per stadium pixel and 2 per sprite pixel at 1080p.
-	const float SpriteScale = FMath::Max(1.f, FMath::RoundToFloat(SH / 1080.f * 2.f));
-	const float Zoom = SpriteScale;
+	// Camera: CamZoom screen pixels per stadium pixel at 1080p (2.5 = about 35 m of pitch across, close to the owner's
+	// kickoff reference framing). Sprites are drawn at true size: the 64 px figure is PlayerHeightM tall in the
+	// stadium's own projection (Az = atlas pixels per metre of height), so players and pitch share one scale.
+	const float Zoom = FMath::Max(1.f, SH / 1080.f * CamZoom);
+	const float SpriteScale = Zoom * Proj.Az.Size() * PlayerHeightM / 64.f;
 	const FVector2D View(SW / Zoom, SH / Zoom);
 	FVector2D Cam = CamCenter;
 	Cam.X = FMath::Clamp(Cam.X, View.X * 0.5f, Proj.AtlasSize.X - View.X * 0.5f);
@@ -1434,7 +1585,7 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 			if (!BallTex) continue;
 			const FVector2D S = ToScreen(Proj.ToAtlas(Ball.Pos));
 			const int32 Frame = int32(Ball.Roll / 0.35f) % 5;
-			const float Px = 16.f * SpriteScale * 0.75f;
+			const float Px = FMath::RoundToFloat(16.f * SpriteScale * 0.62f);
 			FCanvasTileItem T(FVector2D(FMath::RoundToFloat(S.X - Px * 0.5f), FMath::RoundToFloat(S.Y - Px * 0.5f)), BallTex->GetResource(), FVector2D(Px, Px),
 				FVector2D(Frame / 5.f, 0), FVector2D((Frame + 1) / 5.f, 1), FLinearColor::White);
 			T.BlendMode = SE_BLEND_Masked;

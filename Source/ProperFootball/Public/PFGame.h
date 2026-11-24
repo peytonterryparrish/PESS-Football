@@ -68,6 +68,7 @@ private:
 	void OnMove(const FInputActionValue& V);
 	void OnMoveDone(const FInputActionValue& V);
 	FVector2D MoveRaw = FVector2D::ZeroVector;
+	TArray<TArray<FKey>> ButtonKeys;   // same order as Buttons; read directly so input never depends on the input-class config
 };
 
 UCLASS()

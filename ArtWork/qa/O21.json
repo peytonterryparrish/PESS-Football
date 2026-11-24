@@ -1,0 +1,82 @@
+{
+ "rejected": {},
+ "notes": {
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south/celebrate_fist": [
+   "blob15"
+  ],
+  "south/hands_on_head": [
+   "blob9"
+  ],
+  "south-east/fall_ground": [
+   "blob15",
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "east/fall_ground": [
+   "touches_edge"
+  ],
+  "east/sit_ground": [
+   "blob19",
+   "blob13"
+  ],
+  "east/header_dive": [
+   "touches_edge"
+  ],
+  "east/block": [
+   "blob17",
+   "touches_edge"
+  ],
+  "north-east/throwin_back": [
+   "blob14"
+  ],
+  "north-east/fall_ground": [
+   "blob18"
+  ],
+  "north-east/header_stand": [
+   "blob19"
+  ],
+  "north-west/fall_ground": [
+   "touches_edge"
+  ],
+  "north-west/header_stand": [
+   "blob9",
+   "blob7"
+  ],
+  "north-west/block": [
+   "blob9"
+  ],
+  "west/sit_ground": [
+   "touches_edge"
+  ],
+  "west/getup_kneel": [
+   "blob8"
+  ],
+  "west/celebrate_arms_up": [
+   "blob24",
+   "blob6"
+  ],
+  "west/block": [
+   "touches_edge"
+  ],
+  "south-west/fall_ground": [
+   "blob10",
+   "blob9",
+   "blob8",
+   "blob7",
+   "touches_edge"
+  ],
+  "south-west/sit_ground": [
+   "touches_edge"
+  ]
+ },
+ "frames": 368,
+ "palette": 61
+}

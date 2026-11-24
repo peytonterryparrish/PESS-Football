@@ -115,15 +115,25 @@ void UPFCareer::OnMatchDone(const FPFMatch& M, bool bYouth)
 	if (Sim.S.Fixtures.IsValidIndex(PendingFixture) && !Sim.S.Fixtures[PendingFixture].Played())
 	{
 		FPFFixture& Fx = Sim.S.Fixtures[PendingFixture];
+		int32 HG = M.Score[0], AG = M.Score[1];
+		if (M.bQuit)
+		{
+			// the remaining minutes are simulated: about 1.3 goals per side per 90
+			const float Left = FMath::Clamp(1.f - M.MatchClock / 90.f, 0.f, 1.f);
+			auto Poisson = [this](float L) { int32 K = 0; float Pp = FMath::Exp(-L), Cum = Pp; const float U = Sim.Rng.Unit(); while (U > Cum && K < 9) { ++K; Pp *= L / K; Cum += Pp; } return K; };
+			HG += Poisson(1.4f * Left); AG += Poisson(1.2f * Left);
+		}
 		int32 PW = -1;
-		if (Fx.Comp >= 10 && M.Score[0] == M.Score[1]) PW = Sim.Rng.Unit() < 0.5f ? Fx.Home : Fx.Away;   // shoot-out (simulated)
-		Sim.ApplyResult(Fx, M.Score[0], M.Score[1], PW);
+		if (Fx.Comp >= 10 && HG == AG) PW = Sim.Rng.Unit() < 0.5f ? Fx.Home : Fx.Away;   // shoot-out (simulated)
+		Sim.ApplyResult(Fx, HG, AG, PW);
 	}
 	AdvanceDay();
 }
 
 void UPFCareer::AdvanceDay()
 {
+	// the user has another match today (a cup tie on a league matchday): play it before the day moves on
+	if (Sim.UserFixture() >= 0) { Sim.Save(SLOT); Screen = EPFCScreen::Hub; Back.Reset(); Sel = 0; return; }
 	const int32 Before = Sim.S.Season;
 	const bool bWasEmployed = !Sim.S.bUnemployed;
 	Sim.PlayMatchday();
@@ -302,9 +312,9 @@ void UPFCareer::Tick(float Dt, const FPFPadState& Pad)
 		else if (Sel == S.Scouts.Num())
 		{
 			// watch a youth match in the selected region: every kid in it can be signed afterwards
-			FPFMatchSetup M = Sim.YouthMatchSetup((EPFRegion)RegionSel, FPlatformTime::Cycles64());
-			for (int32 t = 0; t < 2; ++t) for (const FPFPlayerSetup& PS : (t == 0 ? M.Home : M.Away).XI)
-				for (const FPFPerson& P : S.People) if (P.Name == PS.Name && P.Club < 0 && P.Region == (EPFRegion)RegionSel && !S.Prospects.Contains(P.Id)) { S.Prospects.Add(P.Id); break; }
+			TArray<int32> Kids;
+			FPFMatchSetup M = Sim.YouthMatchSetup((EPFRegion)RegionSel, FPlatformTime::Cycles64(), &Kids);
+			for (int32 Id : Kids) if (const FPFPerson* P = Sim.Person(Id)) if (P->Club < 0 && !S.Prospects.Contains(Id)) S.Prospects.Add(Id);
 			bYouthMatch = true;
 			Fl->bManageView = false;
 			Fl->StartMatch(M, [this](const FPFMatch& Mm) { OnMatchDone(Mm, true); });
@@ -597,7 +607,13 @@ void UPFCareer::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 			Rows.Add({ FString::FromInt(Fx.Matchday + 1), Sim.CompName(Fx.Comp), bHome ? TEXT("H") : TEXT("A"), S.Clubs[bHome ? Fx.Away : Fx.Home].Name, Res });
 			Col.Add(RC);
 		}
-		Rows.Sort([](const TArray<FString>& A, const TArray<FString>& B) { return FCString::Atoi(*A[0]) < FCString::Atoi(*B[0]); });
+		{
+			TArray<int32> Ord; for (int32 i = 0; i < Rows.Num(); ++i) Ord.Add(i);
+			Ord.StableSort([&Rows](int32 A, int32 B) { return FCString::Atoi(*Rows[A][0]) < FCString::Atoi(*Rows[B][0]); });
+			TArray<TArray<FString>> R2; TArray<FLinearColor> C2;
+			for (int32 i : Ord) { R2.Add(Rows[i]); C2.Add(Col[i]); }
+			Rows = MoveTemp(R2); Col = MoveTemp(C2);
+		}
 		Sel = Scroll;
 		DrawList(C, TEXT("YOUR SEASON"), { TEXT("WK"), TEXT("COMPETITION"), TEXT(""), TEXT("OPPONENT"), TEXT("RESULT") }, { 0, 90, 600, 680, 1300 }, Rows, Col);
 		Sel = 0;

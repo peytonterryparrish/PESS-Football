@@ -81,7 +81,7 @@ public:
 	int32 Sel = 0;
 	bool bPause = false;
 	int32 PauseSel = 0;
-	int32 FriendlyHome = 0, FriendlyAway = 1, FriendlySide = 0, FriendlyStage = 0, FriendlyLen = 1;
+	int32 FriendlyHome = 0, FriendlyAway = 1, FriendlySide = 0, FriendlyStage = 0, FriendlyLen = 1, CameraOpt = 1;
 	TFunction<void(const FPFMatch&)> MatchDone;
 	FPFMatch* LastMatch = nullptr;
 	TWeakObjectPtr<UWorld> WorldRef;
@@ -90,6 +90,7 @@ public:
 	int32 MusicVol = 7, SfxVol = 8;     // 0..10, saved in Saved/pf_options.txt
 	void LoadOptions();
 	void SaveOptions();
+	void ApplyCamera();
 	int32 ShotsLeft = 0, ShotIndex = 0;
 	float ShotGap = 3.f, NextShot = 4.f, QuitAt = -1.f;
 
