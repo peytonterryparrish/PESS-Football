@@ -1,0 +1,36 @@
+{
+ "rejected": {
+  "east/header_stand": "too_small 89/491"
+ },
+ "notes": {
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south-east/fall_ground": [
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "east/shot_strike": [
+   "blob25"
+  ],
+  "east/pass_strike": [
+   "blob11"
+  ],
+  "east/celebrate_fist": [
+   "blob15"
+  ],
+  "east/header_dive": [
+   "touches_edge"
+  ],
+  "north-east/celebrate_fist": [
+   "blob9"
+  ]
+ },
+ "frames": 232,
+ "palette": 62
+}

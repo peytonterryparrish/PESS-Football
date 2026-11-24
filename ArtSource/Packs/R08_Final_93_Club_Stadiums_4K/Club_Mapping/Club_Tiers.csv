@@ -1,0 +1,94 @@
+club_id,source_slug,source_club,division_2005_06,geographic_context,fictional_club,fictional_short_code,tier_id,tier_rank,tier_label,home_primary_hex
+C001,chelsea,Chelsea,Premier League,England,Westmere Borough FC,WMB,T5,5,Elite,#2459A3
+C002,manchester-united,Manchester United,Premier League,England,Ironswick Athletic FC,IWA,T5,5,Elite,#D31B35
+C003,liverpool,Liverpool,Premier League,England,Eastwater Port FC,EWP,T5,5,Elite,#D11D32
+C004,arsenal,Arsenal,Premier League,England,Kerrsden FC,KDN,T5,5,Elite,#791f2d
+C005,tottenham-hotspur,Tottenham Hotspur,Premier League,England,Bellhurst Sporting FC,BHS,T4,4,Major Heritage,#F2F3EE
+C006,blackburn-rovers,Blackburn Rovers,Premier League,England,Birkenfold Union FC,BFU,T4,4,Major Heritage,#174C9E
+C007,newcastle-united,Newcastle United,Premier League,England,Northcalder City FC,NCC,T4,4,Major Heritage,#141923
+C008,bolton-wanderers,Bolton Wanderers,Premier League,England,Alderclough County FC,ACC,T3,3,High Profile,#F2F3EE
+C009,west-ham-united,West Ham United,Premier League,England,Ferrywick Rovers FC,FWR,T4,4,Major Heritage,#852644
+C010,wigan-athletic,Wigan Athletic,Premier League,England,Marlbank FC,MLB,T3,3,High Profile,#2359A5
+C011,everton,Everton,Premier League,England,Blueferne United FC,BFN,T4,4,Major Heritage,#234994
+C012,fulham,Fulham,Premier League,England,Harrowfen FC,HFN,T3,3,High Profile,#F2F3EE
+C013,charlton-athletic,Charlton Athletic,Premier League,England,Lindenthorpe Town FC,LTT,T3,3,High Profile,#CE1831
+C014,middlesbrough,Middlesbrough,Premier League,England,Teescombe Borough FC,TCB,T3,3,High Profile,#CB1A30
+C015,manchester-city,Manchester City,Premier League,England,Bellford Metropolitan FC,BFM,T4,4,Major Heritage,#86BADE
+C016,aston-villa,Aston Villa,Premier League,England,Hollowcross FC,HCF,T4,4,Major Heritage,#7F2041
+C017,portsmouth,Portsmouth,Premier League,England,Spindlehaven FC,SPH,T3,3,High Profile,#2458A8
+C018,birmingham-city,Birmingham City,Premier League,England,Foundrymere FC,FDM,T3,3,High Profile,#174C9E
+C019,west-bromwich-albion,West Bromwich Albion,Premier League,England,Ochrewick Sporting FC,OWS,T3,3,High Profile,#1D2741
+C020,sunderland,Sunderland,Premier League,England,Wearminster FC,WMF,T4,4,Major Heritage,#DA2438
+C021,blackpool,Blackpool,League One,England,Brinefold Borough FC,BFB,T2,2,Established,#E97230
+C022,bradford-city,Bradford City,League One,England,Westloom City FC,WLC,T2,2,Established,#DEA334
+C023,brighton-hove-albion,Brighton & Hove Albion,Championship,England,Foambridge Athletic FC,FBA,T3,3,High Profile,#77C4E7
+C024,bristol-city,Bristol City,League One,England,Avonleigh Borough FC,ALB,T2,2,Established,#CD293F
+C025,burnley,Burnley,Championship,England,Cinderclough FC,CCF,T2,2,Established,#712840
+C026,bury,Bury,League Two,England,Pennswake Town FC,PWT,T1,1,Grassroots,#F1EEE8
+C027,coventry-city,Coventry City,Championship,England,Covenswick City FC,CVC,T3,3,High Profile,#79BFEA
+C028,crystal-palace,Crystal Palace,Championship,England,Glasslyn Borough FC,GLB,T3,3,High Profile,#2360B8
+C029,derby-county,Derby County,Championship,England,Dalecrank County FC,DCC,T3,3,High Profile,#F1EEE8
+C030,grimsby-town,Grimsby Town,League Two,England,Saltmarsh Dock FC,SMD,T2,2,Established,#F1EEE8
+C031,huddersfield-town,Huddersfield Town,League One,England,Woolcombe United FC,WCU,T2,2,Established,#F1EEE8
+C032,ipswich-town,Ipswich Town,Championship,England,Orwellmere FC,OMF,T3,3,High Profile,#2156AC
+C033,leeds-united,Leeds United,Championship,England,Wharfendale City FC,WDC,T4,4,Major Heritage,#F1EEE8
+C034,leicester-city,Leicester City,Championship,England,Soarwick Athletic FC,SWA,T3,3,High Profile,#2156AC
+C035,luton-town,Luton Town,Championship,England,Hatchett Vale FC,HVF,T2,2,Established,#EDEEEA
+C036,millwall,Millwall,Championship,England,Southquay Borough FC,SQB,T3,3,High Profile,#214E92
+C037,nottingham-forest,Nottingham Forest,League One,England,Trentbough FC,TBF,T4,4,Major Heritage,#BD292D
+C038,notts-county,Notts County,League Two,England,Marlash County FC,MAC,T2,2,Established,#F1EEE8
+C039,oldham-athletic,Oldham Athletic,League One,England,Stoneweald Athletic FC,STA,T2,2,Established,#2C62BE
+C040,oxford-united,Oxford United,League Two,England,Isleford Rovers FC,IFR,T2,2,Established,#EFC631
+C041,preston-north-end,Preston North End,Championship,England,Northmoss Borough FC,NMB,T3,3,High Profile,#F1EEE8
+C042,queens-park-rangers,Queens Park Rangers,Championship,England,Westlatch Sporting FC,WLS,T3,3,High Profile,#2962BF
+C043,reading,Reading,Championship,England,Kennetworks FC,KNW,T3,3,High Profile,#2867BC
+C044,sheffield-united,Sheffield United,Championship,England,Sablebridge Sporting FC,SBS,T3,3,High Profile,#BD292D
+C045,sheffield-wednesday,Sheffield Wednesday,Championship,England,Peakwater City FC,PWC,T3,3,High Profile,#2156AC
+C046,southampton,Southampton,Championship,England,Solentfold FC,SLF,T3,3,High Profile,#D92E44
+C047,swindon-town,Swindon Town,League One,England,Redwillow United FC,RWU,T2,2,Established,#CF293E
+C048,watford,Watford,Championship,England,Chalklatch FC,CKL,T3,3,High Profile,#F2CC31
+C049,wimbledon-fc,Wimbledon FC (historical),Bonus — Heritage,England,Mertonquill FC,MQF,T3,3,High Profile,#29549B
+C050,wolverhampton-wanderers,Wolverhampton Wanderers,Championship,England,Greyminster FC,GMF,T3,3,High Profile,#E9AA36
+C051,norwich-city,Norwich City,Championship,England,Wensmere City FC,WEC,T3,3,High Profile,#F8C82C
+C052,cardiff-city,Cardiff City,Championship,Wales,Taffrill Sporting FC,TRS,T3,3,High Profile,#1545A6
+C053,stoke-city,Stoke City,Championship,England,Kilnley Borough FC,KLB,T3,3,High Profile,#C92637
+C054,plymouth-argyle,Plymouth Argyle,Championship,England,Soundcliff Athletic FC,SCA,T2,2,Established,#123D33
+C055,hull-city,Hull City,Championship,England,Ambermarsh County FC,AMC,T2,2,Established,#EA9A31
+C056,crewe-alexandra,Crewe Alexandra,Championship,England,Cresterrail FC,CRF,T2,2,Established,#D72B3B
+C057,southend-united,Southend United,League One,England,Shoalwick Borough FC,SWB,T2,2,Established,#192C50
+C058,colchester-united,Colchester United,League One,England,Garrisonmere Town FC,GMT,T2,2,Established,#2355A7
+C059,brentford,Brentford,League One,England,Willowbarge FC,WBG,T2,2,Established,#BA2837
+C060,barnsley,Barnsley,League One,England,Dearnebank City FC,DBC,T2,2,Established,#BA2837
+C061,swansea-city,Swansea City,League One,Wales,Afanmere Athletic FC,AMA,T2,2,Established,#F1EFE8
+C062,doncaster-rovers,Doncaster Rovers,League One,England,Dunwold Sporting FC,DWS,T2,2,Established,#BA2837
+C063,scunthorpe-united,Scunthorpe United,League One,England,Cinderfen Town FC,CFT,T2,2,Established,#772D48
+C064,port-vale,Port Vale,League One,England,Moorlatch County FC,MOC,T2,2,Established,#F1EFE8
+C065,gillingham,Gillingham,League One,England,Medway Hurst FC,MHF,T2,2,Established,#2355A7
+C066,yeovil-town,Yeovil Town,League One,England,Yarcombe Vale FC,YCV,T1,1,Grassroots,#2B8859
+C067,chesterfield,Chesterfield,League One,England,Crookedridge FC,CRG,T2,2,Established,#2F62B3
+C068,afc-bournemouth,AFC Bournemouth,League One,England,Pinebarrow FC,PBF,T2,2,Established,#C93242
+C069,tranmere-rovers,Tranmere Rovers,League One,England,Estmerrow Sporting FC,EMS,T2,2,Established,#EEF0EE
+C070,rotherham-united,Rotherham United,League One,England,Ironweir Borough FC,IWB,T2,2,Established,#C83143
+C071,hartlepool-united,Hartlepool United,League One,England,Gullwick Town FC,GWT,T2,2,Established,#3267BA
+C072,milton-keynes-dons,Milton Keynes Dons,League One,England,Gridmere Athletic FC,GMA,T1,1,Grassroots,#F0EFED
+C073,walsall,Walsall,League One,England,Saddlecroft FC,SCF,T2,2,Established,#CC2A3D
+C074,barnet,Barnet,League Two,England,Highbracken Borough FC,HBB,T1,1,Grassroots,#202126
+C075,bristol-rovers,Bristol Rovers,League Two,England,Bridgestoke FC,BSF,T2,2,Established,#F0EEE8
+C076,cheltenham-town,Cheltenham Town,League Two,England,Cotsmere Sporting FC,CMS,T1,1,Grassroots,#F0EEE8
+C077,leyton-orient,Leyton Orient,League Two,England,Rookwell Borough FC,RWB,T2,2,Established,#C83239
+C078,macclesfield-town,Macclesfield Town,League Two,England,Silkclough Town FC,SLT,T1,1,Grassroots,#2460A9
+C079,lincoln-city,Lincoln City,League Two,England,Withamwick FC,WWF,T2,2,Established,#F1EEE8
+C080,northampton-town,Northampton Town,League Two,England,Cobbleridge Athletic FC,CRA,T2,2,Established,#893044
+C081,peterborough-united,Peterborough United,League Two,England,Sokehurst United FC,SHU,T2,2,Established,#245AA6
+C082,chester-city,Chester City,League Two,England,Deemarch Borough FC,DMB,T1,1,Grassroots,#F1EEE9
+C083,rushden-and-diamonds,Rushden & Diamonds,League Two,England,Nenecrest FC,NCF,T1,1,Grassroots,#F1EEE7
+C084,darlington,Darlington,League Two,England,Teeslark Sporting FC,TLS,T1,1,Grassroots,#F3EEE3
+C085,shrewsbury-town,Shrewsbury Town,League Two,England,Severnholt Town FC,SVT,T2,2,Established,#2458A9
+C086,rochdale,Rochdale,League Two,England,Redbrook Vale FC,RBV,T1,1,Grassroots,#2458A9
+C087,stockport-county,Stockport County,League Two,England,Tamefield County FC,TFC,T2,2,Established,#1955AA
+C088,mansfield-town,Mansfield Town,League Two,England,Sherwood Edge FC,SWE,T1,1,Grassroots,#EDBA2C
+C089,torquay-united,Torquay United,League Two,England,Tidecombe Athletic FC,TDA,T1,1,Grassroots,#EDBA2C
+C090,wrexham,Wrexham,League Two,Wales,Clwydgate FC,CYG,T2,2,Established,#B82735
+C091,boston-united,Boston United,League Two,England,Fenstow Borough FC,FSB,T1,1,Grassroots,#EDBA2C
+C092,wycombe-wanderers,Wycombe Wanderers,League Two,England,Chilternfold FC,CHD,T2,2,Established,#19345C
+C093,carlisle-united,Carlisle United,League Two,England,Edenwold United FC,EWU,T2,2,Established,#2458A9

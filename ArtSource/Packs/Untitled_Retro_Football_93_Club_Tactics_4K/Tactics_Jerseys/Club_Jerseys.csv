@@ -1,0 +1,373 @@
+Club,Slug,Division,Variant,PNG,R08 source,Base,Trim,Pattern,Atlas,X,Y,Width,Height
+Chelsea,chelsea,Premier League,home,PNGs/chelsea/home.png,Clubs/chelsea/South_Native64/home/F001.png,#2459A3,#B99A57,solid,Atlas_4K_01.png,24,24,216,192
+Chelsea,chelsea,Premier League,away,PNGs/chelsea/away.png,Clubs/chelsea/South_Native64/away/F011.png,#CADAE5,#252735,panel,Atlas_4K_01.png,261,24,216,192
+Chelsea,chelsea,Premier League,keeper1,PNGs/chelsea/keeper1.png,Clubs/chelsea/South_Native64/keeper1/G001.png,#20232B,#C0A157,solid,Atlas_4K_01.png,498,24,216,192
+Chelsea,chelsea,Premier League,keeper2,PNGs/chelsea/keeper2.png,Clubs/chelsea/South_Native64/keeper2/G014.png,#EDCE3C,#262527,panel,Atlas_4K_01.png,735,24,216,192
+Manchester United,manchester-united,Premier League,home,PNGs/manchester-united/home.png,Clubs/manchester-united/South_Native64/home/F001.png,#D31B35,#F2F3EE,panel,Atlas_4K_01.png,972,24,216,192
+Manchester United,manchester-united,Premier League,away,PNGs/manchester-united/away.png,Clubs/manchester-united/South_Native64/away/F011.png,#2355AA,#D72B38,panel,Atlas_4K_01.png,1209,24,216,192
+Manchester United,manchester-united,Premier League,keeper1,PNGs/manchester-united/keeper1.png,Clubs/manchester-united/South_Native64/keeper1/G001.png,#4D9958,#313F33,panel,Atlas_4K_01.png,1446,24,216,192
+Manchester United,manchester-united,Premier League,keeper2,PNGs/manchester-united/keeper2.png,Clubs/manchester-united/South_Native64/keeper2/G014.png,#21252A,#808083,panel,Atlas_4K_01.png,1683,24,216,192
+Liverpool,liverpool,Premier League,home,PNGs/liverpool/home.png,Clubs/liverpool/South_Native64/home/F001.png,#D11D32,#F2F3EE,panel,Atlas_4K_01.png,1920,24,216,192
+Liverpool,liverpool,Premier League,away,PNGs/liverpool/away.png,Clubs/liverpool/South_Native64/away/F011.png,#F2F3EE,#CE1831,panel,Atlas_4K_01.png,2157,24,216,192
+Liverpool,liverpool,Premier League,keeper1,PNGs/liverpool/keeper1.png,Clubs/liverpool/South_Native64/keeper1/G001.png,#4C8A56,#26292C,sleeves,Atlas_4K_01.png,2394,24,216,192
+Liverpool,liverpool,Premier League,keeper2,PNGs/liverpool/keeper2.png,Clubs/liverpool/South_Native64/keeper2/G014.png,#E6C732,#22262B,panel,Atlas_4K_01.png,2631,24,216,192
+Arsenal,arsenal,Premier League,home,PNGs/arsenal/home.png,Clubs/arsenal/South_Native64/home/F001.png,#791f2d,#ca9b54,solid,Atlas_4K_01.png,2868,24,216,192
+Arsenal,arsenal,Premier League,away,PNGs/arsenal/away.png,Clubs/arsenal/South_Native64/away/F011.png,#f4c62c,#272a30,panel,Atlas_4K_01.png,3105,24,216,192
+Arsenal,arsenal,Premier League,keeper1,PNGs/arsenal/keeper1.png,Clubs/arsenal/South_Native64/keeper1/G001.png,#50264f,#292337,panel,Atlas_4K_01.png,3342,24,216,192
+Arsenal,arsenal,Premier League,keeper2,PNGs/arsenal/keeper2.png,Clubs/arsenal/South_Native64/keeper2/G014.png,#68717f,#373c49,panel,Atlas_4K_01.png,3579,24,216,192
+Tottenham Hotspur,tottenham-hotspur,Premier League,home,PNGs/tottenham-hotspur/home.png,Clubs/tottenham-hotspur/South_Native64/home/F001.png,#F2F3EE,#192238,sleeves,Atlas_4K_01.png,24,235,216,192
+Tottenham Hotspur,tottenham-hotspur,Premier League,away,PNGs/tottenham-hotspur/away.png,Clubs/tottenham-hotspur/South_Native64/away/F011.png,#2346AC,#F0C538,panel,Atlas_4K_01.png,261,235,216,192
+Tottenham Hotspur,tottenham-hotspur,Premier League,keeper1,PNGs/tottenham-hotspur/keeper1.png,Clubs/tottenham-hotspur/South_Native64/keeper1/G001.png,#21242B,#F2F3EE,solid,Atlas_4K_01.png,498,235,216,192
+Tottenham Hotspur,tottenham-hotspur,Premier League,keeper2,PNGs/tottenham-hotspur/keeper2.png,Clubs/tottenham-hotspur/South_Native64/keeper2/G014.png,#458C58,#397448,solid,Atlas_4K_01.png,735,235,216,192
+Blackburn Rovers,blackburn-rovers,Premier League,home,PNGs/blackburn-rovers/home.png,Clubs/blackburn-rovers/South_Native64/home/F001.png,#174C9E,#F2F3EE,halves,Atlas_4K_01.png,972,235,216,192
+Blackburn Rovers,blackburn-rovers,Premier League,away,PNGs/blackburn-rovers/away.png,Clubs/blackburn-rovers/South_Native64/away/F011.png,#15191E,#F2F3EE,panel,Atlas_4K_01.png,1209,235,216,192
+Blackburn Rovers,blackburn-rovers,Premier League,keeper1,PNGs/blackburn-rovers/keeper1.png,Clubs/blackburn-rovers/South_Native64/keeper1/G001.png,#BD493D,#141923,panel,Atlas_4K_01.png,1446,235,216,192
+Blackburn Rovers,blackburn-rovers,Premier League,keeper2,PNGs/blackburn-rovers/keeper2.png,Clubs/blackburn-rovers/South_Native64/keeper2/G014.png,#388F5D,#F2F3EE,solid,Atlas_4K_01.png,1683,235,216,192
+Newcastle United,newcastle-united,Premier League,home,PNGs/newcastle-united/home.png,Clubs/newcastle-united/South_Native64/home/F001.png,#141923,#F2F3EE,vertical,Atlas_4K_01.png,1920,235,216,192
+Newcastle United,newcastle-united,Premier League,away,PNGs/newcastle-united/away.png,Clubs/newcastle-united/South_Native64/away/F011.png,#263747,#425667,vertical,Atlas_4K_01.png,2157,235,216,192
+Newcastle United,newcastle-united,Premier League,keeper1,PNGs/newcastle-united/keeper1.png,Clubs/newcastle-united/South_Native64/keeper1/G001.png,#356CA9,#DFEDF7,solid,Atlas_4K_01.png,2394,235,216,192
+Newcastle United,newcastle-united,Premier League,keeper2,PNGs/newcastle-united/keeper2.png,Clubs/newcastle-united/South_Native64/keeper2/G014.png,#E5C544,#262828,panel,Atlas_4K_01.png,2631,235,216,192
+Bolton Wanderers,bolton-wanderers,Premier League,home,PNGs/bolton-wanderers/home.png,Clubs/bolton-wanderers/South_Native64/home/F001.png,#F2F3EE,#19263D,panel,Atlas_4K_01.png,2868,235,216,192
+Bolton Wanderers,bolton-wanderers,Premier League,away,PNGs/bolton-wanderers/away.png,Clubs/bolton-wanderers/South_Native64/away/F011.png,#242D42,#BCBEC1,pinstripes,Atlas_4K_01.png,3105,235,216,192
+Bolton Wanderers,bolton-wanderers,Premier League,keeper1,PNGs/bolton-wanderers/keeper1.png,Clubs/bolton-wanderers/South_Native64/keeper1/G001.png,#428855,#22292C,sleeves,Atlas_4K_01.png,3342,235,216,192
+Bolton Wanderers,bolton-wanderers,Premier League,keeper2,PNGs/bolton-wanderers/keeper2.png,Clubs/bolton-wanderers/South_Native64/keeper2/G014.png,#E6C438,#202124,sleeves,Atlas_4K_01.png,3579,235,216,192
+West Ham United,west-ham-united,Premier League,home,PNGs/west-ham-united/home.png,Clubs/west-ham-united/South_Native64/home/F001.png,#852644,#76B7DE,sleeves,Atlas_4K_01.png,24,446,216,192
+West Ham United,west-ham-united,Premier League,away,PNGs/west-ham-united/away.png,Clubs/west-ham-united/South_Native64/away/F011.png,#F2F3EE,#19263D,panel,Atlas_4K_01.png,261,446,216,192
+West Ham United,west-ham-united,Premier League,keeper1,PNGs/west-ham-united/keeper1.png,Clubs/west-ham-united/South_Native64/keeper1/G001.png,#242B49,#756592,panel,Atlas_4K_01.png,498,446,216,192
+West Ham United,west-ham-united,Premier League,keeper2,PNGs/west-ham-united/keeper2.png,Clubs/west-ham-united/South_Native64/keeper2/G014.png,#E6C139,#22272C,panel,Atlas_4K_01.png,735,446,216,192
+Wigan Athletic,wigan-athletic,Premier League,home,PNGs/wigan-athletic/home.png,Clubs/wigan-athletic/South_Native64/home/F001.png,#2359A5,#F2F3EE,vertical,Atlas_4K_01.png,972,446,216,192
+Wigan Athletic,wigan-athletic,Premier League,away,PNGs/wigan-athletic/away.png,Clubs/wigan-athletic/South_Native64/away/F011.png,#E6BB32,#202C49,sleeves,Atlas_4K_01.png,1209,446,216,192
+Wigan Athletic,wigan-athletic,Premier League,keeper1,PNGs/wigan-athletic/keeper1.png,Clubs/wigan-athletic/South_Native64/keeper1/G001.png,#4F8D53,#141923,panel,Atlas_4K_01.png,1446,446,216,192
+Wigan Athletic,wigan-athletic,Premier League,keeper2,PNGs/wigan-athletic/keeper2.png,Clubs/wigan-athletic/South_Native64/keeper2/G014.png,#E7813C,#212C4A,solid,Atlas_4K_01.png,1683,446,216,192
+Everton,everton,Premier League,home,PNGs/everton/home.png,Clubs/everton/South_Native64/home/F001.png,#234994,#F2F3EE,panel,Atlas_4K_01.png,1920,446,216,192
+Everton,everton,Premier League,away,PNGs/everton/away.png,Clubs/everton/South_Native64/away/F011.png,#F2F3EE,#141923,panel,Atlas_4K_01.png,2157,446,216,192
+Everton,everton,Premier League,keeper1,PNGs/everton/keeper1.png,Clubs/everton/South_Native64/keeper1/G001.png,#212840,#DC81AE,panel,Atlas_4K_01.png,2394,446,216,192
+Everton,everton,Premier League,keeper2,PNGs/everton/keeper2.png,Clubs/everton/South_Native64/keeper2/G014.png,#4C9A57,#F2F3EE,solid,Atlas_4K_01.png,2631,446,216,192
+Fulham,fulham,Premier League,home,PNGs/fulham/home.png,Clubs/fulham/South_Native64/home/F001.png,#F2F3EE,#141923,panel,Atlas_4K_01.png,2868,446,216,192
+Fulham,fulham,Premier League,away,PNGs/fulham/away.png,Clubs/fulham/South_Native64/away/F011.png,#CE1831,#F2F3EE,panel,Atlas_4K_01.png,3105,446,216,192
+Fulham,fulham,Premier League,keeper1,PNGs/fulham/keeper1.png,Clubs/fulham/South_Native64/keeper1/G001.png,#22252C,#92323B,panel,Atlas_4K_01.png,3342,446,216,192
+Fulham,fulham,Premier League,keeper2,PNGs/fulham/keeper2.png,Clubs/fulham/South_Native64/keeper2/G014.png,#437D49,#252A28,panel,Atlas_4K_01.png,3579,446,216,192
+Charlton Athletic,charlton-athletic,Premier League,home,PNGs/charlton-athletic/home.png,Clubs/charlton-athletic/South_Native64/home/F001.png,#CE1831,#F2F3EE,panel,Atlas_4K_01.png,24,657,216,192
+Charlton Athletic,charlton-athletic,Premier League,away,PNGs/charlton-athletic/away.png,Clubs/charlton-athletic/South_Native64/away/F011.png,#F2F3EE,#CE1831,panel,Atlas_4K_01.png,261,657,216,192
+Charlton Athletic,charlton-athletic,Premier League,keeper1,PNGs/charlton-athletic/keeper1.png,Clubs/charlton-athletic/South_Native64/keeper1/G001.png,#E7BC31,#202738,panel,Atlas_4K_01.png,498,657,216,192
+Charlton Athletic,charlton-athletic,Premier League,keeper2,PNGs/charlton-athletic/keeper2.png,Clubs/charlton-athletic/South_Native64/keeper2/G014.png,#1B2027,#F2F3EE,panel,Atlas_4K_01.png,735,657,216,192
+Middlesbrough,middlesbrough,Premier League,home,PNGs/middlesbrough/home.png,Clubs/middlesbrough/South_Native64/home/F001.png,#CB1A30,#F2F3EE,hoops,Atlas_4K_01.png,972,657,216,192
+Middlesbrough,middlesbrough,Premier League,away,PNGs/middlesbrough/away.png,Clubs/middlesbrough/South_Native64/away/F011.png,#215AA3,#DE3349,panel,Atlas_4K_01.png,1209,657,216,192
+Middlesbrough,middlesbrough,Premier League,keeper1,PNGs/middlesbrough/keeper1.png,Clubs/middlesbrough/South_Native64/keeper1/G001.png,#4C8655,#242827,solid,Atlas_4K_01.png,1446,657,216,192
+Middlesbrough,middlesbrough,Premier League,keeper2,PNGs/middlesbrough/keeper2.png,Clubs/middlesbrough/South_Native64/keeper2/G014.png,#EAA53C,#141923,panel,Atlas_4K_01.png,1683,657,216,192
+Manchester City,manchester-city,Premier League,home,PNGs/manchester-city/home.png,Clubs/manchester-city/South_Native64/home/F001.png,#86BADE,#F2F3EE,panel,Atlas_4K_01.png,1920,657,216,192
+Manchester City,manchester-city,Premier League,away,PNGs/manchester-city/away.png,Clubs/manchester-city/South_Native64/away/F011.png,#202A41,#F2F3EE,pinstripes,Atlas_4K_01.png,2157,657,216,192
+Manchester City,manchester-city,Premier League,keeper1,PNGs/manchester-city/keeper1.png,Clubs/manchester-city/South_Native64/keeper1/G001.png,#41A258,#20262B,panel,Atlas_4K_01.png,2394,657,216,192
+Manchester City,manchester-city,Premier League,keeper2,PNGs/manchester-city/keeper2.png,Clubs/manchester-city/South_Native64/keeper2/G014.png,#EBEEE7,#283246,panel,Atlas_4K_01.png,2631,657,216,192
+Aston Villa,aston-villa,Premier League,home,PNGs/aston-villa/home.png,Clubs/aston-villa/South_Native64/home/F001.png,#7F2041,#76B7DE,sleeves,Atlas_4K_01.png,2868,657,216,192
+Aston Villa,aston-villa,Premier League,away,PNGs/aston-villa/away.png,Clubs/aston-villa/South_Native64/away/F011.png,#ECCE37,#19263D,panel,Atlas_4K_01.png,3105,657,216,192
+Aston Villa,aston-villa,Premier League,keeper1,PNGs/aston-villa/keeper1.png,Clubs/aston-villa/South_Native64/keeper1/G001.png,#9DA4AB,#23252C,vertical,Atlas_4K_01.png,3342,657,216,192
+Aston Villa,aston-villa,Premier League,keeper2,PNGs/aston-villa/keeper2.png,Clubs/aston-villa/South_Native64/keeper2/G014.png,#1E2C4B,#76B7DE,solid,Atlas_4K_01.png,3579,657,216,192
+Portsmouth,portsmouth,Premier League,home,PNGs/portsmouth/home.png,Clubs/portsmouth/South_Native64/home/F001.png,#2458A8,#F2F3EE,panel,Atlas_4K_01.png,24,868,216,192
+Portsmouth,portsmouth,Premier League,away,PNGs/portsmouth/away.png,Clubs/portsmouth/South_Native64/away/F011.png,#D32029,#E4D8AD,panel,Atlas_4K_01.png,261,868,216,192
+Portsmouth,portsmouth,Premier League,keeper1,PNGs/portsmouth/keeper1.png,Clubs/portsmouth/South_Native64/keeper1/G001.png,#6C5040,#E5C550,panel,Atlas_4K_01.png,498,868,216,192
+Portsmouth,portsmouth,Premier League,keeper2,PNGs/portsmouth/keeper2.png,Clubs/portsmouth/South_Native64/keeper2/G014.png,#D5AB3B,#141923,panel,Atlas_4K_01.png,735,868,216,192
+Birmingham City,birmingham-city,Premier League,home,PNGs/birmingham-city/home.png,Clubs/birmingham-city/South_Native64/home/F001.png,#174C9E,#F2F3EE,panel,Atlas_4K_01.png,972,868,216,192
+Birmingham City,birmingham-city,Premier League,away,PNGs/birmingham-city/away.png,Clubs/birmingham-city/South_Native64/away/F011.png,#F2F3EE,#CE1831,panel,Atlas_4K_01.png,1209,868,216,192
+Birmingham City,birmingham-city,Premier League,keeper1,PNGs/birmingham-city/keeper1.png,Clubs/birmingham-city/South_Native64/keeper1/G001.png,#36955C,#141923,panel,Atlas_4K_01.png,1446,868,216,192
+Birmingham City,birmingham-city,Premier League,keeper2,PNGs/birmingham-city/keeper2.png,Clubs/birmingham-city/South_Native64/keeper2/G014.png,#F3AA37,#141923,panel,Atlas_4K_01.png,1683,868,216,192
+West Bromwich Albion,west-bromwich-albion,Premier League,home,PNGs/west-bromwich-albion/home.png,Clubs/west-bromwich-albion/South_Native64/home/F001.png,#1D2741,#F2F3EE,vertical,Atlas_4K_01.png,1920,868,216,192
+West Bromwich Albion,west-bromwich-albion,Premier League,away,PNGs/west-bromwich-albion/away.png,Clubs/west-bromwich-albion/South_Native64/away/F011.png,#212840,#CF2638,sash,Atlas_4K_01.png,2157,868,216,192
+West Bromwich Albion,west-bromwich-albion,Premier League,keeper1,PNGs/west-bromwich-albion/keeper1.png,Clubs/west-bromwich-albion/South_Native64/keeper1/G001.png,#67A143,#141923,panel,Atlas_4K_01.png,2394,868,216,192
+West Bromwich Albion,west-bromwich-albion,Premier League,keeper2,PNGs/west-bromwich-albion/keeper2.png,Clubs/west-bromwich-albion/South_Native64/keeper2/G014.png,#DDA741,#141923,panel,Atlas_4K_01.png,2631,868,216,192
+Sunderland,sunderland,Premier League,home,PNGs/sunderland/home.png,Clubs/sunderland/South_Native64/home/F001.png,#DA2438,#F2F3EE,vertical,Atlas_4K_01.png,2868,868,216,192
+Sunderland,sunderland,Premier League,away,PNGs/sunderland/away.png,Clubs/sunderland/South_Native64/away/F011.png,#171C20,#C93039,panel,Atlas_4K_01.png,3105,868,216,192
+Sunderland,sunderland,Premier League,keeper1,PNGs/sunderland/keeper1.png,Clubs/sunderland/South_Native64/keeper1/G001.png,#A1A6AA,#A42D3D,panel,Atlas_4K_01.png,3342,868,216,192
+Sunderland,sunderland,Premier League,keeper2,PNGs/sunderland/keeper2.png,Clubs/sunderland/South_Native64/keeper2/G014.png,#EBB84A,#141923,panel,Atlas_4K_01.png,3579,868,216,192
+Blackpool,blackpool,League One,home,PNGs/blackpool/home.png,Clubs/blackpool/South_Native64/home/F001.png,#E97230,#F1EEE8,solid,Atlas_4K_01.png,24,1079,216,192
+Blackpool,blackpool,League One,away,PNGs/blackpool/away.png,Clubs/blackpool/South_Native64/away/F011.png,#F1EEE8,#E97230,solid,Atlas_4K_01.png,261,1079,216,192
+Blackpool,blackpool,League One,keeper1,PNGs/blackpool/keeper1.png,Clubs/blackpool/South_Native64/keeper1/G001.png,#829AC1,#182D4C,panel,Atlas_4K_01.png,498,1079,216,192
+Blackpool,blackpool,League One,keeper2,PNGs/blackpool/keeper2.png,Clubs/blackpool/South_Native64/keeper2/G014.png,#E5A934,#42334D,sleeves,Atlas_4K_01.png,735,1079,216,192
+Bradford City,bradford-city,League One,home,PNGs/bradford-city/home.png,Clubs/bradford-city/South_Native64/home/F001.png,#DEA334,#823447,vertical,Atlas_4K_01.png,972,1079,216,192
+Bradford City,bradford-city,League One,away,PNGs/bradford-city/away.png,Clubs/bradford-city/South_Native64/away/F011.png,#85BFE1,#4E87B5,solid,Atlas_4K_01.png,1209,1079,216,192
+Bradford City,bradford-city,League One,keeper1,PNGs/bradford-city/keeper1.png,Clubs/bradford-city/South_Native64/keeper1/G001.png,#408951,#DAEB88,panel,Atlas_4K_01.png,1446,1079,216,192
+Bradford City,bradford-city,League One,keeper2,PNGs/bradford-city/keeper2.png,Clubs/bradford-city/South_Native64/keeper2/G014.png,#7671AE,#E6D9E7,sleeves,Atlas_4K_01.png,1683,1079,216,192
+Brighton & Hove Albion,brighton-hove-albion,Championship,home,PNGs/brighton-hove-albion/home.png,Clubs/brighton-hove-albion/South_Native64/home/F001.png,#77C4E7,#F0F2ED,vertical,Atlas_4K_01.png,1920,1079,216,192
+Brighton & Hove Albion,brighton-hove-albion,Championship,away,PNGs/brighton-hove-albion/away.png,Clubs/brighton-hove-albion/South_Native64/away/F011.png,#7C293E,#242C4B,panel,Atlas_4K_01.png,2157,1079,216,192
+Brighton & Hove Albion,brighton-hove-albion,Championship,keeper1,PNGs/brighton-hove-albion/keeper1.png,Clubs/brighton-hove-albion/South_Native64/keeper1/G001.png,#418953,#E5EA76,panel,Atlas_4K_01.png,2394,1079,216,192
+Brighton & Hove Albion,brighton-hove-albion,Championship,keeper2,PNGs/brighton-hove-albion/keeper2.png,Clubs/brighton-hove-albion/South_Native64/keeper2/G014.png,#F0A643,#53336F,sleeves,Atlas_4K_01.png,2631,1079,216,192
+Bristol City,bristol-city,League One,home,PNGs/bristol-city/home.png,Clubs/bristol-city/South_Native64/home/F001.png,#CD293F,#F4EFEC,panel,Atlas_4K_01.png,2868,1079,216,192
+Bristol City,bristol-city,League One,away,PNGs/bristol-city/away.png,Clubs/bristol-city/South_Native64/away/F011.png,#EFCA33,#85C5E9,panel,Atlas_4K_01.png,3105,1079,216,192
+Bristol City,bristol-city,League One,keeper1,PNGs/bristol-city/keeper1.png,Clubs/bristol-city/South_Native64/keeper1/G001.png,#318457,#D4E875,panel,Atlas_4K_01.png,3342,1079,216,192
+Bristol City,bristol-city,League One,keeper2,PNGs/bristol-city/keeper2.png,Clubs/bristol-city/South_Native64/keeper2/G014.png,#7662A3,#DFE2F3,sleeves,Atlas_4K_01.png,3579,1079,216,192
+Burnley,burnley,Championship,home,PNGs/burnley/home.png,Clubs/burnley/South_Native64/home/F001.png,#712840,#81B8E5,sleeves,Atlas_4K_01.png,24,1290,216,192
+Burnley,burnley,Championship,away,PNGs/burnley/away.png,Clubs/burnley/South_Native64/away/F011.png,#F1EEE8,#81B8E5,solid,Atlas_4K_01.png,261,1290,216,192
+Burnley,burnley,Championship,keeper1,PNGs/burnley/keeper1.png,Clubs/burnley/South_Native64/keeper1/G001.png,#50BD7D,#1B4243,panel,Atlas_4K_01.png,498,1290,216,192
+Burnley,burnley,Championship,keeper2,PNGs/burnley/keeper2.png,Clubs/burnley/South_Native64/keeper2/G014.png,#8B69BC,#272842,sleeves,Atlas_4K_01.png,735,1290,216,192
+Bury,bury,League Two,home,PNGs/bury/home.png,Clubs/bury/South_Native64/home/F001.png,#F1EEE8,#2156AC,solid,Atlas_4K_01.png,972,1290,216,192
+Bury,bury,League Two,away,PNGs/bury/away.png,Clubs/bury/South_Native64/away/F011.png,#EBC33D,#192D57,solid,Atlas_4K_01.png,1209,1290,216,192
+Bury,bury,League Two,keeper1,PNGs/bury/keeper1.png,Clubs/bury/South_Native64/keeper1/G001.png,#6C9BC3,#293E52,panel,Atlas_4K_01.png,1446,1290,216,192
+Bury,bury,League Two,keeper2,PNGs/bury/keeper2.png,Clubs/bury/South_Native64/keeper2/G014.png,#50BD7D,#1B4243,sleeves,Atlas_4K_01.png,1683,1290,216,192
+Coventry City,coventry-city,Championship,home,PNGs/coventry-city/home.png,Clubs/coventry-city/South_Native64/home/F001.png,#79BFEA,#E8F2F6,vertical,Atlas_4K_01.png,1920,1290,216,192
+Coventry City,coventry-city,Championship,away,PNGs/coventry-city/away.png,Clubs/coventry-city/South_Native64/away/F011.png,#242936,#79BFEA,panel,Atlas_4K_01.png,2157,1290,216,192
+Coventry City,coventry-city,Championship,keeper1,PNGs/coventry-city/keeper1.png,Clubs/coventry-city/South_Native64/keeper1/G001.png,#49854F,#DDE376,panel,Atlas_4K_01.png,2394,1290,216,192
+Coventry City,coventry-city,Championship,keeper2,PNGs/coventry-city/keeper2.png,Clubs/coventry-city/South_Native64/keeper2/G014.png,#EE933D,#47419A,sleeves,Atlas_4K_01.png,2631,1290,216,192
+Crystal Palace,crystal-palace,Championship,home,PNGs/crystal-palace/home.png,Clubs/crystal-palace/South_Native64/home/F001.png,#2360B8,#D33043,vertical,Atlas_4K_01.png,2868,1290,216,192
+Crystal Palace,crystal-palace,Championship,away,PNGs/crystal-palace/away.png,Clubs/crystal-palace/South_Native64/away/F011.png,#22232B,#D72C47,panel,Atlas_4K_01.png,3105,1290,216,192
+Crystal Palace,crystal-palace,Championship,keeper1,PNGs/crystal-palace/keeper1.png,Clubs/crystal-palace/South_Native64/keeper1/G001.png,#52A45B,#F4D754,panel,Atlas_4K_01.png,3342,1290,216,192
+Crystal Palace,crystal-palace,Championship,keeper2,PNGs/crystal-palace/keeper2.png,Clubs/crystal-palace/South_Native64/keeper2/G014.png,#E9AA42,#553C85,sleeves,Atlas_4K_01.png,3579,1290,216,192
+Derby County,derby-county,Championship,home,PNGs/derby-county/home.png,Clubs/derby-county/South_Native64/home/F001.png,#F1EEE8,#1C1D25,solid,Atlas_4K_01.png,24,1501,216,192
+Derby County,derby-county,Championship,away,PNGs/derby-county/away.png,Clubs/derby-county/South_Native64/away/F011.png,#192D57,#EBC33D,solid,Atlas_4K_01.png,261,1501,216,192
+Derby County,derby-county,Championship,keeper1,PNGs/derby-county/keeper1.png,Clubs/derby-county/South_Native64/keeper1/G001.png,#69C492,#213E4D,panel,Atlas_4K_01.png,498,1501,216,192
+Derby County,derby-county,Championship,keeper2,PNGs/derby-county/keeper2.png,Clubs/derby-county/South_Native64/keeper2/G014.png,#6C9BC3,#293E52,sleeves,Atlas_4K_01.png,735,1501,216,192
+Grimsby Town,grimsby-town,League Two,home,PNGs/grimsby-town/home.png,Clubs/grimsby-town/South_Native64/home/F001.png,#F1EEE8,#1C1D25,vertical,Atlas_4K_01.png,972,1501,216,192
+Grimsby Town,grimsby-town,League Two,away,PNGs/grimsby-town/away.png,Clubs/grimsby-town/South_Native64/away/F011.png,#2156AC,#F1EEE8,solid,Atlas_4K_01.png,1209,1501,216,192
+Grimsby Town,grimsby-town,League Two,keeper1,PNGs/grimsby-town/keeper1.png,Clubs/grimsby-town/South_Native64/keeper1/G001.png,#55BC91,#203A59,panel,Atlas_4K_01.png,1446,1501,216,192
+Grimsby Town,grimsby-town,League Two,keeper2,PNGs/grimsby-town/keeper2.png,Clubs/grimsby-town/South_Native64/keeper2/G014.png,#829AC1,#182D4C,sleeves,Atlas_4K_01.png,1683,1501,216,192
+Huddersfield Town,huddersfield-town,League One,home,PNGs/huddersfield-town/home.png,Clubs/huddersfield-town/South_Native64/home/F001.png,#F1EEE8,#2156AC,vertical,Atlas_4K_01.png,1920,1501,216,192
+Huddersfield Town,huddersfield-town,League One,away,PNGs/huddersfield-town/away.png,Clubs/huddersfield-town/South_Native64/away/F011.png,#F1EEE8,#2156AC,hoops,Atlas_4K_01.png,2157,1501,216,192
+Huddersfield Town,huddersfield-town,League One,keeper1,PNGs/huddersfield-town/keeper1.png,Clubs/huddersfield-town/South_Native64/keeper1/G001.png,#50BD7D,#1B4243,panel,Atlas_4K_01.png,2394,1501,216,192
+Huddersfield Town,huddersfield-town,League One,keeper2,PNGs/huddersfield-town/keeper2.png,Clubs/huddersfield-town/South_Native64/keeper2/G014.png,#8B69BC,#272842,sleeves,Atlas_4K_01.png,2631,1501,216,192
+Ipswich Town,ipswich-town,Championship,home,PNGs/ipswich-town/home.png,Clubs/ipswich-town/South_Native64/home/F001.png,#2156AC,#F1EEE8,solid,Atlas_4K_01.png,2868,1501,216,192
+Ipswich Town,ipswich-town,Championship,away,PNGs/ipswich-town/away.png,Clubs/ipswich-town/South_Native64/away/F011.png,#E97230,#1C1D25,solid,Atlas_4K_01.png,3105,1501,216,192
+Ipswich Town,ipswich-town,Championship,keeper1,PNGs/ipswich-town/keeper1.png,Clubs/ipswich-town/South_Native64/keeper1/G001.png,#85974A,#324032,panel,Atlas_4K_01.png,3342,1501,216,192
+Ipswich Town,ipswich-town,Championship,keeper2,PNGs/ipswich-town/keeper2.png,Clubs/ipswich-town/South_Native64/keeper2/G014.png,#69C492,#213E4D,sleeves,Atlas_4K_01.png,3579,1501,216,192
+Leeds United,leeds-united,Championship,home,PNGs/leeds-united/home.png,Clubs/leeds-united/South_Native64/home/F001.png,#F1EEE8,#192D57,pinstripes,Atlas_4K_01.png,24,1712,216,192
+Leeds United,leeds-united,Championship,away,PNGs/leeds-united/away.png,Clubs/leeds-united/South_Native64/away/F011.png,#192D57,#81B8E5,solid,Atlas_4K_01.png,261,1712,216,192
+Leeds United,leeds-united,Championship,keeper1,PNGs/leeds-united/keeper1.png,Clubs/leeds-united/South_Native64/keeper1/G001.png,#527BAE,#1F345A,panel,Atlas_4K_01.png,498,1712,216,192
+Leeds United,leeds-united,Championship,keeper2,PNGs/leeds-united/keeper2.png,Clubs/leeds-united/South_Native64/keeper2/G014.png,#85974A,#324032,sleeves,Atlas_4K_01.png,735,1712,216,192
+Leicester City,leicester-city,Championship,home,PNGs/leicester-city/home.png,Clubs/leicester-city/South_Native64/home/F001.png,#2156AC,#F1EEE8,solid,Atlas_4K_01.png,972,1712,216,192
+Leicester City,leicester-city,Championship,away,PNGs/leicester-city/away.png,Clubs/leicester-city/South_Native64/away/F011.png,#F1EEE8,#81B8E5,sash,Atlas_4K_01.png,1209,1712,216,192
+Leicester City,leicester-city,Championship,keeper1,PNGs/leicester-city/keeper1.png,Clubs/leicester-city/South_Native64/keeper1/G001.png,#8B69BC,#272842,panel,Atlas_4K_01.png,1446,1712,216,192
+Leicester City,leicester-city,Championship,keeper2,PNGs/leicester-city/keeper2.png,Clubs/leicester-city/South_Native64/keeper2/G014.png,#55BC91,#203A59,sleeves,Atlas_4K_01.png,1683,1712,216,192
+Luton Town,luton-town,Championship,home,PNGs/luton-town/home.png,Clubs/luton-town/South_Native64/home/F001.png,#EDEEEA,#F27934,panel,Atlas_4K_01.png,1920,1712,216,192
+Luton Town,luton-town,Championship,away,PNGs/luton-town/away.png,Clubs/luton-town/South_Native64/away/F011.png,#282A30,#F1EEEA,panel,Atlas_4K_01.png,2157,1712,216,192
+Luton Town,luton-town,Championship,keeper1,PNGs/luton-town/keeper1.png,Clubs/luton-town/South_Native64/keeper1/G001.png,#428A54,#E1E875,panel,Atlas_4K_01.png,2394,1712,216,192
+Luton Town,luton-town,Championship,keeper2,PNGs/luton-town/keeper2.png,Clubs/luton-town/South_Native64/keeper2/G014.png,#5C88C1,#E6DEF4,sleeves,Atlas_4K_01.png,2631,1712,216,192
+Millwall,millwall,Championship,home,PNGs/millwall/home.png,Clubs/millwall/South_Native64/home/F001.png,#214E92,#EBEDEB,panel,Atlas_4K_01.png,2868,1712,216,192
+Millwall,millwall,Championship,away,PNGs/millwall/away.png,Clubs/millwall/South_Native64/away/F011.png,#E7BC42,#242F4D,panel,Atlas_4K_01.png,3105,1712,216,192
+Millwall,millwall,Championship,keeper1,PNGs/millwall/keeper1.png,Clubs/millwall/South_Native64/keeper1/G001.png,#478B58,#D6E687,panel,Atlas_4K_01.png,3342,1712,216,192
+Millwall,millwall,Championship,keeper2,PNGs/millwall/keeper2.png,Clubs/millwall/South_Native64/keeper2/G014.png,#E87642,#562A50,sleeves,Atlas_4K_01.png,3579,1712,216,192
+Nottingham Forest,nottingham-forest,League One,home,PNGs/nottingham-forest/home.png,Clubs/nottingham-forest/South_Native64/home/F001.png,#BD292D,#F1EEE8,solid,Atlas_4K_01.png,24,1923,216,192
+Nottingham Forest,nottingham-forest,League One,away,PNGs/nottingham-forest/away.png,Clubs/nottingham-forest/South_Native64/away/F011.png,#EBC33D,#192D57,solid,Atlas_4K_01.png,261,1923,216,192
+Nottingham Forest,nottingham-forest,League One,keeper1,PNGs/nottingham-forest/keeper1.png,Clubs/nottingham-forest/South_Native64/keeper1/G001.png,#829AC1,#182D4C,panel,Atlas_4K_01.png,498,1923,216,192
+Nottingham Forest,nottingham-forest,League One,keeper2,PNGs/nottingham-forest/keeper2.png,Clubs/nottingham-forest/South_Native64/keeper2/G014.png,#E5A934,#42334D,sleeves,Atlas_4K_01.png,735,1923,216,192
+Notts County,notts-county,League Two,home,PNGs/notts-county/home.png,Clubs/notts-county/South_Native64/home/F001.png,#F1EEE8,#1C1D25,vertical,Atlas_4K_01.png,972,1923,216,192
+Notts County,notts-county,League Two,away,PNGs/notts-county/away.png,Clubs/notts-county/South_Native64/away/F011.png,#81B8E5,#192D57,solid,Atlas_4K_01.png,1209,1923,216,192
+Notts County,notts-county,League Two,keeper1,PNGs/notts-county/keeper1.png,Clubs/notts-county/South_Native64/keeper1/G001.png,#527BAE,#1F345A,panel,Atlas_4K_01.png,1446,1923,216,192
+Notts County,notts-county,League Two,keeper2,PNGs/notts-county/keeper2.png,Clubs/notts-county/South_Native64/keeper2/G014.png,#85974A,#324032,sleeves,Atlas_4K_01.png,1683,1923,216,192
+Oldham Athletic,oldham-athletic,League One,home,PNGs/oldham-athletic/home.png,Clubs/oldham-athletic/South_Native64/home/F001.png,#2C62BE,#F1EFEB,panel,Atlas_4K_01.png,1920,1923,216,192
+Oldham Athletic,oldham-athletic,League One,away,PNGs/oldham-athletic/away.png,Clubs/oldham-athletic/South_Native64/away/F011.png,#F1F0EB,#356BB6,panel,Atlas_4K_01.png,2157,1923,216,192
+Oldham Athletic,oldham-athletic,League One,keeper1,PNGs/oldham-athletic/keeper1.png,Clubs/oldham-athletic/South_Native64/keeper1/G001.png,#47A153,#DBE879,panel,Atlas_4K_01.png,2394,1923,216,192
+Oldham Athletic,oldham-athletic,League One,keeper2,PNGs/oldham-athletic/keeper2.png,Clubs/oldham-athletic/South_Native64/keeper2/G014.png,#E99442,#62346D,sleeves,Atlas_4K_01.png,2631,1923,216,192
+Oxford United,oxford-united,League Two,home,PNGs/oxford-united/home.png,Clubs/oxford-united/South_Native64/home/F001.png,#EFC631,#263852,panel,Atlas_4K_01.png,2868,1923,216,192
+Oxford United,oxford-united,League Two,away,PNGs/oxford-united/away.png,Clubs/oxford-united/South_Native64/away/F011.png,#25252B,#42444D,solid,Atlas_4K_01.png,3105,1923,216,192
+Oxford United,oxford-united,League Two,keeper1,PNGs/oxford-united/keeper1.png,Clubs/oxford-united/South_Native64/keeper1/G001.png,#348C66,#D0E78F,panel,Atlas_4K_01.png,3342,1923,216,192
+Oxford United,oxford-united,League Two,keeper2,PNGs/oxford-united/keeper2.png,Clubs/oxford-united/South_Native64/keeper2/G014.png,#DE5F57,#EED0C4,sleeves,Atlas_4K_01.png,3579,1923,216,192
+Preston North End,preston-north-end,Championship,home,PNGs/preston-north-end/home.png,Clubs/preston-north-end/South_Native64/home/F001.png,#F1EEE8,#192D57,sleeves,Atlas_4K_02.png,24,24,216,192
+Preston North End,preston-north-end,Championship,away,PNGs/preston-north-end/away.png,Clubs/preston-north-end/South_Native64/away/F011.png,#81B8E5,#192D57,solid,Atlas_4K_02.png,261,24,216,192
+Preston North End,preston-north-end,Championship,keeper1,PNGs/preston-north-end/keeper1.png,Clubs/preston-north-end/South_Native64/keeper1/G001.png,#5BB49D,#2B4C54,panel,Atlas_4K_02.png,498,24,216,192
+Preston North End,preston-north-end,Championship,keeper2,PNGs/preston-north-end/keeper2.png,Clubs/preston-north-end/South_Native64/keeper2/G014.png,#527BAE,#1F345A,sleeves,Atlas_4K_02.png,735,24,216,192
+Queens Park Rangers,queens-park-rangers,Championship,home,PNGs/queens-park-rangers/home.png,Clubs/queens-park-rangers/South_Native64/home/F001.png,#2962BF,#F1F3EF,hoops,Atlas_4K_02.png,972,24,216,192
+Queens Park Rangers,queens-park-rangers,Championship,away,PNGs/queens-park-rangers/away.png,Clubs/queens-park-rangers/South_Native64/away/F011.png,#C2283D,#22232C,vertical,Atlas_4K_02.png,1209,24,216,192
+Queens Park Rangers,queens-park-rangers,Championship,keeper1,PNGs/queens-park-rangers/keeper1.png,Clubs/queens-park-rangers/South_Native64/keeper1/G001.png,#468957,#D9E585,panel,Atlas_4K_02.png,1446,24,216,192
+Queens Park Rangers,queens-park-rangers,Championship,keeper2,PNGs/queens-park-rangers/keeper2.png,Clubs/queens-park-rangers/South_Native64/keeper2/G014.png,#F6C746,#552467,sleeves,Atlas_4K_02.png,1683,24,216,192
+Reading,reading,Championship,home,PNGs/reading/home.png,Clubs/reading/South_Native64/home/F001.png,#2867BC,#F1F2ED,hoops,Atlas_4K_02.png,1920,24,216,192
+Reading,reading,Championship,away,PNGs/reading/away.png,Clubs/reading/South_Native64/away/F011.png,#232B48,#D3D8E0,panel,Atlas_4K_02.png,2157,24,216,192
+Reading,reading,Championship,keeper1,PNGs/reading/keeper1.png,Clubs/reading/South_Native64/keeper1/G001.png,#47874C,#E5F08B,panel,Atlas_4K_02.png,2394,24,216,192
+Reading,reading,Championship,keeper2,PNGs/reading/keeper2.png,Clubs/reading/South_Native64/keeper2/G014.png,#EF8040,#472B64,sleeves,Atlas_4K_02.png,2631,24,216,192
+Sheffield United,sheffield-united,Championship,home,PNGs/sheffield-united/home.png,Clubs/sheffield-united/South_Native64/home/F001.png,#BD292D,#F1EEE8,vertical,Atlas_4K_02.png,2868,24,216,192
+Sheffield United,sheffield-united,Championship,away,PNGs/sheffield-united/away.png,Clubs/sheffield-united/South_Native64/away/F011.png,#F1EEE8,#1C1D25,sleeves,Atlas_4K_02.png,3105,24,216,192
+Sheffield United,sheffield-united,Championship,keeper1,PNGs/sheffield-united/keeper1.png,Clubs/sheffield-united/South_Native64/keeper1/G001.png,#E5A934,#42334D,panel,Atlas_4K_02.png,3342,24,216,192
+Sheffield United,sheffield-united,Championship,keeper2,PNGs/sheffield-united/keeper2.png,Clubs/sheffield-united/South_Native64/keeper2/G014.png,#5BB49D,#2B4C54,sleeves,Atlas_4K_02.png,3579,24,216,192
+Sheffield Wednesday,sheffield-wednesday,Championship,home,PNGs/sheffield-wednesday/home.png,Clubs/sheffield-wednesday/South_Native64/home/F001.png,#2156AC,#F1EEE8,vertical,Atlas_4K_02.png,24,235,216,192
+Sheffield Wednesday,sheffield-wednesday,Championship,away,PNGs/sheffield-wednesday/away.png,Clubs/sheffield-wednesday/South_Native64/away/F011.png,#1C1D25,#81B8E5,panel,Atlas_4K_02.png,261,235,216,192
+Sheffield Wednesday,sheffield-wednesday,Championship,keeper1,PNGs/sheffield-wednesday/keeper1.png,Clubs/sheffield-wednesday/South_Native64/keeper1/G001.png,#55BC91,#203A59,panel,Atlas_4K_02.png,498,235,216,192
+Sheffield Wednesday,sheffield-wednesday,Championship,keeper2,PNGs/sheffield-wednesday/keeper2.png,Clubs/sheffield-wednesday/South_Native64/keeper2/G014.png,#829AC1,#182D4C,sleeves,Atlas_4K_02.png,735,235,216,192
+Southampton,southampton,Championship,home,PNGs/southampton/home.png,Clubs/southampton/South_Native64/home/F001.png,#D92E44,#F1F0EB,vertical,Atlas_4K_02.png,972,235,216,192
+Southampton,southampton,Championship,away,PNGs/southampton/away.png,Clubs/southampton/South_Native64/away/F011.png,#F2D23E,#2D60A1,panel,Atlas_4K_02.png,1209,235,216,192
+Southampton,southampton,Championship,keeper1,PNGs/southampton/keeper1.png,Clubs/southampton/South_Native64/keeper1/G001.png,#399153,#CDE576,panel,Atlas_4K_02.png,1446,235,216,192
+Southampton,southampton,Championship,keeper2,PNGs/southampton/keeper2.png,Clubs/southampton/South_Native64/keeper2/G014.png,#67529A,#D9DDF2,sleeves,Atlas_4K_02.png,1683,235,216,192
+Swindon Town,swindon-town,League One,home,PNGs/swindon-town/home.png,Clubs/swindon-town/South_Native64/home/F001.png,#CF293E,#F1F1ED,panel,Atlas_4K_02.png,1920,235,216,192
+Swindon Town,swindon-town,League One,away,PNGs/swindon-town/away.png,Clubs/swindon-town/South_Native64/away/F011.png,#F0F0EA,#3167B9,panel,Atlas_4K_02.png,2157,235,216,192
+Swindon Town,swindon-town,League One,keeper1,PNGs/swindon-town/keeper1.png,Clubs/swindon-town/South_Native64/keeper1/G001.png,#39834E,#E3E975,panel,Atlas_4K_02.png,2394,235,216,192
+Swindon Town,swindon-town,League One,keeper2,PNGs/swindon-town/keeper2.png,Clubs/swindon-town/South_Native64/keeper2/G014.png,#EDAE3D,#52396E,sleeves,Atlas_4K_02.png,2631,235,216,192
+Watford,watford,Championship,home,PNGs/watford/home.png,Clubs/watford/South_Native64/home/F001.png,#F2CC31,#282326,panel,Atlas_4K_02.png,2868,235,216,192
+Watford,watford,Championship,away,PNGs/watford/away.png,Clubs/watford/South_Native64/away/F011.png,#C42738,#E03947,solid,Atlas_4K_02.png,3105,235,216,192
+Watford,watford,Championship,keeper1,PNGs/watford/keeper1.png,Clubs/watford/South_Native64/keeper1/G001.png,#3473BE,#E9EDF3,panel,Atlas_4K_02.png,3342,235,216,192
+Watford,watford,Championship,keeper2,PNGs/watford/keeper2.png,Clubs/watford/South_Native64/keeper2/G014.png,#4B955E,#D8F188,sleeves,Atlas_4K_02.png,3579,235,216,192
+Wimbledon FC (historical),wimbledon-fc,Bonus — Heritage,home,PNGs/wimbledon-fc/home.png,Clubs/wimbledon-fc/South_Native64/home/F001.png,#29549B,#EFC748,panel,Atlas_4K_02.png,24,446,216,192
+Wimbledon FC (historical),wimbledon-fc,Bonus — Heritage,away,PNGs/wimbledon-fc/away.png,Clubs/wimbledon-fc/South_Native64/away/F011.png,#C53D48,#2F684B,panel,Atlas_4K_02.png,261,446,216,192
+Wimbledon FC (historical),wimbledon-fc,Bonus — Heritage,keeper1,PNGs/wimbledon-fc/keeper1.png,Clubs/wimbledon-fc/South_Native64/keeper1/G001.png,#3F965B,#EAE781,panel,Atlas_4K_02.png,498,446,216,192
+Wimbledon FC (historical),wimbledon-fc,Bonus — Heritage,keeper2,PNGs/wimbledon-fc/keeper2.png,Clubs/wimbledon-fc/South_Native64/keeper2/G014.png,#E5933E,#583D7A,sleeves,Atlas_4K_02.png,735,446,216,192
+Wolverhampton Wanderers,wolverhampton-wanderers,Championship,home,PNGs/wolverhampton-wanderers/home.png,Clubs/wolverhampton-wanderers/South_Native64/home/F001.png,#E9AA36,#1C1D25,solid,Atlas_4K_02.png,972,446,216,192
+Wolverhampton Wanderers,wolverhampton-wanderers,Championship,away,PNGs/wolverhampton-wanderers/away.png,Clubs/wolverhampton-wanderers/South_Native64/away/F011.png,#1C1D25,#E9AA36,solid,Atlas_4K_02.png,1209,446,216,192
+Wolverhampton Wanderers,wolverhampton-wanderers,Championship,keeper1,PNGs/wolverhampton-wanderers/keeper1.png,Clubs/wolverhampton-wanderers/South_Native64/keeper1/G001.png,#6C9BC3,#293E52,panel,Atlas_4K_02.png,1446,446,216,192
+Wolverhampton Wanderers,wolverhampton-wanderers,Championship,keeper2,PNGs/wolverhampton-wanderers/keeper2.png,Clubs/wolverhampton-wanderers/South_Native64/keeper2/G014.png,#50BD7D,#1B4243,sleeves,Atlas_4K_02.png,1683,446,216,192
+Norwich City,norwich-city,Championship,home,PNGs/norwich-city/home.png,Clubs/norwich-city/South_Native64/home/F001.png,#F8C82C,#227745,panel,Atlas_4K_02.png,1920,446,216,192
+Norwich City,norwich-city,Championship,away,PNGs/norwich-city/away.png,Clubs/norwich-city/South_Native64/away/F011.png,#225A39,#142A24,vertical,Atlas_4K_02.png,2157,446,216,192
+Norwich City,norwich-city,Championship,keeper1,PNGs/norwich-city/keeper1.png,Clubs/norwich-city/South_Native64/keeper1/G001.png,#1B302A,#9B303E,panel,Atlas_4K_02.png,2394,446,216,192
+Norwich City,norwich-city,Championship,keeper2,PNGs/norwich-city/keeper2.png,Clubs/norwich-city/South_Native64/keeper2/G014.png,#627BA7,#DCE2C4,panel,Atlas_4K_02.png,2631,446,216,192
+Cardiff City,cardiff-city,Championship,home,PNGs/cardiff-city/home.png,Clubs/cardiff-city/South_Native64/home/F001.png,#1545A6,#F0F1EB,panel,Atlas_4K_02.png,2868,446,216,192
+Cardiff City,cardiff-city,Championship,away,PNGs/cardiff-city/away.png,Clubs/cardiff-city/South_Native64/away/F011.png,#EBD331,#204CA1,panel,Atlas_4K_02.png,3105,446,216,192
+Cardiff City,cardiff-city,Championship,keeper1,PNGs/cardiff-city/keeper1.png,Clubs/cardiff-city/South_Native64/keeper1/G001.png,#8799A5,#282C36,panel,Atlas_4K_02.png,3342,446,216,192
+Cardiff City,cardiff-city,Championship,keeper2,PNGs/cardiff-city/keeper2.png,Clubs/cardiff-city/South_Native64/keeper2/G014.png,#5A8C45,#202A32,sleeves,Atlas_4K_02.png,3579,446,216,192
+Stoke City,stoke-city,Championship,home,PNGs/stoke-city/home.png,Clubs/stoke-city/South_Native64/home/F001.png,#C92637,#EFF0E8,vertical,Atlas_4K_02.png,24,657,216,192
+Stoke City,stoke-city,Championship,away,PNGs/stoke-city/away.png,Clubs/stoke-city/South_Native64/away/F011.png,#22252A,#BA2437,panel,Atlas_4K_02.png,261,657,216,192
+Stoke City,stoke-city,Championship,keeper1,PNGs/stoke-city/keeper1.png,Clubs/stoke-city/South_Native64/keeper1/G001.png,#C6C4B3,#2B3135,panel,Atlas_4K_02.png,498,657,216,192
+Stoke City,stoke-city,Championship,keeper2,PNGs/stoke-city/keeper2.png,Clubs/stoke-city/South_Native64/keeper2/G014.png,#5D9A54,#253331,sleeves,Atlas_4K_02.png,735,657,216,192
+Plymouth Argyle,plymouth-argyle,Championship,home,PNGs/plymouth-argyle/home.png,Clubs/plymouth-argyle/South_Native64/home/F001.png,#123D33,#E9F0E6,panel,Atlas_4K_02.png,972,657,216,192
+Plymouth Argyle,plymouth-argyle,Championship,away,PNGs/plymouth-argyle/away.png,Clubs/plymouth-argyle/South_Native64/away/F011.png,#F0F2EA,#1B543F,sleeves,Atlas_4K_02.png,1209,657,216,192
+Plymouth Argyle,plymouth-argyle,Championship,keeper1,PNGs/plymouth-argyle/keeper1.png,Clubs/plymouth-argyle/South_Native64/keeper1/G001.png,#D7D9D5,#25354A,sleeves,Atlas_4K_02.png,1446,657,216,192
+Plymouth Argyle,plymouth-argyle,Championship,keeper2,PNGs/plymouth-argyle/keeper2.png,Clubs/plymouth-argyle/South_Native64/keeper2/G014.png,#202B3B,#DCE1DA,panel,Atlas_4K_02.png,1683,657,216,192
+Hull City,hull-city,Championship,home,PNGs/hull-city/home.png,Clubs/hull-city/South_Native64/home/F001.png,#EA9A31,#1C2026,vertical,Atlas_4K_02.png,1920,657,216,192
+Hull City,hull-city,Championship,away,PNGs/hull-city/away.png,Clubs/hull-city/South_Native64/away/F011.png,#202127,#F0EEE6,panel,Atlas_4K_02.png,2157,657,216,192
+Hull City,hull-city,Championship,keeper1,PNGs/hull-city/keeper1.png,Clubs/hull-city/South_Native64/keeper1/G001.png,#6D9BBC,#242D3C,panel,Atlas_4K_02.png,2394,657,216,192
+Hull City,hull-city,Championship,keeper2,PNGs/hull-city/keeper2.png,Clubs/hull-city/South_Native64/keeper2/G014.png,#7960A2,#24283A,panel,Atlas_4K_02.png,2631,657,216,192
+Crewe Alexandra,crewe-alexandra,Championship,home,PNGs/crewe-alexandra/home.png,Clubs/crewe-alexandra/South_Native64/home/F001.png,#D72B3B,#F1EEE7,panel,Atlas_4K_02.png,2868,657,216,192
+Crewe Alexandra,crewe-alexandra,Championship,away,PNGs/crewe-alexandra/away.png,Clubs/crewe-alexandra/South_Native64/away/F011.png,#2A54AD,#ECEDE8,panel,Atlas_4K_02.png,3105,657,216,192
+Crewe Alexandra,crewe-alexandra,Championship,keeper1,PNGs/crewe-alexandra/keeper1.png,Clubs/crewe-alexandra/South_Native64/keeper1/G001.png,#CFC037,#202732,sleeves,Atlas_4K_02.png,3342,657,216,192
+Crewe Alexandra,crewe-alexandra,Championship,keeper2,PNGs/crewe-alexandra/keeper2.png,Clubs/crewe-alexandra/South_Native64/keeper2/G014.png,#428774,#202635,panel,Atlas_4K_02.png,3579,657,216,192
+Southend United,southend-united,League One,home,PNGs/southend-united/home.png,Clubs/southend-united/South_Native64/home/F001.png,#192C50,#F1EFE8,solid,Atlas_4K_02.png,24,868,216,192
+Southend United,southend-united,League One,away,PNGs/southend-united/away.png,Clubs/southend-united/South_Native64/away/F011.png,#F1EFE8,#22242A,sleeves,Atlas_4K_02.png,261,868,216,192
+Southend United,southend-united,League One,keeper1,PNGs/southend-united/keeper1.png,Clubs/southend-united/South_Native64/keeper1/G001.png,#52B877,#213844,panel,Atlas_4K_02.png,498,868,216,192
+Southend United,southend-united,League One,keeper2,PNGs/southend-united/keeper2.png,Clubs/southend-united/South_Native64/keeper2/G014.png,#429AAB,#263453,sleeves,Atlas_4K_02.png,735,868,216,192
+Colchester United,colchester-united,League One,home,PNGs/colchester-united/home.png,Clubs/colchester-united/South_Native64/home/F001.png,#2355A7,#F1EFE8,vertical,Atlas_4K_02.png,972,868,216,192
+Colchester United,colchester-united,League One,away,PNGs/colchester-united/away.png,Clubs/colchester-united/South_Native64/away/F011.png,#EBC542,#2355A7,solid,Atlas_4K_02.png,1209,868,216,192
+Colchester United,colchester-united,League One,keeper1,PNGs/colchester-united/keeper1.png,Clubs/colchester-united/South_Native64/keeper1/G001.png,#7953A5,#2A2345,panel,Atlas_4K_02.png,1446,868,216,192
+Colchester United,colchester-united,League One,keeper2,PNGs/colchester-united/keeper2.png,Clubs/colchester-united/South_Native64/keeper2/G014.png,#CA6A8F,#473248,sleeves,Atlas_4K_02.png,1683,868,216,192
+Brentford,brentford,League One,home,PNGs/brentford/home.png,Clubs/brentford/South_Native64/home/F001.png,#BA2837,#F1EFE8,vertical,Atlas_4K_02.png,1920,868,216,192
+Brentford,brentford,League One,away,PNGs/brentford/away.png,Clubs/brentford/South_Native64/away/F011.png,#F1EFE8,#BA2837,solid,Atlas_4K_02.png,2157,868,216,192
+Brentford,brentford,League One,keeper1,PNGs/brentford/keeper1.png,Clubs/brentford/South_Native64/keeper1/G001.png,#DD8842,#333B52,panel,Atlas_4K_02.png,2394,868,216,192
+Brentford,brentford,League One,keeper2,PNGs/brentford/keeper2.png,Clubs/brentford/South_Native64/keeper2/G014.png,#9998B8,#313553,sleeves,Atlas_4K_02.png,2631,868,216,192
+Barnsley,barnsley,League One,home,PNGs/barnsley/home.png,Clubs/barnsley/South_Native64/home/F001.png,#BA2837,#F1EFE8,solid,Atlas_4K_02.png,2868,868,216,192
+Barnsley,barnsley,League One,away,PNGs/barnsley/away.png,Clubs/barnsley/South_Native64/away/F011.png,#80BCE7,#192C50,solid,Atlas_4K_02.png,3105,868,216,192
+Barnsley,barnsley,League One,keeper1,PNGs/barnsley/keeper1.png,Clubs/barnsley/South_Native64/keeper1/G001.png,#8CAE52,#30413B,panel,Atlas_4K_02.png,3342,868,216,192
+Barnsley,barnsley,League One,keeper2,PNGs/barnsley/keeper2.png,Clubs/barnsley/South_Native64/keeper2/G014.png,#E4B942,#4C4151,sleeves,Atlas_4K_02.png,3579,868,216,192
+Swansea City,swansea-city,League One,home,PNGs/swansea-city/home.png,Clubs/swansea-city/South_Native64/home/F001.png,#F1EFE8,#22242A,solid,Atlas_4K_02.png,24,1079,216,192
+Swansea City,swansea-city,League One,away,PNGs/swansea-city/away.png,Clubs/swansea-city/South_Native64/away/F011.png,#22242A,#F1EFE8,solid,Atlas_4K_02.png,261,1079,216,192
+Swansea City,swansea-city,League One,keeper1,PNGs/swansea-city/keeper1.png,Clubs/swansea-city/South_Native64/keeper1/G001.png,#429AAB,#263453,panel,Atlas_4K_02.png,498,1079,216,192
+Swansea City,swansea-city,League One,keeper2,PNGs/swansea-city/keeper2.png,Clubs/swansea-city/South_Native64/keeper2/G014.png,#3CAE84,#243647,sleeves,Atlas_4K_02.png,735,1079,216,192
+Doncaster Rovers,doncaster-rovers,League One,home,PNGs/doncaster-rovers/home.png,Clubs/doncaster-rovers/South_Native64/home/F001.png,#BA2837,#F1EFE8,hoops,Atlas_4K_02.png,972,1079,216,192
+Doncaster Rovers,doncaster-rovers,League One,away,PNGs/doncaster-rovers/away.png,Clubs/doncaster-rovers/South_Native64/away/F011.png,#22242A,#BA2837,solid,Atlas_4K_02.png,1209,1079,216,192
+Doncaster Rovers,doncaster-rovers,League One,keeper1,PNGs/doncaster-rovers/keeper1.png,Clubs/doncaster-rovers/South_Native64/keeper1/G001.png,#CA6A8F,#473248,panel,Atlas_4K_02.png,1446,1079,216,192
+Doncaster Rovers,doncaster-rovers,League One,keeper2,PNGs/doncaster-rovers/keeper2.png,Clubs/doncaster-rovers/South_Native64/keeper2/G014.png,#52B877,#213844,sleeves,Atlas_4K_02.png,1683,1079,216,192
+Scunthorpe United,scunthorpe-united,League One,home,PNGs/scunthorpe-united/home.png,Clubs/scunthorpe-united/South_Native64/home/F001.png,#772D48,#80BCE7,panel,Atlas_4K_02.png,1920,1079,216,192
+Scunthorpe United,scunthorpe-united,League One,away,PNGs/scunthorpe-united/away.png,Clubs/scunthorpe-united/South_Native64/away/F011.png,#EBC542,#22242A,solid,Atlas_4K_02.png,2157,1079,216,192
+Scunthorpe United,scunthorpe-united,League One,keeper1,PNGs/scunthorpe-united/keeper1.png,Clubs/scunthorpe-united/South_Native64/keeper1/G001.png,#9998B8,#313553,panel,Atlas_4K_02.png,2394,1079,216,192
+Scunthorpe United,scunthorpe-united,League One,keeper2,PNGs/scunthorpe-united/keeper2.png,Clubs/scunthorpe-united/South_Native64/keeper2/G014.png,#7953A5,#2A2345,sleeves,Atlas_4K_02.png,2631,1079,216,192
+Port Vale,port-vale,League One,home,PNGs/port-vale/home.png,Clubs/port-vale/South_Native64/home/F001.png,#F1EFE8,#22242A,solid,Atlas_4K_02.png,2868,1079,216,192
+Port Vale,port-vale,League One,away,PNGs/port-vale/away.png,Clubs/port-vale/South_Native64/away/F011.png,#22242A,#C99B39,vertical,Atlas_4K_02.png,3105,1079,216,192
+Port Vale,port-vale,League One,keeper1,PNGs/port-vale/keeper1.png,Clubs/port-vale/South_Native64/keeper1/G001.png,#E4B942,#4C4151,panel,Atlas_4K_02.png,3342,1079,216,192
+Port Vale,port-vale,League One,keeper2,PNGs/port-vale/keeper2.png,Clubs/port-vale/South_Native64/keeper2/G014.png,#DD8842,#333B52,sleeves,Atlas_4K_02.png,3579,1079,216,192
+Gillingham,gillingham,League One,home,PNGs/gillingham/home.png,Clubs/gillingham/South_Native64/home/F001.png,#2355A7,#F1EFE8,panel,Atlas_4K_02.png,24,1290,216,192
+Gillingham,gillingham,League One,away,PNGs/gillingham/away.png,Clubs/gillingham/South_Native64/away/F011.png,#EBC542,#2355A7,panel,Atlas_4K_02.png,261,1290,216,192
+Gillingham,gillingham,League One,keeper1,PNGs/gillingham/keeper1.png,Clubs/gillingham/South_Native64/keeper1/G001.png,#3CAE84,#243647,panel,Atlas_4K_02.png,498,1290,216,192
+Gillingham,gillingham,League One,keeper2,PNGs/gillingham/keeper2.png,Clubs/gillingham/South_Native64/keeper2/G014.png,#8CAE52,#30413B,sleeves,Atlas_4K_02.png,735,1290,216,192
+Yeovil Town,yeovil-town,League One,home,PNGs/yeovil-town/home.png,Clubs/yeovil-town/South_Native64/home/F001.png,#2B8859,#F0F2EA,hoops,Atlas_4K_02.png,972,1290,216,192
+Yeovil Town,yeovil-town,League One,away,PNGs/yeovil-town/away.png,Clubs/yeovil-town/South_Native64/away/F011.png,#333A4B,#E6803E,panel,Atlas_4K_02.png,1209,1290,216,192
+Yeovil Town,yeovil-town,League One,keeper1,PNGs/yeovil-town/keeper1.png,Clubs/yeovil-town/South_Native64/keeper1/G001.png,#534884,#D5CDEB,panel,Atlas_4K_02.png,1446,1290,216,192
+Yeovil Town,yeovil-town,League One,keeper2,PNGs/yeovil-town/keeper2.png,Clubs/yeovil-town/South_Native64/keeper2/G014.png,#CECC4C,#493371,sleeves,Atlas_4K_02.png,1683,1290,216,192
+Chesterfield,chesterfield,League One,home,PNGs/chesterfield/home.png,Clubs/chesterfield/South_Native64/home/F001.png,#2F62B3,#EFEFEC,panel,Atlas_4K_02.png,1920,1290,216,192
+Chesterfield,chesterfield,League One,away,PNGs/chesterfield/away.png,Clubs/chesterfield/South_Native64/away/F011.png,#88BEDD,#263654,panel,Atlas_4K_02.png,2157,1290,216,192
+Chesterfield,chesterfield,League One,keeper1,PNGs/chesterfield/keeper1.png,Clubs/chesterfield/South_Native64/keeper1/G001.png,#449253,#D3DB78,panel,Atlas_4K_02.png,2394,1290,216,192
+Chesterfield,chesterfield,League One,keeper2,PNGs/chesterfield/keeper2.png,Clubs/chesterfield/South_Native64/keeper2/G014.png,#E18240,#5C3A77,sleeves,Atlas_4K_02.png,2631,1290,216,192
+AFC Bournemouth,afc-bournemouth,League One,home,PNGs/afc-bournemouth/home.png,Clubs/afc-bournemouth/South_Native64/home/F001.png,#C93242,#26242B,panel,Atlas_4K_02.png,2868,1290,216,192
+AFC Bournemouth,afc-bournemouth,League One,away,PNGs/afc-bournemouth/away.png,Clubs/afc-bournemouth/South_Native64/away/F011.png,#26334F,#77B9E7,panel,Atlas_4K_02.png,3105,1290,216,192
+AFC Bournemouth,afc-bournemouth,League One,keeper1,PNGs/afc-bournemouth/keeper1.png,Clubs/afc-bournemouth/South_Native64/keeper1/G001.png,#448E5A,#D4E97D,panel,Atlas_4K_02.png,3342,1290,216,192
+AFC Bournemouth,afc-bournemouth,League One,keeper2,PNGs/afc-bournemouth/keeper2.png,Clubs/afc-bournemouth/South_Native64/keeper2/G014.png,#E7B43D,#54438A,sleeves,Atlas_4K_02.png,3579,1290,216,192
+Tranmere Rovers,tranmere-rovers,League One,home,PNGs/tranmere-rovers/home.png,Clubs/tranmere-rovers/South_Native64/home/F001.png,#EEF0EE,#3564B1,panel,Atlas_4K_02.png,24,1501,216,192
+Tranmere Rovers,tranmere-rovers,League One,away,PNGs/tranmere-rovers/away.png,Clubs/tranmere-rovers/South_Native64/away/F011.png,#EBC83C,#25262C,panel,Atlas_4K_02.png,261,1501,216,192
+Tranmere Rovers,tranmere-rovers,League One,keeper1,PNGs/tranmere-rovers/keeper1.png,Clubs/tranmere-rovers/South_Native64/keeper1/G001.png,#388B62,#D5E57C,panel,Atlas_4K_02.png,498,1501,216,192
+Tranmere Rovers,tranmere-rovers,League One,keeper2,PNGs/tranmere-rovers/keeper2.png,Clubs/tranmere-rovers/South_Native64/keeper2/G014.png,#CC594E,#E6DCE6,sleeves,Atlas_4K_02.png,735,1501,216,192
+Rotherham United,rotherham-united,League One,home,PNGs/rotherham-united/home.png,Clubs/rotherham-united/South_Native64/home/F001.png,#C83143,#F0ECE8,sleeves,Atlas_4K_02.png,972,1501,216,192
+Rotherham United,rotherham-united,League One,away,PNGs/rotherham-united/away.png,Clubs/rotherham-united/South_Native64/away/F011.png,#25262C,#ECEDE9,vertical,Atlas_4K_02.png,1209,1501,216,192
+Rotherham United,rotherham-united,League One,keeper1,PNGs/rotherham-united/keeper1.png,Clubs/rotherham-united/South_Native64/keeper1/G001.png,#448F58,#E3E583,panel,Atlas_4K_02.png,1446,1501,216,192
+Rotherham United,rotherham-united,League One,keeper2,PNGs/rotherham-united/keeper2.png,Clubs/rotherham-united/South_Native64/keeper2/G014.png,#467AB6,#E0E4F7,sleeves,Atlas_4K_02.png,1683,1501,216,192
+Hartlepool United,hartlepool-united,League One,home,PNGs/hartlepool-united/home.png,Clubs/hartlepool-united/South_Native64/home/F001.png,#3267BA,#F0F1EF,vertical,Atlas_4K_02.png,1920,1501,216,192
+Hartlepool United,hartlepool-united,League One,away,PNGs/hartlepool-united/away.png,Clubs/hartlepool-united/South_Native64/away/F011.png,#25262F,#EFEFEB,panel,Atlas_4K_02.png,2157,1501,216,192
+Hartlepool United,hartlepool-united,League One,keeper1,PNGs/hartlepool-united/keeper1.png,Clubs/hartlepool-united/South_Native64/keeper1/G001.png,#509059,#D5E97D,panel,Atlas_4K_02.png,2394,1501,216,192
+Hartlepool United,hartlepool-united,League One,keeper2,PNGs/hartlepool-united/keeper2.png,Clubs/hartlepool-united/South_Native64/keeper2/G014.png,#E08242,#614077,sleeves,Atlas_4K_02.png,2631,1501,216,192
+Milton Keynes Dons,milton-keynes-dons,League One,home,PNGs/milton-keynes-dons/home.png,Clubs/milton-keynes-dons/South_Native64/home/F001.png,#F0EFED,#B79653,panel,Atlas_4K_02.png,2868,1501,216,192
+Milton Keynes Dons,milton-keynes-dons,League One,away,PNGs/milton-keynes-dons/away.png,Clubs/milton-keynes-dons/South_Native64/away/F011.png,#C63443,#C29A55,panel,Atlas_4K_02.png,3105,1501,216,192
+Milton Keynes Dons,milton-keynes-dons,League One,keeper1,PNGs/milton-keynes-dons/keeper1.png,Clubs/milton-keynes-dons/South_Native64/keeper1/G001.png,#458D61,#E1E884,panel,Atlas_4K_02.png,3342,1501,216,192
+Milton Keynes Dons,milton-keynes-dons,League One,keeper2,PNGs/milton-keynes-dons/keeper2.png,Clubs/milton-keynes-dons/South_Native64/keeper2/G014.png,#527FC0,#DCDDF4,sleeves,Atlas_4K_02.png,3579,1501,216,192
+Walsall,walsall,League One,home,PNGs/walsall/home.png,Clubs/walsall/South_Native64/home/F001.png,#CC2A3D,#F3EFE9,panel,Atlas_4K_02.png,24,1712,216,192
+Walsall,walsall,League One,away,PNGs/walsall/away.png,Clubs/walsall/South_Native64/away/F011.png,#252E51,#EFEFED,panel,Atlas_4K_02.png,261,1712,216,192
+Walsall,walsall,League One,keeper1,PNGs/walsall/keeper1.png,Clubs/walsall/South_Native64/keeper1/G001.png,#4A9380,#D7E279,panel,Atlas_4K_02.png,498,1712,216,192
+Walsall,walsall,League One,keeper2,PNGs/walsall/keeper2.png,Clubs/walsall/South_Native64/keeper2/G014.png,#E2BB48,#614186,sleeves,Atlas_4K_02.png,735,1712,216,192
+Barnet,barnet,League Two,home,PNGs/barnet/home.png,Clubs/barnet/South_Native64/home/F001.png,#202126,#E59826,pinstripes,Atlas_4K_02.png,972,1712,216,192
+Barnet,barnet,League Two,away,PNGs/barnet/away.png,Clubs/barnet/South_Native64/away/F011.png,#F0EEE5,#253958,panel,Atlas_4K_02.png,1209,1712,216,192
+Barnet,barnet,League Two,keeper1,PNGs/barnet/keeper1.png,Clubs/barnet/South_Native64/keeper1/G001.png,#42AD77,#213F3E,panel,Atlas_4K_02.png,1446,1712,216,192
+Barnet,barnet,League Two,keeper2,PNGs/barnet/keeper2.png,Clubs/barnet/South_Native64/keeper2/G014.png,#D8AC42,#493349,sleeves,Atlas_4K_02.png,1683,1712,216,192
+Bristol Rovers,bristol-rovers,League Two,home,PNGs/bristol-rovers/home.png,Clubs/bristol-rovers/South_Native64/home/F001.png,#F0EEE8,#224FA4,quarters,Atlas_4K_02.png,1920,1712,216,192
+Bristol Rovers,bristol-rovers,League Two,away,PNGs/bristol-rovers/away.png,Clubs/bristol-rovers/South_Native64/away/F011.png,#F3C744,#23232B,panel,Atlas_4K_02.png,2157,1712,216,192
+Bristol Rovers,bristol-rovers,League Two,keeper1,PNGs/bristol-rovers/keeper1.png,Clubs/bristol-rovers/South_Native64/keeper1/G001.png,#6087C0,#183B58,panel,Atlas_4K_02.png,2394,1712,216,192
+Bristol Rovers,bristol-rovers,League Two,keeper2,PNGs/bristol-rovers/keeper2.png,Clubs/bristol-rovers/South_Native64/keeper2/G014.png,#DD7551,#50323E,sleeves,Atlas_4K_02.png,2631,1712,216,192
+Cheltenham Town,cheltenham-town,League Two,home,PNGs/cheltenham-town/home.png,Clubs/cheltenham-town/South_Native64/home/F001.png,#F0EEE8,#B92830,vertical,Atlas_4K_02.png,2868,1712,216,192
+Cheltenham Town,cheltenham-town,League Two,away,PNGs/cheltenham-town/away.png,Clubs/cheltenham-town/South_Native64/away/F011.png,#EACA45,#272831,panel,Atlas_4K_02.png,3105,1712,216,192
+Cheltenham Town,cheltenham-town,League Two,keeper1,PNGs/cheltenham-town/keeper1.png,Clubs/cheltenham-town/South_Native64/keeper1/G001.png,#B983BA,#373048,panel,Atlas_4K_02.png,3342,1712,216,192
+Cheltenham Town,cheltenham-town,League Two,keeper2,PNGs/cheltenham-town/keeper2.png,Clubs/cheltenham-town/South_Native64/keeper2/G014.png,#4EA5A5,#213A4D,sleeves,Atlas_4K_02.png,3579,1712,216,192
+Leyton Orient,leyton-orient,League Two,home,PNGs/leyton-orient/home.png,Clubs/leyton-orient/South_Native64/home/F001.png,#C83239,#F1EEE4,panel,Atlas_4K_02.png,24,1923,216,192
+Leyton Orient,leyton-orient,League Two,away,PNGs/leyton-orient/away.png,Clubs/leyton-orient/South_Native64/away/F011.png,#F1EEE7,#C63138,panel,Atlas_4K_02.png,261,1923,216,192
+Leyton Orient,leyton-orient,League Two,keeper1,PNGs/leyton-orient/keeper1.png,Clubs/leyton-orient/South_Native64/keeper1/G001.png,#D8AC42,#493349,panel,Atlas_4K_02.png,498,1923,216,192
+Leyton Orient,leyton-orient,League Two,keeper2,PNGs/leyton-orient/keeper2.png,Clubs/leyton-orient/South_Native64/keeper2/G014.png,#87B84D,#31463C,sleeves,Atlas_4K_02.png,735,1923,216,192
+Macclesfield Town,macclesfield-town,League Two,home,PNGs/macclesfield-town/home.png,Clubs/macclesfield-town/South_Native64/home/F001.png,#2460A9,#F2EFE8,solid,Atlas_4K_02.png,972,1923,216,192
+Macclesfield Town,macclesfield-town,League Two,away,PNGs/macclesfield-town/away.png,Clubs/macclesfield-town/South_Native64/away/F011.png,#EBC64F,#21477A,solid,Atlas_4K_02.png,1209,1923,216,192
+Macclesfield Town,macclesfield-town,League Two,keeper1,PNGs/macclesfield-town/keeper1.png,Clubs/macclesfield-town/South_Native64/keeper1/G001.png,#DD7551,#50323E,panel,Atlas_4K_02.png,1446,1923,216,192
+Macclesfield Town,macclesfield-town,League Two,keeper2,PNGs/macclesfield-town/keeper2.png,Clubs/macclesfield-town/South_Native64/keeper2/G014.png,#6B64C5,#25284B,sleeves,Atlas_4K_02.png,1683,1923,216,192
+Lincoln City,lincoln-city,League Two,home,PNGs/lincoln-city/home.png,Clubs/lincoln-city/South_Native64/home/F001.png,#F1EEE8,#C63339,vertical,Atlas_4K_02.png,1920,1923,216,192
+Lincoln City,lincoln-city,League Two,away,PNGs/lincoln-city/away.png,Clubs/lincoln-city/South_Native64/away/F011.png,#243755,#C43B44,panel,Atlas_4K_02.png,2157,1923,216,192
+Lincoln City,lincoln-city,League Two,keeper1,PNGs/lincoln-city/keeper1.png,Clubs/lincoln-city/South_Native64/keeper1/G001.png,#4EA5A5,#213A4D,panel,Atlas_4K_02.png,2394,1923,216,192
+Lincoln City,lincoln-city,League Two,keeper2,PNGs/lincoln-city/keeper2.png,Clubs/lincoln-city/South_Native64/keeper2/G014.png,#CC4976,#472B48,sleeves,Atlas_4K_02.png,2631,1923,216,192
+Northampton Town,northampton-town,League Two,home,PNGs/northampton-town/home.png,Clubs/northampton-town/South_Native64/home/F001.png,#893044,#F1E5DD,panel,Atlas_4K_02.png,2868,1923,216,192
+Northampton Town,northampton-town,League Two,away,PNGs/northampton-town/away.png,Clubs/northampton-town/South_Native64/away/F011.png,#25262E,#EAE8E0,panel,Atlas_4K_02.png,3105,1923,216,192
+Northampton Town,northampton-town,League Two,keeper1,PNGs/northampton-town/keeper1.png,Clubs/northampton-town/South_Native64/keeper1/G001.png,#87B84D,#31463C,panel,Atlas_4K_02.png,3342,1923,216,192
+Northampton Town,northampton-town,League Two,keeper2,PNGs/northampton-town/keeper2.png,Clubs/northampton-town/South_Native64/keeper2/G014.png,#7FCBD0,#214D61,sleeves,Atlas_4K_02.png,3579,1923,216,192
+Peterborough United,peterborough-united,League Two,home,PNGs/peterborough-united/home.png,Clubs/peterborough-united/South_Native64/home/F001.png,#245AA6,#F0EEE7,panel,Atlas_4K_03.png,24,24,216,192
+Peterborough United,peterborough-united,League Two,away,PNGs/peterborough-united/away.png,Clubs/peterborough-united/South_Native64/away/F011.png,#EAC64E,#285CA9,panel,Atlas_4K_03.png,261,24,216,192
+Peterborough United,peterborough-united,League Two,keeper1,PNGs/peterborough-united/keeper1.png,Clubs/peterborough-united/South_Native64/keeper1/G001.png,#6B64C5,#25284B,panel,Atlas_4K_03.png,498,24,216,192
+Peterborough United,peterborough-united,League Two,keeper2,PNGs/peterborough-united/keeper2.png,Clubs/peterborough-united/South_Native64/keeper2/G014.png,#42AD77,#213F3E,sleeves,Atlas_4K_03.png,735,24,216,192
+Chester City,chester-city,League Two,home,PNGs/chester-city/home.png,Clubs/chester-city/South_Native64/home/F001.png,#F1EEE9,#285CAA,vertical,Atlas_4K_03.png,972,24,216,192
+Chester City,chester-city,League Two,away,PNGs/chester-city/away.png,Clubs/chester-city/South_Native64/away/F011.png,#82BCE1,#F0F1EA,panel,Atlas_4K_03.png,1209,24,216,192
+Chester City,chester-city,League Two,keeper1,PNGs/chester-city/keeper1.png,Clubs/chester-city/South_Native64/keeper1/G001.png,#CC4976,#472B48,panel,Atlas_4K_03.png,1446,24,216,192
+Chester City,chester-city,League Two,keeper2,PNGs/chester-city/keeper2.png,Clubs/chester-city/South_Native64/keeper2/G014.png,#6087C0,#183B58,sleeves,Atlas_4K_03.png,1683,24,216,192
+Rushden & Diamonds,rushden-and-diamonds,League Two,home,PNGs/rushden-and-diamonds/home.png,Clubs/rushden-and-diamonds/South_Native64/home/F001.png,#F1EEE7,#BD2F3C,panel,Atlas_4K_03.png,1920,24,216,192
+Rushden & Diamonds,rushden-and-diamonds,League Two,away,PNGs/rushden-and-diamonds/away.png,Clubs/rushden-and-diamonds/South_Native64/away/F011.png,#285CA7,#F1EEE8,panel,Atlas_4K_03.png,2157,24,216,192
+Rushden & Diamonds,rushden-and-diamonds,League Two,keeper1,PNGs/rushden-and-diamonds/keeper1.png,Clubs/rushden-and-diamonds/South_Native64/keeper1/G001.png,#7FCBD0,#214D61,panel,Atlas_4K_03.png,2394,24,216,192
+Rushden & Diamonds,rushden-and-diamonds,League Two,keeper2,PNGs/rushden-and-diamonds/keeper2.png,Clubs/rushden-and-diamonds/South_Native64/keeper2/G014.png,#B983BA,#373048,sleeves,Atlas_4K_03.png,2631,24,216,192
+Darlington,darlington,League Two,home,PNGs/darlington/home.png,Clubs/darlington/South_Native64/home/F001.png,#F3EEE3,#24232C,hoops,Atlas_4K_03.png,2868,24,216,192
+Darlington,darlington,League Two,away,PNGs/darlington/away.png,Clubs/darlington/South_Native64/away/F011.png,#24232C,#F3EEE3,panel,Atlas_4K_03.png,3105,24,216,192
+Darlington,darlington,League Two,keeper1,PNGs/darlington/keeper1.png,Clubs/darlington/South_Native64/keeper1/G001.png,#339653,#19345C,panel,Atlas_4K_03.png,3342,24,216,192
+Darlington,darlington,League Two,keeper2,PNGs/darlington/keeper2.png,Clubs/darlington/South_Native64/keeper2/G014.png,#735295,#24232C,sleeves,Atlas_4K_03.png,3579,24,216,192
+Shrewsbury Town,shrewsbury-town,League Two,home,PNGs/shrewsbury-town/home.png,Clubs/shrewsbury-town/South_Native64/home/F001.png,#2458A9,#EDBA2C,vertical,Atlas_4K_03.png,24,235,216,192
+Shrewsbury Town,shrewsbury-town,League Two,away,PNGs/shrewsbury-town/away.png,Clubs/shrewsbury-town/South_Native64/away/F011.png,#B82735,#19345C,panel,Atlas_4K_03.png,261,235,216,192
+Shrewsbury Town,shrewsbury-town,League Two,keeper1,PNGs/shrewsbury-town/keeper1.png,Clubs/shrewsbury-town/South_Native64/keeper1/G001.png,#4E9D9A,#19345C,panel,Atlas_4K_03.png,498,235,216,192
+Shrewsbury Town,shrewsbury-town,League Two,keeper2,PNGs/shrewsbury-town/keeper2.png,Clubs/shrewsbury-town/South_Native64/keeper2/G014.png,#555B69,#24232C,sleeves,Atlas_4K_03.png,735,235,216,192
+Rochdale,rochdale,League Two,home,PNGs/rochdale/home.png,Clubs/rochdale/South_Native64/home/F001.png,#2458A9,#F3EEE3,solid,Atlas_4K_03.png,972,235,216,192
+Rochdale,rochdale,League Two,away,PNGs/rochdale/away.png,Clubs/rochdale/South_Native64/away/F011.png,#EDBA2C,#24232C,solid,Atlas_4K_03.png,1209,235,216,192
+Rochdale,rochdale,League Two,keeper1,PNGs/rochdale/keeper1.png,Clubs/rochdale/South_Native64/keeper1/G001.png,#C64D75,#19345C,panel,Atlas_4K_03.png,1446,235,216,192
+Rochdale,rochdale,League Two,keeper2,PNGs/rochdale/keeper2.png,Clubs/rochdale/South_Native64/keeper2/G014.png,#4E9D9A,#24232C,sleeves,Atlas_4K_03.png,1683,235,216,192
+Stockport County,stockport-county,League Two,home,PNGs/stockport-county/home.png,Clubs/stockport-county/South_Native64/home/F001.png,#1955AA,#318CD4,panel,Atlas_4K_03.png,1920,235,216,192
+Stockport County,stockport-county,League Two,away,PNGs/stockport-county/away.png,Clubs/stockport-county/South_Native64/away/F011.png,#24232C,#EDBA2C,panel,Atlas_4K_03.png,2157,235,216,192
+Stockport County,stockport-county,League Two,keeper1,PNGs/stockport-county/keeper1.png,Clubs/stockport-county/South_Native64/keeper1/G001.png,#339653,#19345C,panel,Atlas_4K_03.png,2394,235,216,192
+Stockport County,stockport-county,League Two,keeper2,PNGs/stockport-county/keeper2.png,Clubs/stockport-county/South_Native64/keeper2/G014.png,#735295,#24232C,sleeves,Atlas_4K_03.png,2631,235,216,192
+Mansfield Town,mansfield-town,League Two,home,PNGs/mansfield-town/home.png,Clubs/mansfield-town/South_Native64/home/F001.png,#EDBA2C,#2458A9,panel,Atlas_4K_03.png,2868,235,216,192
+Mansfield Town,mansfield-town,League Two,away,PNGs/mansfield-town/away.png,Clubs/mansfield-town/South_Native64/away/F011.png,#F3EEE3,#2458A9,panel,Atlas_4K_03.png,3105,235,216,192
+Mansfield Town,mansfield-town,League Two,keeper1,PNGs/mansfield-town/keeper1.png,Clubs/mansfield-town/South_Native64/keeper1/G001.png,#C64D75,#19345C,panel,Atlas_4K_03.png,3342,235,216,192
+Mansfield Town,mansfield-town,League Two,keeper2,PNGs/mansfield-town/keeper2.png,Clubs/mansfield-town/South_Native64/keeper2/G014.png,#4E9D9A,#24232C,sleeves,Atlas_4K_03.png,3579,235,216,192
+Torquay United,torquay-united,League Two,home,PNGs/torquay-united/home.png,Clubs/torquay-united/South_Native64/home/F001.png,#EDBA2C,#175C98,sleeves,Atlas_4K_03.png,24,446,216,192
+Torquay United,torquay-united,League Two,away,PNGs/torquay-united/away.png,Clubs/torquay-united/South_Native64/away/F011.png,#F3EEE3,#83BBD6,panel,Atlas_4K_03.png,261,446,216,192
+Torquay United,torquay-united,League Two,keeper1,PNGs/torquay-united/keeper1.png,Clubs/torquay-united/South_Native64/keeper1/G001.png,#735295,#19345C,panel,Atlas_4K_03.png,498,446,216,192
+Torquay United,torquay-united,League Two,keeper2,PNGs/torquay-united/keeper2.png,Clubs/torquay-united/South_Native64/keeper2/G014.png,#339653,#24232C,sleeves,Atlas_4K_03.png,735,446,216,192
+Wrexham,wrexham,League Two,home,PNGs/wrexham/home.png,Clubs/wrexham/South_Native64/home/F001.png,#B82735,#F3EEE3,solid,Atlas_4K_03.png,972,446,216,192
+Wrexham,wrexham,League Two,away,PNGs/wrexham/away.png,Clubs/wrexham/South_Native64/away/F011.png,#ACD9ED,#19345C,sleeves,Atlas_4K_03.png,1209,446,216,192
+Wrexham,wrexham,League Two,keeper1,PNGs/wrexham/keeper1.png,Clubs/wrexham/South_Native64/keeper1/G001.png,#555B69,#19345C,panel,Atlas_4K_03.png,1446,446,216,192
+Wrexham,wrexham,League Two,keeper2,PNGs/wrexham/keeper2.png,Clubs/wrexham/South_Native64/keeper2/G014.png,#339653,#24232C,sleeves,Atlas_4K_03.png,1683,446,216,192
+Boston United,boston-united,League Two,home,PNGs/boston-united/home.png,Clubs/boston-united/South_Native64/home/F001.png,#EDBA2C,#24232C,hoops,Atlas_4K_03.png,1920,446,216,192
+Boston United,boston-united,League Two,away,PNGs/boston-united/away.png,Clubs/boston-united/South_Native64/away/F011.png,#264184,#F3EEE3,panel,Atlas_4K_03.png,2157,446,216,192
+Boston United,boston-united,League Two,keeper1,PNGs/boston-united/keeper1.png,Clubs/boston-united/South_Native64/keeper1/G001.png,#4E9D9A,#19345C,panel,Atlas_4K_03.png,2394,446,216,192
+Boston United,boston-united,League Two,keeper2,PNGs/boston-united/keeper2.png,Clubs/boston-united/South_Native64/keeper2/G014.png,#C64D75,#24232C,sleeves,Atlas_4K_03.png,2631,446,216,192
+Wycombe Wanderers,wycombe-wanderers,League Two,home,PNGs/wycombe-wanderers/home.png,Clubs/wycombe-wanderers/South_Native64/home/F001.png,#19345C,#6DBEE8,quarters,Atlas_4K_03.png,2868,446,216,192
+Wycombe Wanderers,wycombe-wanderers,League Two,away,PNGs/wycombe-wanderers/away.png,Clubs/wycombe-wanderers/South_Native64/away/F011.png,#F3EEE3,#6DBEE8,panel,Atlas_4K_03.png,3105,446,216,192
+Wycombe Wanderers,wycombe-wanderers,League Two,keeper1,PNGs/wycombe-wanderers/keeper1.png,Clubs/wycombe-wanderers/South_Native64/keeper1/G001.png,#ac6b35,#203050,panel,Atlas_4K_03.png,3342,446,216,192
+Wycombe Wanderers,wycombe-wanderers,League Two,keeper2,PNGs/wycombe-wanderers/keeper2.png,Clubs/wycombe-wanderers/South_Native64/keeper2/G014.png,#4b7095,#17263c,sleeves,Atlas_4K_03.png,3579,446,216,192
+Carlisle United,carlisle-united,League Two,home,PNGs/carlisle-united/home.png,Clubs/carlisle-united/South_Native64/home/F001.png,#2458A9,#F3EEE3,panel,Atlas_4K_03.png,24,657,216,192
+Carlisle United,carlisle-united,League Two,away,PNGs/carlisle-united/away.png,Clubs/carlisle-united/South_Native64/away/F011.png,#B82735,#F3EEE3,panel,Atlas_4K_03.png,261,657,216,192
+Carlisle United,carlisle-united,League Two,keeper1,PNGs/carlisle-united/keeper1.png,Clubs/carlisle-united/South_Native64/keeper1/G001.png,#6e617f,#242334,panel,Atlas_4K_03.png,498,657,216,192
+Carlisle United,carlisle-united,League Two,keeper2,PNGs/carlisle-united/keeper2.png,Clubs/carlisle-united/South_Native64/keeper2/G014.png,#43937b,#1d3e43,sleeves,Atlas_4K_03.png,735,657,216,192

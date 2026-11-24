@@ -1,0 +1,10 @@
+PIX PREMIER FOOTBALL / 2006–07 logo-free match balls
+
+Ten static 2D sprites: five rotations each of a white/red match style and a yellow/violet winter style, hand-authored from the 2006–07 Aerow II graphic language. Printed rings and seams are present. There are no manufacturer marks, league crests, certification marks, or printed words. The original photos are references only, not included or used as sprite pixels. Era references:
+https://www.soccerbible.com/media/6535/nike-premier-league-ball-timeline-img5.jpg
+https://www.premierleague.com/es/news/4155220
+
+Gameplay_16 has purpose-rendered 16×16 sprites with simplified seams.
+Native_48 is the detailed 48×48 pixel source size.
+HD_256 is the 48 px art scaled 5× with symmetric padding on a transparent 256×256 canvas.
+Each of the 30 RGBA images is centered, with no baked ground shadow. For Unreal, keep the material/sprite pivot centered and use nearest filtering if preserving hard pixel edges. Actual sprite size on the pitch is a gameplay/camera choice. There are no roll frames in this pack.

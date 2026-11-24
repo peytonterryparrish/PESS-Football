@@ -1,0 +1,131 @@
+id,role,country,region,tone,hair,color,face,build,sleeve,kit_slot
+F001,CB,Scotland,Northern Europe,fair / white,short crew cut,dark brown,soft jaw and heavier brow,tall slender athletic,short,home
+F002,CM,Honduras,North America and Caribbean,warm brown,long center-part hair,warm brown,round youthful face with fuller cheeks,broad athletic shoulders,short,home
+F003,RW,Austria,Western Europe,fair / white,short tight curls,brown,oval face and narrow jaw,broad athletic shoulders,long,home
+F004,ST,China,East and Southeast Asia,fair / white,medium loose curls,black,diamond face and fuller lips,stocky muscular athletic,short,home
+F005,LB,Kazakhstan,South and Central Asia,warm brown,long loose dreadlocks,warm brown,shallow stubble and long face,lean compact athletic,short,home
+F006,CDM,Switzerland,Western Europe,golden tan,short tight curls,dark brown,long angular face and high cheekbones,medium balanced athletic,long,home
+F007,LW,Colombia,South America,warm brown,mid-length dreadlocks,black,neat mustache and slender jaw,long-legged athletic,short,home
+F008,RB,Ukraine,Eastern Europe,golden tan,large high afro,auburn,broad forehead and fine chin,long-legged athletic,short,home
+F009,CAM,Croatia,Southern Europe,golden tan,short frosted spikes,warm brown,wide cheekbones and short nose,broad athletic shoulders,long,home
+F010,CF,Netherlands,Western Europe,warm brown,tight braids,ginger,oval face and narrow jaw,long-legged athletic,short,home
+F011,CB,Ghana,Africa,warm brown,medium loose waves,brown,short boxed beard and wide jaw,long-legged athletic,short,away
+F012,CM,Jamaica,North America and Caribbean,golden tan,medium swept fringe,dark blonde,broad forehead and fine chin,long-legged athletic,long,away
+F013,RW,Kenya,Africa,warm brown,short side part,black,short boxed beard and wide jaw,stocky muscular athletic,short,away
+F014,ST,Senegal,Africa,fair / white,short side part,blonde,strong chin and straight brows,long-legged athletic,short,away
+F015,LB,Cameroon,Africa,golden tan,long tied-back dreadlocks,dark blonde,round youthful face with fuller cheeks,tall slender athletic,long,away
+F016,CDM,Romania,Eastern Europe,fair / white,close buzz,warm brown,strong chin and straight brows,stocky muscular athletic,short,away
+F017,LW,Greece,Southern Europe,deep brown / Black,shaved bald,none,oval face and narrow jaw,stocky muscular athletic,short,away
+F018,RB,Switzerland,Western Europe,deep brown / Black,short tight curls,black,broad forehead and fine chin,stocky muscular athletic,long,away
+F019,CAM,Costa Rica,North America and Caribbean,deep brown / Black,medium loose waves,black,round youthful face with fuller cheeks,medium balanced athletic,short,away
+F020,CF,United States,North America and Caribbean,fair / white,long tied-back hair,black,heart-shaped face and narrow chin,broad athletic shoulders,short,away
+F021,CB,Saudi Arabia,Middle East,golden tan,shaggy youthful fringe,dark blonde,broad forehead and fine chin,medium balanced athletic,long,home
+F022,CM,France,Western Europe,warm brown,large sweeping waves,dark brown,short boxed beard and wide jaw,broad athletic shoulders,short,home
+F023,RW,Paraguay,South America,deep brown / Black,small 2005 faux hawk,warm brown,neat mustache and slender jaw,medium balanced athletic,short,home
+F024,ST,Lebanon,Middle East,warm brown,shaved bald,none,shallow stubble and long face,broad athletic shoulders,long,home
+F025,LB,Iran,Middle East,fair / white,large high afro,brown,broad forehead and fine chin,tall slender athletic,short,home
+F026,CDM,Bangladesh,South and Central Asia,warm brown,shaggy youthful fringe,dark brown,wide-set eyes and rounded jaw,medium balanced athletic,short,home
+F027,LW,India,South and Central Asia,deep brown / Black,long center-part hair,warm brown,long angular face and high cheekbones,tall slender athletic,long,home
+F028,RB,Jordan,Middle East,deep brown / Black,large sweeping waves,black,wide-set eyes and rounded jaw,broad athletic shoulders,short,home
+F029,CAM,Ukraine,Eastern Europe,fair / white,mid-length dreadlocks,brown,heart-shaped face and narrow chin,long-legged athletic,short,home
+F030,CF,Ecuador,South America,warm brown,large high afro,black,shallow stubble and long face,lean compact athletic,long,home
+F031,CB,England,Northern Europe,warm brown,short flat-top,black,strong chin and straight brows,long-legged athletic,short,away
+F032,CM,Hungary,Eastern Europe,deep brown / Black,short side part,dark blonde,wide cheekbones and short nose,medium balanced athletic,short,away
+F033,RW,Ivory Coast,Africa,deep brown / Black,large sweeping waves,dark brown,wide cheekbones and short nose,lean compact athletic,long,away
+F034,ST,Uzbekistan,South and Central Asia,fair / white,short high fade,black,deep-set eyes and strong jaw,long-legged athletic,short,away
+F035,LB,Sweden,Northern Europe,fair / white,rounded afro,brown,wide cheekbones and short nose,medium balanced athletic,short,away
+F036,CDM,Spain,Southern Europe,deep brown / Black,short waves,auburn,young clean-shaven face and soft brow,broad athletic shoulders,long,away
+F037,LW,Argentina,South America,golden tan,short waves,black,heart-shaped face and narrow chin,medium balanced athletic,short,away
+F038,RB,Finland,Northern Europe,deep brown / Black,short dreadlocks,blonde,short boxed beard and wide jaw,lean compact athletic,short,away
+F039,CAM,China,East and Southeast Asia,golden tan,short frosted spikes,dark blonde,wide cheekbones and short nose,medium balanced athletic,long,away
+F040,CF,Iraq,Middle East,fair / white,curly youthful mop,brown,deep-set eyes and strong jaw,stocky muscular athletic,short,away
+F041,CB,Indonesia,East and Southeast Asia,deep brown / Black,short high fade,brown,wide-set eyes and rounded jaw,tall slender athletic,short,home
+F042,CM,Poland,Eastern Europe,warm brown,mid-length spiked hair,dark blonde,diamond face and fuller lips,broad athletic shoulders,long,home
+F043,RW,Portugal,Southern Europe,warm brown,mid-length spiked hair,auburn,heart-shaped face and narrow chin,broad athletic shoulders,short,home
+F044,ST,Denmark,Northern Europe,golden tan,curly youthful mop,ginger,wide cheekbones and short nose,tall slender athletic,short,home
+F045,LB,Japan,East and Southeast Asia,warm brown,medium swept fringe,black,heart-shaped face and narrow chin,broad athletic shoulders,long,home
+F046,CDM,Nepal,South and Central Asia,deep brown / Black,short crew cut,dark brown,heart-shaped face and narrow chin,lean compact athletic,short,home
+F047,LW,Uruguay,South America,golden tan,close buzz,dark brown,long angular face and high cheekbones,stocky muscular athletic,short,home
+F048,RB,Sri Lanka,South and Central Asia,deep brown / Black,short frosted spikes,black,oval face and narrow jaw,long-legged athletic,long,home
+F049,CAM,Brazil,South America,golden tan,mid-length dreadlocks,dark brown,strong chin and straight brows,lean compact athletic,short,home
+F050,CF,Belgium,Western Europe,fair / white,short textured crop,dark blonde,wide-set eyes and rounded jaw,tall slender athletic,short,home
+F051,CB,Morocco,Africa,deep brown / Black,short textured crop,dark brown,round youthful face with fuller cheeks,medium balanced athletic,long,away
+F052,CM,Algeria,Africa,warm brown,medium swept fringe,black,soft jaw and heavier brow,long-legged athletic,short,away
+F053,RW,Pakistan,South and Central Asia,fair / white,rounded afro,black,deep-set eyes and strong jaw,tall slender athletic,short,away
+F054,ST,Ireland,Northern Europe,golden tan,long tied-back hair,black,round youthful face with fuller cheeks,lean compact athletic,long,away
+F055,LB,Vietnam,East and Southeast Asia,deep brown / Black,long loose dreadlocks,dark brown,shallow stubble and long face,tall slender athletic,short,away
+F056,CDM,Slovenia,Southern Europe,golden tan,shaved bald,none,neat mustache and slender jaw,broad athletic shoulders,short,away
+F057,LW,Mexico,North America and Caribbean,deep brown / Black,medium loose waves,brown,heart-shaped face and narrow chin,medium balanced athletic,long,away
+F058,RB,Czechia,Eastern Europe,fair / white,shaggy youthful fringe,black,diamond face and fuller lips,tall slender athletic,short,away
+F059,CAM,Canada,North America and Caribbean,warm brown,tight braids,blonde,round youthful face with fuller cheeks,tall slender athletic,short,away
+F060,CF,Uzbekistan,South and Central Asia,fair / white,small 2005 faux hawk,dark brown,short boxed beard and wide jaw,broad athletic shoulders,long,away
+F061,CB,Turkey,Middle East,fair / white,short crew cut,dark brown,long angular face and high cheekbones,broad athletic shoulders,short,home
+F062,CM,Oman,Middle East,deep brown / Black,short dreadlocks,black,long angular face and high cheekbones,lean compact athletic,short,home
+F063,RW,Norway,Northern Europe,deep brown / Black,long tied-back dreadlocks,ginger,square jaw and broad nose,tall slender athletic,long,home
+F064,ST,South Korea,East and Southeast Asia,fair / white,curly youthful mop,blonde,oval face and narrow jaw,tall slender athletic,short,home
+F065,LB,Croatia,Southern Europe,golden tan,small 2005 faux hawk,blonde,neat mustache and slender jaw,medium balanced athletic,short,home
+F066,CDM,Slovakia,Eastern Europe,golden tan,close buzz,black,short boxed beard and wide jaw,broad athletic shoulders,long,home
+F067,LW,Costa Rica,North America and Caribbean,golden tan,mid-length spiked hair,black,neat mustache and slender jaw,broad athletic shoulders,short,home
+F068,RB,Iceland,Northern Europe,golden tan,short dreadlocks,black,heart-shaped face and narrow chin,tall slender athletic,short,home
+F069,CAM,Nigeria,Africa,warm brown,short waves,blonde,heart-shaped face and narrow chin,medium balanced athletic,long,home
+F070,CF,Italy,Southern Europe,fair / white,medium loose curls,blonde,heart-shaped face and narrow chin,lean compact athletic,short,home
+F071,CB,Peru,South America,fair / white,rounded afro,blonde,square jaw and broad nose,long-legged athletic,short,away
+F072,CM,Germany,Western Europe,golden tan,short flat-top,warm brown,oval face and narrow jaw,long-legged athletic,long,away
+F073,RW,Malta,Southern Europe,warm brown,long tied-back hair,black,heart-shaped face and narrow chin,lean compact athletic,short,away
+F074,ST,Thailand,East and Southeast Asia,deep brown / Black,medium loose curls,brown,shallow stubble and long face,long-legged athletic,short,away
+F075,LB,Philippines,East and Southeast Asia,warm brown,short textured crop,black,young clean-shaven face and soft brow,broad athletic shoulders,long,away
+F076,CDM,Chile,South America,fair / white,short flat-top,brown,heart-shaped face and narrow chin,stocky muscular athletic,short,away
+F077,LW,Luxembourg,Western Europe,warm brown,long center-part hair,brown,shallow stubble and long face,medium balanced athletic,short,away
+F078,RB,United Arab Emirates,Middle East,golden tan,long loose dreadlocks,auburn,deep-set eyes and strong jaw,broad athletic shoulders,long,away
+F079,CAM,Trinidad and Tobago,North America and Caribbean,golden tan,short high fade,black,round youthful face with fuller cheeks,medium balanced athletic,short,away
+F080,CF,Bulgaria,Eastern Europe,deep brown / Black,long tied-back dreadlocks,black,young clean-shaven face and soft brow,medium balanced athletic,short,away
+G001,GK,Denmark,Northern Europe,fair / white,medium swept fringe,auburn,soft jaw and heavier brow,long-legged athletic,long,keeper1
+G002,GK,Greece,Southern Europe,fair / white,rounded afro,black,round youthful face with fuller cheeks,broad athletic shoulders,long,keeper1
+G003,GK,Jamaica,North America and Caribbean,deep brown / Black,short crew cut,brown,neat mustache and slender jaw,lean compact athletic,long,keeper1
+G004,GK,Ukraine,Eastern Europe,warm brown,medium loose waves,black,short boxed beard and wide jaw,tall slender athletic,long,keeper1
+G005,GK,Cameroon,Africa,warm brown,long center-part hair,auburn,oval face and narrow jaw,tall slender athletic,long,keeper1
+G006,GK,Morocco,Africa,deep brown / Black,mid-length spiked hair,black,square jaw and broad nose,long-legged athletic,long,keeper1
+G007,GK,Iran,Middle East,deep brown / Black,small 2005 faux hawk,auburn,heart-shaped face and narrow chin,long-legged athletic,long,keeper1
+G008,GK,Spain,Southern Europe,deep brown / Black,short frosted spikes,ginger,neat mustache and slender jaw,lean compact athletic,long,keeper1
+G009,GK,Slovenia,Southern Europe,fair / white,shaved bald,none,wide-set eyes and rounded jaw,medium balanced athletic,long,keeper1
+G010,GK,Mexico,North America and Caribbean,deep brown / Black,rounded afro,brown,neat mustache and slender jaw,medium balanced athletic,long,keeper1
+G011,GK,Ireland,Northern Europe,warm brown,short textured crop,auburn,long angular face and high cheekbones,lean compact athletic,long,keeper1
+G012,GK,Argentina,South America,golden tan,short tight curls,black,wide-set eyes and rounded jaw,tall slender athletic,long,keeper1
+G013,GK,Switzerland,Western Europe,warm brown,short flat-top,black,long angular face and high cheekbones,broad athletic shoulders,long,keeper1
+G014,GK,Paraguay,South America,warm brown,large high afro,black,neat mustache and slender jaw,tall slender athletic,long,keeper2
+G015,GK,Scotland,Northern Europe,fair / white,large high afro,dark brown,short boxed beard and wide jaw,broad athletic shoulders,long,keeper2
+G016,GK,Tunisia,Africa,fair / white,short dreadlocks,black,oval face and narrow jaw,long-legged athletic,long,keeper2
+G017,GK,Brazil,South America,fair / white,long tied-back hair,warm brown,square jaw and broad nose,medium balanced athletic,long,keeper2
+G018,GK,Vietnam,East and Southeast Asia,deep brown / Black,mid-length spiked hair,warm brown,long angular face and high cheekbones,broad athletic shoulders,long,keeper2
+G019,GK,Canada,North America and Caribbean,warm brown,short waves,dark brown,heart-shaped face and narrow chin,stocky muscular athletic,long,keeper2
+G020,GK,China,East and Southeast Asia,warm brown,short side part,warm brown,soft jaw and heavier brow,medium balanced athletic,long,keeper2
+G021,GK,Peru,South America,warm brown,medium loose curls,warm brown,wide cheekbones and short nose,long-legged athletic,long,keeper2
+G022,GK,Oman,Middle East,golden tan,short high fade,brown,soft jaw and heavier brow,medium balanced athletic,long,keeper2
+G023,GK,South Africa,Africa,fair / white,short textured crop,dark brown,oval face and narrow jaw,medium balanced athletic,long,keeper2
+G024,GK,Nepal,South and Central Asia,deep brown / Black,close buzz,blonde,deep-set eyes and strong jaw,long-legged athletic,long,keeper2
+G025,GK,Germany,Western Europe,fair / white,short frosted spikes,brown,strong chin and straight brows,broad athletic shoulders,long,keeper2
+G026,GK,Venezuela,South America,golden tan,tight braids,blonde,heart-shaped face and narrow chin,lean compact athletic,long,keeper1
+G027,GK,Philippines,East and Southeast Asia,golden tan,long center-part hair,ginger,wide-set eyes and rounded jaw,tall slender athletic,long,keeper1
+G028,GK,Czechia,Eastern Europe,warm brown,short tight curls,black,round youthful face with fuller cheeks,broad athletic shoulders,long,keeper1
+G029,GK,United States,North America and Caribbean,fair / white,short side part,warm brown,oval face and narrow jaw,stocky muscular athletic,long,keeper1
+G030,GK,Ivory Coast,Africa,fair / white,short waves,blonde,neat mustache and slender jaw,broad athletic shoulders,long,keeper1
+G031,GK,Italy,Southern Europe,golden tan,long tied-back hair,auburn,square jaw and broad nose,long-legged athletic,long,keeper1
+G032,GK,Kazakhstan,South and Central Asia,warm brown,shaved bald,none,deep-set eyes and strong jaw,lean compact athletic,long,keeper1
+G033,GK,Norway,Northern Europe,warm brown,close buzz,blonde,long angular face and high cheekbones,long-legged athletic,long,keeper1
+G034,GK,Trinidad and Tobago,North America and Caribbean,deep brown / Black,large sweeping waves,blonde,heart-shaped face and narrow chin,long-legged athletic,long,keeper1
+G035,GK,Uzbekistan,South and Central Asia,warm brown,short dreadlocks,blonde,soft jaw and heavier brow,stocky muscular athletic,long,keeper1
+G036,GK,Hungary,Eastern Europe,fair / white,curly youthful mop,brown,strong chin and straight brows,broad athletic shoulders,long,keeper1
+G037,GK,Luxembourg,Western Europe,deep brown / Black,short flat-top,black,square jaw and broad nose,stocky muscular athletic,long,keeper1
+G038,GK,Romania,Eastern Europe,golden tan,long loose dreadlocks,dark brown,long angular face and high cheekbones,lean compact athletic,long,keeper1
+G039,GK,Croatia,Southern Europe,fair / white,medium swept fringe,ginger,wide cheekbones and short nose,stocky muscular athletic,long,keeper2
+G040,GK,Thailand,East and Southeast Asia,deep brown / Black,long loose dreadlocks,blonde,strong chin and straight brows,broad athletic shoulders,long,keeper2
+G041,GK,Japan,East and Southeast Asia,golden tan,long tied-back dreadlocks,black,soft jaw and heavier brow,lean compact athletic,long,keeper2
+G042,GK,India,South and Central Asia,deep brown / Black,medium loose curls,ginger,long angular face and high cheekbones,long-legged athletic,long,keeper2
+G043,GK,Turkey,Middle East,golden tan,short high fade,black,short boxed beard and wide jaw,broad athletic shoulders,long,keeper2
+G044,GK,Pakistan,South and Central Asia,golden tan,shaggy youthful fringe,blonde,wide cheekbones and short nose,tall slender athletic,long,keeper2
+G045,GK,Saudi Arabia,Middle East,golden tan,mid-length dreadlocks,dark brown,soft jaw and heavier brow,stocky muscular athletic,long,keeper2
+G046,GK,Iceland,Northern Europe,golden tan,mid-length dreadlocks,black,short boxed beard and wide jaw,broad athletic shoulders,long,keeper2
+G047,GK,France,Western Europe,golden tan,medium loose waves,black,broad forehead and fine chin,tall slender athletic,long,keeper2
+G048,GK,Austria,Western Europe,deep brown / Black,short crew cut,ginger,round youthful face with fuller cheeks,long-legged athletic,long,keeper2
+G049,GK,Poland,Eastern Europe,warm brown,long tied-back dreadlocks,black,deep-set eyes and strong jaw,stocky muscular athletic,long,keeper2
+G050,GK,United Arab Emirates,Middle East,deep brown / Black,large sweeping waves,brown,strong chin and straight brows,broad athletic shoulders,long,keeper2

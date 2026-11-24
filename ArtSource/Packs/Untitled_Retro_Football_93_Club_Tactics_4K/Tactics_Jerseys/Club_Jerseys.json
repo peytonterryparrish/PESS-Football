@@ -1,0 +1,6241 @@
+{
+  "width": 72,
+  "height": 64,
+  "pivot": [
+    36,
+    33
+  ],
+  "clubs": [
+    {
+      "club": "Chelsea",
+      "slug": "chelsea",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/chelsea/home.png",
+          "r08_source": "Clubs/chelsea/South_Native64/home/F001.png",
+          "base": "#2459A3",
+          "trim": "#B99A57",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/chelsea/away.png",
+          "r08_source": "Clubs/chelsea/South_Native64/away/F011.png",
+          "base": "#CADAE5",
+          "trim": "#252735",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/chelsea/keeper1.png",
+          "r08_source": "Clubs/chelsea/South_Native64/keeper1/G001.png",
+          "base": "#20232B",
+          "trim": "#C0A157",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/chelsea/keeper2.png",
+          "r08_source": "Clubs/chelsea/South_Native64/keeper2/G014.png",
+          "base": "#EDCE3C",
+          "trim": "#262527",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Manchester United",
+      "slug": "manchester-united",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/manchester-united/home.png",
+          "r08_source": "Clubs/manchester-united/South_Native64/home/F001.png",
+          "base": "#D31B35",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/manchester-united/away.png",
+          "r08_source": "Clubs/manchester-united/South_Native64/away/F011.png",
+          "base": "#2355AA",
+          "trim": "#D72B38",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/manchester-united/keeper1.png",
+          "r08_source": "Clubs/manchester-united/South_Native64/keeper1/G001.png",
+          "base": "#4D9958",
+          "trim": "#313F33",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/manchester-united/keeper2.png",
+          "r08_source": "Clubs/manchester-united/South_Native64/keeper2/G014.png",
+          "base": "#21252A",
+          "trim": "#808083",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Liverpool",
+      "slug": "liverpool",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/liverpool/home.png",
+          "r08_source": "Clubs/liverpool/South_Native64/home/F001.png",
+          "base": "#D11D32",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/liverpool/away.png",
+          "r08_source": "Clubs/liverpool/South_Native64/away/F011.png",
+          "base": "#F2F3EE",
+          "trim": "#CE1831",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/liverpool/keeper1.png",
+          "r08_source": "Clubs/liverpool/South_Native64/keeper1/G001.png",
+          "base": "#4C8A56",
+          "trim": "#26292C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/liverpool/keeper2.png",
+          "r08_source": "Clubs/liverpool/South_Native64/keeper2/G014.png",
+          "base": "#E6C732",
+          "trim": "#22262B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Arsenal",
+      "slug": "arsenal",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/arsenal/home.png",
+          "r08_source": "Clubs/arsenal/South_Native64/home/F001.png",
+          "base": "#791f2d",
+          "trim": "#ca9b54",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/arsenal/away.png",
+          "r08_source": "Clubs/arsenal/South_Native64/away/F011.png",
+          "base": "#f4c62c",
+          "trim": "#272a30",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/arsenal/keeper1.png",
+          "r08_source": "Clubs/arsenal/South_Native64/keeper1/G001.png",
+          "base": "#50264f",
+          "trim": "#292337",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/arsenal/keeper2.png",
+          "r08_source": "Clubs/arsenal/South_Native64/keeper2/G014.png",
+          "base": "#68717f",
+          "trim": "#373c49",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Tottenham Hotspur",
+      "slug": "tottenham-hotspur",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/tottenham-hotspur/home.png",
+          "r08_source": "Clubs/tottenham-hotspur/South_Native64/home/F001.png",
+          "base": "#F2F3EE",
+          "trim": "#192238",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/tottenham-hotspur/away.png",
+          "r08_source": "Clubs/tottenham-hotspur/South_Native64/away/F011.png",
+          "base": "#2346AC",
+          "trim": "#F0C538",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/tottenham-hotspur/keeper1.png",
+          "r08_source": "Clubs/tottenham-hotspur/South_Native64/keeper1/G001.png",
+          "base": "#21242B",
+          "trim": "#F2F3EE",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/tottenham-hotspur/keeper2.png",
+          "r08_source": "Clubs/tottenham-hotspur/South_Native64/keeper2/G014.png",
+          "base": "#458C58",
+          "trim": "#397448",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Blackburn Rovers",
+      "slug": "blackburn-rovers",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/blackburn-rovers/home.png",
+          "r08_source": "Clubs/blackburn-rovers/South_Native64/home/F001.png",
+          "base": "#174C9E",
+          "trim": "#F2F3EE",
+          "pattern": "halves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/blackburn-rovers/away.png",
+          "r08_source": "Clubs/blackburn-rovers/South_Native64/away/F011.png",
+          "base": "#15191E",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/blackburn-rovers/keeper1.png",
+          "r08_source": "Clubs/blackburn-rovers/South_Native64/keeper1/G001.png",
+          "base": "#BD493D",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/blackburn-rovers/keeper2.png",
+          "r08_source": "Clubs/blackburn-rovers/South_Native64/keeper2/G014.png",
+          "base": "#388F5D",
+          "trim": "#F2F3EE",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Newcastle United",
+      "slug": "newcastle-united",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/newcastle-united/home.png",
+          "r08_source": "Clubs/newcastle-united/South_Native64/home/F001.png",
+          "base": "#141923",
+          "trim": "#F2F3EE",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/newcastle-united/away.png",
+          "r08_source": "Clubs/newcastle-united/South_Native64/away/F011.png",
+          "base": "#263747",
+          "trim": "#425667",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/newcastle-united/keeper1.png",
+          "r08_source": "Clubs/newcastle-united/South_Native64/keeper1/G001.png",
+          "base": "#356CA9",
+          "trim": "#DFEDF7",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/newcastle-united/keeper2.png",
+          "r08_source": "Clubs/newcastle-united/South_Native64/keeper2/G014.png",
+          "base": "#E5C544",
+          "trim": "#262828",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Bolton Wanderers",
+      "slug": "bolton-wanderers",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/bolton-wanderers/home.png",
+          "r08_source": "Clubs/bolton-wanderers/South_Native64/home/F001.png",
+          "base": "#F2F3EE",
+          "trim": "#19263D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/bolton-wanderers/away.png",
+          "r08_source": "Clubs/bolton-wanderers/South_Native64/away/F011.png",
+          "base": "#242D42",
+          "trim": "#BCBEC1",
+          "pattern": "pinstripes",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/bolton-wanderers/keeper1.png",
+          "r08_source": "Clubs/bolton-wanderers/South_Native64/keeper1/G001.png",
+          "base": "#428855",
+          "trim": "#22292C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/bolton-wanderers/keeper2.png",
+          "r08_source": "Clubs/bolton-wanderers/South_Native64/keeper2/G014.png",
+          "base": "#E6C438",
+          "trim": "#202124",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "West Ham United",
+      "slug": "west-ham-united",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/west-ham-united/home.png",
+          "r08_source": "Clubs/west-ham-united/South_Native64/home/F001.png",
+          "base": "#852644",
+          "trim": "#76B7DE",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/west-ham-united/away.png",
+          "r08_source": "Clubs/west-ham-united/South_Native64/away/F011.png",
+          "base": "#F2F3EE",
+          "trim": "#19263D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/west-ham-united/keeper1.png",
+          "r08_source": "Clubs/west-ham-united/South_Native64/keeper1/G001.png",
+          "base": "#242B49",
+          "trim": "#756592",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/west-ham-united/keeper2.png",
+          "r08_source": "Clubs/west-ham-united/South_Native64/keeper2/G014.png",
+          "base": "#E6C139",
+          "trim": "#22272C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Wigan Athletic",
+      "slug": "wigan-athletic",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/wigan-athletic/home.png",
+          "r08_source": "Clubs/wigan-athletic/South_Native64/home/F001.png",
+          "base": "#2359A5",
+          "trim": "#F2F3EE",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/wigan-athletic/away.png",
+          "r08_source": "Clubs/wigan-athletic/South_Native64/away/F011.png",
+          "base": "#E6BB32",
+          "trim": "#202C49",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/wigan-athletic/keeper1.png",
+          "r08_source": "Clubs/wigan-athletic/South_Native64/keeper1/G001.png",
+          "base": "#4F8D53",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/wigan-athletic/keeper2.png",
+          "r08_source": "Clubs/wigan-athletic/South_Native64/keeper2/G014.png",
+          "base": "#E7813C",
+          "trim": "#212C4A",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Everton",
+      "slug": "everton",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/everton/home.png",
+          "r08_source": "Clubs/everton/South_Native64/home/F001.png",
+          "base": "#234994",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/everton/away.png",
+          "r08_source": "Clubs/everton/South_Native64/away/F011.png",
+          "base": "#F2F3EE",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/everton/keeper1.png",
+          "r08_source": "Clubs/everton/South_Native64/keeper1/G001.png",
+          "base": "#212840",
+          "trim": "#DC81AE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/everton/keeper2.png",
+          "r08_source": "Clubs/everton/South_Native64/keeper2/G014.png",
+          "base": "#4C9A57",
+          "trim": "#F2F3EE",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Fulham",
+      "slug": "fulham",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/fulham/home.png",
+          "r08_source": "Clubs/fulham/South_Native64/home/F001.png",
+          "base": "#F2F3EE",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/fulham/away.png",
+          "r08_source": "Clubs/fulham/South_Native64/away/F011.png",
+          "base": "#CE1831",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/fulham/keeper1.png",
+          "r08_source": "Clubs/fulham/South_Native64/keeper1/G001.png",
+          "base": "#22252C",
+          "trim": "#92323B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/fulham/keeper2.png",
+          "r08_source": "Clubs/fulham/South_Native64/keeper2/G014.png",
+          "base": "#437D49",
+          "trim": "#252A28",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Charlton Athletic",
+      "slug": "charlton-athletic",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/charlton-athletic/home.png",
+          "r08_source": "Clubs/charlton-athletic/South_Native64/home/F001.png",
+          "base": "#CE1831",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/charlton-athletic/away.png",
+          "r08_source": "Clubs/charlton-athletic/South_Native64/away/F011.png",
+          "base": "#F2F3EE",
+          "trim": "#CE1831",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/charlton-athletic/keeper1.png",
+          "r08_source": "Clubs/charlton-athletic/South_Native64/keeper1/G001.png",
+          "base": "#E7BC31",
+          "trim": "#202738",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/charlton-athletic/keeper2.png",
+          "r08_source": "Clubs/charlton-athletic/South_Native64/keeper2/G014.png",
+          "base": "#1B2027",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Middlesbrough",
+      "slug": "middlesbrough",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/middlesbrough/home.png",
+          "r08_source": "Clubs/middlesbrough/South_Native64/home/F001.png",
+          "base": "#CB1A30",
+          "trim": "#F2F3EE",
+          "pattern": "hoops",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/middlesbrough/away.png",
+          "r08_source": "Clubs/middlesbrough/South_Native64/away/F011.png",
+          "base": "#215AA3",
+          "trim": "#DE3349",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/middlesbrough/keeper1.png",
+          "r08_source": "Clubs/middlesbrough/South_Native64/keeper1/G001.png",
+          "base": "#4C8655",
+          "trim": "#242827",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/middlesbrough/keeper2.png",
+          "r08_source": "Clubs/middlesbrough/South_Native64/keeper2/G014.png",
+          "base": "#EAA53C",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Manchester City",
+      "slug": "manchester-city",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/manchester-city/home.png",
+          "r08_source": "Clubs/manchester-city/South_Native64/home/F001.png",
+          "base": "#86BADE",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/manchester-city/away.png",
+          "r08_source": "Clubs/manchester-city/South_Native64/away/F011.png",
+          "base": "#202A41",
+          "trim": "#F2F3EE",
+          "pattern": "pinstripes",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/manchester-city/keeper1.png",
+          "r08_source": "Clubs/manchester-city/South_Native64/keeper1/G001.png",
+          "base": "#41A258",
+          "trim": "#20262B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/manchester-city/keeper2.png",
+          "r08_source": "Clubs/manchester-city/South_Native64/keeper2/G014.png",
+          "base": "#EBEEE7",
+          "trim": "#283246",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Aston Villa",
+      "slug": "aston-villa",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/aston-villa/home.png",
+          "r08_source": "Clubs/aston-villa/South_Native64/home/F001.png",
+          "base": "#7F2041",
+          "trim": "#76B7DE",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/aston-villa/away.png",
+          "r08_source": "Clubs/aston-villa/South_Native64/away/F011.png",
+          "base": "#ECCE37",
+          "trim": "#19263D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/aston-villa/keeper1.png",
+          "r08_source": "Clubs/aston-villa/South_Native64/keeper1/G001.png",
+          "base": "#9DA4AB",
+          "trim": "#23252C",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/aston-villa/keeper2.png",
+          "r08_source": "Clubs/aston-villa/South_Native64/keeper2/G014.png",
+          "base": "#1E2C4B",
+          "trim": "#76B7DE",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Portsmouth",
+      "slug": "portsmouth",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/portsmouth/home.png",
+          "r08_source": "Clubs/portsmouth/South_Native64/home/F001.png",
+          "base": "#2458A8",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/portsmouth/away.png",
+          "r08_source": "Clubs/portsmouth/South_Native64/away/F011.png",
+          "base": "#D32029",
+          "trim": "#E4D8AD",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/portsmouth/keeper1.png",
+          "r08_source": "Clubs/portsmouth/South_Native64/keeper1/G001.png",
+          "base": "#6C5040",
+          "trim": "#E5C550",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/portsmouth/keeper2.png",
+          "r08_source": "Clubs/portsmouth/South_Native64/keeper2/G014.png",
+          "base": "#D5AB3B",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            868,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Birmingham City",
+      "slug": "birmingham-city",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/birmingham-city/home.png",
+          "r08_source": "Clubs/birmingham-city/South_Native64/home/F001.png",
+          "base": "#174C9E",
+          "trim": "#F2F3EE",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/birmingham-city/away.png",
+          "r08_source": "Clubs/birmingham-city/South_Native64/away/F011.png",
+          "base": "#F2F3EE",
+          "trim": "#CE1831",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/birmingham-city/keeper1.png",
+          "r08_source": "Clubs/birmingham-city/South_Native64/keeper1/G001.png",
+          "base": "#36955C",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/birmingham-city/keeper2.png",
+          "r08_source": "Clubs/birmingham-city/South_Native64/keeper2/G014.png",
+          "base": "#F3AA37",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            868,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "West Bromwich Albion",
+      "slug": "west-bromwich-albion",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/west-bromwich-albion/home.png",
+          "r08_source": "Clubs/west-bromwich-albion/South_Native64/home/F001.png",
+          "base": "#1D2741",
+          "trim": "#F2F3EE",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/west-bromwich-albion/away.png",
+          "r08_source": "Clubs/west-bromwich-albion/South_Native64/away/F011.png",
+          "base": "#212840",
+          "trim": "#CF2638",
+          "pattern": "sash",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/west-bromwich-albion/keeper1.png",
+          "r08_source": "Clubs/west-bromwich-albion/South_Native64/keeper1/G001.png",
+          "base": "#67A143",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/west-bromwich-albion/keeper2.png",
+          "r08_source": "Clubs/west-bromwich-albion/South_Native64/keeper2/G014.png",
+          "base": "#DDA741",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            868,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Sunderland",
+      "slug": "sunderland",
+      "group": "Premier League",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/sunderland/home.png",
+          "r08_source": "Clubs/sunderland/South_Native64/home/F001.png",
+          "base": "#DA2438",
+          "trim": "#F2F3EE",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/sunderland/away.png",
+          "r08_source": "Clubs/sunderland/South_Native64/away/F011.png",
+          "base": "#171C20",
+          "trim": "#C93039",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/sunderland/keeper1.png",
+          "r08_source": "Clubs/sunderland/South_Native64/keeper1/G001.png",
+          "base": "#A1A6AA",
+          "trim": "#A42D3D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/sunderland/keeper2.png",
+          "r08_source": "Clubs/sunderland/South_Native64/keeper2/G014.png",
+          "base": "#EBB84A",
+          "trim": "#141923",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            868,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Blackpool",
+      "slug": "blackpool",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/blackpool/home.png",
+          "r08_source": "Clubs/blackpool/South_Native64/home/F001.png",
+          "base": "#E97230",
+          "trim": "#F1EEE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/blackpool/away.png",
+          "r08_source": "Clubs/blackpool/South_Native64/away/F011.png",
+          "base": "#F1EEE8",
+          "trim": "#E97230",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/blackpool/keeper1.png",
+          "r08_source": "Clubs/blackpool/South_Native64/keeper1/G001.png",
+          "base": "#829AC1",
+          "trim": "#182D4C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/blackpool/keeper2.png",
+          "r08_source": "Clubs/blackpool/South_Native64/keeper2/G014.png",
+          "base": "#E5A934",
+          "trim": "#42334D",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            1079,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Bradford City",
+      "slug": "bradford-city",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/bradford-city/home.png",
+          "r08_source": "Clubs/bradford-city/South_Native64/home/F001.png",
+          "base": "#DEA334",
+          "trim": "#823447",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/bradford-city/away.png",
+          "r08_source": "Clubs/bradford-city/South_Native64/away/F011.png",
+          "base": "#85BFE1",
+          "trim": "#4E87B5",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/bradford-city/keeper1.png",
+          "r08_source": "Clubs/bradford-city/South_Native64/keeper1/G001.png",
+          "base": "#408951",
+          "trim": "#DAEB88",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/bradford-city/keeper2.png",
+          "r08_source": "Clubs/bradford-city/South_Native64/keeper2/G014.png",
+          "base": "#7671AE",
+          "trim": "#E6D9E7",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            1079,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Brighton & Hove Albion",
+      "slug": "brighton-hove-albion",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/brighton-hove-albion/home.png",
+          "r08_source": "Clubs/brighton-hove-albion/South_Native64/home/F001.png",
+          "base": "#77C4E7",
+          "trim": "#F0F2ED",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/brighton-hove-albion/away.png",
+          "r08_source": "Clubs/brighton-hove-albion/South_Native64/away/F011.png",
+          "base": "#7C293E",
+          "trim": "#242C4B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/brighton-hove-albion/keeper1.png",
+          "r08_source": "Clubs/brighton-hove-albion/South_Native64/keeper1/G001.png",
+          "base": "#418953",
+          "trim": "#E5EA76",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/brighton-hove-albion/keeper2.png",
+          "r08_source": "Clubs/brighton-hove-albion/South_Native64/keeper2/G014.png",
+          "base": "#F0A643",
+          "trim": "#53336F",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            1079,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Bristol City",
+      "slug": "bristol-city",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/bristol-city/home.png",
+          "r08_source": "Clubs/bristol-city/South_Native64/home/F001.png",
+          "base": "#CD293F",
+          "trim": "#F4EFEC",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/bristol-city/away.png",
+          "r08_source": "Clubs/bristol-city/South_Native64/away/F011.png",
+          "base": "#EFCA33",
+          "trim": "#85C5E9",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/bristol-city/keeper1.png",
+          "r08_source": "Clubs/bristol-city/South_Native64/keeper1/G001.png",
+          "base": "#318457",
+          "trim": "#D4E875",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/bristol-city/keeper2.png",
+          "r08_source": "Clubs/bristol-city/South_Native64/keeper2/G014.png",
+          "base": "#7662A3",
+          "trim": "#DFE2F3",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            1079,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Burnley",
+      "slug": "burnley",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/burnley/home.png",
+          "r08_source": "Clubs/burnley/South_Native64/home/F001.png",
+          "base": "#712840",
+          "trim": "#81B8E5",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/burnley/away.png",
+          "r08_source": "Clubs/burnley/South_Native64/away/F011.png",
+          "base": "#F1EEE8",
+          "trim": "#81B8E5",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/burnley/keeper1.png",
+          "r08_source": "Clubs/burnley/South_Native64/keeper1/G001.png",
+          "base": "#50BD7D",
+          "trim": "#1B4243",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/burnley/keeper2.png",
+          "r08_source": "Clubs/burnley/South_Native64/keeper2/G014.png",
+          "base": "#8B69BC",
+          "trim": "#272842",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            1290,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Bury",
+      "slug": "bury",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/bury/home.png",
+          "r08_source": "Clubs/bury/South_Native64/home/F001.png",
+          "base": "#F1EEE8",
+          "trim": "#2156AC",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/bury/away.png",
+          "r08_source": "Clubs/bury/South_Native64/away/F011.png",
+          "base": "#EBC33D",
+          "trim": "#192D57",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/bury/keeper1.png",
+          "r08_source": "Clubs/bury/South_Native64/keeper1/G001.png",
+          "base": "#6C9BC3",
+          "trim": "#293E52",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/bury/keeper2.png",
+          "r08_source": "Clubs/bury/South_Native64/keeper2/G014.png",
+          "base": "#50BD7D",
+          "trim": "#1B4243",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            1290,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Coventry City",
+      "slug": "coventry-city",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/coventry-city/home.png",
+          "r08_source": "Clubs/coventry-city/South_Native64/home/F001.png",
+          "base": "#79BFEA",
+          "trim": "#E8F2F6",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/coventry-city/away.png",
+          "r08_source": "Clubs/coventry-city/South_Native64/away/F011.png",
+          "base": "#242936",
+          "trim": "#79BFEA",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/coventry-city/keeper1.png",
+          "r08_source": "Clubs/coventry-city/South_Native64/keeper1/G001.png",
+          "base": "#49854F",
+          "trim": "#DDE376",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/coventry-city/keeper2.png",
+          "r08_source": "Clubs/coventry-city/South_Native64/keeper2/G014.png",
+          "base": "#EE933D",
+          "trim": "#47419A",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            1290,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Crystal Palace",
+      "slug": "crystal-palace",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/crystal-palace/home.png",
+          "r08_source": "Clubs/crystal-palace/South_Native64/home/F001.png",
+          "base": "#2360B8",
+          "trim": "#D33043",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/crystal-palace/away.png",
+          "r08_source": "Clubs/crystal-palace/South_Native64/away/F011.png",
+          "base": "#22232B",
+          "trim": "#D72C47",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/crystal-palace/keeper1.png",
+          "r08_source": "Clubs/crystal-palace/South_Native64/keeper1/G001.png",
+          "base": "#52A45B",
+          "trim": "#F4D754",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/crystal-palace/keeper2.png",
+          "r08_source": "Clubs/crystal-palace/South_Native64/keeper2/G014.png",
+          "base": "#E9AA42",
+          "trim": "#553C85",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            1290,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Derby County",
+      "slug": "derby-county",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/derby-county/home.png",
+          "r08_source": "Clubs/derby-county/South_Native64/home/F001.png",
+          "base": "#F1EEE8",
+          "trim": "#1C1D25",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/derby-county/away.png",
+          "r08_source": "Clubs/derby-county/South_Native64/away/F011.png",
+          "base": "#192D57",
+          "trim": "#EBC33D",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/derby-county/keeper1.png",
+          "r08_source": "Clubs/derby-county/South_Native64/keeper1/G001.png",
+          "base": "#69C492",
+          "trim": "#213E4D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/derby-county/keeper2.png",
+          "r08_source": "Clubs/derby-county/South_Native64/keeper2/G014.png",
+          "base": "#6C9BC3",
+          "trim": "#293E52",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            1501,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Grimsby Town",
+      "slug": "grimsby-town",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/grimsby-town/home.png",
+          "r08_source": "Clubs/grimsby-town/South_Native64/home/F001.png",
+          "base": "#F1EEE8",
+          "trim": "#1C1D25",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/grimsby-town/away.png",
+          "r08_source": "Clubs/grimsby-town/South_Native64/away/F011.png",
+          "base": "#2156AC",
+          "trim": "#F1EEE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/grimsby-town/keeper1.png",
+          "r08_source": "Clubs/grimsby-town/South_Native64/keeper1/G001.png",
+          "base": "#55BC91",
+          "trim": "#203A59",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/grimsby-town/keeper2.png",
+          "r08_source": "Clubs/grimsby-town/South_Native64/keeper2/G014.png",
+          "base": "#829AC1",
+          "trim": "#182D4C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            1501,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Huddersfield Town",
+      "slug": "huddersfield-town",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/huddersfield-town/home.png",
+          "r08_source": "Clubs/huddersfield-town/South_Native64/home/F001.png",
+          "base": "#F1EEE8",
+          "trim": "#2156AC",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/huddersfield-town/away.png",
+          "r08_source": "Clubs/huddersfield-town/South_Native64/away/F011.png",
+          "base": "#F1EEE8",
+          "trim": "#2156AC",
+          "pattern": "hoops",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/huddersfield-town/keeper1.png",
+          "r08_source": "Clubs/huddersfield-town/South_Native64/keeper1/G001.png",
+          "base": "#50BD7D",
+          "trim": "#1B4243",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/huddersfield-town/keeper2.png",
+          "r08_source": "Clubs/huddersfield-town/South_Native64/keeper2/G014.png",
+          "base": "#8B69BC",
+          "trim": "#272842",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            1501,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Ipswich Town",
+      "slug": "ipswich-town",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/ipswich-town/home.png",
+          "r08_source": "Clubs/ipswich-town/South_Native64/home/F001.png",
+          "base": "#2156AC",
+          "trim": "#F1EEE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/ipswich-town/away.png",
+          "r08_source": "Clubs/ipswich-town/South_Native64/away/F011.png",
+          "base": "#E97230",
+          "trim": "#1C1D25",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/ipswich-town/keeper1.png",
+          "r08_source": "Clubs/ipswich-town/South_Native64/keeper1/G001.png",
+          "base": "#85974A",
+          "trim": "#324032",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/ipswich-town/keeper2.png",
+          "r08_source": "Clubs/ipswich-town/South_Native64/keeper2/G014.png",
+          "base": "#69C492",
+          "trim": "#213E4D",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            1501,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Leeds United",
+      "slug": "leeds-united",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/leeds-united/home.png",
+          "r08_source": "Clubs/leeds-united/South_Native64/home/F001.png",
+          "base": "#F1EEE8",
+          "trim": "#192D57",
+          "pattern": "pinstripes",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/leeds-united/away.png",
+          "r08_source": "Clubs/leeds-united/South_Native64/away/F011.png",
+          "base": "#192D57",
+          "trim": "#81B8E5",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/leeds-united/keeper1.png",
+          "r08_source": "Clubs/leeds-united/South_Native64/keeper1/G001.png",
+          "base": "#527BAE",
+          "trim": "#1F345A",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/leeds-united/keeper2.png",
+          "r08_source": "Clubs/leeds-united/South_Native64/keeper2/G014.png",
+          "base": "#85974A",
+          "trim": "#324032",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            1712,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Leicester City",
+      "slug": "leicester-city",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/leicester-city/home.png",
+          "r08_source": "Clubs/leicester-city/South_Native64/home/F001.png",
+          "base": "#2156AC",
+          "trim": "#F1EEE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/leicester-city/away.png",
+          "r08_source": "Clubs/leicester-city/South_Native64/away/F011.png",
+          "base": "#F1EEE8",
+          "trim": "#81B8E5",
+          "pattern": "sash",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/leicester-city/keeper1.png",
+          "r08_source": "Clubs/leicester-city/South_Native64/keeper1/G001.png",
+          "base": "#8B69BC",
+          "trim": "#272842",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/leicester-city/keeper2.png",
+          "r08_source": "Clubs/leicester-city/South_Native64/keeper2/G014.png",
+          "base": "#55BC91",
+          "trim": "#203A59",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            1712,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Luton Town",
+      "slug": "luton-town",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/luton-town/home.png",
+          "r08_source": "Clubs/luton-town/South_Native64/home/F001.png",
+          "base": "#EDEEEA",
+          "trim": "#F27934",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/luton-town/away.png",
+          "r08_source": "Clubs/luton-town/South_Native64/away/F011.png",
+          "base": "#282A30",
+          "trim": "#F1EEEA",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/luton-town/keeper1.png",
+          "r08_source": "Clubs/luton-town/South_Native64/keeper1/G001.png",
+          "base": "#428A54",
+          "trim": "#E1E875",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/luton-town/keeper2.png",
+          "r08_source": "Clubs/luton-town/South_Native64/keeper2/G014.png",
+          "base": "#5C88C1",
+          "trim": "#E6DEF4",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            1712,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Millwall",
+      "slug": "millwall",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/millwall/home.png",
+          "r08_source": "Clubs/millwall/South_Native64/home/F001.png",
+          "base": "#214E92",
+          "trim": "#EBEDEB",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/millwall/away.png",
+          "r08_source": "Clubs/millwall/South_Native64/away/F011.png",
+          "base": "#E7BC42",
+          "trim": "#242F4D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/millwall/keeper1.png",
+          "r08_source": "Clubs/millwall/South_Native64/keeper1/G001.png",
+          "base": "#478B58",
+          "trim": "#D6E687",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/millwall/keeper2.png",
+          "r08_source": "Clubs/millwall/South_Native64/keeper2/G014.png",
+          "base": "#E87642",
+          "trim": "#562A50",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            1712,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Nottingham Forest",
+      "slug": "nottingham-forest",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/nottingham-forest/home.png",
+          "r08_source": "Clubs/nottingham-forest/South_Native64/home/F001.png",
+          "base": "#BD292D",
+          "trim": "#F1EEE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            24,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/nottingham-forest/away.png",
+          "r08_source": "Clubs/nottingham-forest/South_Native64/away/F011.png",
+          "base": "#EBC33D",
+          "trim": "#192D57",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            261,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/nottingham-forest/keeper1.png",
+          "r08_source": "Clubs/nottingham-forest/South_Native64/keeper1/G001.png",
+          "base": "#829AC1",
+          "trim": "#182D4C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            498,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/nottingham-forest/keeper2.png",
+          "r08_source": "Clubs/nottingham-forest/South_Native64/keeper2/G014.png",
+          "base": "#E5A934",
+          "trim": "#42334D",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            735,
+            1923,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Notts County",
+      "slug": "notts-county",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/notts-county/home.png",
+          "r08_source": "Clubs/notts-county/South_Native64/home/F001.png",
+          "base": "#F1EEE8",
+          "trim": "#1C1D25",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            972,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/notts-county/away.png",
+          "r08_source": "Clubs/notts-county/South_Native64/away/F011.png",
+          "base": "#81B8E5",
+          "trim": "#192D57",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1209,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/notts-county/keeper1.png",
+          "r08_source": "Clubs/notts-county/South_Native64/keeper1/G001.png",
+          "base": "#527BAE",
+          "trim": "#1F345A",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1446,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/notts-county/keeper2.png",
+          "r08_source": "Clubs/notts-county/South_Native64/keeper2/G014.png",
+          "base": "#85974A",
+          "trim": "#324032",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1683,
+            1923,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Oldham Athletic",
+      "slug": "oldham-athletic",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/oldham-athletic/home.png",
+          "r08_source": "Clubs/oldham-athletic/South_Native64/home/F001.png",
+          "base": "#2C62BE",
+          "trim": "#F1EFEB",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            1920,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/oldham-athletic/away.png",
+          "r08_source": "Clubs/oldham-athletic/South_Native64/away/F011.png",
+          "base": "#F1F0EB",
+          "trim": "#356BB6",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2157,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/oldham-athletic/keeper1.png",
+          "r08_source": "Clubs/oldham-athletic/South_Native64/keeper1/G001.png",
+          "base": "#47A153",
+          "trim": "#DBE879",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2394,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/oldham-athletic/keeper2.png",
+          "r08_source": "Clubs/oldham-athletic/South_Native64/keeper2/G014.png",
+          "base": "#E99442",
+          "trim": "#62346D",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2631,
+            1923,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Oxford United",
+      "slug": "oxford-united",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/oxford-united/home.png",
+          "r08_source": "Clubs/oxford-united/South_Native64/home/F001.png",
+          "base": "#EFC631",
+          "trim": "#263852",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            2868,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/oxford-united/away.png",
+          "r08_source": "Clubs/oxford-united/South_Native64/away/F011.png",
+          "base": "#25252B",
+          "trim": "#42444D",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3105,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/oxford-united/keeper1.png",
+          "r08_source": "Clubs/oxford-united/South_Native64/keeper1/G001.png",
+          "base": "#348C66",
+          "trim": "#D0E78F",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3342,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/oxford-united/keeper2.png",
+          "r08_source": "Clubs/oxford-united/South_Native64/keeper2/G014.png",
+          "base": "#DE5F57",
+          "trim": "#EED0C4",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_01.png",
+          "rect": [
+            3579,
+            1923,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Preston North End",
+      "slug": "preston-north-end",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/preston-north-end/home.png",
+          "r08_source": "Clubs/preston-north-end/South_Native64/home/F001.png",
+          "base": "#F1EEE8",
+          "trim": "#192D57",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/preston-north-end/away.png",
+          "r08_source": "Clubs/preston-north-end/South_Native64/away/F011.png",
+          "base": "#81B8E5",
+          "trim": "#192D57",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/preston-north-end/keeper1.png",
+          "r08_source": "Clubs/preston-north-end/South_Native64/keeper1/G001.png",
+          "base": "#5BB49D",
+          "trim": "#2B4C54",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/preston-north-end/keeper2.png",
+          "r08_source": "Clubs/preston-north-end/South_Native64/keeper2/G014.png",
+          "base": "#527BAE",
+          "trim": "#1F345A",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Queens Park Rangers",
+      "slug": "queens-park-rangers",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/queens-park-rangers/home.png",
+          "r08_source": "Clubs/queens-park-rangers/South_Native64/home/F001.png",
+          "base": "#2962BF",
+          "trim": "#F1F3EF",
+          "pattern": "hoops",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/queens-park-rangers/away.png",
+          "r08_source": "Clubs/queens-park-rangers/South_Native64/away/F011.png",
+          "base": "#C2283D",
+          "trim": "#22232C",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/queens-park-rangers/keeper1.png",
+          "r08_source": "Clubs/queens-park-rangers/South_Native64/keeper1/G001.png",
+          "base": "#468957",
+          "trim": "#D9E585",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/queens-park-rangers/keeper2.png",
+          "r08_source": "Clubs/queens-park-rangers/South_Native64/keeper2/G014.png",
+          "base": "#F6C746",
+          "trim": "#552467",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Reading",
+      "slug": "reading",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/reading/home.png",
+          "r08_source": "Clubs/reading/South_Native64/home/F001.png",
+          "base": "#2867BC",
+          "trim": "#F1F2ED",
+          "pattern": "hoops",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/reading/away.png",
+          "r08_source": "Clubs/reading/South_Native64/away/F011.png",
+          "base": "#232B48",
+          "trim": "#D3D8E0",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/reading/keeper1.png",
+          "r08_source": "Clubs/reading/South_Native64/keeper1/G001.png",
+          "base": "#47874C",
+          "trim": "#E5F08B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/reading/keeper2.png",
+          "r08_source": "Clubs/reading/South_Native64/keeper2/G014.png",
+          "base": "#EF8040",
+          "trim": "#472B64",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Sheffield United",
+      "slug": "sheffield-united",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/sheffield-united/home.png",
+          "r08_source": "Clubs/sheffield-united/South_Native64/home/F001.png",
+          "base": "#BD292D",
+          "trim": "#F1EEE8",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/sheffield-united/away.png",
+          "r08_source": "Clubs/sheffield-united/South_Native64/away/F011.png",
+          "base": "#F1EEE8",
+          "trim": "#1C1D25",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/sheffield-united/keeper1.png",
+          "r08_source": "Clubs/sheffield-united/South_Native64/keeper1/G001.png",
+          "base": "#E5A934",
+          "trim": "#42334D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/sheffield-united/keeper2.png",
+          "r08_source": "Clubs/sheffield-united/South_Native64/keeper2/G014.png",
+          "base": "#5BB49D",
+          "trim": "#2B4C54",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Sheffield Wednesday",
+      "slug": "sheffield-wednesday",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/sheffield-wednesday/home.png",
+          "r08_source": "Clubs/sheffield-wednesday/South_Native64/home/F001.png",
+          "base": "#2156AC",
+          "trim": "#F1EEE8",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/sheffield-wednesday/away.png",
+          "r08_source": "Clubs/sheffield-wednesday/South_Native64/away/F011.png",
+          "base": "#1C1D25",
+          "trim": "#81B8E5",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/sheffield-wednesday/keeper1.png",
+          "r08_source": "Clubs/sheffield-wednesday/South_Native64/keeper1/G001.png",
+          "base": "#55BC91",
+          "trim": "#203A59",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/sheffield-wednesday/keeper2.png",
+          "r08_source": "Clubs/sheffield-wednesday/South_Native64/keeper2/G014.png",
+          "base": "#829AC1",
+          "trim": "#182D4C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Southampton",
+      "slug": "southampton",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/southampton/home.png",
+          "r08_source": "Clubs/southampton/South_Native64/home/F001.png",
+          "base": "#D92E44",
+          "trim": "#F1F0EB",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/southampton/away.png",
+          "r08_source": "Clubs/southampton/South_Native64/away/F011.png",
+          "base": "#F2D23E",
+          "trim": "#2D60A1",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/southampton/keeper1.png",
+          "r08_source": "Clubs/southampton/South_Native64/keeper1/G001.png",
+          "base": "#399153",
+          "trim": "#CDE576",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/southampton/keeper2.png",
+          "r08_source": "Clubs/southampton/South_Native64/keeper2/G014.png",
+          "base": "#67529A",
+          "trim": "#D9DDF2",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Swindon Town",
+      "slug": "swindon-town",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/swindon-town/home.png",
+          "r08_source": "Clubs/swindon-town/South_Native64/home/F001.png",
+          "base": "#CF293E",
+          "trim": "#F1F1ED",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/swindon-town/away.png",
+          "r08_source": "Clubs/swindon-town/South_Native64/away/F011.png",
+          "base": "#F0F0EA",
+          "trim": "#3167B9",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/swindon-town/keeper1.png",
+          "r08_source": "Clubs/swindon-town/South_Native64/keeper1/G001.png",
+          "base": "#39834E",
+          "trim": "#E3E975",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/swindon-town/keeper2.png",
+          "r08_source": "Clubs/swindon-town/South_Native64/keeper2/G014.png",
+          "base": "#EDAE3D",
+          "trim": "#52396E",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Watford",
+      "slug": "watford",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/watford/home.png",
+          "r08_source": "Clubs/watford/South_Native64/home/F001.png",
+          "base": "#F2CC31",
+          "trim": "#282326",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/watford/away.png",
+          "r08_source": "Clubs/watford/South_Native64/away/F011.png",
+          "base": "#C42738",
+          "trim": "#E03947",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/watford/keeper1.png",
+          "r08_source": "Clubs/watford/South_Native64/keeper1/G001.png",
+          "base": "#3473BE",
+          "trim": "#E9EDF3",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/watford/keeper2.png",
+          "r08_source": "Clubs/watford/South_Native64/keeper2/G014.png",
+          "base": "#4B955E",
+          "trim": "#D8F188",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Wimbledon FC (historical)",
+      "slug": "wimbledon-fc",
+      "group": "Bonus — Heritage",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/wimbledon-fc/home.png",
+          "r08_source": "Clubs/wimbledon-fc/South_Native64/home/F001.png",
+          "base": "#29549B",
+          "trim": "#EFC748",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/wimbledon-fc/away.png",
+          "r08_source": "Clubs/wimbledon-fc/South_Native64/away/F011.png",
+          "base": "#C53D48",
+          "trim": "#2F684B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/wimbledon-fc/keeper1.png",
+          "r08_source": "Clubs/wimbledon-fc/South_Native64/keeper1/G001.png",
+          "base": "#3F965B",
+          "trim": "#EAE781",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/wimbledon-fc/keeper2.png",
+          "r08_source": "Clubs/wimbledon-fc/South_Native64/keeper2/G014.png",
+          "base": "#E5933E",
+          "trim": "#583D7A",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Wolverhampton Wanderers",
+      "slug": "wolverhampton-wanderers",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/wolverhampton-wanderers/home.png",
+          "r08_source": "Clubs/wolverhampton-wanderers/South_Native64/home/F001.png",
+          "base": "#E9AA36",
+          "trim": "#1C1D25",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/wolverhampton-wanderers/away.png",
+          "r08_source": "Clubs/wolverhampton-wanderers/South_Native64/away/F011.png",
+          "base": "#1C1D25",
+          "trim": "#E9AA36",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/wolverhampton-wanderers/keeper1.png",
+          "r08_source": "Clubs/wolverhampton-wanderers/South_Native64/keeper1/G001.png",
+          "base": "#6C9BC3",
+          "trim": "#293E52",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/wolverhampton-wanderers/keeper2.png",
+          "r08_source": "Clubs/wolverhampton-wanderers/South_Native64/keeper2/G014.png",
+          "base": "#50BD7D",
+          "trim": "#1B4243",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Norwich City",
+      "slug": "norwich-city",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/norwich-city/home.png",
+          "r08_source": "Clubs/norwich-city/South_Native64/home/F001.png",
+          "base": "#F8C82C",
+          "trim": "#227745",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/norwich-city/away.png",
+          "r08_source": "Clubs/norwich-city/South_Native64/away/F011.png",
+          "base": "#225A39",
+          "trim": "#142A24",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/norwich-city/keeper1.png",
+          "r08_source": "Clubs/norwich-city/South_Native64/keeper1/G001.png",
+          "base": "#1B302A",
+          "trim": "#9B303E",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/norwich-city/keeper2.png",
+          "r08_source": "Clubs/norwich-city/South_Native64/keeper2/G014.png",
+          "base": "#627BA7",
+          "trim": "#DCE2C4",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Cardiff City",
+      "slug": "cardiff-city",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/cardiff-city/home.png",
+          "r08_source": "Clubs/cardiff-city/South_Native64/home/F001.png",
+          "base": "#1545A6",
+          "trim": "#F0F1EB",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/cardiff-city/away.png",
+          "r08_source": "Clubs/cardiff-city/South_Native64/away/F011.png",
+          "base": "#EBD331",
+          "trim": "#204CA1",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/cardiff-city/keeper1.png",
+          "r08_source": "Clubs/cardiff-city/South_Native64/keeper1/G001.png",
+          "base": "#8799A5",
+          "trim": "#282C36",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/cardiff-city/keeper2.png",
+          "r08_source": "Clubs/cardiff-city/South_Native64/keeper2/G014.png",
+          "base": "#5A8C45",
+          "trim": "#202A32",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Stoke City",
+      "slug": "stoke-city",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/stoke-city/home.png",
+          "r08_source": "Clubs/stoke-city/South_Native64/home/F001.png",
+          "base": "#C92637",
+          "trim": "#EFF0E8",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/stoke-city/away.png",
+          "r08_source": "Clubs/stoke-city/South_Native64/away/F011.png",
+          "base": "#22252A",
+          "trim": "#BA2437",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/stoke-city/keeper1.png",
+          "r08_source": "Clubs/stoke-city/South_Native64/keeper1/G001.png",
+          "base": "#C6C4B3",
+          "trim": "#2B3135",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/stoke-city/keeper2.png",
+          "r08_source": "Clubs/stoke-city/South_Native64/keeper2/G014.png",
+          "base": "#5D9A54",
+          "trim": "#253331",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Plymouth Argyle",
+      "slug": "plymouth-argyle",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/plymouth-argyle/home.png",
+          "r08_source": "Clubs/plymouth-argyle/South_Native64/home/F001.png",
+          "base": "#123D33",
+          "trim": "#E9F0E6",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/plymouth-argyle/away.png",
+          "r08_source": "Clubs/plymouth-argyle/South_Native64/away/F011.png",
+          "base": "#F0F2EA",
+          "trim": "#1B543F",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/plymouth-argyle/keeper1.png",
+          "r08_source": "Clubs/plymouth-argyle/South_Native64/keeper1/G001.png",
+          "base": "#D7D9D5",
+          "trim": "#25354A",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/plymouth-argyle/keeper2.png",
+          "r08_source": "Clubs/plymouth-argyle/South_Native64/keeper2/G014.png",
+          "base": "#202B3B",
+          "trim": "#DCE1DA",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Hull City",
+      "slug": "hull-city",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/hull-city/home.png",
+          "r08_source": "Clubs/hull-city/South_Native64/home/F001.png",
+          "base": "#EA9A31",
+          "trim": "#1C2026",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/hull-city/away.png",
+          "r08_source": "Clubs/hull-city/South_Native64/away/F011.png",
+          "base": "#202127",
+          "trim": "#F0EEE6",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/hull-city/keeper1.png",
+          "r08_source": "Clubs/hull-city/South_Native64/keeper1/G001.png",
+          "base": "#6D9BBC",
+          "trim": "#242D3C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/hull-city/keeper2.png",
+          "r08_source": "Clubs/hull-city/South_Native64/keeper2/G014.png",
+          "base": "#7960A2",
+          "trim": "#24283A",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Crewe Alexandra",
+      "slug": "crewe-alexandra",
+      "group": "Championship",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/crewe-alexandra/home.png",
+          "r08_source": "Clubs/crewe-alexandra/South_Native64/home/F001.png",
+          "base": "#D72B3B",
+          "trim": "#F1EEE7",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/crewe-alexandra/away.png",
+          "r08_source": "Clubs/crewe-alexandra/South_Native64/away/F011.png",
+          "base": "#2A54AD",
+          "trim": "#ECEDE8",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/crewe-alexandra/keeper1.png",
+          "r08_source": "Clubs/crewe-alexandra/South_Native64/keeper1/G001.png",
+          "base": "#CFC037",
+          "trim": "#202732",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/crewe-alexandra/keeper2.png",
+          "r08_source": "Clubs/crewe-alexandra/South_Native64/keeper2/G014.png",
+          "base": "#428774",
+          "trim": "#202635",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Southend United",
+      "slug": "southend-united",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/southend-united/home.png",
+          "r08_source": "Clubs/southend-united/South_Native64/home/F001.png",
+          "base": "#192C50",
+          "trim": "#F1EFE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/southend-united/away.png",
+          "r08_source": "Clubs/southend-united/South_Native64/away/F011.png",
+          "base": "#F1EFE8",
+          "trim": "#22242A",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/southend-united/keeper1.png",
+          "r08_source": "Clubs/southend-united/South_Native64/keeper1/G001.png",
+          "base": "#52B877",
+          "trim": "#213844",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/southend-united/keeper2.png",
+          "r08_source": "Clubs/southend-united/South_Native64/keeper2/G014.png",
+          "base": "#429AAB",
+          "trim": "#263453",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            868,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Colchester United",
+      "slug": "colchester-united",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/colchester-united/home.png",
+          "r08_source": "Clubs/colchester-united/South_Native64/home/F001.png",
+          "base": "#2355A7",
+          "trim": "#F1EFE8",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/colchester-united/away.png",
+          "r08_source": "Clubs/colchester-united/South_Native64/away/F011.png",
+          "base": "#EBC542",
+          "trim": "#2355A7",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/colchester-united/keeper1.png",
+          "r08_source": "Clubs/colchester-united/South_Native64/keeper1/G001.png",
+          "base": "#7953A5",
+          "trim": "#2A2345",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/colchester-united/keeper2.png",
+          "r08_source": "Clubs/colchester-united/South_Native64/keeper2/G014.png",
+          "base": "#CA6A8F",
+          "trim": "#473248",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            868,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Brentford",
+      "slug": "brentford",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/brentford/home.png",
+          "r08_source": "Clubs/brentford/South_Native64/home/F001.png",
+          "base": "#BA2837",
+          "trim": "#F1EFE8",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/brentford/away.png",
+          "r08_source": "Clubs/brentford/South_Native64/away/F011.png",
+          "base": "#F1EFE8",
+          "trim": "#BA2837",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/brentford/keeper1.png",
+          "r08_source": "Clubs/brentford/South_Native64/keeper1/G001.png",
+          "base": "#DD8842",
+          "trim": "#333B52",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/brentford/keeper2.png",
+          "r08_source": "Clubs/brentford/South_Native64/keeper2/G014.png",
+          "base": "#9998B8",
+          "trim": "#313553",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            868,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Barnsley",
+      "slug": "barnsley",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/barnsley/home.png",
+          "r08_source": "Clubs/barnsley/South_Native64/home/F001.png",
+          "base": "#BA2837",
+          "trim": "#F1EFE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/barnsley/away.png",
+          "r08_source": "Clubs/barnsley/South_Native64/away/F011.png",
+          "base": "#80BCE7",
+          "trim": "#192C50",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/barnsley/keeper1.png",
+          "r08_source": "Clubs/barnsley/South_Native64/keeper1/G001.png",
+          "base": "#8CAE52",
+          "trim": "#30413B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            868,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/barnsley/keeper2.png",
+          "r08_source": "Clubs/barnsley/South_Native64/keeper2/G014.png",
+          "base": "#E4B942",
+          "trim": "#4C4151",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            868,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Swansea City",
+      "slug": "swansea-city",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/swansea-city/home.png",
+          "r08_source": "Clubs/swansea-city/South_Native64/home/F001.png",
+          "base": "#F1EFE8",
+          "trim": "#22242A",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/swansea-city/away.png",
+          "r08_source": "Clubs/swansea-city/South_Native64/away/F011.png",
+          "base": "#22242A",
+          "trim": "#F1EFE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/swansea-city/keeper1.png",
+          "r08_source": "Clubs/swansea-city/South_Native64/keeper1/G001.png",
+          "base": "#429AAB",
+          "trim": "#263453",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/swansea-city/keeper2.png",
+          "r08_source": "Clubs/swansea-city/South_Native64/keeper2/G014.png",
+          "base": "#3CAE84",
+          "trim": "#243647",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            1079,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Doncaster Rovers",
+      "slug": "doncaster-rovers",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/doncaster-rovers/home.png",
+          "r08_source": "Clubs/doncaster-rovers/South_Native64/home/F001.png",
+          "base": "#BA2837",
+          "trim": "#F1EFE8",
+          "pattern": "hoops",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/doncaster-rovers/away.png",
+          "r08_source": "Clubs/doncaster-rovers/South_Native64/away/F011.png",
+          "base": "#22242A",
+          "trim": "#BA2837",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/doncaster-rovers/keeper1.png",
+          "r08_source": "Clubs/doncaster-rovers/South_Native64/keeper1/G001.png",
+          "base": "#CA6A8F",
+          "trim": "#473248",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/doncaster-rovers/keeper2.png",
+          "r08_source": "Clubs/doncaster-rovers/South_Native64/keeper2/G014.png",
+          "base": "#52B877",
+          "trim": "#213844",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            1079,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Scunthorpe United",
+      "slug": "scunthorpe-united",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/scunthorpe-united/home.png",
+          "r08_source": "Clubs/scunthorpe-united/South_Native64/home/F001.png",
+          "base": "#772D48",
+          "trim": "#80BCE7",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/scunthorpe-united/away.png",
+          "r08_source": "Clubs/scunthorpe-united/South_Native64/away/F011.png",
+          "base": "#EBC542",
+          "trim": "#22242A",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/scunthorpe-united/keeper1.png",
+          "r08_source": "Clubs/scunthorpe-united/South_Native64/keeper1/G001.png",
+          "base": "#9998B8",
+          "trim": "#313553",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/scunthorpe-united/keeper2.png",
+          "r08_source": "Clubs/scunthorpe-united/South_Native64/keeper2/G014.png",
+          "base": "#7953A5",
+          "trim": "#2A2345",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            1079,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Port Vale",
+      "slug": "port-vale",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/port-vale/home.png",
+          "r08_source": "Clubs/port-vale/South_Native64/home/F001.png",
+          "base": "#F1EFE8",
+          "trim": "#22242A",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/port-vale/away.png",
+          "r08_source": "Clubs/port-vale/South_Native64/away/F011.png",
+          "base": "#22242A",
+          "trim": "#C99B39",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/port-vale/keeper1.png",
+          "r08_source": "Clubs/port-vale/South_Native64/keeper1/G001.png",
+          "base": "#E4B942",
+          "trim": "#4C4151",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            1079,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/port-vale/keeper2.png",
+          "r08_source": "Clubs/port-vale/South_Native64/keeper2/G014.png",
+          "base": "#DD8842",
+          "trim": "#333B52",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            1079,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Gillingham",
+      "slug": "gillingham",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/gillingham/home.png",
+          "r08_source": "Clubs/gillingham/South_Native64/home/F001.png",
+          "base": "#2355A7",
+          "trim": "#F1EFE8",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/gillingham/away.png",
+          "r08_source": "Clubs/gillingham/South_Native64/away/F011.png",
+          "base": "#EBC542",
+          "trim": "#2355A7",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/gillingham/keeper1.png",
+          "r08_source": "Clubs/gillingham/South_Native64/keeper1/G001.png",
+          "base": "#3CAE84",
+          "trim": "#243647",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/gillingham/keeper2.png",
+          "r08_source": "Clubs/gillingham/South_Native64/keeper2/G014.png",
+          "base": "#8CAE52",
+          "trim": "#30413B",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            1290,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Yeovil Town",
+      "slug": "yeovil-town",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/yeovil-town/home.png",
+          "r08_source": "Clubs/yeovil-town/South_Native64/home/F001.png",
+          "base": "#2B8859",
+          "trim": "#F0F2EA",
+          "pattern": "hoops",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/yeovil-town/away.png",
+          "r08_source": "Clubs/yeovil-town/South_Native64/away/F011.png",
+          "base": "#333A4B",
+          "trim": "#E6803E",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/yeovil-town/keeper1.png",
+          "r08_source": "Clubs/yeovil-town/South_Native64/keeper1/G001.png",
+          "base": "#534884",
+          "trim": "#D5CDEB",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/yeovil-town/keeper2.png",
+          "r08_source": "Clubs/yeovil-town/South_Native64/keeper2/G014.png",
+          "base": "#CECC4C",
+          "trim": "#493371",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            1290,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Chesterfield",
+      "slug": "chesterfield",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/chesterfield/home.png",
+          "r08_source": "Clubs/chesterfield/South_Native64/home/F001.png",
+          "base": "#2F62B3",
+          "trim": "#EFEFEC",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/chesterfield/away.png",
+          "r08_source": "Clubs/chesterfield/South_Native64/away/F011.png",
+          "base": "#88BEDD",
+          "trim": "#263654",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/chesterfield/keeper1.png",
+          "r08_source": "Clubs/chesterfield/South_Native64/keeper1/G001.png",
+          "base": "#449253",
+          "trim": "#D3DB78",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/chesterfield/keeper2.png",
+          "r08_source": "Clubs/chesterfield/South_Native64/keeper2/G014.png",
+          "base": "#E18240",
+          "trim": "#5C3A77",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            1290,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "AFC Bournemouth",
+      "slug": "afc-bournemouth",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/afc-bournemouth/home.png",
+          "r08_source": "Clubs/afc-bournemouth/South_Native64/home/F001.png",
+          "base": "#C93242",
+          "trim": "#26242B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/afc-bournemouth/away.png",
+          "r08_source": "Clubs/afc-bournemouth/South_Native64/away/F011.png",
+          "base": "#26334F",
+          "trim": "#77B9E7",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/afc-bournemouth/keeper1.png",
+          "r08_source": "Clubs/afc-bournemouth/South_Native64/keeper1/G001.png",
+          "base": "#448E5A",
+          "trim": "#D4E97D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            1290,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/afc-bournemouth/keeper2.png",
+          "r08_source": "Clubs/afc-bournemouth/South_Native64/keeper2/G014.png",
+          "base": "#E7B43D",
+          "trim": "#54438A",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            1290,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Tranmere Rovers",
+      "slug": "tranmere-rovers",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/tranmere-rovers/home.png",
+          "r08_source": "Clubs/tranmere-rovers/South_Native64/home/F001.png",
+          "base": "#EEF0EE",
+          "trim": "#3564B1",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/tranmere-rovers/away.png",
+          "r08_source": "Clubs/tranmere-rovers/South_Native64/away/F011.png",
+          "base": "#EBC83C",
+          "trim": "#25262C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/tranmere-rovers/keeper1.png",
+          "r08_source": "Clubs/tranmere-rovers/South_Native64/keeper1/G001.png",
+          "base": "#388B62",
+          "trim": "#D5E57C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/tranmere-rovers/keeper2.png",
+          "r08_source": "Clubs/tranmere-rovers/South_Native64/keeper2/G014.png",
+          "base": "#CC594E",
+          "trim": "#E6DCE6",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            1501,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Rotherham United",
+      "slug": "rotherham-united",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/rotherham-united/home.png",
+          "r08_source": "Clubs/rotherham-united/South_Native64/home/F001.png",
+          "base": "#C83143",
+          "trim": "#F0ECE8",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/rotherham-united/away.png",
+          "r08_source": "Clubs/rotherham-united/South_Native64/away/F011.png",
+          "base": "#25262C",
+          "trim": "#ECEDE9",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/rotherham-united/keeper1.png",
+          "r08_source": "Clubs/rotherham-united/South_Native64/keeper1/G001.png",
+          "base": "#448F58",
+          "trim": "#E3E583",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/rotherham-united/keeper2.png",
+          "r08_source": "Clubs/rotherham-united/South_Native64/keeper2/G014.png",
+          "base": "#467AB6",
+          "trim": "#E0E4F7",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            1501,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Hartlepool United",
+      "slug": "hartlepool-united",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/hartlepool-united/home.png",
+          "r08_source": "Clubs/hartlepool-united/South_Native64/home/F001.png",
+          "base": "#3267BA",
+          "trim": "#F0F1EF",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/hartlepool-united/away.png",
+          "r08_source": "Clubs/hartlepool-united/South_Native64/away/F011.png",
+          "base": "#25262F",
+          "trim": "#EFEFEB",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/hartlepool-united/keeper1.png",
+          "r08_source": "Clubs/hartlepool-united/South_Native64/keeper1/G001.png",
+          "base": "#509059",
+          "trim": "#D5E97D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/hartlepool-united/keeper2.png",
+          "r08_source": "Clubs/hartlepool-united/South_Native64/keeper2/G014.png",
+          "base": "#E08242",
+          "trim": "#614077",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            1501,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Milton Keynes Dons",
+      "slug": "milton-keynes-dons",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/milton-keynes-dons/home.png",
+          "r08_source": "Clubs/milton-keynes-dons/South_Native64/home/F001.png",
+          "base": "#F0EFED",
+          "trim": "#B79653",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/milton-keynes-dons/away.png",
+          "r08_source": "Clubs/milton-keynes-dons/South_Native64/away/F011.png",
+          "base": "#C63443",
+          "trim": "#C29A55",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/milton-keynes-dons/keeper1.png",
+          "r08_source": "Clubs/milton-keynes-dons/South_Native64/keeper1/G001.png",
+          "base": "#458D61",
+          "trim": "#E1E884",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            1501,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/milton-keynes-dons/keeper2.png",
+          "r08_source": "Clubs/milton-keynes-dons/South_Native64/keeper2/G014.png",
+          "base": "#527FC0",
+          "trim": "#DCDDF4",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            1501,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Walsall",
+      "slug": "walsall",
+      "group": "League One",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/walsall/home.png",
+          "r08_source": "Clubs/walsall/South_Native64/home/F001.png",
+          "base": "#CC2A3D",
+          "trim": "#F3EFE9",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/walsall/away.png",
+          "r08_source": "Clubs/walsall/South_Native64/away/F011.png",
+          "base": "#252E51",
+          "trim": "#EFEFED",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/walsall/keeper1.png",
+          "r08_source": "Clubs/walsall/South_Native64/keeper1/G001.png",
+          "base": "#4A9380",
+          "trim": "#D7E279",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/walsall/keeper2.png",
+          "r08_source": "Clubs/walsall/South_Native64/keeper2/G014.png",
+          "base": "#E2BB48",
+          "trim": "#614186",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            1712,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Barnet",
+      "slug": "barnet",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/barnet/home.png",
+          "r08_source": "Clubs/barnet/South_Native64/home/F001.png",
+          "base": "#202126",
+          "trim": "#E59826",
+          "pattern": "pinstripes",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/barnet/away.png",
+          "r08_source": "Clubs/barnet/South_Native64/away/F011.png",
+          "base": "#F0EEE5",
+          "trim": "#253958",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/barnet/keeper1.png",
+          "r08_source": "Clubs/barnet/South_Native64/keeper1/G001.png",
+          "base": "#42AD77",
+          "trim": "#213F3E",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/barnet/keeper2.png",
+          "r08_source": "Clubs/barnet/South_Native64/keeper2/G014.png",
+          "base": "#D8AC42",
+          "trim": "#493349",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            1712,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Bristol Rovers",
+      "slug": "bristol-rovers",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/bristol-rovers/home.png",
+          "r08_source": "Clubs/bristol-rovers/South_Native64/home/F001.png",
+          "base": "#F0EEE8",
+          "trim": "#224FA4",
+          "pattern": "quarters",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/bristol-rovers/away.png",
+          "r08_source": "Clubs/bristol-rovers/South_Native64/away/F011.png",
+          "base": "#F3C744",
+          "trim": "#23232B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/bristol-rovers/keeper1.png",
+          "r08_source": "Clubs/bristol-rovers/South_Native64/keeper1/G001.png",
+          "base": "#6087C0",
+          "trim": "#183B58",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/bristol-rovers/keeper2.png",
+          "r08_source": "Clubs/bristol-rovers/South_Native64/keeper2/G014.png",
+          "base": "#DD7551",
+          "trim": "#50323E",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            1712,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Cheltenham Town",
+      "slug": "cheltenham-town",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/cheltenham-town/home.png",
+          "r08_source": "Clubs/cheltenham-town/South_Native64/home/F001.png",
+          "base": "#F0EEE8",
+          "trim": "#B92830",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/cheltenham-town/away.png",
+          "r08_source": "Clubs/cheltenham-town/South_Native64/away/F011.png",
+          "base": "#EACA45",
+          "trim": "#272831",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/cheltenham-town/keeper1.png",
+          "r08_source": "Clubs/cheltenham-town/South_Native64/keeper1/G001.png",
+          "base": "#B983BA",
+          "trim": "#373048",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            1712,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/cheltenham-town/keeper2.png",
+          "r08_source": "Clubs/cheltenham-town/South_Native64/keeper2/G014.png",
+          "base": "#4EA5A5",
+          "trim": "#213A4D",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            1712,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Leyton Orient",
+      "slug": "leyton-orient",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/leyton-orient/home.png",
+          "r08_source": "Clubs/leyton-orient/South_Native64/home/F001.png",
+          "base": "#C83239",
+          "trim": "#F1EEE4",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            24,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/leyton-orient/away.png",
+          "r08_source": "Clubs/leyton-orient/South_Native64/away/F011.png",
+          "base": "#F1EEE7",
+          "trim": "#C63138",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            261,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/leyton-orient/keeper1.png",
+          "r08_source": "Clubs/leyton-orient/South_Native64/keeper1/G001.png",
+          "base": "#D8AC42",
+          "trim": "#493349",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            498,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/leyton-orient/keeper2.png",
+          "r08_source": "Clubs/leyton-orient/South_Native64/keeper2/G014.png",
+          "base": "#87B84D",
+          "trim": "#31463C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            735,
+            1923,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Macclesfield Town",
+      "slug": "macclesfield-town",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/macclesfield-town/home.png",
+          "r08_source": "Clubs/macclesfield-town/South_Native64/home/F001.png",
+          "base": "#2460A9",
+          "trim": "#F2EFE8",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            972,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/macclesfield-town/away.png",
+          "r08_source": "Clubs/macclesfield-town/South_Native64/away/F011.png",
+          "base": "#EBC64F",
+          "trim": "#21477A",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1209,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/macclesfield-town/keeper1.png",
+          "r08_source": "Clubs/macclesfield-town/South_Native64/keeper1/G001.png",
+          "base": "#DD7551",
+          "trim": "#50323E",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1446,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/macclesfield-town/keeper2.png",
+          "r08_source": "Clubs/macclesfield-town/South_Native64/keeper2/G014.png",
+          "base": "#6B64C5",
+          "trim": "#25284B",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1683,
+            1923,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Lincoln City",
+      "slug": "lincoln-city",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/lincoln-city/home.png",
+          "r08_source": "Clubs/lincoln-city/South_Native64/home/F001.png",
+          "base": "#F1EEE8",
+          "trim": "#C63339",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            1920,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/lincoln-city/away.png",
+          "r08_source": "Clubs/lincoln-city/South_Native64/away/F011.png",
+          "base": "#243755",
+          "trim": "#C43B44",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2157,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/lincoln-city/keeper1.png",
+          "r08_source": "Clubs/lincoln-city/South_Native64/keeper1/G001.png",
+          "base": "#4EA5A5",
+          "trim": "#213A4D",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2394,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/lincoln-city/keeper2.png",
+          "r08_source": "Clubs/lincoln-city/South_Native64/keeper2/G014.png",
+          "base": "#CC4976",
+          "trim": "#472B48",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2631,
+            1923,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Northampton Town",
+      "slug": "northampton-town",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/northampton-town/home.png",
+          "r08_source": "Clubs/northampton-town/South_Native64/home/F001.png",
+          "base": "#893044",
+          "trim": "#F1E5DD",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            2868,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/northampton-town/away.png",
+          "r08_source": "Clubs/northampton-town/South_Native64/away/F011.png",
+          "base": "#25262E",
+          "trim": "#EAE8E0",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3105,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/northampton-town/keeper1.png",
+          "r08_source": "Clubs/northampton-town/South_Native64/keeper1/G001.png",
+          "base": "#87B84D",
+          "trim": "#31463C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3342,
+            1923,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/northampton-town/keeper2.png",
+          "r08_source": "Clubs/northampton-town/South_Native64/keeper2/G014.png",
+          "base": "#7FCBD0",
+          "trim": "#214D61",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_02.png",
+          "rect": [
+            3579,
+            1923,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Peterborough United",
+      "slug": "peterborough-united",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/peterborough-united/home.png",
+          "r08_source": "Clubs/peterborough-united/South_Native64/home/F001.png",
+          "base": "#245AA6",
+          "trim": "#F0EEE7",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            24,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/peterborough-united/away.png",
+          "r08_source": "Clubs/peterborough-united/South_Native64/away/F011.png",
+          "base": "#EAC64E",
+          "trim": "#285CA9",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            261,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/peterborough-united/keeper1.png",
+          "r08_source": "Clubs/peterborough-united/South_Native64/keeper1/G001.png",
+          "base": "#6B64C5",
+          "trim": "#25284B",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            498,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/peterborough-united/keeper2.png",
+          "r08_source": "Clubs/peterborough-united/South_Native64/keeper2/G014.png",
+          "base": "#42AD77",
+          "trim": "#213F3E",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            735,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Chester City",
+      "slug": "chester-city",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/chester-city/home.png",
+          "r08_source": "Clubs/chester-city/South_Native64/home/F001.png",
+          "base": "#F1EEE9",
+          "trim": "#285CAA",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            972,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/chester-city/away.png",
+          "r08_source": "Clubs/chester-city/South_Native64/away/F011.png",
+          "base": "#82BCE1",
+          "trim": "#F0F1EA",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1209,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/chester-city/keeper1.png",
+          "r08_source": "Clubs/chester-city/South_Native64/keeper1/G001.png",
+          "base": "#CC4976",
+          "trim": "#472B48",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1446,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/chester-city/keeper2.png",
+          "r08_source": "Clubs/chester-city/South_Native64/keeper2/G014.png",
+          "base": "#6087C0",
+          "trim": "#183B58",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1683,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Rushden & Diamonds",
+      "slug": "rushden-and-diamonds",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/rushden-and-diamonds/home.png",
+          "r08_source": "Clubs/rushden-and-diamonds/South_Native64/home/F001.png",
+          "base": "#F1EEE7",
+          "trim": "#BD2F3C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1920,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/rushden-and-diamonds/away.png",
+          "r08_source": "Clubs/rushden-and-diamonds/South_Native64/away/F011.png",
+          "base": "#285CA7",
+          "trim": "#F1EEE8",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2157,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/rushden-and-diamonds/keeper1.png",
+          "r08_source": "Clubs/rushden-and-diamonds/South_Native64/keeper1/G001.png",
+          "base": "#7FCBD0",
+          "trim": "#214D61",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2394,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/rushden-and-diamonds/keeper2.png",
+          "r08_source": "Clubs/rushden-and-diamonds/South_Native64/keeper2/G014.png",
+          "base": "#B983BA",
+          "trim": "#373048",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2631,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Darlington",
+      "slug": "darlington",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/darlington/home.png",
+          "r08_source": "Clubs/darlington/South_Native64/home/F001.png",
+          "base": "#F3EEE3",
+          "trim": "#24232C",
+          "pattern": "hoops",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2868,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/darlington/away.png",
+          "r08_source": "Clubs/darlington/South_Native64/away/F011.png",
+          "base": "#24232C",
+          "trim": "#F3EEE3",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3105,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/darlington/keeper1.png",
+          "r08_source": "Clubs/darlington/South_Native64/keeper1/G001.png",
+          "base": "#339653",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3342,
+            24,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/darlington/keeper2.png",
+          "r08_source": "Clubs/darlington/South_Native64/keeper2/G014.png",
+          "base": "#735295",
+          "trim": "#24232C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3579,
+            24,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Shrewsbury Town",
+      "slug": "shrewsbury-town",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/shrewsbury-town/home.png",
+          "r08_source": "Clubs/shrewsbury-town/South_Native64/home/F001.png",
+          "base": "#2458A9",
+          "trim": "#EDBA2C",
+          "pattern": "vertical",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            24,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/shrewsbury-town/away.png",
+          "r08_source": "Clubs/shrewsbury-town/South_Native64/away/F011.png",
+          "base": "#B82735",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            261,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/shrewsbury-town/keeper1.png",
+          "r08_source": "Clubs/shrewsbury-town/South_Native64/keeper1/G001.png",
+          "base": "#4E9D9A",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            498,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/shrewsbury-town/keeper2.png",
+          "r08_source": "Clubs/shrewsbury-town/South_Native64/keeper2/G014.png",
+          "base": "#555B69",
+          "trim": "#24232C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            735,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Rochdale",
+      "slug": "rochdale",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/rochdale/home.png",
+          "r08_source": "Clubs/rochdale/South_Native64/home/F001.png",
+          "base": "#2458A9",
+          "trim": "#F3EEE3",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            972,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/rochdale/away.png",
+          "r08_source": "Clubs/rochdale/South_Native64/away/F011.png",
+          "base": "#EDBA2C",
+          "trim": "#24232C",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1209,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/rochdale/keeper1.png",
+          "r08_source": "Clubs/rochdale/South_Native64/keeper1/G001.png",
+          "base": "#C64D75",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1446,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/rochdale/keeper2.png",
+          "r08_source": "Clubs/rochdale/South_Native64/keeper2/G014.png",
+          "base": "#4E9D9A",
+          "trim": "#24232C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1683,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Stockport County",
+      "slug": "stockport-county",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/stockport-county/home.png",
+          "r08_source": "Clubs/stockport-county/South_Native64/home/F001.png",
+          "base": "#1955AA",
+          "trim": "#318CD4",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1920,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/stockport-county/away.png",
+          "r08_source": "Clubs/stockport-county/South_Native64/away/F011.png",
+          "base": "#24232C",
+          "trim": "#EDBA2C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2157,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/stockport-county/keeper1.png",
+          "r08_source": "Clubs/stockport-county/South_Native64/keeper1/G001.png",
+          "base": "#339653",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2394,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/stockport-county/keeper2.png",
+          "r08_source": "Clubs/stockport-county/South_Native64/keeper2/G014.png",
+          "base": "#735295",
+          "trim": "#24232C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2631,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Mansfield Town",
+      "slug": "mansfield-town",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/mansfield-town/home.png",
+          "r08_source": "Clubs/mansfield-town/South_Native64/home/F001.png",
+          "base": "#EDBA2C",
+          "trim": "#2458A9",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2868,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/mansfield-town/away.png",
+          "r08_source": "Clubs/mansfield-town/South_Native64/away/F011.png",
+          "base": "#F3EEE3",
+          "trim": "#2458A9",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3105,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/mansfield-town/keeper1.png",
+          "r08_source": "Clubs/mansfield-town/South_Native64/keeper1/G001.png",
+          "base": "#C64D75",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3342,
+            235,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/mansfield-town/keeper2.png",
+          "r08_source": "Clubs/mansfield-town/South_Native64/keeper2/G014.png",
+          "base": "#4E9D9A",
+          "trim": "#24232C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3579,
+            235,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Torquay United",
+      "slug": "torquay-united",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/torquay-united/home.png",
+          "r08_source": "Clubs/torquay-united/South_Native64/home/F001.png",
+          "base": "#EDBA2C",
+          "trim": "#175C98",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            24,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/torquay-united/away.png",
+          "r08_source": "Clubs/torquay-united/South_Native64/away/F011.png",
+          "base": "#F3EEE3",
+          "trim": "#83BBD6",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            261,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/torquay-united/keeper1.png",
+          "r08_source": "Clubs/torquay-united/South_Native64/keeper1/G001.png",
+          "base": "#735295",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            498,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/torquay-united/keeper2.png",
+          "r08_source": "Clubs/torquay-united/South_Native64/keeper2/G014.png",
+          "base": "#339653",
+          "trim": "#24232C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            735,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Wrexham",
+      "slug": "wrexham",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/wrexham/home.png",
+          "r08_source": "Clubs/wrexham/South_Native64/home/F001.png",
+          "base": "#B82735",
+          "trim": "#F3EEE3",
+          "pattern": "solid",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            972,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/wrexham/away.png",
+          "r08_source": "Clubs/wrexham/South_Native64/away/F011.png",
+          "base": "#ACD9ED",
+          "trim": "#19345C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1209,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/wrexham/keeper1.png",
+          "r08_source": "Clubs/wrexham/South_Native64/keeper1/G001.png",
+          "base": "#555B69",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1446,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/wrexham/keeper2.png",
+          "r08_source": "Clubs/wrexham/South_Native64/keeper2/G014.png",
+          "base": "#339653",
+          "trim": "#24232C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1683,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Boston United",
+      "slug": "boston-united",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/boston-united/home.png",
+          "r08_source": "Clubs/boston-united/South_Native64/home/F001.png",
+          "base": "#EDBA2C",
+          "trim": "#24232C",
+          "pattern": "hoops",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            1920,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/boston-united/away.png",
+          "r08_source": "Clubs/boston-united/South_Native64/away/F011.png",
+          "base": "#264184",
+          "trim": "#F3EEE3",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2157,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/boston-united/keeper1.png",
+          "r08_source": "Clubs/boston-united/South_Native64/keeper1/G001.png",
+          "base": "#4E9D9A",
+          "trim": "#19345C",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2394,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/boston-united/keeper2.png",
+          "r08_source": "Clubs/boston-united/South_Native64/keeper2/G014.png",
+          "base": "#C64D75",
+          "trim": "#24232C",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2631,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Wycombe Wanderers",
+      "slug": "wycombe-wanderers",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/wycombe-wanderers/home.png",
+          "r08_source": "Clubs/wycombe-wanderers/South_Native64/home/F001.png",
+          "base": "#19345C",
+          "trim": "#6DBEE8",
+          "pattern": "quarters",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            2868,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/wycombe-wanderers/away.png",
+          "r08_source": "Clubs/wycombe-wanderers/South_Native64/away/F011.png",
+          "base": "#F3EEE3",
+          "trim": "#6DBEE8",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3105,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/wycombe-wanderers/keeper1.png",
+          "r08_source": "Clubs/wycombe-wanderers/South_Native64/keeper1/G001.png",
+          "base": "#ac6b35",
+          "trim": "#203050",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3342,
+            446,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/wycombe-wanderers/keeper2.png",
+          "r08_source": "Clubs/wycombe-wanderers/South_Native64/keeper2/G014.png",
+          "base": "#4b7095",
+          "trim": "#17263c",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            3579,
+            446,
+            216,
+            192
+          ]
+        }
+      ]
+    },
+    {
+      "club": "Carlisle United",
+      "slug": "carlisle-united",
+      "group": "League Two",
+      "variants": [
+        {
+          "role": "home",
+          "path": "PNGs/carlisle-united/home.png",
+          "r08_source": "Clubs/carlisle-united/South_Native64/home/F001.png",
+          "base": "#2458A9",
+          "trim": "#F3EEE3",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            24,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "away",
+          "path": "PNGs/carlisle-united/away.png",
+          "r08_source": "Clubs/carlisle-united/South_Native64/away/F011.png",
+          "base": "#B82735",
+          "trim": "#F3EEE3",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            261,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper1",
+          "path": "PNGs/carlisle-united/keeper1.png",
+          "r08_source": "Clubs/carlisle-united/South_Native64/keeper1/G001.png",
+          "base": "#6e617f",
+          "trim": "#242334",
+          "pattern": "panel",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            498,
+            657,
+            216,
+            192
+          ]
+        },
+        {
+          "role": "keeper2",
+          "path": "PNGs/carlisle-united/keeper2.png",
+          "r08_source": "Clubs/carlisle-united/South_Native64/keeper2/G014.png",
+          "base": "#43937b",
+          "trim": "#1d3e43",
+          "pattern": "sleeves",
+          "atlas": "Atlas_4K_03.png",
+          "rect": [
+            735,
+            657,
+            216,
+            192
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+2005–06 all four divisions: https://www.rsssf.org/tablese/eng06.html
+Football League standings: https://www.fchd.info/lghist/fl2006.htm
+EFL division structure: https://www.efl.com/documents/efl-handbook.pdf
+Individual kit references are in Clubs_by_Division.csv and Club_Kit_Palettes.json.

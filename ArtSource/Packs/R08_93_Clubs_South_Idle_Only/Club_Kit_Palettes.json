@@ -1,0 +1,4140 @@
+[
+  {
+    "slug": "chelsea",
+    "name": "Chelsea",
+    "home": {
+      "shirt": "#2459A3",
+      "trim": "#B99A57",
+      "shorts": "#2459A3",
+      "socks": "#2459A3",
+      "pattern": "solid",
+      "note": "Centenary all-blue set, metallic gold piping at the shoulder/cuffs and collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#CADAE5",
+      "trim": "#252735",
+      "shorts": "#CADAE5",
+      "socks": "#CADAE5",
+      "pattern": "panel",
+      "note": "Pale glacier-blue away (not pure white), dark raglan shoulder seam piping. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#20232B",
+      "trim": "#C0A157",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#EDCE3C",
+      "trim": "#262527",
+      "shorts": "#141923",
+      "socks": "#EDCE3C",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#Chelsea",
+      "https://www.footballkitarchive.com/chelsea-fc-2005-06-gk-1-kit-16783/",
+      "https://www.footballkitarchive.com/chelsea-fc-2005-06-gk-2-kit/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions; UEFA Champions League winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "manchester-united",
+    "name": "Manchester United",
+    "home": {
+      "shirt": "#D31B35",
+      "trim": "#F2F3EE",
+      "shorts": "#F2F3EE",
+      "socks": "#141923",
+      "pattern": "panel",
+      "note": "Bright red, white slash accents at shoulder and cuffs, black/red V collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#2355AA",
+      "trim": "#D72B38",
+      "shorts": "#2355AA",
+      "socks": "#2355AA",
+      "pattern": "panel",
+      "note": "Royal blue away, red thin looping shoulder/chest piping and side accents. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#4D9958",
+      "trim": "#313F33",
+      "shorts": "#141923",
+      "socks": "#4D9958",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. Dark diagonal shoulder stripes."
+    },
+    "keeper2": {
+      "shirt": "#21252A",
+      "trim": "#808083",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#Manchester_United",
+      "https://www.footballkitarchive.com/manchester-united-2005-06-gk-home-kit-948/",
+      "https://www.footballkitarchive.com/manchester-united-2005-06-gk-away-kit-31117/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions; European Cup and UEFA Champions League winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "liverpool",
+    "name": "Liverpool",
+    "home": {
+      "shirt": "#D11D32",
+      "trim": "#F2F3EE",
+      "shorts": "#D11D32",
+      "socks": "#D11D32",
+      "pattern": "panel",
+      "note": "Red throughout; small white underarm flashes and rear collar sliver. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#F2F3EE",
+      "trim": "#CE1831",
+      "shorts": "#141923",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "White away, red shoulder piping and collar, slim dark lower seams. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#4C8A56",
+      "trim": "#26292C",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "sleeves",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#E6C732",
+      "trim": "#22262B",
+      "shorts": "#141923",
+      "socks": "#E6C732",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://liverpool-shirt.narod.ru/2005-06/2005-6-lfckits.html",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#Liverpool",
+      "https://www.footballkitarchive.com/liverpool-fc-2005-06-gk-home-kit-798/",
+      "https://www.footballkitarchive.com/liverpool-fc-2005-06-gk-away-kit-799/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions; European Cup and UEFA Champions League winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "arsenal",
+    "name": "Arsenal",
+    "group": "Premier League",
+    "honours": "English champions, including unbeaten 2003–04; multiple FA Cups.",
+    "home": {
+      "shirt": "#791f2d",
+      "trim": "#ca9b54",
+      "shorts": "#ebe0d3",
+      "socks": "#681a29",
+      "pattern": "solid",
+      "note": "2005–06 Highbury farewell redcurrant."
+    },
+    "away": {
+      "shirt": "#f4c62c",
+      "trim": "#272a30",
+      "shorts": "#252730",
+      "socks": "#eac125",
+      "pattern": "panel",
+      "note": "2005–06 yellow and charcoal."
+    },
+    "keeper1": {
+      "shirt": "#50264f",
+      "trim": "#292337",
+      "shorts": "#272634",
+      "socks": "#462245",
+      "pattern": "panel",
+      "note": "Approved plum league reference."
+    },
+    "keeper2": {
+      "shirt": "#68717f",
+      "trim": "#373c49",
+      "shorts": "#32323b",
+      "socks": "#333742",
+      "pattern": "panel",
+      "note": "Approved slate European reference."
+    },
+    "sources": [
+      "https://www.arsenal.com/feature/highbury-aOvWp5K7lTf9",
+      "https://www.footballkitarchive.com/arsenal-fc-2005-06-away-kit-1221/"
+    ],
+    "base_country": "England"
+  },
+  {
+    "slug": "tottenham-hotspur",
+    "name": "Tottenham Hotspur",
+    "home": {
+      "shirt": "#F2F3EE",
+      "trim": "#192238",
+      "shorts": "#192238",
+      "socks": "#F2F3EE",
+      "pattern": "sleeves",
+      "note": "White body with navy sleeves and lower sides, white-edged cuffs. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#2346AC",
+      "trim": "#F0C538",
+      "shorts": "#2346AC",
+      "socks": "#2346AC",
+      "pattern": "panel",
+      "note": "Royal blue with bright yellow side inserts, collar and cuffs. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#21242B",
+      "trim": "#F2F3EE",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#458C58",
+      "trim": "#397448",
+      "shorts": "#141923",
+      "socks": "#458C58",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#Tottenham_Hotspur",
+      "https://s3.eu-west-1.amazonaws.com/communitysites.wordpress.ww1playingthegame/wp-content/uploads/2014/06/Waltertullactivitypack.pdf",
+      "https://www.footballkitarchive.com/tottenham-hotspur-2005-06-gk-1-kit-252721/",
+      "https://www.footballkitarchive.com/tottenham-hotspur-2005-06-gk-2-kit/109665/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions; FA Cup and UEFA Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "blackburn-rovers",
+    "name": "Blackburn Rovers",
+    "home": {
+      "shirt": "#174C9E",
+      "trim": "#F2F3EE",
+      "shorts": "#F2F3EE",
+      "socks": "#174C9E",
+      "pattern": "halves",
+      "note": "Vertical equal white and royal blue halves with opposite-color sleeves; small red shoulder piping. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#15191E",
+      "trim": "#F2F3EE",
+      "shorts": "#15191E",
+      "socks": "#15191E",
+      "pattern": "panel",
+      "note": "Black base, broad white inset under the collar; thin royal blue curved piping. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#BD493D",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#BD493D",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "keeper2": {
+      "shirt": "#388F5D",
+      "trim": "#F2F3EE",
+      "shorts": "#141923",
+      "socks": "#388F5D",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://www.footballkitarchive.com/blackburn-rovers-2005-06-gk-2-kit-225613/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions, including the 1994–95 Premier League title; FA Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "newcastle-united",
+    "name": "Newcastle United",
+    "home": {
+      "shirt": "#141923",
+      "trim": "#F2F3EE",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "vertical",
+      "note": "Bold black and white vertical stripes, white shoulder bands and black shorts/socks. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#263747",
+      "trim": "#425667",
+      "shorts": "#263747",
+      "socks": "#263747",
+      "pattern": "vertical",
+      "note": "Dark blue-gray with broad alternating lighter slate vertical stripes; white shoulder piping. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#356CA9",
+      "trim": "#DFEDF7",
+      "shorts": "#19263D",
+      "socks": "#19263D",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#E5C544",
+      "trim": "#262828",
+      "shorts": "#141923",
+      "socks": "#E5C544",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#Newcastle_United",
+      "https://www.footballkitarchive.com/newcastle-united-2005-06-gk-1-kit-3427/",
+      "https://www.footballkitarchive.com/newcastle-united-2005-06-gk-2-kit-3428/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions and FA Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "bolton-wanderers",
+    "name": "Bolton Wanderers",
+    "home": {
+      "shirt": "#F2F3EE",
+      "trim": "#19263D",
+      "shorts": "#19263D",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "White, navy collar and thin asymmetric dark side/shoulder piping with small red accent. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#242D42",
+      "trim": "#BCBEC1",
+      "shorts": "#242D42",
+      "socks": "#242D42",
+      "pattern": "pinstripes",
+      "note": "Dark ink/navy with thin vertical light pinstripes and pale grey underarm panels. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#428855",
+      "trim": "#22292C",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "sleeves",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#E6C438",
+      "trim": "#202124",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "sleeves",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://www.footballkitarchive.com/bolton-wanderers-2005-06-gk-1-kit-115778/",
+      "https://www.footballkitarchive.com/bolton-wanderers-2005-06-gk-2-kit-103036/"
+    ],
+    "group": "Premier League",
+    "honours": "FA Cup winners, including the 1923 Wembley final.",
+    "base_country": "England"
+  },
+  {
+    "slug": "west-ham-united",
+    "name": "West Ham United",
+    "home": {
+      "shirt": "#852644",
+      "trim": "#76B7DE",
+      "shorts": "#F2F3EE",
+      "socks": "#F2F3EE",
+      "pattern": "sleeves",
+      "note": "Claret with sky blue sleeves and white piped seams, sky fold collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#F2F3EE",
+      "trim": "#19263D",
+      "shorts": "#19263D",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "White with dark navy shoulder and underarm flank inserts, narrow claret piping. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#242B49",
+      "trim": "#756592",
+      "shorts": "#19263D",
+      "socks": "#19263D",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. White third accent."
+    },
+    "keeper2": {
+      "shirt": "#E6C139",
+      "trim": "#22272C",
+      "shorts": "#141923",
+      "socks": "#E6C139",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#West_Ham_United",
+      "https://www.footballkitarchive.com/west-ham-united-2005-06-gk-1-kit-252668/",
+      "https://www.footballkitarchive.com/west-ham-united-2005-06-gk-2-kit-46177/"
+    ],
+    "group": "Premier League",
+    "honours": "FA Cup, European Cup Winners’ Cup and UEFA Europa Conference League winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "wigan-athletic",
+    "name": "Wigan Athletic",
+    "home": {
+      "shirt": "#2359A5",
+      "trim": "#F2F3EE",
+      "shorts": "#2359A5",
+      "socks": "#F2F3EE",
+      "pattern": "vertical",
+      "note": "Blue-and-white vertical stripes begin beneath solid blue upper yoke; blue sleeves with white shoulder streak. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#E6BB32",
+      "trim": "#202C49",
+      "shorts": "#202C49",
+      "socks": "#E6BB32",
+      "pattern": "sleeves",
+      "note": "Gold-yellow torso with dark navy sleeves, neck and side panels. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#4F8D53",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#4F8D53",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "keeper2": {
+      "shirt": "#E7813C",
+      "trim": "#212C4A",
+      "shorts": "#19263D",
+      "socks": "#E7813C",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://www.footballkitarchive.com/wigan-athletic-2005-06-gk-2-kit-110707/"
+    ],
+    "group": "Premier League",
+    "honours": "2013 FA Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "everton",
+    "name": "Everton",
+    "home": {
+      "shirt": "#234994",
+      "trim": "#F2F3EE",
+      "shorts": "#F2F3EE",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "Deep royal blue with white narrow curved side piping; blue collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#F2F3EE",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "White with black shoulder and long side piping and panels. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#212840",
+      "trim": "#DC81AE",
+      "shorts": "#19263D",
+      "socks": "#19263D",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#4C9A57",
+      "trim": "#F2F3EE",
+      "shorts": "#141923",
+      "socks": "#4C9A57",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://efcheritagesociety.com/wp-content/uploads/2024/12/Blueblood-An-Everton-Fanzine-Volume-8-Issue-60-Page-1.pdf",
+      "https://www.footballkitarchive.com/everton-fc-2005-06-gk-kit-3309/",
+      "https://www.footballkitarchive.com/everton-fc-2005-06-gk-2-kit-247022/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions, FA Cup and European Cup Winners’ Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "fulham",
+    "name": "Fulham",
+    "home": {
+      "shirt": "#F2F3EE",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "White, black inset shoulder/upper sleeve panels with narrow black seams; tiny red accent at collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#CE1831",
+      "trim": "#F2F3EE",
+      "shorts": "#CE1831",
+      "socks": "#CE1831",
+      "pattern": "panel",
+      "note": "Red with white shoulder-to-sleeve panel, narrow dark waist seam. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#22252C",
+      "trim": "#92323B",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#437D49",
+      "trim": "#252A28",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#Fulham",
+      "https://museumofjerseys.com/fulham/#2005-06"
+    ],
+    "group": "Premier League",
+    "honours": "Historic top-flight club and 2010 UEFA Europa League finalists.",
+    "base_country": "England"
+  },
+  {
+    "slug": "charlton-athletic",
+    "name": "Charlton Athletic",
+    "home": {
+      "shirt": "#CE1831",
+      "trim": "#F2F3EE",
+      "shorts": "#F2F3EE",
+      "socks": "#CE1831",
+      "pattern": "panel",
+      "note": "Red body, rounded white collar line, white cuffs and slim lower side insert. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#F2F3EE",
+      "trim": "#CE1831",
+      "shorts": "#141923",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "White with a red lower side panel and black collar/cuff trim. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#E7BC31",
+      "trim": "#202738",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#1B2027",
+      "trim": "#F2F3EE",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. Archive calls this GK3; second gameplay appearance, not archival GK2."
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://www.footballkitarchive.com/charlton-athletic-2005-06-gk-1-kit/",
+      "https://www.footballkitarchive.com/charlton-athletic-2005-06-gk-3-kit-254673/"
+    ],
+    "group": "Premier League",
+    "honours": "1947 FA Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "middlesbrough",
+    "name": "Middlesbrough",
+    "home": {
+      "shirt": "#CB1A30",
+      "trim": "#F2F3EE",
+      "shorts": "#CB1A30",
+      "socks": "#CB1A30",
+      "pattern": "hoops",
+      "note": "Red with one broad white chest band (not repeated hoops), white collar and cuff edging. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#215AA3",
+      "trim": "#DE3349",
+      "shorts": "#215AA3",
+      "socks": "#215AA3",
+      "pattern": "panel",
+      "note": "Blue with red narrow cuffs/hem and darker blue/black collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#4C8655",
+      "trim": "#242827",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#EAA53C",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#EAA53C",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#Middlesbrough",
+      "https://www.footballkitarchive.com/middlesbrough-fc-2005-06-gk-1-kit-51626/"
+    ],
+    "group": "Premier League",
+    "honours": "2004 League Cup winners and 2006 UEFA Cup finalists.",
+    "base_country": "England"
+  },
+  {
+    "slug": "manchester-city",
+    "name": "Manchester City",
+    "home": {
+      "shirt": "#86BADE",
+      "trim": "#F2F3EE",
+      "shorts": "#F2F3EE",
+      "socks": "#86BADE",
+      "pattern": "panel",
+      "note": "Sky blue with small white shoulder panels edged in navy; white shorts. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#202A41",
+      "trim": "#F2F3EE",
+      "shorts": "#202A41",
+      "socks": "#202A41",
+      "pattern": "pinstripes",
+      "note": "Navy, faint diagonal pinstripes, bold white sleeve inserts, slight sky piping. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#41A258",
+      "trim": "#20262B",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#EBEEE7",
+      "trim": "#283246",
+      "shorts": "#19263D",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. Gold third accent."
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#Manchester_City",
+      "https://www.footballkitarchive.com/manchester-city-2005-06-gk-home-kit-1112/",
+      "https://www.footballkitarchive.com/manchester-city-2005-06-gk-away-kit-11229/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions; 2023 UEFA Champions League winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "aston-villa",
+    "name": "Aston Villa",
+    "home": {
+      "shirt": "#7F2041",
+      "trim": "#76B7DE",
+      "shorts": "#F2F3EE",
+      "socks": "#76B7DE",
+      "pattern": "sleeves",
+      "note": "Claret body, sky-blue sleeves and repeated light-blue side chevrons; white shorts. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#ECCE37",
+      "trim": "#19263D",
+      "shorts": "#19263D",
+      "socks": "#ECCE37",
+      "pattern": "panel",
+      "note": "Yellow body, dark navy fold collar, cuff trim and side chevrons. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#9DA4AB",
+      "trim": "#23252C",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "vertical",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. Gray/black/white stripe elements."
+    },
+    "keeper2": {
+      "shirt": "#1E2C4B",
+      "trim": "#76B7DE",
+      "shorts": "#19263D",
+      "socks": "#19263D",
+      "pattern": "solid",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://www.footballkitarchive.com/aston-villa-kits-2005-06-t10/",
+      "https://www.footballkitarchive.com/aston-villa-2005-06-gk-1-kit-69665/",
+      "https://www.footballkitarchive.com/aston-villa-2005-06-gk-2-kit-102472/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions; 1982 European Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "portsmouth",
+    "name": "Portsmouth",
+    "home": {
+      "shirt": "#2458A8",
+      "trim": "#F2F3EE",
+      "shorts": "#F2F3EE",
+      "socks": "#CE1831",
+      "pattern": "panel",
+      "note": "Blue with off-center vertical white side panel edged in yellow; white shorts and red socks. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#D32029",
+      "trim": "#E4D8AD",
+      "shorts": "#D32029",
+      "socks": "#D32029",
+      "pattern": "panel",
+      "note": "Red away with off-center cream vertical flank panel; white was third. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#6C5040",
+      "trim": "#E5C550",
+      "shorts": "#141923",
+      "socks": "#6C5040",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. "
+    },
+    "keeper2": {
+      "shirt": "#D5AB3B",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#D5AB3B",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://www.footballkitarchive.com/portsmouth-fc-kits-2005-06-t405/",
+      "https://en.wikipedia.org/wiki/2005%E2%80%9306_Portsmouth_F.C._season",
+      "https://www.footballkitarchive.com/portsmouth-fc-2005-06-gk-1-kit-12639/"
+    ],
+    "group": "Premier League",
+    "honours": "English champions and FA Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "birmingham-city",
+    "name": "Birmingham City",
+    "home": {
+      "shirt": "#174C9E",
+      "trim": "#F2F3EE",
+      "shorts": "#F2F3EE",
+      "socks": "#174C9E",
+      "pattern": "panel",
+      "note": "Royal blue body, white shoulder and inner-sleeve panels; white narrow round/zip collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#F2F3EE",
+      "trim": "#CE1831",
+      "shorts": "#CE1831",
+      "socks": "#F2F3EE",
+      "pattern": "panel",
+      "note": "White shirt, red long underarm/side blocks and narrow red center collar accent. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#36955C",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#36955C",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "keeper2": {
+      "shirt": "#F3AA37",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#F3AA37",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06"
+    ],
+    "group": "Premier League",
+    "honours": "League Cup winners in 1963 and 2011.",
+    "base_country": "England"
+  },
+  {
+    "slug": "west-bromwich-albion",
+    "name": "West Bromwich Albion",
+    "home": {
+      "shirt": "#1D2741",
+      "trim": "#F2F3EE",
+      "shorts": "#F2F3EE",
+      "socks": "#F2F3EE",
+      "pattern": "vertical",
+      "note": "Broad navy-and-white vertical stripes; dark fold collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#212840",
+      "trim": "#CF2638",
+      "shorts": "#212840",
+      "socks": "#212840",
+      "pattern": "sash",
+      "note": "Ink navy body, diagonal double sash in red plus white, red collar. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#67A143",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#67A143",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "keeper2": {
+      "shirt": "#DDA741",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#DDA741",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://commons.wikimedia.org/wiki/2005%E2%80%9306_Premier_League_kits#West_Bromwich_Albion"
+    ],
+    "group": "Premier League",
+    "honours": "English champions and FA Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "sunderland",
+    "name": "Sunderland",
+    "home": {
+      "shirt": "#DA2438",
+      "trim": "#F2F3EE",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "vertical",
+      "note": "Red-and-white bold vertical stripes; black shorts, black socks with red/white detail. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "away": {
+      "shirt": "#171C20",
+      "trim": "#C93039",
+      "shorts": "#171C20",
+      "socks": "#171C20",
+      "pattern": "panel",
+      "note": "Black away with slim red collar, raglan and side piping and red cuff edges. Hex values are art approximations; lower-kit pairings can vary by match."
+    },
+    "keeper1": {
+      "shirt": "#A1A6AA",
+      "trim": "#A42D3D",
+      "shorts": "#141923",
+      "socks": "#141923",
+      "pattern": "panel",
+      "note": "Archival shirt colors. Hex values and unverified lower kit pieces are sprite approximations. Black and red collar/sleeve trim; period design reissue used as reference."
+    },
+    "keeper2": {
+      "shirt": "#EBB84A",
+      "trim": "#141923",
+      "shorts": "#141923",
+      "socks": "#EBB84A",
+      "pattern": "panel",
+      "note": "Plausible period sprite palette; archival shirt or exact shorts/socks pairing not yet confirmed. "
+    },
+    "sources": [
+      "https://www.footyheadlines.com/2017/08/all-kits-of-premier-league-05-06.html",
+      "https://www.footballkitarchive.com/premier-league-kits-2005-06-l224/",
+      "https://www.shirtsociety.eu/league/premier-league-gb-eng/2005-06",
+      "https://www.classicfootballshirts.co.uk/2005-06-sunderland-lonsdale-reissue-gk-shirtsun-lret-002.html"
+    ],
+    "group": "Premier League",
+    "honours": "English champions and FA Cup winners.",
+    "base_country": "England"
+  },
+  {
+    "slug": "blackpool",
+    "name": "Blackpool",
+    "home": {
+      "shirt": "#E97230",
+      "trim": "#F1EEE8",
+      "shorts": "#F1EEE8",
+      "socks": "#E97230",
+      "pattern": "solid",
+      "note": "Period tangerine and white; choice of colour approximation for pixel scale."
+    },
+    "away": {
+      "shirt": "#F1EEE8",
+      "trim": "#E97230",
+      "shorts": "#F1EEE8",
+      "socks": "#F1EEE8",
+      "pattern": "solid",
+      "note": "Uhlsport white change with tangerine trim."
+    },
+    "keeper1": {
+      "shirt": "#829AC1",
+      "trim": "#182D4C",
+      "shorts": "#263650",
+      "socks": "#819FC2",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#E5A934",
+      "trim": "#42334D",
+      "shorts": "#2A2840",
+      "socks": "#CC9438",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/blackpool-fc-2005-06-away-kit-33813/",
+      "https://www.footballshirtandprint.co.uk/shirt-archive/blackpool/2005-06-away/",
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/"
+    ],
+    "honours": "FA Cup 1953; English top-flight runners-up 1955–56.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "bradford-city",
+    "name": "Bradford City",
+    "home": {
+      "shirt": "#DEA334",
+      "trim": "#823447",
+      "shorts": "#21242D",
+      "socks": "#813348",
+      "pattern": "vertical",
+      "note": "2005–06 amber and claret; vertical jersey treatment and dark shorts."
+    },
+    "away": {
+      "shirt": "#85BFE1",
+      "trim": "#4E87B5",
+      "shorts": "#76A9D2",
+      "socks": "#81B7DF",
+      "pattern": "solid",
+      "note": "2005–06 Surridge sky-blue change shirt; lower kit approximated."
+    },
+    "keeper1": {
+      "shirt": "#408951",
+      "trim": "#DAEB88",
+      "shorts": "#294034",
+      "socks": "#4B8554",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#7671AE",
+      "trim": "#E6D9E7",
+      "shorts": "#38364D",
+      "socks": "#6A63A0",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/bradford-city-2005-06-home-kit-13533/",
+      "https://www.footballshirtandprint.co.uk/shirt-archive/bradford-city/2005-06-away/"
+    ],
+    "honours": "FA Cup winners, 1911; League Cup finalists, 2013.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "brighton-hove-albion",
+    "name": "Brighton & Hove Albion",
+    "home": {
+      "shirt": "#77C4E7",
+      "trim": "#F0F2ED",
+      "shorts": "#4798C8",
+      "socks": "#ECEFED",
+      "pattern": "vertical",
+      "note": "2005–06 white and sky-blue stripes, not modern saturated royal blue."
+    },
+    "away": {
+      "shirt": "#7C293E",
+      "trim": "#242C4B",
+      "shorts": "#25304E",
+      "socks": "#742C40",
+      "pattern": "panel",
+      "note": "2005–06 claret with navy trim."
+    },
+    "keeper1": {
+      "shirt": "#418953",
+      "trim": "#E5EA76",
+      "shorts": "#294033",
+      "socks": "#458956",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#F0A643",
+      "trim": "#53336F",
+      "shorts": "#352B45",
+      "socks": "#E1A047",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/brighton-hove-albion-2005-06-home-kit-4371/",
+      "https://www.footballkitarchive.com/brighton-hove-albion-2005-06-away-kit/"
+    ],
+    "honours": "FA Cup finalists, 1983; Charity Shield winners, 1910.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "bristol-city",
+    "name": "Bristol City",
+    "home": {
+      "shirt": "#CD293F",
+      "trim": "#F4EFEC",
+      "shorts": "#EDEEEA",
+      "socks": "#CB2E41",
+      "pattern": "panel",
+      "note": "2005–06 traditional red shirt and pale trim; whites simplified."
+    },
+    "away": {
+      "shirt": "#EFCA33",
+      "trim": "#85C5E9",
+      "shorts": "#72ACDB",
+      "socks": "#EACA3B",
+      "pattern": "panel",
+      "note": "2005–06 yellow and sky-blue away; lower colours use matching period palette."
+    },
+    "keeper1": {
+      "shirt": "#318457",
+      "trim": "#D4E875",
+      "shorts": "#253F36",
+      "socks": "#3C8757",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#7662A3",
+      "trim": "#DFE2F3",
+      "shorts": "#3F3659",
+      "socks": "#7563A5",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/bristol-city-kits-2005-06-t135/",
+      "https://www.footballkitarchive.com/bristol-city-2005-06-away-kit-77254/"
+    ],
+    "honours": "FA Cup finalists, 1909; First Division runners-up, 1906–07; Football League Trophy winners, 1986, 2003, 2015.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "burnley",
+    "name": "Burnley",
+    "home": {
+      "shirt": "#712840",
+      "trim": "#81B8E5",
+      "shorts": "#F1EEE8",
+      "socks": "#712840",
+      "pattern": "sleeves",
+      "note": "Claret base and sky sleeve contrast."
+    },
+    "away": {
+      "shirt": "#F1EEE8",
+      "trim": "#81B8E5",
+      "shorts": "#F1EEE8",
+      "socks": "#F1EEE8",
+      "pattern": "solid",
+      "note": "White with sky-blue and smaller claret accents on archived away."
+    },
+    "keeper1": {
+      "shirt": "#50BD7D",
+      "trim": "#1B4243",
+      "shorts": "#254853",
+      "socks": "#4CAA72",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#8B69BC",
+      "trim": "#272842",
+      "shorts": "#282442",
+      "socks": "#8567AD",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/burnley-fc-2005-06-home-kit-4172/",
+      "https://www.footballkitarchive.com/burnley-fc-2005-06-away-kit/4173/"
+    ],
+    "honours": "English champions 1920–21 and 1959–60; FA Cup 1914.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "bury",
+    "name": "Bury",
+    "home": {
+      "shirt": "#F1EEE8",
+      "trim": "#2156AC",
+      "shorts": "#192D57",
+      "socks": "#F1EEE8",
+      "pattern": "solid",
+      "note": "Carlotti white with blue accents."
+    },
+    "away": {
+      "shirt": "#EBC33D",
+      "trim": "#192D57",
+      "shorts": "#192D57",
+      "socks": "#EBC33D",
+      "pattern": "solid",
+      "note": "Yellow/navy photographed Carlotti top; exact away shorts and socks not independently verified."
+    },
+    "keeper1": {
+      "shirt": "#6C9BC3",
+      "trim": "#293E52",
+      "shorts": "#273644",
+      "socks": "#728CAA",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#50BD7D",
+      "trim": "#1B4243",
+      "shorts": "#254853",
+      "socks": "#4CAA72",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/bury-fc-2005-06-home-kit/",
+      "https://www.footballkitarchive.com/bury-fc-2005-06-away-kit/104239/"
+    ],
+    "honours": "FA Cup winners 1900 and 1903.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "coventry-city",
+    "name": "Coventry City",
+    "home": {
+      "shirt": "#79BFEA",
+      "trim": "#E8F2F6",
+      "shorts": "#EAF1F3",
+      "socks": "#75BAE3",
+      "pattern": "vertical",
+      "note": "2005–06 sky blue and white stripe spacing simplified for pixels, small dark finishing omitted."
+    },
+    "away": {
+      "shirt": "#242936",
+      "trim": "#79BFEA",
+      "shorts": "#1C202A",
+      "socks": "#252935",
+      "pattern": "panel",
+      "note": "2005–06 black away with sky-blue edging."
+    },
+    "keeper1": {
+      "shirt": "#49854F",
+      "trim": "#DDE376",
+      "shorts": "#294334",
+      "socks": "#4A8652",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#EE933D",
+      "trim": "#47419A",
+      "shorts": "#26243D",
+      "socks": "#EE9241",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/coventry-city-2005-06-home-kit-12373/",
+      "https://www.footballkitarchive.com/coventry-city-2005-06-away-kit-12372/"
+    ],
+    "honours": "FA Cup winners, 1987.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "crystal-palace",
+    "name": "Crystal Palace",
+    "home": {
+      "shirt": "#2360B8",
+      "trim": "#D33043",
+      "shorts": "#2753A1",
+      "socks": "#2C58A7",
+      "pattern": "vertical",
+      "note": "2005–06 red and blue vertical ordering simplified."
+    },
+    "away": {
+      "shirt": "#22232B",
+      "trim": "#D72C47",
+      "shorts": "#1B2027",
+      "socks": "#252631",
+      "pattern": "panel",
+      "note": "2005–06 dark away with red/blue accents; red prioritised for sprite."
+    },
+    "keeper1": {
+      "shirt": "#52A45B",
+      "trim": "#F4D754",
+      "shorts": "#263C2F",
+      "socks": "#4E9B60",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#E9AA42",
+      "trim": "#553C85",
+      "shorts": "#25233E",
+      "socks": "#CF9536",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/crystal-palace-2005-06-home-kit-3635/",
+      "https://www.footballkitarchive.com/crystal-palace-2005-06-away-kit/"
+    ],
+    "honours": "FA Cup finalists, 1990, 2016; FA Cup winners, 2025 (postdates kit era).",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "derby-county",
+    "name": "Derby County",
+    "home": {
+      "shirt": "#F1EEE8",
+      "trim": "#1C1D25",
+      "shorts": "#1C1D25",
+      "socks": "#F1EEE8",
+      "pattern": "solid",
+      "note": "Joma white base with dark edging; black shorts."
+    },
+    "away": {
+      "shirt": "#192D57",
+      "trim": "#EBC33D",
+      "shorts": "#192D57",
+      "socks": "#192D57",
+      "pattern": "solid",
+      "note": "Navy Joma away with yellow detailing."
+    },
+    "keeper1": {
+      "shirt": "#69C492",
+      "trim": "#213E4D",
+      "shorts": "#243D4F",
+      "socks": "#5DBB90",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#6C9BC3",
+      "trim": "#293E52",
+      "shorts": "#273644",
+      "socks": "#728CAA",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/derby-county-kits-2005-06-t69/",
+      "https://www.footballkitarchive.com/derby-county-2005-06-away-kit-12485/"
+    ],
+    "honours": "English champions 1971–72 and 1974–75; FA Cup 1946.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "grimsby-town",
+    "name": "Grimsby Town",
+    "home": {
+      "shirt": "#F1EEE8",
+      "trim": "#1C1D25",
+      "shorts": "#1C1D25",
+      "socks": "#1C1D25",
+      "pattern": "vertical",
+      "note": "Nike black/white stripes with red as a minor secondary detail."
+    },
+    "away": {
+      "shirt": "#2156AC",
+      "trim": "#F1EEE8",
+      "shorts": "#2156AC",
+      "socks": "#2156AC",
+      "pattern": "solid",
+      "note": "Nike blue and white away; exact shorts/socks not independently verified."
+    },
+    "keeper1": {
+      "shirt": "#55BC91",
+      "trim": "#203A59",
+      "shorts": "#222D45",
+      "socks": "#50AA83",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#829AC1",
+      "trim": "#182D4C",
+      "shorts": "#263650",
+      "socks": "#819FC2",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/grimsby-town-2005-06-home-kit-34595/",
+      "https://www.footballkitarchive.com/grimsby-town-2005-06-away-kit/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "FA Cup semi-finalists in 1936 and 1939; fifth in the English first tier in 1934–35.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "huddersfield-town",
+    "name": "Huddersfield Town",
+    "home": {
+      "shirt": "#F1EEE8",
+      "trim": "#2156AC",
+      "shorts": "#F1EEE8",
+      "socks": "#2156AC",
+      "pattern": "vertical",
+      "note": "Admiral blue and white vertical heritage; approximate sprite shorts and socks."
+    },
+    "away": {
+      "shirt": "#F1EEE8",
+      "trim": "#2156AC",
+      "shorts": "#2156AC",
+      "socks": "#F1EEE8",
+      "pattern": "hoops",
+      "note": "White with a single blue chest band; draw one horizontal band, not repeated hoops."
+    },
+    "keeper1": {
+      "shirt": "#50BD7D",
+      "trim": "#1B4243",
+      "shorts": "#254853",
+      "socks": "#4CAA72",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#8B69BC",
+      "trim": "#272842",
+      "shorts": "#282442",
+      "socks": "#8567AD",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/huddersfield-town-2005-06-home-kit-9592/",
+      "https://www.footballkitarchive.com/huddersfield-town-2005-06-away-kit-9613/",
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/"
+    ],
+    "honours": "Three consecutive English league titles (1923–24 to 1925–26); FA Cup 1922.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "ipswich-town",
+    "name": "Ipswich Town",
+    "home": {
+      "shirt": "#2156AC",
+      "trim": "#F1EEE8",
+      "shorts": "#F1EEE8",
+      "socks": "#2156AC",
+      "pattern": "solid",
+      "note": "Royal blue shirt, white shorts, blue socks."
+    },
+    "away": {
+      "shirt": "#E97230",
+      "trim": "#1C1D25",
+      "shorts": "#1C1D25",
+      "socks": "#E97230",
+      "pattern": "solid",
+      "note": "Orange and black Punch carry-over away."
+    },
+    "keeper1": {
+      "shirt": "#85974A",
+      "trim": "#324032",
+      "shorts": "#2B3B32",
+      "socks": "#8B9F53",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#69C492",
+      "trim": "#213E4D",
+      "shorts": "#243D4F",
+      "socks": "#5DBB90",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/ipswich-town-kits-2005-06-t294/",
+      "https://www.footballkitarchive.com/ipswich-town-2005-06-away-kit-13166/"
+    ],
+    "honours": "English champions 1961–62, FA Cup 1978 and UEFA Cup 1981.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "leeds-united",
+    "name": "Leeds United",
+    "home": {
+      "shirt": "#F1EEE8",
+      "trim": "#192D57",
+      "shorts": "#F1EEE8",
+      "socks": "#F1EEE8",
+      "pattern": "pinstripes",
+      "note": "White with narrow navy and yellow pinstripes; blue is the principal rendered accent."
+    },
+    "away": {
+      "shirt": "#192D57",
+      "trim": "#81B8E5",
+      "shorts": "#192D57",
+      "socks": "#192D57",
+      "pattern": "solid",
+      "note": "Navy Admiral away with sky-blue/light accents."
+    },
+    "keeper1": {
+      "shirt": "#527BAE",
+      "trim": "#1F345A",
+      "shorts": "#202740",
+      "socks": "#647AAB",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#85974A",
+      "trim": "#324032",
+      "shorts": "#2B3B32",
+      "socks": "#8B9F53",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/leeds-united-2005-06-home-kit-9124/",
+      "https://www.footballkitarchive.com/leeds-united-2005-06-away-kit-9125/"
+    ],
+    "honours": "Three English league titles, last in 1991–92; FA Cup 1972.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "leicester-city",
+    "name": "Leicester City",
+    "home": {
+      "shirt": "#2156AC",
+      "trim": "#F1EEE8",
+      "shorts": "#F1EEE8",
+      "socks": "#2156AC",
+      "pattern": "solid",
+      "note": "Royal blue base; retain light edge detail only."
+    },
+    "away": {
+      "shirt": "#F1EEE8",
+      "trim": "#81B8E5",
+      "shorts": "#F1EEE8",
+      "socks": "#F1EEE8",
+      "pattern": "sash",
+      "note": "A broad sky-blue sash on white, with minor black details omitted in this simplified pass."
+    },
+    "keeper1": {
+      "shirt": "#8B69BC",
+      "trim": "#272842",
+      "shorts": "#282442",
+      "socks": "#8567AD",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#55BC91",
+      "trim": "#203A59",
+      "shorts": "#222D45",
+      "socks": "#50AA83",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/leicester-city-2005-06-home-kit-2987/",
+      "https://www.footballkitarchive.com/leicester-city-2005-06-away-kit-2988/"
+    ],
+    "honours": "Three League Cups by 2005–06; later Premier League 2015–16 and FA Cup 2021.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "luton-town",
+    "name": "Luton Town",
+    "home": {
+      "shirt": "#EDEEEA",
+      "trim": "#F27934",
+      "shorts": "#25272D",
+      "socks": "#ECEDEA",
+      "pattern": "panel",
+      "note": "2005–06 white Diadora kit, black shorts and orange edge. Programme shows white socks."
+    },
+    "away": {
+      "shirt": "#282A30",
+      "trim": "#F1EEEA",
+      "shorts": "#22252D",
+      "socks": "#282C34",
+      "pattern": "panel",
+      "note": "2005–06 black Diadora away with white shoulder panels and tiny orange piping omitted. The orange sash kit belongs to 2006–07."
+    },
+    "keeper1": {
+      "shirt": "#428A54",
+      "trim": "#E1E875",
+      "shorts": "#294731",
+      "socks": "#458953",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#5C88C1",
+      "trim": "#E6DEF4",
+      "shorts": "#34364B",
+      "socks": "#5B83BE",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/luton-town-2005-06-home-kit-77525/",
+      "https://www.footballkitarchive.com/luton-town-kits-2005-06-t323/",
+      "https://cdn.hattersheritage.co.uk/archive/2005-06%2BSeason%2BDONE/Matches/M4731%2BLuton%2BTown%2Bv%2BBurnley/Programme/Programme.pdf",
+      "https://www.footballkitarchive.com/luton-town-2005-06-away-kit/",
+      "https://footballshirtkingdom.com/products/luton-town-2005-2006-away-football-shirt-xxl"
+    ],
+    "honours": "League Cup winners, 1988; League Cup finalists, 1989.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "millwall",
+    "name": "Millwall",
+    "home": {
+      "shirt": "#214E92",
+      "trim": "#EBEDEB",
+      "shorts": "#EBEDEB",
+      "socks": "#2C5090",
+      "pattern": "panel",
+      "note": "2005–06 blue and white home palette, compact shoulder contrast."
+    },
+    "away": {
+      "shirt": "#E7BC42",
+      "trim": "#242F4D",
+      "shorts": "#262F48",
+      "socks": "#E0BA42",
+      "pattern": "panel",
+      "note": "2005–06 yellow away with navy trim."
+    },
+    "keeper1": {
+      "shirt": "#478B58",
+      "trim": "#D6E687",
+      "shorts": "#293F35",
+      "socks": "#4B8C54",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#E87642",
+      "trim": "#562A50",
+      "shorts": "#33243B",
+      "socks": "#E1723F",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/millwall-fc-2005-06-home-kit-82186/",
+      "https://www.footballkitarchive.com/millwall-fc-2005-06-away-kit-106587/"
+    ],
+    "honours": "FA Cup finalists, 2004; UEFA Cup entry, 2004–05.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "nottingham-forest",
+    "name": "Nottingham Forest",
+    "home": {
+      "shirt": "#BD292D",
+      "trim": "#F1EEE8",
+      "shorts": "#F1EEE8",
+      "socks": "#BD292D",
+      "pattern": "solid",
+      "note": "Umbro red with restrained white piping."
+    },
+    "away": {
+      "shirt": "#EBC33D",
+      "trim": "#192D57",
+      "shorts": "#192D57",
+      "socks": "#EBC33D",
+      "pattern": "solid",
+      "note": "The yellow Umbro 2005–06 away; keep the trim and shorts an approximate dark accent."
+    },
+    "keeper1": {
+      "shirt": "#829AC1",
+      "trim": "#182D4C",
+      "shorts": "#263650",
+      "socks": "#819FC2",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#E5A934",
+      "trim": "#42334D",
+      "shorts": "#2A2840",
+      "socks": "#CC9438",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballshirtandprint.co.uk/shirt-archive/nottingham-forest/2005-06-away/",
+      "https://archives.casualfootballshirts.co.uk/shirt-history/club/nottingham-forest/",
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/"
+    ],
+    "honours": "European Cups 1979 and 1980; English champions 1977–78.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "notts-county",
+    "name": "Notts County",
+    "home": {
+      "shirt": "#F1EEE8",
+      "trim": "#1C1D25",
+      "shorts": "#1C1D25",
+      "socks": "#1C1D25",
+      "pattern": "vertical",
+      "note": "Magpie black and white stripes."
+    },
+    "away": {
+      "shirt": "#81B8E5",
+      "trim": "#192D57",
+      "shorts": "#81B8E5",
+      "socks": "#81B8E5",
+      "pattern": "solid",
+      "note": "Sky-blue Erreà change shirt; exact away shorts and socks not independently verified."
+    },
+    "keeper1": {
+      "shirt": "#527BAE",
+      "trim": "#1F345A",
+      "shorts": "#202740",
+      "socks": "#647AAB",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#85974A",
+      "trim": "#324032",
+      "shorts": "#2B3B32",
+      "socks": "#8B9F53",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/notts-county-2005-06-home-kit-79740/",
+      "https://www.footballkitarchive.com/es/camiseta-visitante-notts-county-2005-06-107712/",
+      "https://www.classicnottsshirts.co.uk/products/notts-county-away-shirt-2005-2006-xxl"
+    ],
+    "honours": "Founding Football League member (1888); FA Cup 1894.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "oldham-athletic",
+    "name": "Oldham Athletic",
+    "home": {
+      "shirt": "#2C62BE",
+      "trim": "#F1EFEB",
+      "shorts": "#2358AE",
+      "socks": "#2F5DB0",
+      "pattern": "panel",
+      "note": "2005–06 blue home with contrasting light finishing."
+    },
+    "away": {
+      "shirt": "#F1F0EB",
+      "trim": "#356BB6",
+      "shorts": "#EDEEEB",
+      "socks": "#ECEEEA",
+      "pattern": "panel",
+      "note": "2005–06 white and blue away; white lower colours approximated."
+    },
+    "keeper1": {
+      "shirt": "#47A153",
+      "trim": "#DBE879",
+      "shorts": "#284233",
+      "socks": "#449650",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#E99442",
+      "trim": "#62346D",
+      "shorts": "#382B4B",
+      "socks": "#E18D43",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/oldham-athletic-2005-06-home-kit-14557/",
+      "https://www.footballkitarchive.com/oldham-athletic-2005-06-away-kit-14556/",
+      "https://www.footballkitarchive.com/oldham-athletic-kits/"
+    ],
+    "honours": "League Cup finalists, 1990; inaugural Premier League club, 1992–93.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "oxford-united",
+    "name": "Oxford United",
+    "home": {
+      "shirt": "#EFC631",
+      "trim": "#263852",
+      "shorts": "#263851",
+      "socks": "#EFC631",
+      "pattern": "panel",
+      "note": "2005–06 yellow shirt with navy finishing; navy shorts/yellow socks visual baseline."
+    },
+    "away": {
+      "shirt": "#25252B",
+      "trim": "#42444D",
+      "shorts": "#212128",
+      "socks": "#25252C",
+      "pattern": "solid",
+      "note": "2005–06 black change kit worn in its all-black configuration; trim subtly lifted for pixels."
+    },
+    "keeper1": {
+      "shirt": "#348C66",
+      "trim": "#D0E78F",
+      "shorts": "#243F38",
+      "socks": "#3D926A",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#DE5F57",
+      "trim": "#EED0C4",
+      "shorts": "#513545",
+      "socks": "#D05A54",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/oxford-united-2005-06-home-kit-107789/",
+      "https://www.oxfordkits.com/2005"
+    ],
+    "honours": "League Cup winners, 1986.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "preston-north-end",
+    "name": "Preston North End",
+    "home": {
+      "shirt": "#F1EEE8",
+      "trim": "#192D57",
+      "shorts": "#192D57",
+      "socks": "#F1EEE8",
+      "pattern": "sleeves",
+      "note": "Predominantly white with contrasting navy shoulder/sleeve sections and minor sky accent."
+    },
+    "away": {
+      "shirt": "#81B8E5",
+      "trim": "#192D57",
+      "shorts": "#192D57",
+      "socks": "#81B8E5",
+      "pattern": "solid",
+      "note": "Diadora sky-blue away with navy/white details."
+    },
+    "keeper1": {
+      "shirt": "#5BB49D",
+      "trim": "#2B4C54",
+      "shorts": "#24374E",
+      "socks": "#4F9884",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#527BAE",
+      "trim": "#1F345A",
+      "shorts": "#202740",
+      "socks": "#647AAB",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/preston-north-end-2005-06-home-kit-77591/",
+      "https://www.footballkitarchive.com/preston-north-end-2005-06-away-kit-32911/"
+    ],
+    "honours": "Inaugural Football League champions and undefeated league/FA Cup double in 1888–89.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "queens-park-rangers",
+    "name": "Queens Park Rangers",
+    "home": {
+      "shirt": "#2962BF",
+      "trim": "#F1F3EF",
+      "shorts": "#ECEEEF",
+      "socks": "#EDEFEF",
+      "pattern": "hoops",
+      "note": "2005–06 royal blue and white hoops."
+    },
+    "away": {
+      "shirt": "#C2283D",
+      "trim": "#22232C",
+      "shorts": "#20232B",
+      "socks": "#C02B3B",
+      "pattern": "vertical",
+      "note": "2005–06 first-choice red and black away, narrow striping simplified."
+    },
+    "keeper1": {
+      "shirt": "#468957",
+      "trim": "#D9E585",
+      "shorts": "#283B34",
+      "socks": "#488451",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#F6C746",
+      "trim": "#552467",
+      "shorts": "#252538",
+      "socks": "#DCAF42",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/queens-park-rangers-2005-06-home-kit-11945/",
+      "https://www.footballkitarchive.com/queens-park-rangers-2005-06-away-kit-11975/"
+    ],
+    "honours": "League Cup winners, 1967; FA Cup finalists, 1982; First Division runners-up, 1975–76.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "reading",
+    "name": "Reading",
+    "home": {
+      "shirt": "#2867BC",
+      "trim": "#F1F2ED",
+      "shorts": "#F2F2EF",
+      "socks": "#EDEEEB",
+      "pattern": "hoops",
+      "note": "2005–06 royal and white hoops; no sponsor or names."
+    },
+    "away": {
+      "shirt": "#232B48",
+      "trim": "#D3D8E0",
+      "shorts": "#212840",
+      "socks": "#222B49",
+      "pattern": "panel",
+      "note": "2005–06 dark navy away, light grey/white edging."
+    },
+    "keeper1": {
+      "shirt": "#47874C",
+      "trim": "#E5F08B",
+      "shorts": "#293F32",
+      "socks": "#4E8656",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#EF8040",
+      "trim": "#472B64",
+      "shorts": "#30273D",
+      "socks": "#DD7838",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/reading-fc-kits-2005-06-t420/",
+      "https://www.footballkitarchive.com/reading-fc-2005-06-away-kit-13069/"
+    ],
+    "honours": "Championship winners 2005–06 with 106 points, promoted to top flight for first time.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "sheffield-united",
+    "name": "Sheffield United",
+    "home": {
+      "shirt": "#BD292D",
+      "trim": "#F1EEE8",
+      "shorts": "#1C1D25",
+      "socks": "#1C1D25",
+      "pattern": "vertical",
+      "note": "Red/white stripes on dark shorts."
+    },
+    "away": {
+      "shirt": "#F1EEE8",
+      "trim": "#1C1D25",
+      "shorts": "#F1EEE8",
+      "socks": "#F1EEE8",
+      "pattern": "sleeves",
+      "note": "2005–06 archive white with dark sleeves and small red accents; not the orange 2004/06 alternate."
+    },
+    "keeper1": {
+      "shirt": "#E5A934",
+      "trim": "#42334D",
+      "shorts": "#2A2840",
+      "socks": "#CC9438",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#5BB49D",
+      "trim": "#2B4C54",
+      "shorts": "#24374E",
+      "socks": "#4F9884",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/sheffield-united-kits-2005-06-t34/",
+      "https://www.footballkitarchive.com/sheffield-united-2005-06-away-kit/4262/",
+      "https://cdn.hattersheritage.co.uk/archive/2005-06%2BSeason%2BDONE/Matches/M4731%2BLuton%2BTown%2Bv%2BBurnley/Programme/Programme.pdf"
+    ],
+    "honours": "English champions 1897–98; four FA Cups.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "sheffield-wednesday",
+    "name": "Sheffield Wednesday",
+    "home": {
+      "shirt": "#2156AC",
+      "trim": "#F1EEE8",
+      "shorts": "#1C1D25",
+      "socks": "#1C1D25",
+      "pattern": "vertical",
+      "note": "Blue/white vertical stripes, black shorts."
+    },
+    "away": {
+      "shirt": "#1C1D25",
+      "trim": "#81B8E5",
+      "shorts": "#1C1D25",
+      "socks": "#1C1D25",
+      "pattern": "panel",
+      "note": "Black strip with blue and small white contrasting elements."
+    },
+    "keeper1": {
+      "shirt": "#55BC91",
+      "trim": "#203A59",
+      "shorts": "#222D45",
+      "socks": "#50AA83",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#829AC1",
+      "trim": "#182D4C",
+      "shorts": "#263650",
+      "socks": "#819FC2",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/sheffield-wednesday-2005-06-away-kit-12877/",
+      "https://www.footballkitarchive.com/championship-kits-2005-06-l61/"
+    ],
+    "honours": "Four English league titles, three FA Cups and League Cup 1991.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "southampton",
+    "name": "Southampton",
+    "home": {
+      "shirt": "#D92E44",
+      "trim": "#F1F0EB",
+      "shorts": "#21242B",
+      "socks": "#EEEFEB",
+      "pattern": "vertical",
+      "note": "2005–06 red and white vertical stripes with dark details."
+    },
+    "away": {
+      "shirt": "#F2D23E",
+      "trim": "#2D60A1",
+      "shorts": "#2D4D81",
+      "socks": "#EBC83E",
+      "pattern": "panel",
+      "note": "2005–06 yellow with blue panels."
+    },
+    "keeper1": {
+      "shirt": "#399153",
+      "trim": "#CDE576",
+      "shorts": "#264335",
+      "socks": "#3B9056",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#67529A",
+      "trim": "#D9DDF2",
+      "shorts": "#372E53",
+      "socks": "#6C57A0",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/southampton-fc-2005-06-home-kit-3526/",
+      "https://www.footballkitarchive.com/southampton-fc-2005-06-away-kit-3527/"
+    ],
+    "honours": "FA Cup winners, 1976; First Division runners-up, 1983–84.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "swindon-town",
+    "name": "Swindon Town",
+    "home": {
+      "shirt": "#CF293E",
+      "trim": "#F1F1ED",
+      "shorts": "#F2F2EF",
+      "socks": "#CD3043",
+      "pattern": "panel",
+      "note": "2005–06 red body, Lonsdale-era white upper-shoulder panels simplified."
+    },
+    "away": {
+      "shirt": "#F0F0EA",
+      "trim": "#3167B9",
+      "shorts": "#2A59A5",
+      "socks": "#EDF1EF",
+      "pattern": "panel",
+      "note": "2005–06 white and blue away; game-ready lower-colour approximation."
+    },
+    "keeper1": {
+      "shirt": "#39834E",
+      "trim": "#E3E975",
+      "shorts": "#293F33",
+      "socks": "#478750",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#EDAE3D",
+      "trim": "#52396E",
+      "shorts": "#312749",
+      "socks": "#E6A538",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/swindon-town-2005-06-home-kit-15151/",
+      "https://www.footballkitarchive.com/swindon-town-2005-06-away-kit-15150/",
+      "https://townenders.com/kit_gallery.php"
+    ],
+    "honours": "League Cup winners, 1969; played in inaugural Premier League era, 1993–94.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "watford",
+    "name": "Watford",
+    "home": {
+      "shirt": "#F2CC31",
+      "trim": "#282326",
+      "shorts": "#231F23",
+      "socks": "#F2CC31",
+      "pattern": "panel",
+      "note": "2005–06 bright yellow home; dark sleeves/edges simplified, red micro-trim omitted."
+    },
+    "away": {
+      "shirt": "#C42738",
+      "trim": "#E03947",
+      "shorts": "#C22638",
+      "socks": "#C62D3B",
+      "pattern": "solid",
+      "note": "2005–06 red change shirt. Shorts and socks estimated to match."
+    },
+    "keeper1": {
+      "shirt": "#3473BE",
+      "trim": "#E9EDF3",
+      "shorts": "#232C56",
+      "socks": "#3477BC",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#4B955E",
+      "trim": "#D8F188",
+      "shorts": "#26384A",
+      "socks": "#4E9860",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/watford-fc-kits-2005-06-t547/",
+      "https://www.footballshirtandprint.co.uk/shirt-archive/watford/2005-06-away/"
+    ],
+    "honours": "FA Cup finalists, 1984 and 2019; First Division runners-up, 1982–83; 2006 Championship play-off winners.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "wimbledon-fc",
+    "name": "Wimbledon FC (historical)",
+    "home": {
+      "shirt": "#29549B",
+      "trim": "#EFC748",
+      "shorts": "#2B5096",
+      "socks": "#31579C",
+      "pattern": "panel",
+      "note": "1987–88 home, blue with yellow detail. Historical Wimbledon FC reference, not AFC Wimbledon or a 2005–06 kit."
+    },
+    "away": {
+      "shirt": "#C53D48",
+      "trim": "#2F684B",
+      "shorts": "#BF3C43",
+      "socks": "#C43C48",
+      "pattern": "panel",
+      "note": "1987–88 red-and-green away reference on historical Wimbledon FC."
+    },
+    "keeper1": {
+      "shirt": "#3F965B",
+      "trim": "#EAE781",
+      "shorts": "#2D4937",
+      "socks": "#438E57",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#E5933E",
+      "trim": "#583D7A",
+      "shorts": "#342945",
+      "socks": "#E19844",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/wimbledon-1987-88-home-kit-13425/",
+      "https://www.footballkitarchive.com/wimbledon-1987-88-away-kit-55398/",
+      "https://mail.historicalkits.co.uk/Wimbledon/Wimbledon.htm"
+    ],
+    "honours": "Wimbledon FC won the 1988 FA Cup. No claim that AFC Wimbledon won this trophy.",
+    "group": "Bonus — Heritage",
+    "base_country": "England"
+  },
+  {
+    "slug": "wolverhampton-wanderers",
+    "name": "Wolverhampton Wanderers",
+    "home": {
+      "shirt": "#E9AA36",
+      "trim": "#1C1D25",
+      "shorts": "#1C1D25",
+      "socks": "#E9AA36",
+      "pattern": "solid",
+      "note": "Old-gold body over black shorts."
+    },
+    "away": {
+      "shirt": "#1C1D25",
+      "trim": "#E9AA36",
+      "shorts": "#1C1D25",
+      "socks": "#1C1D25",
+      "pattern": "solid",
+      "note": "Match-worn black and old gold; tuck gold into collar and piping."
+    },
+    "keeper1": {
+      "shirt": "#6C9BC3",
+      "trim": "#293E52",
+      "shorts": "#273644",
+      "socks": "#728CAA",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalie colourway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#50BD7D",
+      "trim": "#1B4243",
+      "shorts": "#254853",
+      "socks": "#4CAA72",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalie colourway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/wolverhampton-wanderers-2005-06-away-kit-3907/",
+      "https://www.footballkitarchive.com/championship-kits-2005-06-l61/"
+    ],
+    "honours": "Three English league titles and four FA Cups.",
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "norwich-city",
+    "name": "Norwich City",
+    "home": {
+      "shirt": "#F8C82C",
+      "trim": "#227745",
+      "shorts": "#226842",
+      "socks": "#F8C82C",
+      "pattern": "panel",
+      "note": "Canary-yellow body, green shoulder/collar construction and small green flank inserts; dated match programme shows green shorts and yellow socks. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "away": {
+      "shirt": "#225A39",
+      "trim": "#142A24",
+      "shorts": "#17291F",
+      "socks": "#1F4930",
+      "pattern": "vertical",
+      "note": "Dark green and near-black tonal stripes, tiny yellow-gold piping at neck and cuffs; carried over. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper1": {
+      "shirt": "#1B302A",
+      "trim": "#9B303E",
+      "shorts": "#1C2A26",
+      "socks": "#1C2A26",
+      "pattern": "panel",
+      "note": "Archive shirt shows dark charcoal-green body, dull red yoke/cuffs and fine pale curved seams. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper2": {
+      "shirt": "#627BA7",
+      "trim": "#DCE2C4",
+      "shorts": "#202B3D",
+      "socks": "#627BA7",
+      "pattern": "panel",
+      "note": "Period-inspired alternate for gameplay, not verified as a 2005–06 club kit. Muted cornflower/cream against dark navy."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/championship-kits-2005-06-l61/",
+      "https://www.footballkitarchive.com/norwich-city-2005-06-home-kit-3805/",
+      "https://www.footballkitarchive.com/norwich-city-2005-06-away-kit-3806/",
+      "https://www.footballkitarchive.com/norwich-city-2005-06-gk-1-kit-107148/",
+      "https://cdn.hattersheritage.co.uk/archive/2005-06%2BSeason%2BDONE/Matches/M4733%2BLuton%2BTown%2Bv%2BCrewe%2BAlexandra/Programme/Programme.pdf"
+    ],
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "cardiff-city",
+    "name": "Cardiff City",
+    "home": {
+      "shirt": "#1545A6",
+      "trim": "#F0F1EB",
+      "shorts": "#1846A3",
+      "socks": "#1846A3",
+      "pattern": "panel",
+      "note": "Royal blue with a wide white curved vertical inset offset toward wearer’s left, white ring collar; blue shorts confirmed by December 2005 match programme. Cardiff is a Welsh club competing in the English league system. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "away": {
+      "shirt": "#EBD331",
+      "trim": "#204CA1",
+      "shorts": "#204CA1",
+      "socks": "#EBD331",
+      "pattern": "panel",
+      "note": "Yellow body, dark royal-blue shoulder blades and matching neckline detailing. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper1": {
+      "shirt": "#8799A5",
+      "trim": "#282C36",
+      "shorts": "#2D3238",
+      "socks": "#8799A5",
+      "pattern": "panel",
+      "note": "Archive identifies muted sky-blue/gray, charcoal sleeves and small white seams. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper2": {
+      "shirt": "#5A8C45",
+      "trim": "#202A32",
+      "shorts": "#202A32",
+      "socks": "#5A8C45",
+      "pattern": "sleeves",
+      "note": "Period-inspired alternate for gameplay, not verified as a 2005–06 club kit. Fern green with charcoal sleeves."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/championship-kits-2005-06-l61/",
+      "https://www.footballkitarchive.com/cardiff-city-2005-06-home-kit-13608/",
+      "https://www.footballkitarchive.com/cardiff-city-2005-06-away-kit-13609/",
+      "https://www.footballkitarchive.com/cardiff-city-2005-06-gk-1-kit-198934/",
+      "https://cdn.hattersheritage.co.uk/archive/2005-06%2BSeason%2BDONE/Matches/M4738%2BDerby%2BCounty%2Bv%2BLuton%2BTown/Programme/Programme.pdf"
+    ],
+    "group": "Championship",
+    "base_country": "Wales"
+  },
+  {
+    "slug": "stoke-city",
+    "name": "Stoke City",
+    "home": {
+      "shirt": "#C92637",
+      "trim": "#EFF0E8",
+      "shorts": "#EFF0E8",
+      "socks": "#EFF0E8",
+      "pattern": "vertical",
+      "note": "Red-and-white vertical body stripes with red sleeves and fine light piping. White shorts/socks reflect traditional home combination. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "away": {
+      "shirt": "#22252A",
+      "trim": "#BA2437",
+      "shorts": "#22252A",
+      "socks": "#22252A",
+      "pattern": "panel",
+      "note": "Black away shirt with sharp red shoulder insert, V collar and front-side seams. Do not conflate with separate gray change strip. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper1": {
+      "shirt": "#C6C4B3",
+      "trim": "#2B3135",
+      "shorts": "#D3CFBF",
+      "socks": "#D5D2C4",
+      "pattern": "panel",
+      "note": "Dated archive match photo shows pale putty-gray shirt and shorts, dark side treatment and red third accent. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper2": {
+      "shirt": "#5D9A54",
+      "trim": "#253331",
+      "shorts": "#253331",
+      "socks": "#5D9A54",
+      "pattern": "sleeves",
+      "note": "Period-inspired alternate for gameplay, not verified as a 2005–06 club kit. Green and dark trim."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/championship-kits-2005-06-l61/",
+      "https://www.footballkitarchive.com/stoke-city-2005-06-home-kit-10844/",
+      "https://www.footballkitarchive.com/stoke-city-2005-06-away-kit-10845/",
+      "https://www.footballkitarchive.com/stoke-city-2005-06-gk-1-kit-252745/",
+      "https://www.footballkitarchive.com/stoke-city-2005-06-third-kit-10902/"
+    ],
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "plymouth-argyle",
+    "name": "Plymouth Argyle",
+    "home": {
+      "shirt": "#123D33",
+      "trim": "#E9F0E6",
+      "shorts": "#E9F0E6",
+      "socks": "#123D33",
+      "pattern": "panel",
+      "note": "Dark bottle green with substantial white underarm side panels and white sleeve ends. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "away": {
+      "shirt": "#F0F2EA",
+      "trim": "#1B543F",
+      "shorts": "#1B543F",
+      "socks": "#EFEFE7",
+      "pattern": "sleeves",
+      "note": "White torso/sleeves with dark green contrasting outer shoulder and sleeve details, thin green collar. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper1": {
+      "shirt": "#D7D9D5",
+      "trim": "#25354A",
+      "shorts": "#263445",
+      "socks": "#D7D9D5",
+      "pattern": "sleeves",
+      "note": "Archive gray/white shirt with dark elbow/sleeve inserts and dark round collar. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper2": {
+      "shirt": "#202B3B",
+      "trim": "#DCE1DA",
+      "shorts": "#202B3B",
+      "socks": "#202B3B",
+      "pattern": "panel",
+      "note": "Archive near-navy goalkeeper top with pale curved underarm/side piping. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/championship-kits-2005-06-l61/",
+      "https://www.footballkitarchive.com/plymouth-argyle-2005-06-home-kit-25148/",
+      "https://www.footballkitarchive.com/plymouth-argyle-2005-06-away-kit-74416/",
+      "https://www.footballkitarchive.com/plymouth-argyle-2005-06-gk-1-kit-411244/",
+      "https://www.footballkitarchive.com/plymouth-argyle-2005-06-gk-2-kit-411243/",
+      "https://www.greensonscreen.co.uk/argylehistory_shirt.pdf"
+    ],
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "hull-city",
+    "name": "Hull City",
+    "home": {
+      "shirt": "#EA9A31",
+      "trim": "#1C2026",
+      "shorts": "#1C2026",
+      "socks": "#EA9A31",
+      "pattern": "vertical",
+      "note": "Narrow amber and black verticals, amber sleeves, white collar edge and underarms. Black shorts with amber/white side decoration; amber socks with dark side stripe. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "away": {
+      "shirt": "#202127",
+      "trim": "#F0EEE6",
+      "shorts": "#202127",
+      "socks": "#202127",
+      "pattern": "panel",
+      "note": "Black front with large white side bands and a slim amber border. Black or white shorts/socks were both used; black pairing chosen. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper1": {
+      "shirt": "#6D9BBC",
+      "trim": "#242D3C",
+      "shorts": "#293846",
+      "socks": "#6D9BBC",
+      "pattern": "panel",
+      "note": "Archive petrel-blue/gray base with dark yoke/shoulders and white lower front. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper2": {
+      "shirt": "#7960A2",
+      "trim": "#24283A",
+      "shorts": "#24283A",
+      "socks": "#7960A2",
+      "pattern": "panel",
+      "note": "Period-inspired alternate for gameplay, not verified as a 2005–06 club kit. Muted violet alternate; local kit archive documents petrel blue/gray primary without establishing this alternative."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/championship-kits-2005-06-l61/",
+      "https://www.footballkitarchive.com/hull-city-afc-2005-06-home-kit-11418/",
+      "https://www.footballkitarchive.com/hull-city-afc-2005-06-away-kit-11408/",
+      "https://www.footballkitarchive.com/hull-city-afc-2005-06-gk-1-kit-105033/",
+      "https://hullcitykits.co.uk/kit-archive-2005-2006/"
+    ],
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "crewe-alexandra",
+    "name": "Crewe Alexandra",
+    "home": {
+      "shirt": "#D72B3B",
+      "trim": "#F1EEE7",
+      "shorts": "#F1EEE7",
+      "socks": "#D72B3B",
+      "pattern": "panel",
+      "note": "Red front with curved broad white underarms and white angular neckline; white shorts and red socks confirmed by period match programme. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "away": {
+      "shirt": "#2A54AD",
+      "trim": "#ECEDE8",
+      "shorts": "#2A54AD",
+      "socks": "#2A54AD",
+      "pattern": "panel",
+      "note": "Dated Diadora archive listing and surviving shirt both show royal-blue away with white shoulder flashes and slim white side piping. Not the gray away mentioned by some contemporaneous previews. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper1": {
+      "shirt": "#CFC037",
+      "trim": "#202732",
+      "shorts": "#202732",
+      "socks": "#CFC037",
+      "pattern": "sleeves",
+      "note": "Archive yellow shirt with near-black shoulder panels, cuffs and side accents. Hex values are approximate; unverified shorts/socks are suggested sprite pairings, and on-field combinations can vary."
+    },
+    "keeper2": {
+      "shirt": "#428774",
+      "trim": "#202635",
+      "shorts": "#202635",
+      "socks": "#428774",
+      "pattern": "panel",
+      "note": "Period-inspired alternate for gameplay, not verified as a 2005–06 club kit. Teal goalkeeper alternate."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/championship-kits-2005-06-l61/",
+      "https://www.footballkitarchive.com/crewe-alexandra-2005-06-home-kit-74424/",
+      "https://www.footballkitarchive.com/crewe-alexandra-2005-06-away-kit-103918/",
+      "https://www.footballkitarchive.com/crewe-alexandra-2005-06-gk-1-kit-290455/",
+      "https://casualfootballshirts.co.uk/products/crewe-alexandra-2005-2006-away-shirt",
+      "https://cdn.hattersheritage.co.uk/archive/2005-06%2BSeason%2BDONE/Matches/M4733%2BLuton%2BTown%2Bv%2BCrewe%2BAlexandra/Programme/Programme.pdf"
+    ],
+    "group": "Championship",
+    "base_country": "England"
+  },
+  {
+    "slug": "southend-united",
+    "name": "Southend United",
+    "home": {
+      "shirt": "#192C50",
+      "trim": "#F1EFE8",
+      "shorts": "#192C50",
+      "socks": "#192C50",
+      "pattern": "solid",
+      "note": "2005–06 navy and white shirt. Lower kit simplified."
+    },
+    "away": {
+      "shirt": "#F1EFE8",
+      "trim": "#22242A",
+      "shorts": "#22242A",
+      "socks": "#F1EFE8",
+      "pattern": "sleeves",
+      "note": "2005–06 white body and contrasting black sleeves; lower kit approximate."
+    },
+    "keeper1": {
+      "shirt": "#52B877",
+      "trim": "#213844",
+      "shorts": "#26323E",
+      "socks": "#55B67C",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#429AAB",
+      "trim": "#263453",
+      "shorts": "#263453",
+      "socks": "#429AAB",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/southend-united-2005-06-home-kit-85501/",
+      "https://www.footballkitarchive.com/southend-united-2005-06-away-kit-85500/"
+    ],
+    "honours": "League One champions 2005–06.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "colchester-united",
+    "name": "Colchester United",
+    "home": {
+      "shirt": "#2355A7",
+      "trim": "#F1EFE8",
+      "shorts": "#2355A7",
+      "socks": "#F1EFE8",
+      "pattern": "vertical",
+      "note": "2005–06 blue and white stripes; lower kit simplified."
+    },
+    "away": {
+      "shirt": "#EBC542",
+      "trim": "#2355A7",
+      "shorts": "#2355A7",
+      "socks": "#EBC542",
+      "pattern": "solid",
+      "note": "2005–06 yellow shirt and blue trim; lower kit approximate."
+    },
+    "keeper1": {
+      "shirt": "#7953A5",
+      "trim": "#2A2345",
+      "shorts": "#393048",
+      "socks": "#7953A5",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#CA6A8F",
+      "trim": "#473248",
+      "shorts": "#2D2F46",
+      "socks": "#CB6C93",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/colchester-united-2005-06-home-kit-103789/",
+      "https://www.footballkitarchive.com/colchester-united-2005-06-away-kit-103788/"
+    ],
+    "honours": "League One runners-up and first promotion to the second tier in 2005–06.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "brentford",
+    "name": "Brentford",
+    "home": {
+      "shirt": "#BA2837",
+      "trim": "#F1EFE8",
+      "shorts": "#22242A",
+      "socks": "#22242A",
+      "pattern": "vertical",
+      "note": "2005–06 red and white stripes; black kit accents."
+    },
+    "away": {
+      "shirt": "#F1EFE8",
+      "trim": "#BA2837",
+      "shorts": "#F1EFE8",
+      "socks": "#F1EFE8",
+      "pattern": "solid",
+      "note": "2005–06 predominantly white and red shirt; lower kit approximate."
+    },
+    "keeper1": {
+      "shirt": "#DD8842",
+      "trim": "#333B52",
+      "shorts": "#343A48",
+      "socks": "#DB8849",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#9998B8",
+      "trim": "#313553",
+      "shorts": "#373C59",
+      "socks": "#969CC0",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/brentford-fc-2005-06-home-kit-25298/",
+      "https://www.footballkitarchive.com/brentford-fc-2005-06-away-kit-103178/"
+    ],
+    "honours": "Second-tier champions 1934–35; fifth in the top flight in 1935–36.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "barnsley",
+    "name": "Barnsley",
+    "home": {
+      "shirt": "#BA2837",
+      "trim": "#F1EFE8",
+      "shorts": "#F1EFE8",
+      "socks": "#BA2837",
+      "pattern": "solid",
+      "note": "2005–06 plain red shirt with white and black details."
+    },
+    "away": {
+      "shirt": "#80BCE7",
+      "trim": "#192C50",
+      "shorts": "#192C50",
+      "socks": "#80BCE7",
+      "pattern": "solid",
+      "note": "2005–06 sky-blue body with navy details; lower kit approximate."
+    },
+    "keeper1": {
+      "shirt": "#8CAE52",
+      "trim": "#30413B",
+      "shorts": "#263A38",
+      "socks": "#8CAE52",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#E4B942",
+      "trim": "#4C4151",
+      "shorts": "#383449",
+      "socks": "#E4B942",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/barnsley-fc-2005-06-home-kit-14759/",
+      "https://www.footballkitarchive.com/barnsley-fc-2005-06-away-kit/14758/"
+    ],
+    "honours": "FA Cup winners 1912; League One play-off winners 2005–06.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "swansea-city",
+    "name": "Swansea City",
+    "home": {
+      "shirt": "#F1EFE8",
+      "trim": "#22242A",
+      "shorts": "#F1EFE8",
+      "socks": "#F1EFE8",
+      "pattern": "solid",
+      "note": "2005–06 white with black details."
+    },
+    "away": {
+      "shirt": "#22242A",
+      "trim": "#F1EFE8",
+      "shorts": "#22242A",
+      "socks": "#22242A",
+      "pattern": "solid",
+      "note": "2005–06 black with white details; lower kit approximate."
+    },
+    "keeper1": {
+      "shirt": "#429AAB",
+      "trim": "#263453",
+      "shorts": "#263453",
+      "socks": "#429AAB",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#3CAE84",
+      "trim": "#243647",
+      "shorts": "#2D3046",
+      "socks": "#3CAE84",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/swansea-city-2005-06-home-kit-9696/",
+      "https://www.footballkitarchive.com/swansea-city-2005-06-away-kit-9698/"
+    ],
+    "honours": "Welsh club in the English pyramid; League Cup winners 2013.",
+    "group": "League One",
+    "base_country": "Wales"
+  },
+  {
+    "slug": "doncaster-rovers",
+    "name": "Doncaster Rovers",
+    "home": {
+      "shirt": "#BA2837",
+      "trim": "#F1EFE8",
+      "shorts": "#22242A",
+      "socks": "#BA2837",
+      "pattern": "hoops",
+      "note": "Carlotti red and white hoops; lower kit simplified."
+    },
+    "away": {
+      "shirt": "#22242A",
+      "trim": "#BA2837",
+      "shorts": "#22242A",
+      "socks": "#22242A",
+      "pattern": "solid",
+      "note": "2005–06 black and red change shirt; lower kit approximate."
+    },
+    "keeper1": {
+      "shirt": "#CA6A8F",
+      "trim": "#473248",
+      "shorts": "#2D2F46",
+      "socks": "#CB6C93",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#52B877",
+      "trim": "#213844",
+      "shorts": "#26323E",
+      "socks": "#55B67C",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/doncaster-rovers-2005-06-home-kit-34000/",
+      "https://www.footballkitarchive.com/doncaster-rovers-2005-06-away-kit/"
+    ],
+    "honours": "Third Division champions 2003–04; Football League Trophy winners 2007.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "scunthorpe-united",
+    "name": "Scunthorpe United",
+    "home": {
+      "shirt": "#772D48",
+      "trim": "#80BCE7",
+      "shorts": "#F1EFE8",
+      "socks": "#772D48",
+      "pattern": "panel",
+      "note": "2005–06 Carlotti claret body, sky shoulders/sleeve accents; lower kit approximate."
+    },
+    "away": {
+      "shirt": "#EBC542",
+      "trim": "#22242A",
+      "shorts": "#22242A",
+      "socks": "#EBC542",
+      "pattern": "solid",
+      "note": "2004–05 documented yellow/black Carlotti used as a nearby-period fallback; exact 2005–06 away colours not independently verified."
+    },
+    "keeper1": {
+      "shirt": "#9998B8",
+      "trim": "#313553",
+      "shorts": "#373C59",
+      "socks": "#969CC0",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#7953A5",
+      "trim": "#2A2345",
+      "shorts": "#393048",
+      "socks": "#7953A5",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/scunthorpe-united-2005-06-home-kit/34879/",
+      "https://www.footballkitarchive.com/scunthorpe-united-2005-06-kits/",
+      "https://www.footballkitarchive.com/scunthorpe-united-2004-05-away-kit/"
+    ],
+    "honours": "League One champions in 2006–07.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "port-vale",
+    "name": "Port Vale",
+    "home": {
+      "shirt": "#F1EFE8",
+      "trim": "#22242A",
+      "shorts": "#22242A",
+      "socks": "#F1EFE8",
+      "pattern": "solid",
+      "note": "2005–06 white with black and fine gold accents."
+    },
+    "away": {
+      "shirt": "#22242A",
+      "trim": "#C99B39",
+      "shorts": "#22242A",
+      "socks": "#22242A",
+      "pattern": "vertical",
+      "note": "2005–06 black and gold vertically striped Vandanel change shirt; lower kit approximate."
+    },
+    "keeper1": {
+      "shirt": "#E4B942",
+      "trim": "#4C4151",
+      "shorts": "#383449",
+      "socks": "#E4B942",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#DD8842",
+      "trim": "#333B52",
+      "shorts": "#343A48",
+      "socks": "#DB8849",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/port-vale-2005-06-home-kit-34782/",
+      "https://sartorialsoccer.wordpress.com/2020/04/26/port-vale/",
+      "https://www.globalfootballshirts.com/2005-2006-port-vale-fortune-match-worn-signed-away-ls-football-shirt-2954-p.asp"
+    ],
+    "honours": "Football League Trophy winners 1993 and 2001.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "gillingham",
+    "name": "Gillingham",
+    "home": {
+      "shirt": "#2355A7",
+      "trim": "#F1EFE8",
+      "shorts": "#F1EFE8",
+      "socks": "#2355A7",
+      "pattern": "panel",
+      "note": "2005–06 royal blue shirt with white accents; lower kit simplified."
+    },
+    "away": {
+      "shirt": "#EBC542",
+      "trim": "#2355A7",
+      "shorts": "#2355A7",
+      "socks": "#EBC542",
+      "pattern": "panel",
+      "note": "Nearby-era photographed 2004–05 yellow/blue change palette; exact 2005–06 away colours not independently verified."
+    },
+    "keeper1": {
+      "shirt": "#3CAE84",
+      "trim": "#243647",
+      "shorts": "#2D3046",
+      "socks": "#3CAE84",
+      "pattern": "panel",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#8CAE52",
+      "trim": "#30413B",
+      "shorts": "#263A38",
+      "socks": "#8CAE52",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired keeper palette, not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/league-one-kits-2005-06-l156/",
+      "https://www.footballkitarchive.com/gillingham-fc-2005-06-home-kit-34096/",
+      "https://cdn.footballkitarchive.com/2025/03/03/ZSlki5hLobzzW8h.jpg",
+      "https://www.classicfootballshirts.co.uk/2004-05-gillingham-away-shirt-510-l-gila04049593.html"
+    ],
+    "honours": "Reached second tier for the first time via the 1999–2000 play-offs.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "yeovil-town",
+    "name": "Yeovil Town",
+    "home": {
+      "shirt": "#2B8859",
+      "trim": "#F0F2EA",
+      "shorts": "#F0F2E9",
+      "socks": "#F2F1EA",
+      "pattern": "hoops",
+      "note": "2005–06 green and white hoops from a surviving shirt; lower colours simplified for sprites."
+    },
+    "away": {
+      "shirt": "#333A4B",
+      "trim": "#E6803E",
+      "shorts": "#2C3244",
+      "socks": "#363B4A",
+      "pattern": "panel",
+      "note": "Charcoal-navy with orange panels. Photographed 2006–07 away catalogued as carried over from the previous season; lower kit estimated."
+    },
+    "keeper1": {
+      "shirt": "#534884",
+      "trim": "#D5CDEB",
+      "shorts": "#322B4B",
+      "socks": "#564980",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#CECC4C",
+      "trim": "#493371",
+      "shorts": "#383343",
+      "socks": "#C0B946",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/yeovil-town-2005-06-home-kit-79766/",
+      "https://www.footballkitarchive.com/yeovil-town-2005-06-away-kit-123948/",
+      "https://www.footballkitarchive.com/yeovil-town-2006-07-away-kit/",
+      "https://www.classicfootballshirts.com/2005-06-yeovil-town-home-shirt-810-xl-yeoh05900239.html"
+    ],
+    "honours": "League Two champions, 2004–05; first League One season, 2005–06; 2013 League One play-off winners.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "chesterfield",
+    "name": "Chesterfield",
+    "home": {
+      "shirt": "#2F62B3",
+      "trim": "#EFEFEC",
+      "shorts": "#EFF0ED",
+      "socks": "#3261AC",
+      "pattern": "panel",
+      "note": "2005–06 royal blue TFG home; light finishing and lower colours kept simple."
+    },
+    "away": {
+      "shirt": "#88BEDD",
+      "trim": "#263654",
+      "shorts": "#263653",
+      "socks": "#80B8DA",
+      "pattern": "panel",
+      "note": "2005–06 sky blue and navy away jersey; lower colours approximated."
+    },
+    "keeper1": {
+      "shirt": "#449253",
+      "trim": "#D3DB78",
+      "shorts": "#263D30",
+      "socks": "#438952",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#E18240",
+      "trim": "#5C3A77",
+      "shorts": "#34283F",
+      "socks": "#DA7F42",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.colours-of-football.com/colours03/eng/chesterf/chesterfield_1.html",
+      "https://www.footballkitarchive.com/el/chesterfield-fc-2005-06-ektos-edras-emphanise-103858/",
+      "https://www.historicalkits.co.uk/Chesterfield/Chesterfield.htm"
+    ],
+    "honours": "FA Cup semi-finalists, 1997; Football League Trophy winners, 2012.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "afc-bournemouth",
+    "name": "AFC Bournemouth",
+    "home": {
+      "shirt": "#C93242",
+      "trim": "#26242B",
+      "shorts": "#25252B",
+      "socks": "#C83342",
+      "pattern": "panel",
+      "note": "2005–06 red and black plain/panel home carry-over, not assumed to be modern broad stripes."
+    },
+    "away": {
+      "shirt": "#26334F",
+      "trim": "#77B9E7",
+      "shorts": "#26314C",
+      "socks": "#263650",
+      "pattern": "panel",
+      "note": "2005–06 navy and sky-blue away shirt; lower kit estimate."
+    },
+    "keeper1": {
+      "shirt": "#448E5A",
+      "trim": "#D4E97D",
+      "shorts": "#274435",
+      "socks": "#478754",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#E7B43D",
+      "trim": "#54438A",
+      "shorts": "#3C3053",
+      "socks": "#E1AD3E",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/afc-bournemouth-2005-06-home-kit-4083/",
+      "https://www.footballkitarchive.com/afc-bournemouth-2005-06-away-kit-4084/"
+    ],
+    "honours": "Associate Members’ Cup winners, 1984; Championship winners, 2014–15 (later).",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "tranmere-rovers",
+    "name": "Tranmere Rovers",
+    "home": {
+      "shirt": "#EEF0EE",
+      "trim": "#3564B1",
+      "shorts": "#EDF0EB",
+      "socks": "#F0F0EB",
+      "pattern": "panel",
+      "note": "2005–06 white Vandanel home with royal-blue details; lower team colours simplified."
+    },
+    "away": {
+      "shirt": "#EBC83C",
+      "trim": "#25262C",
+      "shorts": "#25262A",
+      "socks": "#E8C541",
+      "pattern": "panel",
+      "note": "2005–06 bright yellow with black collar/piping; source photograph and recorded carry-over."
+    },
+    "keeper1": {
+      "shirt": "#388B62",
+      "trim": "#D5E57C",
+      "shorts": "#294338",
+      "socks": "#428B60",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#CC594E",
+      "trim": "#E6DCE6",
+      "shorts": "#463247",
+      "socks": "#C45C4D",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/tranmere-rovers-2005-06-home-kit-34983/",
+      "https://www.footballkitarchive.com/tranmere-rovers-2005-06-away-kit-109698/",
+      "https://www.oldfootballshirts.com/en/teams/t/tranmere-rovers/old-tranmere-rovers-football-shirt-s572.html"
+    ],
+    "honours": "League Cup finalists, 2000; Football League Trophy winners, 1990.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "rotherham-united",
+    "name": "Rotherham United",
+    "home": {
+      "shirt": "#C83143",
+      "trim": "#F0ECE8",
+      "shorts": "#EEEFEB",
+      "socks": "#C73545",
+      "pattern": "sleeves",
+      "note": "2005–06 red and white home colours with pale sleeve areas; lower team colours simplified."
+    },
+    "away": {
+      "shirt": "#25262C",
+      "trim": "#ECEDE9",
+      "shorts": "#252731",
+      "socks": "#272931",
+      "pattern": "vertical",
+      "note": "2005–06 black and white striped away from archived shirt; black lower kit estimate."
+    },
+    "keeper1": {
+      "shirt": "#448F58",
+      "trim": "#E3E583",
+      "shorts": "#284434",
+      "socks": "#438D54",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#467AB6",
+      "trim": "#E0E4F7",
+      "shorts": "#302D50",
+      "socks": "#4276AC",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/rotherham-united-2005-06-home-kit-76999/",
+      "https://www.footballkitarchive.com/rotherham-united-2005-06-away-kit-108856/"
+    ],
+    "honours": "League Cup finalists, 1961; Football League Trophy winners, 1996.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "hartlepool-united",
+    "name": "Hartlepool United",
+    "home": {
+      "shirt": "#3267BA",
+      "trim": "#F0F1EF",
+      "shorts": "#2F5CAB",
+      "socks": "#EFEFED",
+      "pattern": "vertical",
+      "note": "2005–06 blue and white home vertical treatment; lower team colours simplified."
+    },
+    "away": {
+      "shirt": "#25262F",
+      "trim": "#EFEFEB",
+      "shorts": "#282A32",
+      "socks": "#252832",
+      "pattern": "panel",
+      "note": "2005–06 black and white away shirt. Uses simplified contrast panels and estimated lower kit."
+    },
+    "keeper1": {
+      "shirt": "#509059",
+      "trim": "#D5E97D",
+      "shorts": "#294436",
+      "socks": "#4D8D5A",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#E08242",
+      "trim": "#614077",
+      "shorts": "#362D48",
+      "socks": "#DC7E40",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/hartlepool-united-2005-06-home-kit-104878/",
+      "https://www.footballkitarchive.com/hartlepool-united-2005-06-away-kit-104834/",
+      "https://www.footballkitarchive.com/hartlepool-united-2004-05-home-kit/"
+    ],
+    "honours": "League One play-off finalists, 2005.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "milton-keynes-dons",
+    "name": "Milton Keynes Dons",
+    "home": {
+      "shirt": "#F0EFED",
+      "trim": "#B79653",
+      "shorts": "#262934",
+      "socks": "#EEEFED",
+      "pattern": "panel",
+      "note": "2005–06 white and gold A-Line home with black accents simplified into the darkest lower colour."
+    },
+    "away": {
+      "shirt": "#C63443",
+      "trim": "#C29A55",
+      "shorts": "#262731",
+      "socks": "#CC3642",
+      "pattern": "panel",
+      "note": "2005–06 red and gold A-Line away with black minor trim."
+    },
+    "keeper1": {
+      "shirt": "#458D61",
+      "trim": "#E1E884",
+      "shorts": "#2E4538",
+      "socks": "#478B5E",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#527FC0",
+      "trim": "#DCDDF4",
+      "shorts": "#30344D",
+      "socks": "#4F7AB6",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/mk-dons-2005-06-home-kit-13354/",
+      "https://www.footballkitarchive.com/mk-dons-2005-06-away-kit-13374/",
+      "https://www.mkdonshistorical.co.uk/club-information/kit-history"
+    ],
+    "honours": "League Two champions and Football League Trophy winners, 2007–08. The 1988 FA Cup belongs to historical Wimbledon FC, not MK Dons.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "walsall",
+    "name": "Walsall",
+    "home": {
+      "shirt": "#CC2A3D",
+      "trim": "#F3EFE9",
+      "shorts": "#EAEAEB",
+      "socks": "#CF3142",
+      "pattern": "panel",
+      "note": "2005–06 Nike red and white home shirt; white lower-kit approximation."
+    },
+    "away": {
+      "shirt": "#252E51",
+      "trim": "#EFEFED",
+      "shorts": "#262F4F",
+      "socks": "#293455",
+      "pattern": "panel",
+      "note": "2005–06 Nike navy away with white sleeve panels shown on surviving shirt."
+    },
+    "keeper1": {
+      "shirt": "#4A9380",
+      "trim": "#D7E279",
+      "shorts": "#30483E",
+      "socks": "#4A8D7B",
+      "pattern": "panel",
+      "note": "Creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "keeper2": {
+      "shirt": "#E2BB48",
+      "trim": "#614186",
+      "shorts": "#3A3051",
+      "socks": "#DDB447",
+      "pattern": "sleeves",
+      "note": "Second creative contrasting keeper palette in period style; not asserted as a historical kit."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/walsall-fc-2005-06-home-kit-35153/",
+      "https://www.footballkitarchive.com/walsall-fc-2005-06-away-kit-110582/",
+      "https://www.classicfootballshirts.com/2005-06-walsall-away-shirt-710-xlboys-wsla05568470.html"
+    ],
+    "honours": "Second Division play-off winners, 2001; League Two champions, 2006–07.",
+    "group": "League One",
+    "base_country": "England"
+  },
+  {
+    "slug": "barnet",
+    "name": "Barnet",
+    "home": {
+      "shirt": "#202126",
+      "trim": "#E59826",
+      "shorts": "#202126",
+      "socks": "#202126",
+      "pattern": "pinstripes",
+      "note": "Black O’Neills home jersey with narrow orange pinstripes documented by surviving 2005–06 shirt and Barnet archive; lower kit approximate."
+    },
+    "away": {
+      "shirt": "#F0EEE5",
+      "trim": "#253958",
+      "shorts": "#253958",
+      "socks": "#F0EEE5",
+      "pattern": "panel",
+      "note": "Period-inspired white/navy away approximation, not verified to 2005–06; official seasonal design not asserted."
+    },
+    "keeper1": {
+      "shirt": "#42AD77",
+      "trim": "#213F3E",
+      "shorts": "#213F3E",
+      "socks": "#42AD77",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#D8AC42",
+      "trim": "#493349",
+      "shorts": "#493349",
+      "socks": "#D8AC42",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/barnet-2005-06-home-kit-79721/",
+      "https://www.footballkitarchive.com/barnet-2005-06-away-kit-102517/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/",
+      "https://mollatt.com/MyBarnetShirts/",
+      "https://www.classicfootballshirts.co.uk/2005-06-barnet-home-shirt-510-xl-brth05305744.html",
+      "https://www.downhillsecondhalf.co.uk/Football/Seasons.aspx?Season=2005-2006"
+    ],
+    "honours": "Conference champions 2004–05, earning Football League promotion.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "bristol-rovers",
+    "name": "Bristol Rovers",
+    "home": {
+      "shirt": "#F0EEE8",
+      "trim": "#224FA4",
+      "shorts": "#254B96",
+      "socks": "#254B96",
+      "pattern": "quarters",
+      "note": "Blue-and-white Erreà home quarters, minor yellow details omitted in miniature."
+    },
+    "away": {
+      "shirt": "#F3C744",
+      "trim": "#23232B",
+      "shorts": "#22232A",
+      "socks": "#F3C744",
+      "pattern": "panel",
+      "note": "Yellow and black Erreà away shirt; lower-body colors approximated."
+    },
+    "keeper1": {
+      "shirt": "#6087C0",
+      "trim": "#183B58",
+      "shorts": "#183B58",
+      "socks": "#6087C0",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#DD7551",
+      "trim": "#50323E",
+      "shorts": "#50323E",
+      "socks": "#DD7551",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/bristol-rovers-2005-06-home-kit-32645/",
+      "https://www.footballkitarchive.com/bristol-rovers-2005-06-away-kit-32634/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/",
+      "https://www.sportingheritage.org.uk/wp-content/uploads/2023/12/kit-history.pdf"
+    ],
+    "honours": "Football League Trophy winners in 1989–90.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "cheltenham-town",
+    "name": "Cheltenham Town",
+    "home": {
+      "shirt": "#F0EEE8",
+      "trim": "#B92830",
+      "shorts": "#20252A",
+      "socks": "#B92830",
+      "pattern": "vertical",
+      "note": "Red and white Erreà home with black details; simplified vertical panel pattern."
+    },
+    "away": {
+      "shirt": "#EACA45",
+      "trim": "#272831",
+      "shorts": "#292A31",
+      "socks": "#EACE46",
+      "pattern": "panel",
+      "note": "Yellow and black Erreà away; lower-body colors approximate."
+    },
+    "keeper1": {
+      "shirt": "#B983BA",
+      "trim": "#373048",
+      "shorts": "#373048",
+      "socks": "#B983BA",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#4EA5A5",
+      "trim": "#213A4D",
+      "shorts": "#213A4D",
+      "socks": "#4EA5A5",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/cheltenham-town-2005-06-home-kit-76144/",
+      "https://www.footballkitarchive.com/cheltenham-town-2005-06-away-kit-103750/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "2005–06 League Two play-off winners.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "leyton-orient",
+    "name": "Leyton Orient",
+    "home": {
+      "shirt": "#C83239",
+      "trim": "#F1EEE4",
+      "shorts": "#BD3038",
+      "socks": "#C13239",
+      "pattern": "panel",
+      "note": "Red home with white and dark trim, compressed to white accents in the sprite."
+    },
+    "away": {
+      "shirt": "#F1EEE7",
+      "trim": "#C63138",
+      "shorts": "#F0EEE7",
+      "socks": "#EFEFE5",
+      "pattern": "panel",
+      "note": "White and red Vandanel away; panel arrangement and lower kit simplified."
+    },
+    "keeper1": {
+      "shirt": "#D8AC42",
+      "trim": "#493349",
+      "shorts": "#493349",
+      "socks": "#D8AC42",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#87B84D",
+      "trim": "#31463C",
+      "shorts": "#31463C",
+      "socks": "#87B84D",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/leyton-orient-2005-06-home-kit-105546/",
+      "https://www.footballkitarchive.com/leyton-orient-2005-06-away-kit-105547/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Automatically promoted from League Two in 2005–06.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "macclesfield-town",
+    "name": "Macclesfield Town",
+    "home": {
+      "shirt": "#2460A9",
+      "trim": "#F2EFE8",
+      "shorts": "#242A35",
+      "socks": "#245BA4",
+      "pattern": "solid",
+      "note": "Royal blue Branded home with narrow white V-neck and sleeve cuffs from the surviving shirt; lower kit approximate."
+    },
+    "away": {
+      "shirt": "#EBC64F",
+      "trim": "#21477A",
+      "shorts": "#213554",
+      "socks": "#E0B944",
+      "pattern": "solid",
+      "note": "Creative period-inspired yellow/blue away alternative, drawing on earlier change-color heritage; 2005–06 color not verified."
+    },
+    "keeper1": {
+      "shirt": "#DD7551",
+      "trim": "#50323E",
+      "shorts": "#50323E",
+      "socks": "#DD7551",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#6B64C5",
+      "trim": "#25284B",
+      "shorts": "#25284B",
+      "socks": "#6B64C5",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/macclesfield-2005-06-home-kit-79625/",
+      "https://www.footballkitarchive.com/macclesfield-2005-06-away-kit-35239/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/",
+      "https://macclesfieldfc.com/club/history/",
+      "https://blog.historicalkits.co.uk/Macclesfield_Town/Macclesfield_Town.htm",
+      "https://www.footballkitarchive.com/macclesfield-2005-06-home-kit/79625/"
+    ],
+    "honours": "Original Macclesfield Town, not Macclesfield FC, the phoenix club created in 2020.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "lincoln-city",
+    "name": "Lincoln City",
+    "home": {
+      "shirt": "#F1EEE8",
+      "trim": "#C63339",
+      "shorts": "#26272C",
+      "socks": "#CC383B",
+      "pattern": "vertical",
+      "note": "Red-and-white striped Lincoln City Collection home; lower kit approximate."
+    },
+    "away": {
+      "shirt": "#243755",
+      "trim": "#C43B44",
+      "shorts": "#23344D",
+      "socks": "#243755",
+      "pattern": "panel",
+      "note": "Navy away with red and white accents; simplified to visible red panels at sprite size."
+    },
+    "keeper1": {
+      "shirt": "#4EA5A5",
+      "trim": "#213A4D",
+      "shorts": "#213A4D",
+      "socks": "#4EA5A5",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#CC4976",
+      "trim": "#472B48",
+      "shorts": "#472B48",
+      "socks": "#CC4976",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/lincoln-city-2005-06-home-kit-76443/",
+      "https://www.footballkitarchive.com/lincoln-city-2005-06-away-kit-105598/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Reached the 2005–06 League Two play-offs.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "northampton-town",
+    "name": "Northampton Town",
+    "home": {
+      "shirt": "#893044",
+      "trim": "#F1E5DD",
+      "shorts": "#F1EEE8",
+      "socks": "#81334B",
+      "pattern": "panel",
+      "note": "Claret home with light accents, approximate shorts and socks."
+    },
+    "away": {
+      "shirt": "#25262E",
+      "trim": "#EAE8E0",
+      "shorts": "#242631",
+      "socks": "#23252E",
+      "pattern": "panel",
+      "note": "Black 2005–06 change strip established by Historical Football Kits; white accent and lower kit approximate."
+    },
+    "keeper1": {
+      "shirt": "#87B84D",
+      "trim": "#31463C",
+      "shorts": "#31463C",
+      "socks": "#87B84D",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#7FCBD0",
+      "trim": "#214D61",
+      "shorts": "#214D61",
+      "socks": "#7FCBD0",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/northampton-town-2005-06-home-kit-107095/",
+      "https://www.footballkitarchive.com/northampton-town-2005-06-away-kit-107096/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/",
+      "https://browse.historicalkits.co.uk/Northampton_Town/Northampton_Town.htm",
+      "https://www.oldfootballshirts.com/en/teams/n/northampton-town/old-northampton-town-football-shirt-s8727.html"
+    ],
+    "honours": "Promoted automatically in 2005–06.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "peterborough-united",
+    "name": "Peterborough United",
+    "home": {
+      "shirt": "#245AA6",
+      "trim": "#F0EEE7",
+      "shorts": "#F1EFE8",
+      "socks": "#2858A2",
+      "pattern": "panel",
+      "note": "Admiral blue and white home documented by surviving Dean Holden shirt; simplified trim placement."
+    },
+    "away": {
+      "shirt": "#EAC64E",
+      "trim": "#285CA9",
+      "shorts": "#27549A",
+      "socks": "#EAC64E",
+      "pattern": "panel",
+      "note": "Admiral yellow and blue away design; simplified lower kit."
+    },
+    "keeper1": {
+      "shirt": "#6B64C5",
+      "trim": "#25284B",
+      "shorts": "#25284B",
+      "socks": "#6B64C5",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#42AD77",
+      "trim": "#213F3E",
+      "shorts": "#213F3E",
+      "socks": "#42AD77",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/peterborough-united-2005-06-home-kit-34136/",
+      "https://www.footballkitarchive.com/peterborough-united-2005-06-away-kit-108083/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Fourth Division champions in 1960–61 and 1973–74.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "chester-city",
+    "name": "Chester City",
+    "home": {
+      "shirt": "#F1EEE9",
+      "trim": "#285CAA",
+      "shorts": "#2459A6",
+      "socks": "#F1EEE9",
+      "pattern": "vertical",
+      "note": "Blue-and-white original Chester City Nike home; simplified stripe and kit construction."
+    },
+    "away": {
+      "shirt": "#82BCE1",
+      "trim": "#F0F1EA",
+      "shorts": "#F0EEE9",
+      "socks": "#7FBBE2",
+      "pattern": "panel",
+      "note": "Sky blue and white Nike away; lower-body kit approximated."
+    },
+    "keeper1": {
+      "shirt": "#CC4976",
+      "trim": "#472B48",
+      "shorts": "#472B48",
+      "socks": "#CC4976",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#6087C0",
+      "trim": "#183B58",
+      "shorts": "#183B58",
+      "socks": "#6087C0",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/chester-city-2005-06-home-kit-84033/",
+      "https://www.footballkitarchive.com/chester-city-2005-06-away-kit-35622/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/",
+      "https://chesterfc.com/our-history/"
+    ],
+    "honours": "Historical Chester City, not the supporter-owned Chester FC phoenix club formed in 2010.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "rushden-and-diamonds",
+    "name": "Rushden & Diamonds",
+    "home": {
+      "shirt": "#F1EEE7",
+      "trim": "#BD2F3C",
+      "shorts": "#BD2F3C",
+      "socks": "#F0EFE9",
+      "pattern": "panel",
+      "note": "Red/white 2005–06 home colors; sprite arrangement simplified."
+    },
+    "away": {
+      "shirt": "#285CA7",
+      "trim": "#F1EEE8",
+      "shorts": "#2859A0",
+      "socks": "#2859A0",
+      "pattern": "panel",
+      "note": "Blue and white away; period account confirms switch to blue in 2005–06."
+    },
+    "keeper1": {
+      "shirt": "#7FCBD0",
+      "trim": "#214D61",
+      "shorts": "#214D61",
+      "socks": "#7FCBD0",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper colorway A; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#B983BA",
+      "trim": "#373048",
+      "shorts": "#373048",
+      "socks": "#B983BA",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper colorway B; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/rushden-diamonds-fc-2005-06-home-kit-134767/",
+      "https://www.footballkitarchive.com/rushden-diamonds-fc-2005-06-away-kit-134766/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/",
+      "https://www.bbc.co.uk/sport/football/33802018"
+    ],
+    "honours": "Original Nene Park Football League club, not the fan-founded AFC Rushden & Diamonds phoenix club.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "darlington",
+    "name": "Darlington",
+    "home": {
+      "shirt": "#F3EEE3",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#F3EEE3",
+      "pattern": "hoops",
+      "note": "Xara shirt: black and white hoops, white sleeves with black shoulder and cuff detail. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#24232C",
+      "trim": "#F3EEE3",
+      "shorts": "#24232C",
+      "socks": "#24232C",
+      "pattern": "panel",
+      "note": "Xara black tee with white shoulder tabs, red/white waist flashes; sprite simplifies the flashes. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#339653",
+      "trim": "#19345C",
+      "shorts": "#24232C",
+      "socks": "#339653",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#735295",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#735295",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/darlington-2005-06-home-kit-104124/",
+      "https://www.footballkitarchive.com/darlington-2005-06-away-kit-104125/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Enter the original Darlington FC League Two identity, not a later phoenix-era shirt.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "shrewsbury-town",
+    "name": "Shrewsbury Town",
+    "home": {
+      "shirt": "#2458A9",
+      "trim": "#EDBA2C",
+      "shorts": "#2458A9",
+      "socks": "#2458A9",
+      "pattern": "vertical",
+      "note": "Bright royal-blue frame and one broad amber central vertical panel, not repeated equal stripes. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#B82735",
+      "trim": "#19345C",
+      "shorts": "#19345C",
+      "socks": "#B82735",
+      "pattern": "panel",
+      "note": "Deep red front, navy V-neck and dark inset seam. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#4E9D9A",
+      "trim": "#19345C",
+      "shorts": "#24232C",
+      "socks": "#4E9D9A",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#555B69",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#555B69",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/shrewsbury-town-2005-06-home-kit-76971/",
+      "https://www.footballkitarchive.com/shrewsbury-town-2005-06-away-kit-34317/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Period League Two identity: the Shrews, already at Gay Meadow in 2005–06.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "rochdale",
+    "name": "Rochdale",
+    "home": {
+      "shirt": "#2458A9",
+      "trim": "#F3EEE3",
+      "shorts": "#2458A9",
+      "socks": "#2458A9",
+      "pattern": "solid",
+      "note": "Royal blue Nike shirt with slim white piping; not later blue/black broad stripes. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#EDBA2C",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#EDBA2C",
+      "pattern": "solid",
+      "note": "Brilliant yellow Nike shirt, thin dark piping and darker neckline. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#C64D75",
+      "trim": "#19345C",
+      "shorts": "#24232C",
+      "socks": "#C64D75",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#4E9D9A",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#4E9D9A",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/rochdale-afc-2005-06-home-kit-75128/",
+      "https://www.footballkitarchive.com/rochdale-afc-2005-06-away-kit-34235/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Period League Two identity: Rochdale AFC at Spotland.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "stockport-county",
+    "name": "Stockport County",
+    "home": {
+      "shirt": "#1955AA",
+      "trim": "#318CD4",
+      "shorts": "#2458A9",
+      "socks": "#2458A9",
+      "pattern": "panel",
+      "note": "TFG royal blue with slim sky-blue sidewall blocks. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#24232C",
+      "trim": "#EDBA2C",
+      "shorts": "#24232C",
+      "socks": "#24232C",
+      "pattern": "panel",
+      "note": "Black TFG body with sunflower shoulder and side panels. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#339653",
+      "trim": "#19345C",
+      "shorts": "#24232C",
+      "socks": "#339653",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#735295",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#735295",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/stockport-county-2005-06-home-kit-79350/",
+      "https://www.footballkitarchive.com/stockport-county-2005-06-away-kit-109486/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Period League Two identity: Stockport County, the Hatters.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "mansfield-town",
+    "name": "Mansfield Town",
+    "home": {
+      "shirt": "#EDBA2C",
+      "trim": "#2458A9",
+      "shorts": "#2458A9",
+      "socks": "#EDBA2C",
+      "pattern": "panel",
+      "note": "Garman amber base with blue collar/sidebar details outlined in thin pale trim. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#F3EEE3",
+      "trim": "#2458A9",
+      "shorts": "#2458A9",
+      "socks": "#F3EEE3",
+      "pattern": "panel",
+      "note": "White Garman away with blue edging and small amber side inserts. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#C64D75",
+      "trim": "#19345C",
+      "shorts": "#24232C",
+      "socks": "#C64D75",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#4E9D9A",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#4E9D9A",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/mansfield-town-2005-06-home-kit-63551/",
+      "https://www.footballkitarchive.com/mansfield-town-2005-06-away-kit-63528/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Period League Two identity: the Stags.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "torquay-united",
+    "name": "Torquay United",
+    "home": {
+      "shirt": "#EDBA2C",
+      "trim": "#175C98",
+      "shorts": "#2458A9",
+      "socks": "#EDBA2C",
+      "pattern": "sleeves",
+      "note": "Vandanel yellow front with solid royal-blue sleeves and V neck. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#F3EEE3",
+      "trim": "#83BBD6",
+      "shorts": "#F3EEE3",
+      "socks": "#6DBEE8",
+      "pattern": "panel",
+      "note": "White/pale blue Vandanel away with broad sky-blue shoulder and side edging. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#735295",
+      "trim": "#19345C",
+      "shorts": "#24232C",
+      "socks": "#735295",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#339653",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#339653",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/torquay-united-2005-06-home-kit-80507/",
+      "https://www.footballkitarchive.com/torquay-united-2005-06-away-kit-109638/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Period League Two identity: the Gulls.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "wrexham",
+    "name": "Wrexham",
+    "home": {
+      "shirt": "#B82735",
+      "trim": "#F3EEE3",
+      "shorts": "#F3EEE3",
+      "socks": "#B82735",
+      "pattern": "solid",
+      "note": "Vandanel scarlet body and sleeves with fine white side piping. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#ACD9ED",
+      "trim": "#19345C",
+      "shorts": "#19345C",
+      "socks": "#6DBEE8",
+      "pattern": "sleeves",
+      "note": "Pale sky blue Vandanel body and substantial navy raglan sleeves. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#555B69",
+      "trim": "#19345C",
+      "shorts": "#24232C",
+      "socks": "#555B69",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#339653",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#339653",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/wrexham-2005-06-home-kit-117793/",
+      "https://www.footballkitarchive.com/wrexham-2005-06-away-kit-35043/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Welsh club in the 2005–06 English Football League, already known as Wrexham AFC.",
+    "group": "League Two",
+    "base_country": "Wales"
+  },
+  {
+    "slug": "boston-united",
+    "name": "Boston United",
+    "home": {
+      "shirt": "#EDBA2C",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#EDBA2C",
+      "pattern": "hoops",
+      "note": "Patrick amber and black horizontal bands, with a soft fade in the shirt reference simplified to solid hoops. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#264184",
+      "trim": "#F3EEE3",
+      "shorts": "#19345C",
+      "socks": "#2458A9",
+      "pattern": "panel",
+      "note": "Patrick deep blue away with pale piping; green is a small crest color, not a secondary jersey panel. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#4E9D9A",
+      "trim": "#19345C",
+      "shorts": "#24232C",
+      "socks": "#4E9D9A",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#C64D75",
+      "trim": "#24232C",
+      "shorts": "#24232C",
+      "socks": "#C64D75",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/boston-united-2005-06-home-kit-35703/",
+      "https://www.footballkitarchive.com/boston-united-2005-06-away-kit-103064/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Period League Two identity: Boston United, the Pilgrims.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "wycombe-wanderers",
+    "name": "Wycombe Wanderers",
+    "home": {
+      "shirt": "#19345C",
+      "trim": "#6DBEE8",
+      "shorts": "#19345C",
+      "socks": "#19345C",
+      "pattern": "quarters",
+      "note": "Four alternating navy and sky quarters, with white sidewall accents on period shirt. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#F3EEE3",
+      "trim": "#6DBEE8",
+      "shorts": "#19345C",
+      "socks": "#F3EEE3",
+      "pattern": "panel",
+      "note": "White away with pale sky side panels and navy neck/cuff borders. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#ac6b35",
+      "trim": "#203050",
+      "shorts": "#203050",
+      "socks": "#ac6b35",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#4b7095",
+      "trim": "#17263c",
+      "shorts": "#17263c",
+      "socks": "#4b7095",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/wycombe-wanderers-2005-06-home-kit-25437/",
+      "https://www.footballkitarchive.com/wycombe-wanderers-2005-06-away-kit-82198/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "Period League Two identity: the Chairboys, quartered blue home tradition.",
+    "group": "League Two",
+    "base_country": "England"
+  },
+  {
+    "slug": "carlisle-united",
+    "name": "Carlisle United",
+    "home": {
+      "shirt": "#2458A9",
+      "trim": "#F3EEE3",
+      "shorts": "#2458A9",
+      "socks": "#2458A9",
+      "pattern": "panel",
+      "note": "Le Coq Sportif royal-blue torso, broad white shoulders and sleeves with red/blue bands. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "away": {
+      "shirt": "#B82735",
+      "trim": "#F3EEE3",
+      "shorts": "#B82735",
+      "socks": "#B82735",
+      "pattern": "panel",
+      "note": "Red Le Coq Sportif away with stark white shoulder and underarm accents. Shorts and socks are approximate companion colors in this sprite abstraction."
+    },
+    "keeper1": {
+      "shirt": "#6e617f",
+      "trim": "#242334",
+      "shorts": "#272533",
+      "socks": "#6e617f",
+      "pattern": "panel",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "keeper2": {
+      "shirt": "#43937b",
+      "trim": "#1d3e43",
+      "shorts": "#233539",
+      "socks": "#43937b",
+      "pattern": "sleeves",
+      "note": "Creative period-inspired goalkeeper design; not a historical replica."
+    },
+    "sources": [
+      "https://www.footballkitarchive.com/carlisle-united-2005-06-home-kit-34436/",
+      "https://www.footballkitarchive.com/carlisle-united-2005-06-away-kit-34435/",
+      "https://www.footballkitarchive.com/league-two-kits-2005-06-l157/"
+    ],
+    "honours": "2005–06 Football League Two champions.",
+    "group": "League Two",
+    "base_country": "England"
+  }
+]

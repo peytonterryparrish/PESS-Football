@@ -1,0 +1,102 @@
+[
+  {
+    "id": "06-01",
+    "title": "Match Front",
+    "description": "White shell, red band, dark inlay.",
+    "file_base": "06-01_Match_Front.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-02",
+    "title": "Match Left Turn",
+    "description": "White shell, red band, dark inlay.",
+    "file_base": "06-02_Match_Left_Turn.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-03",
+    "title": "Match Right Turn",
+    "description": "White shell, red band, dark inlay.",
+    "file_base": "06-03_Match_Right_Turn.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-04",
+    "title": "Match Angle View",
+    "description": "White shell, red band, dark inlay.",
+    "file_base": "06-04_Match_Angle_View.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-05",
+    "title": "Match Side Band",
+    "description": "White shell, red band, dark inlay.",
+    "file_base": "06-05_Match_Side_Band.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-06",
+    "title": "Winter Front",
+    "description": "Yellow shell, violet band, dark inlay.",
+    "file_base": "06-06_Winter_Front.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-07",
+    "title": "Winter Left Turn",
+    "description": "Yellow shell, violet band, dark inlay.",
+    "file_base": "06-07_Winter_Left_Turn.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-08",
+    "title": "Winter Right Turn",
+    "description": "Yellow shell, violet band, dark inlay.",
+    "file_base": "06-08_Winter_Right_Turn.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-09",
+    "title": "Winter Angle View",
+    "description": "Yellow shell, violet band, dark inlay.",
+    "file_base": "06-09_Winter_Angle_View.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  },
+  {
+    "id": "06-10",
+    "title": "Winter Side Band",
+    "description": "Yellow shell, violet band, dark inlay.",
+    "file_base": "06-10_Winter_Side_Band.png",
+    "camera_facing_pivot_normalized": [
+      0.5,
+      0.5
+    ]
+  }
+]

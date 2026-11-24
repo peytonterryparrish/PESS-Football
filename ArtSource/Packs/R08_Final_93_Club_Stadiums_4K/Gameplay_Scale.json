@@ -1,0 +1,75 @@
+{
+  "atlas_size_px": [
+    3840,
+    2160
+  ],
+  "same_source_width_height_in_every_match_proof": [
+    716.8000000000001,
+    403.20000000000005
+  ],
+  "camera_views": {
+    "South_Goal": {
+      "camera_focus_world_m": [
+        -43.9,
+        -0.75
+      ],
+      "source_atlas_xywh_4k_px": [
+        541.9027525472056,
+        942.9212143881897,
+        716.8000000000001,
+        403.20000000000005
+      ]
+    },
+    "North_Goal": {
+      "camera_focus_world_m": [
+        45.9,
+        -0.25
+      ],
+      "source_atlas_xywh_4k_px": [
+        2502.381305064928,
+        762.5340914116331,
+        716.8000000000001,
+        403.20000000000005
+      ]
+    },
+    "South_Corner": {
+      "camera_focus_world_m": [
+        -49.7,
+        26.8
+      ],
+      "source_atlas_xywh_4k_px": [
+        131.23605858545437,
+        710.7458928117638,
+        716.8000000000001,
+        403.20000000000005
+      ]
+    },
+    "Kickoff": {
+      "camera_focus_world_m": [
+        0.0,
+        0.0
+      ],
+      "source_atlas_xywh_4k_px": [
+        1495.1040641708082,
+        850.2672218681749,
+        716.8000000000001,
+        403.20000000000005
+      ]
+    }
+  },
+  "actor_outfield_height_m": [
+    1.74,
+    1.86
+  ],
+  "actor_goalkeeper_height_m": [
+    1.82,
+    1.93
+  ],
+  "projection_vertical_rise_atlas_px_per_m": -22.53342889380002,
+  "actor_typical_visible_height_m": 1.8,
+  "actor_typical_visible_height_atlas_px": 40.56017200884004,
+  "actor_typical_fraction_of_gameplay_view_height": 0.10059566470446438,
+  "actor_previous_preview_fraction_of_gameplay_view_height": 0.163,
+  "operator": "Measure opaque crown-to-boot length, not the sprite cell. Use atlasHeightPx = bodyHeightM \u00d7 22.5334, align feet to the projected ground point. Use nearest sampler. Do not rescale source sprites or reintroduce other views.",
+  "furnished_objects": "Proof players and balls are for scale only. Atlas images and modular overlays are free of all players and crowds."
+}
