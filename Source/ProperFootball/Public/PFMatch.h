@@ -155,11 +155,14 @@ public:
 	int32 Human = -1;          // controlled player index
 	FPFMatchSetup Setup;
 	TArray<FPFPlayer> P;
+	TArray<FPFPlayer> Officials;   // [0] referee, [1] [2] assistant referees (drawn, never touch the ball)
 	FPFBall Ball;
 	FString Banner;            // "GOAL!", "CORNER KICK" ...
 	float BannerT = 0;
 	bool bFinished = false;
 	FVector2D CamCenter;       // atlas px
+	float Highlight = 0;
+	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
 
 private:
 	FPFProjection Proj;
@@ -196,6 +199,7 @@ private:
 	void KeeperAI(FPFPlayer& K, float Dt);
 	void CarrierAI(FPFPlayer& Pl, float Dt);
 	void MovePlayers(float Dt);
+	void MoveOfficials(float Dt);
 	void BallPhysics(float Dt);
 	void Possession(float Dt);
 	void CheckOut();

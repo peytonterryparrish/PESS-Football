@@ -108,7 +108,8 @@ def build(cid, cast):
         im, notes = clean(rots[x], rots[x].getbbox())
         im, st = kit.snap_frame(im, pal) if keyed else snap_plain(im, pal)
         cells.append((f"{x}/idle", im))
-    for x in poses_more.GEN_DIRS:
+    gen_dirs = [x for x in DIRS8 if os.path.isdir(os.path.join(d, x))]
+    for x in gen_dirs:
         ib = rots[x].getbbox(); idle_n = sum(1 for c in rots[x].get_flattened_data() if c[3] >= 128)
         for n in poses_all:
             p = os.path.join(d, x, n + ".png")
@@ -135,6 +136,7 @@ def build(cid, cast):
         c, r = i % COLS, i // COLS
         atlas.paste(im, (c * CELL, r * CELL)); frames[key] = [c, r, 0]
     for dst, src in poses_more.MIRROR.items():
+        if dst in gen_dirs: continue
         for n in poses_all:
             if f"{src}/{n}" in frames: frames[f"{dst}/{n}"] = frames[f"{src}/{n}"][:2] + [1]
     out = os.path.join(ROOT, "GameData", "Sprites"); os.makedirs(out, exist_ok=True)

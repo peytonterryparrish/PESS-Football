@@ -9,6 +9,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "UnrealClient.h"
+#include "Sound/SoundBase.h"
+#include "Components/AudioComponent.h"
 #include "Misc/CommandLine.h"
 
 // ------------------------------------------------------------------------------------------------ font
@@ -89,14 +91,132 @@ void UPFFlow::Begin(UWorld* World)
 	FParse::Value(FCommandLine::Get(), TEXT("pfshots="), ShotsLeft);
 	FParse::Value(FCommandLine::Get(), TEXT("pfshotgap="), ShotGap);
 	if (FParse::Param(FCommandLine::Get(), TEXT("pfwatch"))) FriendlySide = 2;
+	int32 TestMatches = 0;
+	if (FParse::Value(FCommandLine::Get(), TEXT("pfsimtest="), TestMatches)) { RunMatchTest(TestMatches); return; }
+	int32 TestSeasons = 0;
+	if (FParse::Value(FCommandLine::Get(), TEXT("pfcareertest="), TestSeasons)) { RunCareerTest(TestSeasons); return; }
+	FString CScreen;
+	if (FParse::Value(FCommandLine::Get(), TEXT("pfcareerscreen="), CScreen))
+	{
+		if (UPFCareer* Car = UPFCareer::Get(this))
+		{
+			Car->Sim.NewCareer(7, TEXT("Test Gaffer"));
+			for (int32 i = 0; i < 6; ++i) Car->Sim.PlayMatchday();
+			Car->Screen = (EPFCScreen)FCString::Atoi(*CScreen);
+			if (Car->Screen == EPFCScreen::Table) Car->TableDiv = Car->Sim.UserClub().Division;
+			if (Car->Screen == EPFCScreen::PlayerCard) Car->SelPerson = Car->Sim.UserClub().Squad[0];
+			Screen = EPFScreen::Career;
+		}
+		return;
+	}
 	if (FParse::Param(FCommandLine::Get(), TEXT("pfmatch"))) StartFriendly();
 	else Go(EPFScreen::Title);
+}
+
+void UPFFlow::RunMatchTest(int32 N)
+{
+	// headless AI v AI matches through the real match engine: goals, shots, restarts, stuck time
+	const TArray<FPFClub>& C = PFWorld::Clubs();
+	int32 TotGoals = 0, TotShots = 0, Stuck = 0;
+	TMap<int32, int32> GoalHist;
+	const double T0 = FPlatformTime::Seconds();
+	for (int32 m = 0; m < N; ++m)
+	{
+		FPFMatch M;
+		FPFMatchSetup S;
+		S.Seed = 1000 + m;
+		const int32 H = (m * 7) % C.Num(), A = (m * 13 + 5) % C.Num();
+		S.Home = PFWorld::FriendlyTeam(C[H], false, S.Seed * 3);
+		S.Away = PFWorld::FriendlyTeam(C[A], true, S.Seed * 5);
+		S.bWatchOnly = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[H].Stadium;
+		M.Init(S);
+		int32 Restarts = 0; float BallStill = 0, MaxStill = 0;
+		EPFPhase Prev = M.Phase;
+		for (int32 f = 0; f < 60 * 60 * 12 && !M.bFinished; ++f)
+		{
+			M.Tick(1.f / 60.f, FPFPadInput());
+			if (M.Phase == EPFPhase::Restart && Prev != EPFPhase::Restart) Restarts++;
+			Prev = M.Phase;
+			if (M.Phase == EPFPhase::Play && M.Ball.Vel.Size() < 0.2f && M.Ball.Owner < 0) { BallStill += 1.f / 60.f; MaxStill = FMath::Max(MaxStill, BallStill); } else BallStill = 0;
+		}
+		if (MaxStill > 6.f) Stuck++;
+		TotGoals += M.Score[0] + M.Score[1]; TotShots += M.Shots[0] + M.Shots[1];
+		GoalHist.FindOrAdd(M.Score[0] + M.Score[1])++;
+		UE_LOG(LogPF, Display, TEXT("PFSIM %2d  %s %d-%d %s  shots %d-%d  restarts %d  maxstill %.1fs  finished %d  (str %d v %d)"), m, *S.Home.Short, M.Score[0], M.Score[1], *S.Away.Short,
+			M.Shots[0], M.Shots[1], Restarts, MaxStill, M.bFinished ? 1 : 0, C[H].Tier, C[A].Tier);
+	}
+	UE_LOG(LogPF, Display, TEXT("PFSIM total: %d matches, %.2f goals/match, %.1f shots/match, stuck %d, %.1fs"), N, TotGoals / float(FMath::Max(1, N)), TotShots / float(FMath::Max(1, N)), Stuck, FPlatformTime::Seconds() - T0);
+	QuitAt = Time + 0.5f;
+}
+
+void UPFFlow::RunCareerTest(int32 Seasons)
+{
+	// headless: N seasons with instant results, logging tables, promotions, the manager's moves, a save/load round trip
+	UPFCareer* Car = UPFCareer::Get(this);
+	if (!Car) return;
+	FPFCareerSim& Sim = Car->Sim;
+	const double T0 = FPlatformTime::Seconds();
+	Sim.NewCareer(12345, TEXT("Test Gaffer"));
+	UE_LOG(LogPF, Display, TEXT("PFTEST start: %s at %s (%s), clubs %d, people %d"), *Sim.S.ManagerName, *Sim.UserClub().Name, *Sim.DivisionName(Sim.UserClub().Division), Sim.S.Clubs.Num(), Sim.S.People.Num());
+	for (int32 D = 0; D < 5; ++D) { int32 N = 0; for (const FPFCareerClub& C : Sim.S.Clubs) if (C.Division == D) N++; UE_LOG(LogPF, Display, TEXT("PFTEST div %d: %d clubs"), D, N); }
+	int32 Guard = 0;
+	for (int32 s = 0; s < Seasons && Guard < 4000; ++Guard)
+	{
+		if (Sim.S.Phase == TEXT("Offers") || Sim.S.bUnemployed)
+		{
+			UE_LOG(LogPF, Display, TEXT("PFTEST season end: %s"), Sim.S.History.Num() ? *Sim.S.History.Last() : TEXT("-"));
+			for (int32 D = 0; D < 5; ++D) { const TArray<FPFTableRow> T = Sim.Table(D); }
+			UE_LOG(LogPF, Display, TEXT("PFTEST rep %d board %d unemployed %d offers %d people %d"), Sim.S.Reputation, Sim.S.BoardConfidence, Sim.S.bUnemployed ? 1 : 0, Sim.S.Offers.Num(), Sim.S.People.Num());
+			if (Sim.S.Phase == TEXT("Offers")) s++;
+			Sim.AcceptOffer(Sim.S.bUnemployed ? 0 : (Sim.S.Offers.Num() ? (Sim.Rng.Unit() < 0.5f ? 0 : -1) : -1));
+			if (Sim.S.UserClub >= 0) UE_LOG(LogPF, Display, TEXT("PFTEST now managing %s (%s)"), *Sim.UserClub().Name, *Sim.DivisionName(Sim.UserClub().Division));
+			continue;
+		}
+		Sim.PlayMatchday();
+		if (Sim.S.Matchday == 20 && s == 0)
+		{
+			// a youth scouting trip and a user bid mid-season
+			Sim.SendScout(0, EPFRegion::WestAfrica);
+			const TArray<FPFTableRow> T = Sim.Table(Sim.UserClub().Division);
+			UE_LOG(LogPF, Display, TEXT("PFTEST md20 leader %s %d pts"), *Sim.S.Clubs[T[0].Club].Name, T[0].Pts);
+		}
+	}
+	// division sizes stay intact
+	for (int32 D = 0; D < 5; ++D) { int32 N = 0; for (const FPFCareerClub& C : Sim.S.Clubs) if (C.Division == D) N++; UE_LOG(LogPF, Display, TEXT("PFTEST end div %d: %d clubs"), D, N); }
+	const bool bSaved = Sim.Save(TEXT("pftest"));
+	FPFCareerSim Copy; const bool bLoad = Copy.Load(TEXT("pftest"));
+	UE_LOG(LogPF, Display, TEXT("PFTEST save %d load %d same people %d same season %d prospects %d"), bSaved, bLoad, Copy.S.People.Num() == Sim.S.People.Num(), Copy.S.Season == Sim.S.Season, Sim.S.Prospects.Num());
+	int32 Wonder = 0; for (const FPFPerson& P : Sim.S.People) if (P.Age <= 19 && P.Potential >= 85) Wonder++;
+	UE_LOG(LogPF, Display, TEXT("PFTEST wonderkids (<=19, pot 85+): %d   seconds %.1f"), Wonder, FPlatformTime::Seconds() - T0);
+	QuitAt = Time + 0.5f;
+}
+
+void UPFFlow::PlaySfx(FName Name, float Volume)
+{
+	if (Name.IsNone() || !WorldRef.IsValid()) return;
+	TObjectPtr<USoundBase>* F = Sounds.Find(Name);
+	if (!F) { USoundBase* S = LoadObject<USoundBase>(nullptr, *FString::Printf(TEXT("/Game/PF/Audio/%s.%s"), *Name.ToString(), *Name.ToString())); F = &Sounds.Add(Name, S); }
+	if (*F) UGameplayStatics::PlaySound2D(WorldRef.Get(), *F, Volume);
+}
+
+void UPFFlow::SetMusic(FName Name)
+{
+	if (Name == MusicName) return;
+	MusicName = Name;
+	if (Music) { Music->Stop(); Music = nullptr; }
+	if (Name.IsNone() || !WorldRef.IsValid()) return;
+	if (USoundBase* S = LoadObject<USoundBase>(nullptr, *FString::Printf(TEXT("/Game/PF/Audio/%s.%s"), *Name.ToString(), *Name.ToString())))
+	{
+		Music = UGameplayStatics::CreateSound2D(WorldRef.Get(), S, Name == TEXT("crowd_loop") ? 0.55f : 0.45f, 1.f, 0.f, nullptr, true);
+		if (Music) Music->Play();
+	}
 }
 
 void UPFFlow::Go(EPFScreen S)
 {
 	Screen = S; Sel = 0; bPause = false;
 	if (S == EPFScreen::Main || S == EPFScreen::Title) PickBackground(TEXT("England"));
+	SetMusic(S == EPFScreen::Title ? FName(TEXT("music_title")) : S == EPFScreen::Match ? FName(TEXT("crowd_loop")) : FName(TEXT("music_menu")));
 }
 
 UTexture2D* UPFFlow::GetTex(const FString& Path)
@@ -198,7 +318,18 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		In.Move = Pad.Move; In.bSprint = Pad.bSprint;
 		In.bPass = Pad.pA; In.bLob = Pad.pB; In.bThrough = Pad.pY; In.bSwitch = Pad.pLB;
 		In.bShootHeld = Pad.bX; In.bShootPressed = Pad.pX; In.bShootReleased = Pad.rX;
-		M.Tick(Dt, In);
+		const int32 Sub = (bManageView && M.Highlight <= 0.f) ? 8 : 1;
+		for (int32 k = 0; k < Sub && !M.bFinished; ++k) M.Tick(Dt, k == 0 ? In : FPFPadInput());
+		// sounds (muted while a managed match runs at speed, except the big moments)
+		TSet<FName> Played;
+		for (FName N : M.Sfx)
+		{
+			if (N.IsNone() || Played.Contains(N)) continue;
+			Played.Add(N);
+			if (Sub > 1 && !N.ToString().StartsWith(TEXT("whistle")) && N != FName(TEXT("crowd_goal")) && N != FName(TEXT("net"))) continue;
+			PlaySfx(N, N.ToString().StartsWith(TEXT("crowd")) ? 0.8f : 0.7f);
+		}
+		M.Sfx.Reset();
 		if (M.bFinished)
 		{
 			auto Done = MatchDone; MatchDone = nullptr;
@@ -220,12 +351,13 @@ bool UPFFlow::MenuInput(TArray<FPFMenuItem>& Items, int32& S, const FPFPadState&
 {
 	if (!Items.Num()) return false;
 	S = FMath::Clamp(S, 0, Items.Num() - 1);
-	if (Pad.pDown) S = (S + 1) % Items.Num();
-	if (Pad.pUp) S = (S - 1 + Items.Num()) % Items.Num();
+	if (Pad.pDown) { S = (S + 1) % Items.Num(); PlaySfx(TEXT("ui_move"), 0.5f); }
+	if (Pad.pUp) { S = (S - 1 + Items.Num()) % Items.Num(); PlaySfx(TEXT("ui_move"), 0.5f); }
 	FPFMenuItem& It = Items[S];
 	if (It.OnChange && (Pad.pLeft || Pad.pRight)) It.OnChange(Pad.pLeft ? -1 : 1);
 	if (Pad.pA && It.bEnabled)
 	{
+		PlaySfx(TEXT("ui_select"), 0.6f);
 		if (It.OnSelect) { It.OnSelect(); return true; }
 		if (It.OnChange) It.OnChange(1);
 	}
@@ -366,6 +498,30 @@ void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
 	Box(C, MX + (M.Ball.Pos.X / 105.f + 0.5f) * MW - 3 * U, MY + (0.5f - M.Ball.Pos.Y / 68.f) * MH - 3 * U, 6 * U, 6 * U, FLinearColor::White);
 }
 
+void UPFFlow::DrawDots(UCanvas* C, const FPFMatch& M)
+{
+	// a flat 2D pitch with dots: the fast part of a managed match
+	const float W = C->ClipX, H = C->ClipY;
+	Box(C, 0, 0, W, H, FLinearColor(0.01f, 0.02f, 0.05f, 1));
+	const float PW = W * 0.8f, PH = PW * 68.f / 105.f, PX = (W - PW) * 0.5f, PY = (H - PH) * 0.5f + 40 * U;
+	for (int32 s = 0; s < 10; ++s) Box(C, PX + s * PW / 10.f, PY, PW / 10.f, PH, s % 2 ? FLinearColor(0.07f, 0.33f, 0.1f, 1) : FLinearColor(0.08f, 0.38f, 0.12f, 1));
+	const FLinearColor Line(1, 1, 1, 0.6f);
+	Box(C, PX, PY, PW, 2, Line); Box(C, PX, PY + PH - 2, PW, 2, Line); Box(C, PX, PY, 2, PH, Line); Box(C, PX + PW - 2, PY, 2, PH, Line); Box(C, PX + PW * 0.5f - 1, PY, 2, PH, Line);
+	const float BoxW = PW * 16.5f / 105.f, BoxH = PH * 40.3f / 68.f;
+	Box(C, PX, PY + (PH - BoxH) * 0.5f, BoxW, 2, Line); Box(C, PX, PY + (PH + BoxH) * 0.5f, BoxW, 2, Line); Box(C, PX + BoxW, PY + (PH - BoxH) * 0.5f, 2, BoxH, Line);
+	Box(C, PX + PW - BoxW, PY + (PH - BoxH) * 0.5f, BoxW, 2, Line); Box(C, PX + PW - BoxW, PY + (PH + BoxH) * 0.5f, BoxW, 2, Line); Box(C, PX + PW - BoxW, PY + (PH - BoxH) * 0.5f, 2, BoxH, Line);
+	auto ToS = [&](FVector2D P) { return FVector2D(PX + (P.X / 105.f + 0.5f) * PW, PY + (0.5f - P.Y / 68.f) * PH); };
+	for (const FPFPlayer& Pl : M.P)
+	{
+		const FVector2D S = ToS(Pl.Pos);
+		const FLinearColor Col = Pl.bKeeper ? (Pl.Team == 0 ? M.Setup.Home.KeeperKit.Shirt : M.Setup.Away.KeeperKit.Shirt) : (Pl.Team == 0 ? M.Setup.Home.Kit.Shirt : M.Setup.Away.Kit.Shirt);
+		Box(C, S.X - 11 * U, S.Y - 11 * U, 22 * U, 22 * U, FLinearColor(0, 0, 0, 0.8f));
+		Box(C, S.X - 8 * U, S.Y - 8 * U, 16 * U, 16 * U, Col);
+	}
+	const FVector2D B = ToS(FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y));
+	Box(C, B.X - 6 * U, B.Y - 6 * U - M.Ball.Pos.Z * 4 * U, 12 * U, 12 * U, FLinearColor::White);
+}
+
 void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 {
 	if (!C) return;
@@ -407,8 +563,10 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	case EPFScreen::Match:
 		if (MatchActor)
 		{
-			MatchActor->Match.Draw(C, SpriteMat);
+			if (bManageView && MatchActor->Match.Highlight <= 0.f && MatchActor->Match.Phase == EPFPhase::Play) DrawDots(C, MatchActor->Match);
+			else MatchActor->Match.Draw(C, SpriteMat);
 			DrawMatchHUD(C, MatchActor->Match);
+			if (bManageView) Text(C, MatchActor->Match.Highlight > 0.f ? TEXT("HIGHLIGHT") : TEXT("SIMULATING  x8"), C->ClipX - 40 * U, 40 * U, 0.8f, FLinearColor(1, 0.85f, 0.3f), EPFAlign::Right);
 			if (bPause)
 			{
 				Box(C, 0, 0, C->ClipX, C->ClipY, FLinearColor(0, 0, 0, 0.5f));

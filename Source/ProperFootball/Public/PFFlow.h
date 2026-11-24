@@ -61,7 +61,14 @@ public:
 	bool MenuInput(TArray<FPFMenuItem>& Items, int32& Sel, const FPFPadState& Pad);
 
 	void Go(EPFScreen S);
+	void PlaySfx(FName Name, float Volume = 1.f);
+	void SetMusic(FName Name);   // NAME_None stops it
+	UPROPERTY() TMap<FName, TObjectPtr<class USoundBase>> Sounds;
+	UPROPERTY() TObjectPtr<class UAudioComponent> Music;
+	FName MusicName;
 	void StartFriendly();
+	void RunCareerTest(int32 Seasons);
+	void RunMatchTest(int32 N);
 	void StartMatch(const FPFMatchSetup& S, TFunction<void(const FPFMatch&)> OnDone);
 
 	EPFScreen Screen = EPFScreen::Title;
@@ -78,12 +85,14 @@ public:
 	TFunction<void(const FPFMatch&)> MatchDone;
 	FPFMatch* LastMatch = nullptr;
 	TWeakObjectPtr<UWorld> WorldRef;
+	bool bManageView = false;      // career "manage it": fast dots, real sprites for highlights
 	int32 ShotsLeft = 0, ShotIndex = 0;
 	float ShotGap = 3.f, NextShot = 4.f, QuitAt = -1.f;
 
 private:
 	void DrawTitle(UCanvas* C);
 	void DrawMatchHUD(UCanvas* C, const FPFMatch& M);
+	void DrawDots(UCanvas* C, const FPFMatch& M);
 	void DrawBackground(UCanvas* C, float Dim = 0.f);
 	void PickBackground(const FString& Collection = TEXT(""));
 };

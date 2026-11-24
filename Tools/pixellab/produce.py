@@ -73,7 +73,7 @@ def main():
         futs = {}
         for c in ready:
             for bi, batch in enumerate(poses_more.SETS[c["kind"]]):
-                for direction in poses_more.GEN_DIRS:
+                for direction in c.get("dirs", poses_more.GEN_DIRS):
                     futs[ex.submit(pose_job, c, direction, bi, batch)] = (c["id"], direction, bi)
         done = 0
         for f in as_completed(futs):

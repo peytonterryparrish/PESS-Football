@@ -12,6 +12,8 @@ public class ProperFootball : ModuleRules
 		// Everything the game reads from disk at run time lives under GameData/ (generated) or ArtSource/Packs/ (the owner's packs).
 		// NonUFS = loose files next to the pak at the same relative path, read through FPaths::ProjectDir().
 		RuntimeDependencies.Add("$(ProjectDir)/GameData/...", StagedFileType.NonUFS);
+		RuntimeDependencies.Add("$(ProjectDir)/ArtSource/Packs/Broadcast_Signal_300_Backgrounds_4K/Backgrounds_4K/...", StagedFileType.NonUFS);
+		RuntimeDependencies.Add("$(ProjectDir)/ArtSource/Packs/Broadcast_Signal_England_Arcade_50_4K/Backgrounds_4K/...", StagedFileType.NonUFS);
 		RuntimeDependencies.Add("$(ProjectDir)/ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Clubs/...", StagedFileType.NonUFS);
 		RuntimeDependencies.Add("$(ProjectDir)/ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Goals/...", StagedFileType.NonUFS);
 		RuntimeDependencies.Add("$(ProjectDir)/ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Projection.json", StagedFileType.NonUFS);

@@ -92,7 +92,7 @@ namespace PFWorld
 
 	FPFStats RollStats(PF::FRng& R, int32 Ovr, EPFRole Role)
 	{
-		auto S = [&](float Bias) { return (uint8)FMath::Clamp(FMath::RoundToInt(Ovr + Bias + R.Gauss() * 9.f), 1, 99); };
+		auto S = [&](float Bias) { return (uint8)FMath::Clamp(FMath::RoundToInt(Ovr + Bias + R.Gauss() * 8.f), 1, 99); };
 		FPFStats St;
 		const bool bGK = Role == EPFRole::GK, bDef = Role == EPFRole::DEF, bFwd = Role == EPFRole::FWD;
 		St.Pace = S(bFwd ? 5 : bGK ? -15 : 0); St.Accel = S(bFwd ? 5 : bGK ? -10 : 0); St.Agility = S(0); St.Control = S(bDef ? -6 : 3);
@@ -135,7 +135,7 @@ namespace PFWorld
 		T.KeeperKit = C.Kits.Keeper1;
 		const TArray<FVector2D> Slots = FormationSlots(TEXT("4-4-2"));
 		const TArray<EPFRole> Roles = FormationRoles(TEXT("4-4-2"));
-		const int32 Base = 30 + C.Tier * 11;   // tier 1 ~41, tier 5 ~85
+		const int32 Base = 46 + C.Tier * 6;    // tier 1 ~52, tier 5 ~76
 		const TArray<FString>& OS = OutfieldSprites();
 		const TArray<FString>& KS = KeeperSprites();
 		for (int32 i = 0; i < 11; ++i)
