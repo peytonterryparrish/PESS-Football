@@ -44,7 +44,7 @@ namespace PF
 		return Obj;
 	}
 
-	UTexture2D* LoadTexture(const FString& Rel, bool bSRGB)
+	UTexture2D* LoadTexture(const FString& Rel, bool bSRGB, bool bSmooth)
 	{
 		TArray<uint8> Bytes;
 		if (!FFileHelper::LoadFileToArray(Bytes, *DataPath(Rel)))
@@ -59,10 +59,10 @@ namespace PF
 		const int32 Wd = W->GetWidth(), Ht = W->GetHeight();
 		UTexture2D* T = UTexture2D::CreateTransient(Wd, Ht, PF_B8G8R8A8);
 		if (!T) return nullptr;
-		T->Filter = TF_Nearest;
+		T->Filter = bSmooth ? TF_Bilinear : TF_Nearest;
 		T->SRGB = bSRGB;
 		T->NeverStream = true;
-		T->LODGroup = TEXTUREGROUP_Pixels2D;
+		T->LODGroup = bSmooth ? TEXTUREGROUP_UI : TEXTUREGROUP_Pixels2D;
 		T->AddressX = TA_Clamp; T->AddressY = TA_Clamp;
 		void* Dst = T->GetPlatformData()->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
 		FMemory::Memcpy(Dst, Raw.GetData(), Raw.Num());

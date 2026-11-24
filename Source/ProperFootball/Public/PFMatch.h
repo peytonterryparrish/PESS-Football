@@ -181,6 +181,7 @@ public:
 	// test diagnostics: 0 shots, 1 shot dist sum (dm), 2 saves (dive+standing), 3 AI tackles tried, 4 won, 5 slides, 6 lost on cut, 7 passes, 8 intercept/loose pickups, 9 shots inside 12 m
 	static int64 Diag[32];      // stadium pixels -> screen pixels at 1080p (options: near / medium / far)
 	static constexpr float PlayerHeightM = 1.82f;   // the sprite figure (64 px tall) is drawn at this real height
+	static float HeightScale;   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
 	float Highlight = 0;
 	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)
 	FLinearColor CardColor = FLinearColor::Yellow;   // the card the referee is holding up (while his ref_card clip plays)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
@@ -195,6 +196,9 @@ private:
 	TObjectPtr<UTexture2D> ShadowTex = nullptr, RingTex = nullptr, CursorTex = nullptr;
 	struct FGoalLayer { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D XY, WH; };
 	FGoalLayer GoalShadow[2], GoalRear[2], GoalFront[2];
+	TObjectPtr<UTexture2D> PitchTex = nullptr;   // HD ground-space pitch (Tools/pipeline/pitch.py), drawn over the plate's grass
+	FLinearColor PitchTint = FLinearColor::White;
+	float PitchX0 = 57.f, PitchY0 = 34.5f;
 	TMap<uint64, TObjectPtr<UMaterialInstanceDynamic>> Mids;
 
 	int32 Half = 1;

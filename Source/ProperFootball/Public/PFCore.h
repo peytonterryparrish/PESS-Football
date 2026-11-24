@@ -14,7 +14,7 @@ namespace PF
 	TSharedPtr<FJsonObject> LoadJson(const FString& Rel);
 	bool LoadText(const FString& Rel, FString& Out);
 	// Decodes a PNG into a transient, nearest-filtered, unmipped texture. bSRGB=false keeps raw 8-bit codes (kit key colours).
-	UTexture2D* LoadTexture(const FString& Rel, bool bSRGB = true);
+	UTexture2D* LoadTexture(const FString& Rel, bool bSRGB = true, bool bSmooth = false);   // bSmooth: bilinear (HD art), else nearest (pixel art)
 
 	// Deterministic small RNG so matches can be simulated and replayed.
 	struct FRng
