@@ -1,4 +1,6 @@
-"""High-resolution pitch for match play (replaces the stadium plate's low-res baked grass).
+"""Pitch lighting tints (pitch.json), used by the game's M_PFPitch material since v0.5.
+--hd also writes the v0.4 high-resolution pitch image (no longer used).
+High-resolution pitch for match play (replaces the stadium plate's low-res baked grass).
 ISS-style: flat mowing stripes across the pitch, fine grass grain, crisp anti-aliased white markings.
 Ground-space texture: x in [-X0, X0], y in [-Y0, Y0] metres at PPM pixels per metre; +y is the far touchline,
 which is the top row of the image (row 0 = y = +Y0). The game maps it onto the stadium projection.
@@ -129,4 +131,6 @@ def tints(img):
 
 
 if __name__ == "__main__":
-    tints(build())
+    import sys
+    if "--hd" in sys.argv: build()   # v0.4 smooth pitch image; since v0.5 the game draws the pitch in M_PFPitch
+    tints(None)

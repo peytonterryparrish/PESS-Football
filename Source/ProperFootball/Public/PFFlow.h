@@ -82,7 +82,7 @@ public:
 	int32 Sel = 0;
 	bool bPause = false;
 	int32 PauseSel = 0;
-	int32 FriendlyHome = 0, FriendlyAway = 1, FriendlySide = 0, FriendlyStage = 0, FriendlyLen = 1, CameraOpt = 1;
+	int32 FriendlyHome = 0, FriendlyAway = 1, FriendlySide = 0, FriendlyStage = 0, FriendlyLen = 1, CameraOpt = 0;
 	TFunction<void(const FPFMatch&)> MatchDone;
 	FPFMatch* LastMatch = nullptr;
 	TWeakObjectPtr<UWorld> WorldRef;
