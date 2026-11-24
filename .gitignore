@@ -22,3 +22,4 @@ __pycache__/
 ArtWork/cache/
 ArtWork/tmp/
 ArtWork/raw/**/_*.json
+ArtWork/logs/
