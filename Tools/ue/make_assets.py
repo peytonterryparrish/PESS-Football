@@ -136,11 +136,12 @@ float v = 0;
     h ^= h >> 16; h *= 0x7feb352du; h ^= h >> 15; h *= 0x846ca68bu; h ^= h >> 16;
     v += w * float(h & 65535u) / 65535.0;
 }
-// mowing stripes, 5.25 m bands across the pitch
-bool bandA = frac((g.x + 52.5) / 10.5) < 0.5;
-float3 base  = bandA ? float3(88, 162, 48)  : float3(70, 138, 38);
-float3 dark  = bandA ? float3(62, 128, 38)  : float3(50, 106, 30);
-float3 light = bandA ? float3(116, 186, 66) : float3(94, 162, 52);
+// mowing stripes: narrow bands across the pitch, about 0.4 of a player's drawn height wide (as ISS Deluxe)
+bool bandA = frac((g.x + 52.5) / 1.0) < 0.5;
+// palette sampled from ISS Deluxe footage (dominant grass colours: 160,216,80 and 140,180,58)
+float3 base  = bandA ? float3(160, 216, 78) : float3(140, 182, 58);
+float3 dark  = bandA ? float3(140, 186, 62) : float3(120, 160, 46);
+float3 light = bandA ? float3(176, 230, 96) : float3(156, 202, 72);
 float3 col = v < 0.33 ? dark : (v > 0.69 ? light : base);
 // markings (the pitch is symmetric in both axes): distances in metres to each line centre
 float ax = abs(g.x), ay = abs(g.y);

@@ -181,7 +181,8 @@ public:
 	// test diagnostics: 0 shots, 1 shot dist sum (dm), 2 saves (dive+standing), 3 AI tackles tried, 4 won, 5 slides, 6 lost on cut, 7 passes, 8 intercept/loose pickups, 9 shots inside 12 m
 	static int64 Diag[32];      // stadium pixels -> screen pixels at 1080p (options: near / medium / far)
 	static constexpr float PlayerHeightM = 1.82f;   // the sprite figure (64 px tall) is drawn at this real height
-	static float HeightScale;   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
+	static float HeightScale;
+	static float GameSpeed;     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
 	float Highlight = 0;
 	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)
 	FLinearColor CardColor = FLinearColor::Yellow;   // the card the referee is holding up (while his ref_card clip plays)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
@@ -211,6 +212,8 @@ private:
 	int32 KickoffTeam = 0;
 	int32 FirstKickoffTeam = 0;
 	float Accum = 0;
+	FPFPadInput PendPad;          // presses seen on frames that ran no 120 Hz step (high frame rates), kept for the next step
+	float BufPass = 0, BufLob = 0, BufThrough = 0, BufShoot = 0;   // input buffer (s left): a press counts if the player can act soon after
 	float StuckT = 0;
 	int32 LastShotTeam = -1;
 
