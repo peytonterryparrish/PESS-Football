@@ -25,6 +25,7 @@ int32 FPFStats::Overall(bool bKeeper) const
 }
 
 float FPFMatch::CamZoom = 2.5f;
+float FPFMatch::HeightScale = 0.5f;
 int64 FPFMatch::Diag[32] = {};
 
 FPFAbility PFAbility(const FPFStats& S, bool bKeeper)
@@ -104,30 +105,15 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 	RingTex = MakeEllipse(30, 12, true);
 	CursorTex = PF::LoadTexture(TEXT("GameData/UI/ico_cursor_south.png"));
 
-	// goal layers (atlas-resolution set, so they share the stadium's pixel grid)
-	if (TSharedPtr<FJsonObject> GL = PF::LoadJson(TEXT("ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Goals/Goal_Layout.json")))
+	// HD pitch (the plate's own grass is 1280x720 art upscaled; goals are drawn in code at the same resolution)
+	PitchTex = PF::LoadTexture(TEXT("GameData/Pitch/pitch.png"), true, true);
+	if (TSharedPtr<FJsonObject> PJ = PF::LoadJson(TEXT("GameData/Pitch/pitch.json")))
 	{
-		const TSharedPtr<FJsonObject>* Stages;
-		if (GL->TryGetObjectField(TEXT("stages"), Stages))
-		{
-			const TSharedPtr<FJsonObject>* St;
-			if ((*Stages)->TryGetObjectField(Setup.Stage, St))
-				for (int32 g = 0; g < 2; ++g)
-				{
-					const TSharedPtr<FJsonObject>* Gg;
-					if (!(*St)->TryGetObjectField(g == 0 ? TEXT("South_Goal") : TEXT("North_Goal"), Gg)) continue;
-					const TSharedPtr<FJsonObject>& At = (*Gg)->GetObjectField(TEXT("Atlas"));
-					auto LoadLayer = [&](const TCHAR* Key, FGoalLayer& L)
-					{
-						const TSharedPtr<FJsonObject>* O;
-						if (!At->TryGetObjectField(Key, O)) return;
-						L.Tex = PF::LoadTexture(TEXT("ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Goals/") + (*O)->GetStringField(TEXT("filename")));
-						const TArray<TSharedPtr<FJsonValue>>& R = (*O)->GetArrayField(TEXT("xywh_4k_px"));
-						L.XY = FVector2D(R[0]->AsNumber(), R[1]->AsNumber()); L.WH = FVector2D(R[2]->AsNumber(), R[3]->AsNumber());
-					};
-					LoadLayer(TEXT("Shadow"), GoalShadow[g]); LoadLayer(TEXT("Rear_Net"), GoalRear[g]); LoadLayer(TEXT("Front_Frame"), GoalFront[g]);
-				}
-		}
+		PitchX0 = PJ->GetNumberField(TEXT("x0")); PitchY0 = PJ->GetNumberField(TEXT("y0"));
+		const TSharedPtr<FJsonObject>* Tn;
+		const TArray<TSharedPtr<FJsonValue>>* Tv;
+		if (PJ->TryGetObjectField(TEXT("tint"), Tn) && (*Tn)->TryGetArrayField(Setup.Stage, Tv) && Tv->Num() == 3)
+			PitchTint = FLinearColor((*Tv)[0]->AsNumber(), (*Tv)[1]->AsNumber(), (*Tv)[2]->AsNumber(), 1.f);
 	}
 
 	P.Reset();
@@ -154,7 +140,7 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 		Of.A = PFAbility(Of.Setup.Stats, false);
 		Of.SpriteSet = SpriteFor(o == 0 ? TEXT("R01") : TEXT("R02"));
 		Of.Team = 2; Of.Index = o;
-		Of.Pos = o == 0 ? FVector2D(-8, -6) : FVector2D(0, o == 1 ? -34.8f : 34.8f);
+		Of.Pos = o == 0 ? FVector2D(-8, -6) : FVector2D(0, o == 1 ? -(HalfWid + 0.9f) : HalfWid - 0.35f);
 		Of.Facing = o == 1 ? FVector2D(0, 1) : FVector2D(0, -1);
 		Officials.Add(Of);
 	}
@@ -166,19 +152,19 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 		Mg.Setup.Stats.Pace = 30; Mg.A = PFAbility(Mg.Setup.Stats, false);
 		Mg.SpriteSet = SpriteFor(FString::Printf(TEXT("C%02d"), 1 + int32((Setup.Seed + t * 7) % 3)));
 		Mg.Team = 3; Mg.Index = t;
-		Mg.Pos = FVector2D(t == 0 ? -9.f : 9.f, HalfWid + 3.2f);
+		Mg.Pos = FVector2D(t == 0 ? -9.f : 9.f, -(HalfWid + 1.2f));   // technical areas on the near track (the far touchline backs onto the stand)
 		Mg.Home = Mg.Pos;
-		Mg.Facing = FVector2D(0, -1);
+		Mg.Facing = FVector2D(0, 1);
 		Managers.Add(Mg);
 	}
 	Crew.Reset();
 	{
 		static const TCHAR* Cam[] = { TEXT("sid_camera_operator_001"), TEXT("sid_camera_operator_004"), TEXT("sid_camera_operator_007") };
 		static const TCHAR* Boy[] = { TEXT("sid_ball_boy_002"), TEXT("sid_ball_boy_005"), TEXT("sid_ball_boy_008"), TEXT("sid_ball_boy_003") };
-		const FVector2D CamPos[] = { FVector2D(-30, HalfWid + 4.5f), FVector2D(0, HalfWid + 6.f), FVector2D(30, HalfWid + 4.5f) };
+		const FVector2D CamPos[] = { FVector2D(-HalfLen - 3.4f, GoalHalf + 4.f), FVector2D(24.f, -(HalfWid + 1.4f)), FVector2D(HalfLen + 3.4f, -GoalHalf - 4.f) };   // behind each goal, one on the near track
 		const FVector2D BoyPos[] = { FVector2D(-HalfLen - 3.f, HalfWid - 4.f), FVector2D(HalfLen + 3.f, HalfWid - 4.f), FVector2D(-HalfLen - 3.f, -HalfWid + 6.f), FVector2D(HalfLen + 3.f, -HalfWid + 6.f) };
-		for (int32 i = 0; i < 3; ++i) Crew.Add({ PF::LoadTexture(FString::Printf(TEXT("GameData/UI/%s.png"), Cam[i])), CamPos[i] });
-		for (int32 i = 0; i < 4; ++i) Crew.Add({ PF::LoadTexture(FString::Printf(TEXT("GameData/UI/%s.png"), Boy[i])), BoyPos[i] });
+		for (int32 i = 0; i < 3; ++i) Crew.Add({ PF::LoadTexture(FString::Printf(TEXT("GameData/UI/%s.png"), Cam[i]), true, true), CamPos[i] });
+		for (int32 i = 0; i < 4; ++i) Crew.Add({ PF::LoadTexture(FString::Printf(TEXT("GameData/UI/%s.png"), Boy[i]), true, true), BoyPos[i] });
 	}
 	Score[0] = Score[1] = 0;
 	Half = 1; HalfT = 0; MatchClock = 0;
@@ -195,6 +181,7 @@ void FPFMatch::AddReferencedObjects(FReferenceCollector& Collector)
 	Collector.AddReferencedObject(ShadowTex);
 	Collector.AddReferencedObject(RingTex);
 	Collector.AddReferencedObject(CursorTex);
+	Collector.AddReferencedObject(PitchTex);
 	for (int32 g = 0; g < 2; ++g) { Collector.AddReferencedObject(GoalShadow[g].Tex); Collector.AddReferencedObject(GoalRear[g].Tex); Collector.AddReferencedObject(GoalFront[g].Tex); }
 	for (FPFSpriteSet& S : Sets) Collector.AddReferencedObject(S.Atlas);
 	for (auto& KV : Mids) Collector.AddReferencedObject(KV.Value);
@@ -511,7 +498,7 @@ void FPFMatch::MoveOfficials(float Dt)
 			// each assistant runs one touchline, level with the second-last defender of the half he covers (approx: the ball, clamped)
 			const float Side = o == 1 ? -1.f : 1.f;
 			const float X = FMath::Clamp(Ball.Pos.X, Side < 0 ? -HalfLen : 0.f, Side < 0 ? 0.f : HalfLen);
-			Target = FVector2D(X, Side * (HalfWid + 0.9f));
+			Target = FVector2D(X, Side < 0 ? -(HalfWid + 0.9f) : HalfWid - 0.35f);   // far side: no track, the stand starts at the line
 		}
 		const FVector2D To = Target - Of.Pos;
 		const float D = To.Size();
@@ -1508,7 +1495,9 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	// kickoff reference framing). Sprites are drawn at true size: the 64 px figure is PlayerHeightM tall in the
 	// stadium's own projection (Az = atlas pixels per metre of height), so players and pitch share one scale.
 	const float Zoom = FMath::Max(1.f, SH / 1080.f * CamZoom);
-	const float SpriteScale = Zoom * Proj.Az.Size() * PlayerHeightM / 64.f;
+	FPFProjection Pv = Proj;                 // drawing projection: heights scaled (HeightScale), ground unchanged
+	Pv.Az *= HeightScale;
+	const float SpriteScale = Zoom * Pv.Az.Size() * PlayerHeightM / 64.f;
 	const FVector2D View(SW / Zoom, SH / Zoom);
 	FVector2D Cam = CamCenter;
 	Cam.X = FMath::Clamp(Cam.X, View.X * 0.5f, Proj.AtlasSize.X - View.X * 0.5f);
@@ -1525,15 +1514,100 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		T.BlendMode = SE_BLEND_Opaque;
 		C->DrawItem(T);
 	}
-	auto DrawTex = [&](UTexture2D* Tex, FVector2D AtlasXY, FVector2D AtlasWH)
+	// exact (unrounded) world -> screen, for geometry
+	auto W2S = [&](float X, float Y, float Z) { const FVector2D A = Pv.ToAtlas(FVector(X, Y, Z)); return FVector2D((A.X - TL.X) * Zoom, (A.Y - TL.Y) * Zoom); };
+	TArray<FCanvasUVTri> Tris;
+	auto Quad = [&](FVector2D A, FVector2D B, FVector2D Cc, FVector2D Dd, FLinearColor Col)
 	{
-		if (!Tex) return;
-		const FVector2D P0 = ToScreen(AtlasXY);
-		FCanvasTileItem T(P0, Tex->GetResource(), AtlasWH * Zoom, FLinearColor::White);
-		T.BlendMode = SE_BLEND_Translucent;
-		C->DrawItem(T);
+		FCanvasUVTri T0; T0.V0_Pos = A; T0.V1_Pos = B; T0.V2_Pos = Cc; T0.V0_Color = T0.V1_Color = T0.V2_Color = Col;
+		FCanvasUVTri T1; T1.V0_Pos = A; T1.V1_Pos = Cc; T1.V2_Pos = Dd; T1.V0_Color = T1.V1_Color = T1.V2_Color = Col;
+		Tris.Add(T0); Tris.Add(T1);
 	};
-	for (int32 g = 0; g < 2; ++g) { DrawTex(GoalShadow[g].Tex, GoalShadow[g].XY, GoalShadow[g].WH); DrawTex(GoalRear[g].Tex, GoalRear[g].XY, GoalRear[g].WH); }
+	auto Line = [&](FVector2D A, FVector2D B, float Wd, FLinearColor Col)
+	{
+		FVector2D N = (B - A).GetSafeNormal(); N = FVector2D(-N.Y, N.X) * Wd * 0.5f;
+		Quad(A + N, B + N, B - N, A - N, Col);
+	};
+	auto Flush = [&]()
+	{
+		if (!Tris.Num()) return;
+		FCanvasTriangleItem TI(Tris, GWhiteTexture);
+		TI.BlendMode = SE_BLEND_Translucent;
+		C->DrawItem(TI);
+		Tris.Reset();
+	};
+	// HD pitch over the plate's grass (grass runs to the touchlines at the sides, ~4 m past the goal lines at the ends)
+	if (PitchTex)
+	{
+		const float X1 = 56.75f, Yn = -(HalfWid + 0.3f), Yf = HalfWid;
+		auto V = [&](float X, float Y, FVector2D& Pos, FVector2D& UV)
+		{
+			const FVector2D A = Proj.GroundToAtlas(FVector2D(X, Y));
+			Pos = FVector2D((A.X - TL.X) * Zoom, (A.Y - TL.Y) * Zoom);
+			UV = FVector2D((X + PitchX0) / (2.f * PitchX0), (PitchY0 - Y) / (2.f * PitchY0));
+		};
+		FCanvasUVTri T0, T1;
+		V(-X1, Yn, T0.V0_Pos, T0.V0_UV); V(X1, Yn, T0.V1_Pos, T0.V1_UV); V(X1, Yf, T0.V2_Pos, T0.V2_UV);
+		V(-X1, Yn, T1.V0_Pos, T1.V0_UV); V(X1, Yf, T1.V1_Pos, T1.V1_UV); V(-X1, Yf, T1.V2_Pos, T1.V2_UV);
+		T0.V0_Color = T0.V1_Color = T0.V2_Color = T1.V0_Color = T1.V1_Color = T1.V2_Color = PitchTint;
+		TArray<FCanvasUVTri> PT; PT.Add(T0); PT.Add(T1);
+		FCanvasTriangleItem TI(PT, PitchTex->GetResource());
+		TI.BlendMode = SE_BLEND_Opaque;
+		C->DrawItem(TI);
+	}
+	// goals, drawn in code: nets and their shadow behind everyone; posts and crossbar join the depth sort below
+	const float NetD = 2.f, BackH = 1.6f;
+	const float LineW = FMath::Max(1.f, SH / 1080.f);
+	for (int32 g = 0; g < 2; ++g)
+	{
+		const float S = g == 0 ? -1.f : 1.f, X0 = S * HalfLen, X1 = S * (HalfLen + NetD);
+		const FLinearColor Shade(0, 0, 0, 0.16f), Fill(1, 1, 1, 0.06f), Mesh(1, 1, 1, 0.30f), Frame(0.82f, 0.84f, 0.86f, 0.9f);
+		Quad(W2S(X0, -GoalHalf, 0), W2S(X1, -GoalHalf, 0), W2S(X1, GoalHalf, 0), W2S(X0, GoalHalf, 0), Shade);
+		// panels: back, roof, two sides
+		Quad(W2S(X1, -GoalHalf, 0), W2S(X1, GoalHalf, 0), W2S(X1, GoalHalf, BackH), W2S(X1, -GoalHalf, BackH), Fill);
+		Quad(W2S(X0, -GoalHalf, GoalH), W2S(X0, GoalHalf, GoalH), W2S(X1, GoalHalf, BackH), W2S(X1, -GoalHalf, BackH), Fill);
+		for (float Y : { -GoalHalf, GoalHalf })
+			Quad(W2S(X0, Y, 0), W2S(X0, Y, GoalH), W2S(X1, Y, BackH), W2S(X1, Y, 0), Fill);
+		// mesh, ~0.3 m squares
+		for (float Y = -GoalHalf; Y <= GoalHalf + 0.01f; Y += GoalHalf / 12.f)
+		{
+			Line(W2S(X1, Y, 0), W2S(X1, Y, BackH), LineW, Mesh);
+			Line(W2S(X0, Y, GoalH), W2S(X1, Y, BackH), LineW, Mesh);
+		}
+		for (float Z = 0.f; Z <= BackH + 0.01f; Z += BackH / 6.f) Line(W2S(X1, -GoalHalf, Z), W2S(X1, GoalHalf, Z), LineW, Mesh);
+		for (int32 k = 1; k <= 6; ++k)
+		{
+			const float F = k / 7.f, Xr = FMath::Lerp(X0, X1, F), Zr = FMath::Lerp(GoalH, BackH, F);
+			Line(W2S(Xr, -GoalHalf, Zr), W2S(Xr, GoalHalf, Zr), LineW, Mesh);
+			for (float Y : { -GoalHalf, GoalHalf }) Line(W2S(Xr, Y, 0), W2S(Xr, Y, Zr), LineW, Mesh);
+		}
+		for (float Y : { -GoalHalf, GoalHalf }) for (float Z = 0.4f; Z < GoalH; Z += 0.4f)
+			Line(W2S(X0, Y, Z), W2S(X1, Y, FMath::Min(Z, BackH)), LineW, Mesh);
+		// back frame: ground bar and the rear stanchions
+		Line(W2S(X1, -GoalHalf, 0), W2S(X1, GoalHalf, 0), LineW * 2.f, Frame);
+		for (float Y : { -GoalHalf, GoalHalf }) { Line(W2S(X1, Y, 0), W2S(X1, Y, BackH), LineW * 2.f, Frame); Line(W2S(X0, Y, GoalH), W2S(X1, Y, BackH), LineW * 1.5f, Frame); }
+	}
+	Flush();
+	const float PostW = FMath::Max(2.f, 0.12f * Proj.Ax.Size() * Zoom), BarW = FMath::Max(2.f, 0.12f * Pv.Az.Size() * Zoom);
+	auto DrawGoalPiece = [&](int32 Piece)
+	{
+		const int32 g = Piece / 3, k = Piece % 3;
+		const float X0 = (g == 0 ? -1.f : 1.f) * HalfLen;
+		const FLinearColor White(0.97f, 0.97f, 0.95f, 1.f), Edge(0.62f, 0.64f, 0.66f, 1.f);
+		if (k < 2)
+		{
+			const float Y = k == 0 ? GoalHalf : -GoalHalf;
+			const FVector2D A = W2S(X0, Y, 0), B = W2S(X0, Y, GoalH + 0.06f);
+			Line(A, B, PostW, White);
+			Line(A + FVector2D(PostW * 0.35f, 0), B + FVector2D(PostW * 0.35f, 0), PostW * 0.3f, Edge);   // shaded side
+		}
+		else
+		{
+			Line(W2S(X0, -GoalHalf, GoalH), W2S(X0, GoalHalf, GoalH), BarW, White);
+			Line(W2S(X0, -GoalHalf, GoalH) + FVector2D(0, BarW * 0.35f), W2S(X0, GoalHalf, GoalH) + FVector2D(0, BarW * 0.35f), BarW * 0.3f, Edge);
+		}
+		Flush();
+	};
 
 	// shadows
 	auto DrawShadow = [&](FVector2D Ground, float Scale)
@@ -1577,15 +1651,18 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	Items.Add({ (float)Proj.GroundToAtlas(V2(Ball.Pos)).Y, 1, 0 });
 	for (const FPFPlayer& Of : Officials) Items.Add({ (float)Proj.GroundToAtlas(Of.Pos).Y, 2, Of.Index });
 	for (const FPFPlayer& Mg : Managers) Items.Add({ (float)Proj.GroundToAtlas(Mg.Pos).Y, 3, Mg.Index });
+	for (int32 g = 0; g < 2; ++g) for (int32 k = 0; k < 3; ++k)
+		Items.Add({ (float)Proj.GroundToAtlas(FVector2D((g == 0 ? -1.f : 1.f) * HalfLen, k == 0 ? GoalHalf : k == 1 ? -GoalHalf : 0.f)).Y, 4, g * 3 + k });
 	Items.Sort([](const FDrawItem& A, const FDrawItem& B) { return A.Depth < B.Depth; });
 	for (const FDrawItem& It : Items)
 	{
+		if (It.Kind == 4) { DrawGoalPiece(It.Idx); continue; }
 		if (It.Kind == 1)
 		{
 			if (!BallTex) continue;
-			const FVector2D S = ToScreen(Proj.ToAtlas(Ball.Pos));
+			const FVector2D S = ToScreen(Pv.ToAtlas(Ball.Pos));
 			const int32 Frame = int32(Ball.Roll / 0.35f) % 5;
-			const float Px = FMath::RoundToFloat(16.f * SpriteScale * 0.62f);
+			const float Px = FMath::Max(4.f, FMath::RoundToFloat(16.f * SpriteScale * 0.72f));
 			FCanvasTileItem T(FVector2D(FMath::RoundToFloat(S.X - Px * 0.5f), FMath::RoundToFloat(S.Y - Px * 0.5f)), BallTex->GetResource(), FVector2D(Px, Px),
 				FVector2D(Frame / 5.f, 0), FVector2D((Frame + 1) / 5.f, 1), FLinearColor::White);
 			T.BlendMode = SE_BLEND_Masked;
@@ -1623,7 +1700,6 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 			C->DrawItem(Cd);
 		}
 	}
-	for (int32 g = 0; g < 2; ++g) DrawTex(GoalFront[g].Tex, GoalFront[g].XY, GoalFront[g].WH);
 	// cursor over the controlled player (bobs gently)
 	if (Human >= 0 && !Setup.bWatchOnly && CursorTex && P.IsValidIndex(Human) && !P[Human].bSentOff)
 	{

@@ -10,34 +10,45 @@ MEL = unreal.MaterialEditingLibrary
 EAL = unreal.EditorAssetLibrary
 
 HLSL = r"""
-float4 c = Texture2DSample(Tex, TexSampler, UV);
-float3 s = c.rgb;
-float3 o = s;
-if (KitOn > 0.5)
+// 3x3 supersampling over the screen pixel's footprint: sprites are drawn below 1:1 since v0.4 (half-size players),
+// so each sample is point-sampled and recoloured, then the results are averaged (alpha-weighted, in linear light)
+float2 dx = ddx(UV), dy = ddy(UV);
+float4 acc = 0;
+[unroll] for (int i = 0; i < 3; i++)
+[unroll] for (int j = 0; j < 3; j++)
 {
-    float3 code = round(s * 255.0);
-    if (abs(code.b - 1.0) < 0.5 && code.r >= 30.0)
+    float2 uv = UV + dx * ((i - 1.0) / 3.0) + dy * ((j - 1.0) / 3.0);
+    float4 c = Texture2DSampleGrad(Tex, TexSampler, uv, dx, dy);
+    float3 s = c.rgb;
+    float3 o = s;
+    if (KitOn > 0.5)
     {
-        float region = round(code.r / 40.0);
-        float g = code.g;
-        float m = g < 96.0 ? 0.55 : (g < 160.0 ? 0.78 : (g < 224.0 ? 1.0 : 1.22));
-        float2 lp = fmod(UV * AtlasCell.xy, AtlasCell.z);
-        float3 base = ShirtA;
-        if (region < 1.5)
+        float3 code = round(s * 255.0);
+        if (abs(code.b - 1.0) < 0.5 && code.r >= 30.0)
         {
-            if (Pattern > 0.5 && Pattern < 1.5 && fmod(floor(lp.x / 2.0), 2.0) > 0.5) base = ShirtB;
-            if (Pattern > 1.5 && Pattern < 2.5 && fmod(floor(lp.y / 3.0), 2.0) > 0.5) base = ShirtB;
-            if (Pattern > 2.5 && lp.x > AtlasCell.z * 0.5) base = ShirtB;
+            float region = round(code.r / 40.0);
+            float g = code.g;
+            float m = g < 96.0 ? 0.55 : (g < 160.0 ? 0.78 : (g < 224.0 ? 1.0 : 1.22));
+            float2 lp = fmod(uv * AtlasCell.xy, AtlasCell.z);
+            float3 base = ShirtA;
+            if (region < 1.5)
+            {
+                if (Pattern > 0.5 && Pattern < 1.5 && fmod(floor(lp.x / 2.0), 2.0) > 0.5) base = ShirtB;
+                if (Pattern > 1.5 && Pattern < 2.5 && fmod(floor(lp.y / 3.0), 2.0) > 0.5) base = ShirtB;
+                if (Pattern > 2.5 && lp.x > AtlasCell.z * 0.5) base = ShirtB;
+            }
+            else if (region < 2.5) base = Shorts;
+            else if (region < 3.5) base = Socks;
+            else base = ShirtB;
+            s = saturate(base * m);
         }
-        else if (region < 2.5) base = Shorts;
-        else if (region < 3.5) base = Socks;
-        else base = ShirtB;
-        s = saturate(base * m);
+        // kit-keyed atlases are stored as raw sRGB codes: decode to linear here
+        o = s <= 0.04045 ? s / 12.92 : pow((s + 0.055) / 1.055, 2.4);
     }
-    // kit-keyed atlases are stored as raw sRGB codes: decode to linear here
-    o = s <= 0.04045 ? s / 12.92 : pow((s + 0.055) / 1.055, 2.4);
+    acc += float4(o * c.a, c.a);
 }
-return float4(o, c.a);
+acc /= 9.0;
+return float4(acc.a > 0.0001 ? acc.rgb / acc.a : float3(0, 0, 0), acc.a);
 """
 
 def make_material():

@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.4.0 (2026-11-24): half-size players, HD pitch and goals
+
+From the owner's playtest of v0.3.0: the players were still too big, the cameramen and coaches were too big and stood in the stands, and the pitch looked low resolution.
+
+### Changes
+- **Players at half size.** Everything with height is drawn at half the stadium projection's height scale (`FPFMatch::HeightScale = 0.5`): players, officials, coaches, crew, shadows, the ball's flight and the goals. They stay consistent with each other; a header still meets the ball at head height. A 1.8 m player is now about 20 stadium pixels tall (about 50 screen pixels at 1080p on the default camera). Gameplay distances are unchanged.
+- **Smooth sprites below 1:1.** The sprite material now takes 3×3 samples per screen pixel after the kit recolour, so half-size pixel art is smoothed instead of dropping rows.
+- **New HD pitch.** The stadium plates' grass was 1280×720 art upscaled 3×. A new ground-space pitch is drawn over it, made by `Tools/pipeline/pitch.py` at 32 px per metre: ISS-style mowing stripes across the pitch (20 between the goal lines), fine grass grain and crisp anti-aliased markings to real dimensions. It is tinted per lighting stage (daylight, sunset, floodlit) from the plates' own grass.
+- **Goals drawn in code.** Posts, crossbar, net mesh, rear frame and ground shadow are drawn in screen space at full resolution and at the same height scale. The posts and crossbar are depth-sorted with the players.
+- **Crew and coaches off the stands.** The far touchline backs straight onto the stand, so nothing stands there now. The coaches stand in technical areas on the near-side track, and the cameramen stand behind each goal and on the near track. The far-side assistant referee runs just inside the far touchline.
+
+### Known issues
+- Lying, diving and other horizontal keeper poses still use stand-ins.
+- The stands and the sand behind the goals are still the plates' upscaled pixel art.
+
 ## v0.3.0 (2026-11-24): art gaps closed, kit polish, feel test
 
 ### Changes
