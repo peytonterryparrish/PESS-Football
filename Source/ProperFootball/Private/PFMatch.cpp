@@ -38,7 +38,7 @@ FPFAbility PFAbility(const FPFStats& S, bool bKeeper)
 	A.SprintMul = 1.12f + 0.16f * Pace;
 	A.Accel = 11.f + 30.f * FMath::Pow(Acc, 1.5f);               // 0 -> 7 m/s in ~0.6 s (sluggish) .. ~0.17 s (explosive)
 	A.TurnRate = 1100.f + 1700.f * FMath::Pow(Agi, 1.3f);        // deg/s: a full about-turn in 0.16 s .. 0.06 s (arcade)
-	A.TurnKeep = 0.35f + 0.5f * FMath::Pow(Agi, 1.1f);           // speed kept through a sharp cut
+	A.TurnKeep = 0.35f + 0.5f * FMath::Pow(Agi, 1.1f);           // speed kept through a sharp cut (AI; the pad's player keeps more, see MovePlayers)
 	A.TouchDist = 2.9f - 2.35f * FMath::Pow(Ctl, 0.8f);          // 2.9 m heavy touch .. 0.55 m glued
 	A.FirstTouchErr = 0.95f * FMath::Pow(1.f - Ctl, 1.4f);
 	A.PassErrDeg = 15.f - 14.f * FMath::Pow(Pas, 0.9f);
@@ -329,11 +329,17 @@ void FPFMatch::Tick(float Dt, const FPFPadInput& Pad)
 	BannerT = FMath::Max(0.f, BannerT - Dt);
 	// fixed 120 Hz steps; pressed-this-frame buttons go to the first step only
 	Accum += Dt;
+	// above 120 fps many frames run no step: a press on such a frame used to be dropped (v0.5 "passing is unresponsive")
+	PendPad.bPass |= Pad.bPass; PendPad.bLob |= Pad.bLob; PendPad.bThrough |= Pad.bThrough; PendPad.bSwitch |= Pad.bSwitch;
+	PendPad.bShootPressed |= Pad.bShootPressed; PendPad.bShootReleased |= Pad.bShootReleased;
 	FPFPadInput In = Pad;
+	In.bPass = PendPad.bPass; In.bLob = PendPad.bLob; In.bThrough = PendPad.bThrough; In.bSwitch = PendPad.bSwitch;
+	In.bShootPressed = PendPad.bShootPressed; In.bShootReleased = PendPad.bShootReleased;
 	while (Accum >= 1.f / 120.f)
 	{
 		Step(1.f / 120.f, In);
 		In.bPass = In.bLob = In.bThrough = In.bSwitch = In.bShootPressed = In.bShootReleased = false;
+		PendPad = FPFPadInput();
 		Accum -= 1.f / 120.f;
 	}
 	// camera: follow the ball with a little lead, in atlas pixels
@@ -529,14 +535,27 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 	if (H.Act == EPFAct::None || H.Act == EPFAct::Clip) { H.Wish = WDir * Mag; H.bSprint = Pad.bSprint; }
 	const FVector2D AimDir = WDir.IsZero() ? H.Facing : WDir;
 	const bool bHasBall = Ball.Owner == Human;
+	if (Pad.bPass) BufPass = 0.22f;
+	if (Pad.bLob) BufLob = 0.22f;
+	if (Pad.bThrough) BufThrough = 0.22f;
+	if (Pad.bShootPressed) BufShoot = 0.22f;
+	ON_SCOPE_EXIT { BufPass = FMath::Max(0.f, BufPass - Dt); BufLob = FMath::Max(0.f, BufLob - Dt); BufThrough = FMath::Max(0.f, BufThrough - Dt); BufShoot = FMath::Max(0.f, BufShoot - Dt); };
 
 	if (bHasBall || (Ball.Owner < 0 && Ball.LastTouch == Human && FVector2D::Distance(H.Pos, V2(Ball.Pos)) < 2.f))
 	{
-		if (H.Act != EPFAct::None) return;
-		if (Pad.bPass) { const int32 R = BestPassTarget(H, AimDir, false); StartClip(H, TEXT("pass"), EPFKick::Pass); H.KickTarget = R; H.KickAim = R >= 0 ? P[R].Pos : H.Pos + AimDir * 14.f; H.KickPower = 0.6f; return; }
-		if (Pad.bThrough) { const int32 R = BestPassTarget(H, AimDir, true); StartClip(H, TEXT("pass"), EPFKick::Through); H.KickTarget = R; H.KickAim = R >= 0 ? P[R].Pos : H.Pos + AimDir * 20.f; H.KickPower = 0.75f; return; }
-		if (Pad.bLob) { const int32 R = BestPassTarget(H, AimDir, false); StartClip(H, TEXT("lob"), EPFKick::Lob); H.KickTarget = R; H.KickAim = R >= 0 ? P[R].Pos : H.Pos + AimDir * 28.f; H.KickPower = 0.8f; return; }
-		if (Pad.bShootPressed) { H.bCharging = true; H.Charge = 0; }
+		// a kick in progress finishes; anything else (a turn, a trap) is cancelled by a kick press
+		if (H.Act != EPFAct::None && (H.Act != EPFAct::Clip || H.PendingKick != EPFKick::None)) return;
+		// the ball leaves the boot on the press (ISS): the kick fires now, the clip just plays out
+		auto KickNow = [&](FName Clip, EPFKick Kind, int32 R, FVector2D Aim, float Pow)
+		{
+			StartClip(H, Clip, Kind); H.KickTarget = R; H.KickAim = Aim; H.KickPower = Pow;
+			H.bEventFired = true; FireKick(H);
+			BufPass = BufLob = BufThrough = BufShoot = 0;
+		};
+		if (BufPass > 0) { const int32 R = BestPassTarget(H, AimDir, false); KickNow(TEXT("pass"), EPFKick::Pass, R, R >= 0 ? P[R].Pos : H.Pos + AimDir * 14.f, 0.6f); return; }
+		if (BufThrough > 0) { const int32 R = BestPassTarget(H, AimDir, true); KickNow(TEXT("pass"), EPFKick::Through, R, R >= 0 ? P[R].Pos : H.Pos + AimDir * 20.f, 0.75f); return; }
+		if (BufLob > 0) { const int32 R = BestPassTarget(H, AimDir, false); KickNow(TEXT("lob"), EPFKick::Lob, R, R >= 0 ? P[R].Pos : H.Pos + AimDir * 28.f, 0.8f); return; }
+		if (BufShoot > 0 && !H.bCharging) { H.bCharging = true; H.Charge = 0; BufShoot = 0; }
 		if (H.bCharging)
 		{
 			H.Charge = FMath::Min(1.f, H.Charge + Dt / 0.55f);
@@ -550,6 +569,7 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 				FVector2D Aim = Goal + FVector2D(0, FMath::Clamp(-Side * 6.f, -GoalHalf + 0.4f, GoalHalf - 0.4f) * (AttackDir(H.Team) > 0 ? 1 : -1));
 				if (FVector2D::Distance(H.Pos, Goal) > 40.f) Aim = H.Pos + AimDir * 40.f;
 				StartClip(H, TEXT("shot"), EPFKick::Shot); H.KickAim = Aim; H.KickPower = FMath::Max(0.25f, H.Charge); H.KickTarget = -1;
+				H.bEventFired = true; FireKick(H);
 			}
 		}
 		return;
@@ -557,8 +577,11 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 
 	// without the ball
 	H.bCharging = false;
-	if (Pad.bSwitch || Pad.bPass)
+	// a pass pressed just before a ball arrives is a first-time pass, not a switch
+	const bool bIncoming = Ball.Owner < 0 && Ball.LastTeam == H.Team && Ball.LastTouch != Human && FVector2D::Distance(H.Pos, V2(Ball.Pos)) < 4.f;
+	if (Pad.bSwitch || (Pad.bPass && !bIncoming))
 	{
+		BufPass = BufLob = BufThrough = BufShoot = 0;
 		// next-best teammate to the ball (ISS style)
 		int32 Best = -1; float BD = 1e9;
 		for (const FPFPlayer& Pl : P)
@@ -959,12 +982,14 @@ void FPFMatch::MovePlayers(float Dt)
 			{
 				const float Cos = FVector2D::DotProduct(Pl.Vel / Speed, Want);
 				const float K = FMath::Clamp((Cos + 1.f) * 0.5f, 0.f, 1.f);
-				if (Cos < 0.92f) Speed *= FMath::Lerp(Pl.A.TurnKeep * (bOnBall ? 0.75f : 1.f), 1.f, K * K);
+				const bool bPad = Pl.Index == Human && !Setup.bWatchOnly;   // arcade cuts for the controlled player: most of the speed survives
+				const float Keep = bPad ? FMath::Max(Pl.A.TurnKeep, 0.72f + 0.25f * Pl.A.TurnKeep) * (bOnBall ? 0.92f : 1.f) : Pl.A.TurnKeep * (bOnBall ? 0.75f : 1.f);
+				if (Cos < 0.92f) Speed *= FMath::Lerp(Keep, 1.f, K * K);
 			}
 			if (!bKicking)
 			{
 				const float Ang = FMath::RadiansToDegrees(FMath::Atan2(FVector2D::CrossProduct(Pl.Facing, Want), FVector2D::DotProduct(Pl.Facing, Want)));
-				const float MaxTurn = Pl.A.TurnRate * Dt;
+				const float MaxTurn = Pl.Index == Human && !Setup.bWatchOnly ? 360.f : Pl.A.TurnRate * Dt;   // the pad's player snaps round
 				Pl.Facing = SafeN(Rot(Pl.Facing, FMath::Clamp(Ang, -MaxTurn, MaxTurn)));
 			}
 			Speed = Speed < WantSpeed ? FMath::Min(WantSpeed, Speed + Pl.A.Accel * Dt) : FMath::Max(WantSpeed, Speed - 32.f * Dt);
@@ -1126,18 +1151,17 @@ void FPFMatch::BallPhysics(float Dt)
 			const FVector2D Mv = SafeN(O.Vel, O.Facing);
 			// a sharp cut at speed can lose a poorly controlled ball (the old direction keeps it)
 			const bool bCut = FVector2D::DotProduct(Mv, O.DribbleDir) < -0.1f;
-			if (bCut && Spd > 4.f && Rng.Unit() < O.A.FirstTouchErr * 0.5f)   // one roll per cut: the ball snaps round if he keeps it
+			if (bCut && Spd > 6.f && O.Index != Human && Rng.Unit() < O.A.FirstTouchErr * 0.25f)   // AI only, one roll per cut: the ball snaps round if he keeps it
 			{
 				Ball.Owner = -1; Ball.Vel = FVector(O.DribbleDir * Spd * 1.1f, 0); O.NoTouch = 0.3f; Ball.LastTouch = O.Index; Ball.LastTeam = O.Team; Diag[6]++;
 				return;
 			}
-			O.DribbleDir = bCut ? Mv : SafeN(FMath::Lerp(O.DribbleDir, Mv, FMath::Min(1.f, Dt * 14.f)), Mv);
-			const bool bLong = O.bSprint || O.A.TouchDist > 1.6f;
-			const float Steps = O.Gait * 2.f;                     // steps taken
-			const float U = FMath::Frac(bLong ? Steps * 0.5f : Steps);
-			const float Amp = FMath::Clamp(O.A.TouchDist * (bLong ? 0.75f : 0.45f), 0.18f, 1.9f);
-			const float Ahead = 0.42f + Amp * FMath::Sin(U * PI);
-			const float Side = 0.08f * FMath::Cos(PI * Steps);       // swaps feet smoothly, one step to the next
+			O.DribbleDir = Mv;                                        // the ball swings round with the body at once (arcade)
+			const float Steps = O.Gait * 2.f;                         // steps taken
+			const float U = FMath::Frac(Steps);                       // a touch every step: the ball never leaves the boots (ISS)
+			const float Amp = FMath::Clamp(O.A.TouchDist * 0.08f, 0.04f, 0.16f) * (O.bSprint ? 1.6f : 1.f);
+			const float Ahead = 0.24f + Amp * FMath::Sin(U * PI);     // metres; players are drawn at half height, so this reads as at the feet
+			const float Side = 0.04f * FMath::Cos(PI * Steps);        // swaps feet smoothly, one step to the next
 			const FVector2D Lat(-O.DribbleDir.Y, O.DribbleDir.X);
 			const FVector2D NP = O.Pos + O.DribbleDir * Ahead + Lat * Side;
 			// the ball's velocity is the carrier's: AI prediction, the camera lead and anyone reading Ball.Vel see a smooth run,
@@ -1145,9 +1169,9 @@ void FPFMatch::BallPhysics(float Dt)
 			Ball.Vel = FVector(O.Vel, 0);
 			Ball.Pos = FVector(NP, 0.11f);
 			// a touch that runs out from the boots can be nicked by an opponent who gets a foot to it
-			if (Ahead > 1.1f)
+			if (Ahead > 0.27f)
 				for (FPFPlayer& D : P)
-					if (D.Team != O.Team && !D.bSentOff && !D.bKeeper && D.NoTouch <= 0 && D.Act == EPFAct::None && FVector2D::Distance(D.Pos + D.Facing * 0.3f, NP) < 0.45f && Rng.Unit() < 0.04f)
+					if (D.Team != O.Team && !D.bSentOff && !D.bKeeper && D.NoTouch <= 0 && D.Act == EPFAct::None && FVector2D::Distance(D.Pos + D.Facing * 0.3f, NP) < 0.6f && Rng.Unit() < 0.05f)
 					{
 						Ball.Owner = -1; { const FVector2D Lt(-O.DribbleDir.Y, O.DribbleDir.X); const float Sg = FVector2D::DotProduct(D.Pos - O.Pos, Lt) > 0 ? -1.f : 1.f; Ball.Vel = FVector(SafeN(Lt * Sg - O.DribbleDir * 0.3f) * 3.5f, 0.f); Ball.LastKind = 16; } Ball.LastTouch = D.Index; Ball.LastTeam = D.Team;
 						O.NoTouch = 0.4f; Diag[4]++;

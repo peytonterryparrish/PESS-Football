@@ -211,6 +211,8 @@ private:
 	int32 KickoffTeam = 0;
 	int32 FirstKickoffTeam = 0;
 	float Accum = 0;
+	FPFPadInput PendPad;          // presses seen on frames that ran no 120 Hz step (high frame rates), kept for the next step
+	float BufPass = 0, BufLob = 0, BufThrough = 0, BufShoot = 0;   // input buffer (s left): a press counts if the player can act soon after
 	float StuckT = 0;
 	int32 LastShotTeam = -1;
 

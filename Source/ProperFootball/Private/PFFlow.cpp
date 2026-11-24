@@ -163,6 +163,41 @@ void UPFFlow::RunFeelTest()
 		UE_LOG(LogPF, Display, TEXT("PFFEEL %s player%s: top speed %.1f m/s reached in %.2f s; reverse: moving back in %.3f s, facing back in %.3f s, %.1f m/s after 0.1 s; stop in %.2f s"),
 			Variant < 2 ? TEXT("slow") : TEXT("fast"), bBall ? TEXT(" dribbling") : TEXT(""), H.A.MaxSpeed, TTop, TMove, TFace, Sp100, T);
 	}
+	// passing at a high frame rate (300 fps: most frames run no 120 Hz step) and how far the dribble runs from the boots
+	for (int32 Trial = 0; Trial < 2; ++Trial)
+	{
+		FPFMatch M;
+		FPFMatchSetup S; S.Seed = 91 + Trial;
+		S.Home = PFWorld::FriendlyTeam(C[0], false, 11); S.Away = PFWorld::FriendlyTeam(C[1], true, 13);
+		S.Home.bHuman = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[0].Stadium;
+		M.Init(S);
+		{ FPFPadInput In; In.bPass = true; M.Tick(1.f / 120.f, In); }
+		FPFPadInput In; for (int32 f = 0; f < 60; ++f) M.Tick(1.f / 120.f, In);
+		for (FPFPlayer& O : M.P) if (O.Team == 1) O.bSentOff = true;
+		FPFPlayer& H = M.P[M.Human];
+		H.Pos = FVector2D(-10, 0); H.Vel = FVector2D::ZeroVector; H.Act = EPFAct::None;
+		M.Ball.Owner = M.Human; M.Ball.Pos = FVector(H.Pos, 0.11f); M.Ball.Vel = FVector::ZeroVector;
+		In.Move = FVector2D(1, 0); In.bSprint = Trial == 1;
+		float MaxAhead = 0;
+		for (int32 f = 0; f < 300; ++f) { M.Tick(1.f / 300.f, In); if (M.Ball.Owner == M.Human) MaxAhead = FMath::Max(MaxAhead, (float)FVector2D::Distance(H.Pos, FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y))); }
+		int32 Presses = 0, Passed = 0; float LatSum = 0, LatMax = 0;
+		for (int32 k = 0; k < 20; ++k)
+		{
+			// give the ball back, run a few frames, press on one frame only
+			FPFPlayer& Hk = M.P[M.Human];
+			Hk.Act = EPFAct::None; M.Ball.Owner = M.Human; M.Ball.Pos = FVector(Hk.Pos, 0.11f); M.Ball.Vel = FVector::ZeroVector;
+			FPFPadInput Q; Q.Move = FVector2D(1, 0);
+			for (int32 f = 0; f < 7 + k; ++f) M.Tick(1.f / 300.f, Q);
+			const int32 Who = M.Human;
+			Q.bPass = true; M.Tick(1.f / 300.f, Q); Q.bPass = false; ++Presses;
+			float T = 1.f / 300.f;
+			while (T < 0.5f && M.Ball.Owner == Who) { M.Tick(1.f / 300.f, Q); T += 1.f / 300.f; }
+			if (M.Ball.Owner != Who) { ++Passed; LatSum += T; LatMax = FMath::Max(LatMax, T); }
+			for (int32 f = 0; f < 150; ++f) M.Tick(1.f / 300.f, Q);
+		}
+		UE_LOG(LogPF, Display, TEXT("PFFEEL pass at 300 fps: %d / %d presses passed, ball away in %.3f s on average (worst %.3f s); dribble%s: ball at most %.2f m from the player"),
+			Passed, Presses, Passed ? LatSum / Passed : -1.f, LatMax, Trial == 1 ? TEXT(" sprinting") : TEXT(""), MaxAhead);
+	}
 	QuitAt = Time + 0.5f;
 }
 
