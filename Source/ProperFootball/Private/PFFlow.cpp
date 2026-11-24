@@ -282,7 +282,7 @@ void UPFFlow::LoadOptions()
 			if (K == TEXT("music")) MusicVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("sfx")) SfxVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("halflen")) FriendlyLen = FMath::Clamp(FCString::Atoi(*V), 0, 3);
-			if (K == TEXT("camera")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 2);
+			if (K == TEXT("cam")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 2);
 		}
 	}
 	ApplyCamera();
@@ -290,14 +290,14 @@ void UPFFlow::LoadOptions()
 
 void UPFFlow::ApplyCamera()
 {
-	static const float Z[] = { 2.85f, 2.5f, 2.2f };   // near / medium / far (screen px per stadium px at 1080p)
+	static const float Z[] = { 6.24f, 4.68f, 3.12f };   // near / medium / far: sprite pixels 2:1, 1.5:1, 1:1 at 1080p (HeightScale 0.5)
 	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 2)];
 }
 
 void UPFFlow::SaveOptions()
 {
 	ApplyCamera();
-	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncamera=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
+	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
 	if (Music) Music->SetVolumeMultiplier((MusicName == TEXT("crowd_loop") ? 0.55f * SfxVol : 0.45f * MusicVol) / 10.f);
 }
 

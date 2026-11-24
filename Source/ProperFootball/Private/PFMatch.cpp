@@ -24,7 +24,7 @@ int32 FPFStats::Overall(bool bKeeper) const
 	return FMath::RoundToInt((Pace + Accel + Agility + Control + Passing + Shooting + Tackling + Positioning + Reactions + Heading) / 10.f);
 }
 
-float FPFMatch::CamZoom = 2.5f;
+float FPFMatch::CamZoom = 6.24f;   // NEAR: 2 * 64 / (22.533 * 0.5 * 1.82), so a sprite pixel is exactly 2x2 screen pixels at 1080p (ISS framing)
 float FPFMatch::HeightScale = 0.5f;
 int64 FPFMatch::Diag[32] = {};
 
@@ -86,7 +86,7 @@ static UTexture2D* MakeEllipse(int32 W, int32 H, bool bRing)
 			const float r = FMath::Sqrt(nx * nx + ny * ny);
 			FColor C(0, 0, 0, 0);
 			if (bRing) { if (r <= 1.f && r > 0.72f) C = FColor(255, 255, 255, 255); }
-			else if (r <= 1.f) C = FColor(0, 0, 0, 96);
+			else if (r <= 1.f) C = FColor(0, 0, 0, 165);
 			D[y * W + x] = C;
 		}
 	T->GetPlatformData()->Mips[0].BulkData.Unlock();
@@ -100,13 +100,14 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 	Rng = PF::FRng(Setup.Seed);
 	Proj.Load();
 	Stadium = PF::LoadTexture(FString::Printf(TEXT("ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Clubs/%s/%s_Stadium_4K.png"), *Setup.StadiumSlug, *Setup.Stage));
-	BallTex = PF::LoadTexture(TEXT("GameData/Ball/ball_sheet.png"));
-	ShadowTex = MakeEllipse(24, 10, false);
+	BallTex = PF::LoadTexture(TEXT("GameData/Ball/ball_sheet.png"), true, true);
+	ShadowTex = MakeEllipse(26, 9, false);
 	RingTex = MakeEllipse(30, 12, true);
 	CursorTex = PF::LoadTexture(TEXT("GameData/UI/ico_cursor_south.png"));
 
 	// HD pitch (the plate's own grass is 1280x720 art upscaled; goals are drawn in code at the same resolution)
-	PitchTex = PF::LoadTexture(TEXT("GameData/Pitch/pitch.png"), true, true);
+	if (UMaterialInterface* PM = LoadObject<UMaterialInterface>(nullptr, TEXT("/Game/PF/M_PFPitch.M_PFPitch")))
+		PitchMid = UMaterialInstanceDynamic::Create(PM, GetTransientPackage());
 	if (TSharedPtr<FJsonObject> PJ = PF::LoadJson(TEXT("GameData/Pitch/pitch.json")))
 	{
 		PitchX0 = PJ->GetNumberField(TEXT("x0")); PitchY0 = PJ->GetNumberField(TEXT("y0"));
@@ -181,7 +182,7 @@ void FPFMatch::AddReferencedObjects(FReferenceCollector& Collector)
 	Collector.AddReferencedObject(ShadowTex);
 	Collector.AddReferencedObject(RingTex);
 	Collector.AddReferencedObject(CursorTex);
-	Collector.AddReferencedObject(PitchTex);
+	Collector.AddReferencedObject(PitchMid);
 	for (int32 g = 0; g < 2; ++g) { Collector.AddReferencedObject(GoalShadow[g].Tex); Collector.AddReferencedObject(GoalRear[g].Tex); Collector.AddReferencedObject(GoalFront[g].Tex); }
 	for (FPFSpriteSet& S : Sets) Collector.AddReferencedObject(S.Atlas);
 	for (auto& KV : Mids) Collector.AddReferencedObject(KV.Value);
@@ -1497,7 +1498,8 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	const float Zoom = FMath::Max(1.f, SH / 1080.f * CamZoom);
 	FPFProjection Pv = Proj;                 // drawing projection: heights scaled (HeightScale), ground unchanged
 	Pv.Az *= HeightScale;
-	const float SpriteScale = Zoom * Pv.Az.Size() * PlayerHeightM / 64.f;
+	float SpriteScale = Zoom * Pv.Az.Size() * PlayerHeightM / 64.f;
+	if (FMath::Abs(SpriteScale - FMath::RoundToFloat(SpriteScale)) < 0.03f) SpriteScale = FMath::RoundToFloat(SpriteScale);   // crisp 1:1 / 2:1 when close
 	const FVector2D View(SW / Zoom, SH / Zoom);
 	FVector2D Cam = CamCenter;
 	Cam.X = FMath::Clamp(Cam.X, View.X * 0.5f, Proj.AtlasSize.X - View.X * 0.5f);
@@ -1537,27 +1539,22 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		Tris.Reset();
 	};
 	// HD pitch over the plate's grass (grass runs to the touchlines at the sides, ~4 m past the goal lines at the ends)
-	if (PitchTex)
+	if (PitchMid)
 	{
-		const float X1 = 56.75f, Yn = -(HalfWid + 0.3f), Yf = HalfWid;
-		auto V = [&](float X, float Y, FVector2D& Pos, FVector2D& UV)
-		{
-			const FVector2D A = Proj.GroundToAtlas(FVector2D(X, Y));
-			Pos = FVector2D((A.X - TL.X) * Zoom, (A.Y - TL.Y) * Zoom);
-			UV = FVector2D((X + PitchX0) / (2.f * PitchX0), (PitchY0 - Y) / (2.f * PitchY0));
-		};
-		FCanvasUVTri T0, T1;
-		V(-X1, Yn, T0.V0_Pos, T0.V0_UV); V(X1, Yn, T0.V1_Pos, T0.V1_UV); V(X1, Yf, T0.V2_Pos, T0.V2_UV);
-		V(-X1, Yn, T1.V0_Pos, T1.V0_UV); V(X1, Yf, T1.V1_Pos, T1.V1_UV); V(-X1, Yf, T1.V2_Pos, T1.V2_UV);
-		T0.V0_Color = T0.V1_Color = T0.V2_Color = T1.V0_Color = T1.V1_Color = T1.V2_Color = PitchTint;
-		TArray<FCanvasUVTri> PT; PT.Add(T0); PT.Add(T1);
-		FCanvasTriangleItem TI(PT, PitchTex->GetResource());
-		TI.BlendMode = SE_BLEND_Opaque;
-		C->DrawItem(TI);
+		const FVector2D G0 = Proj.AtlasToGround(TL);
+		const FVector2D GA = Proj.AtlasToGround(TL + FVector2D(1.f / Zoom, 0)) - G0, GB = Proj.AtlasToGround(TL + FVector2D(0, 1.f / Zoom)) - G0;
+		PitchMid->SetVectorParameterValue(TEXT("P1"), FLinearColor(SW, SH, FMath::Max(1.f, FMath::RoundToFloat(SpriteScale)), 0));
+		PitchMid->SetVectorParameterValue(TEXT("G0"), FLinearColor(G0.X, G0.Y, 0, 0));
+		PitchMid->SetVectorParameterValue(TEXT("GA"), FLinearColor(GA.X, GA.Y, 0, 0));
+		PitchMid->SetVectorParameterValue(TEXT("GB"), FLinearColor(GB.X, GB.Y, 0, 0));
+		PitchMid->SetVectorParameterValue(TEXT("Cam"), FLinearColor(FMath::RoundToFloat(TL.X * Zoom), FMath::RoundToFloat(TL.Y * Zoom), 0, 0));
+		PitchMid->SetVectorParameterValue(TEXT("Tint"), PitchTint);
+		FCanvasTileItem T(FVector2D(0, 0), PitchMid->GetRenderProxy(), FVector2D(SW, SH), FVector2D(0, 0), FVector2D(1, 1));
+		C->DrawItem(T);
 	}
 	// goals, drawn in code: nets and their shadow behind everyone; posts and crossbar join the depth sort below
 	const float NetD = 2.f, BackH = 1.6f;
-	const float LineW = FMath::Max(1.f, SH / 1080.f);
+	const float LineW = FMath::Max(1.f, FMath::RoundToFloat(SpriteScale));   // net strands one art pixel wide
 	for (int32 g = 0; g < 2; ++g)
 	{
 		const float S = g == 0 ? -1.f : 1.f, X0 = S * HalfLen, X1 = S * (HalfLen + NetD);
@@ -1612,8 +1609,8 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	// shadows
 	auto DrawShadow = [&](FVector2D Ground, float Scale)
 	{
-		const FVector2D S = ToScreen(Proj.GroundToAtlas(Ground));
-		const FVector2D Sz = FVector2D(24, 10) * SpriteScale * Scale;
+		const FVector2D S = ToScreen(Proj.GroundToAtlas(Ground)) + FVector2D(FMath::RoundToFloat(5.f * SpriteScale * Scale), FMath::RoundToFloat(1.f * SpriteScale * Scale));   // cast toward the lower right (ISS)
+		const FVector2D Sz = FVector2D(FMath::RoundToFloat(26 * SpriteScale * Scale), FMath::RoundToFloat(9 * SpriteScale * Scale));
 		FCanvasTileItem T(S - Sz * 0.5f, ShadowTex->GetResource(), Sz, FLinearColor::White);
 		T.BlendMode = SE_BLEND_Translucent;
 		C->DrawItem(T);

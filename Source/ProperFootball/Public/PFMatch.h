@@ -196,7 +196,7 @@ private:
 	TObjectPtr<UTexture2D> ShadowTex = nullptr, RingTex = nullptr, CursorTex = nullptr;
 	struct FGoalLayer { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D XY, WH; };
 	FGoalLayer GoalShadow[2], GoalRear[2], GoalFront[2];
-	TObjectPtr<UTexture2D> PitchTex = nullptr;   // HD ground-space pitch (Tools/pipeline/pitch.py), drawn over the plate's grass
+	TObjectPtr<UMaterialInstanceDynamic> PitchMid = nullptr;   // M_PFPitch: dithered grass + markings, drawn over the plate's grass
 	FLinearColor PitchTint = FLinearColor::White;
 	float PitchX0 = 57.f, PitchY0 = 34.5f;
 	TMap<uint64, TObjectPtr<UMaterialInstanceDynamic>> Mids;

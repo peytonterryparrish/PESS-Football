@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.5.0 (2026-11-24): ISS framing, dithered pitch, hard shadows
+
+From the owner's reference shots of ISS Deluxe: the camera needed to be much closer, and the pitch needed the same dither, shadows and contrast.
+
+### Changes
+- **Camera much closer.** NEAR, the new default, shows about 14 m of pitch across at 1080p, and every sprite pixel is exactly 2×2 screen pixels, so players are crisp and big on screen (about 128 px tall at 1080p). Players stay at the half size relative to the pitch that v0.4 set. MEDIUM is 1.5:1 and FAR is 1:1 (about 28 m across). Saved camera choices from earlier versions are reset to NEAR.
+- **Dithered ISS-style pitch.** A new pitch material (`M_PFPitch`, made by `Tools/ue/make_assets.py`) draws the grass in pixels the same size as the sprites' pixels. It uses clustered dark and light speckle over high-contrast mowing stripes, with white markings to real dimensions. The pattern is locked to the world, so it doesn't swim when the camera pans. Sunset and floodlit tints come from `Tools/pipeline/pitch.py`. It replaces v0.4's smooth pitch image, which has been removed.
+- **Hard shadows.** Player and ball shadows are darker, hard-edged and cast toward the lower right, like ISS.
+- Goal net strands are one art pixel wide, so they match the pixel scale.
+
+### Known issues
+- At this zoom the stands and the sand behind the goals (still the plates' upscaled art) look very blocky when they're on screen.
+- Lying, diving and other horizontal keeper poses still use stand-ins.
+
 ## v0.4.0 (2026-11-24): half-size players, HD pitch and goals
 
 From the owner's playtest of v0.3.0: the players were still too big, the cameramen and coaches were too big and stood in the stands, and the pitch looked low resolution.
