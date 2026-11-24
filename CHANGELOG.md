@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.3.0 (2026-11-24): art gaps closed, kit polish, feel test
+
+### Changes
+- **Every body complete.** The missing 15-pose batch for body O29 was regenerated (PixelLab static poses), so all 32 outfield bodies have every pose in all 8 directions.
+- **No more green specks.** Blended template-green pixels at the shorts' edges used to keep their raw green in every kit. They are now part of the shorts and take the club's colour. All 45 atlases were rebuilt.
+- **More build-up play.** AI players pass more in midfield and under pressure, instead of running at goal. AI matches average about 5.3 goals.
+
+### Tooling
+- **`-pffeeltest`:** a headless control test. It drives the human player with a scripted stick on an empty pitch and times top speed, reversal, facing and stopping, with and without the ball, for a slow and a fast player. Today's numbers:
+
+  | | Slow player | Fast player |
+  |---|---|---|
+  | Top speed | 4.5 m/s in 0.28 s | 8.6 m/s in 0.23 s |
+  | Reversing direction | moving back in one 120 Hz tick, facing back in 0.11 s | moving back in one tick, facing back in 0.07 s |
+  | Stop | 0.15 s | 0.28 s |
+
+- **`-pfsimtest`** now also reports passes, blocks, keeper dives and saves, and how each goal was scored.
+
+### Known issues
+- Lying, diving and other horizontal keeper poses still use stand-ins. They need a different generation method, planned next.
+- Sprite pixels are drawn at true size, so at 1080p they are not an exact multiple of screen pixels.
+
 ## v0.2.0 (2026-11-24): true scale, arcade feel
 
 From the owner's first playtest: the players were too big for the pitch, turning slid, everything felt draggy, dribbling feet ran like a rabbit's, and the camera was too far out. Also: no button worked in v0.1.0.

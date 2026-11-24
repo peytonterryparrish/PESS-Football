@@ -97,6 +97,7 @@ void UPFFlow::Begin(UWorld* World)
 	if (FParse::Param(FCommandLine::Get(), TEXT("pfmanage"))) { FriendlySide = 2; bManageView = true; }
 	int32 TestMatches = 0;
 	if (FParse::Value(FCommandLine::Get(), TEXT("pfsimtest="), TestMatches)) { RunMatchTest(TestMatches); return; }
+	if (FParse::Param(FCommandLine::Get(), TEXT("pffeeltest"))) { RunFeelTest(); return; }
 	int32 TestSeasons = 0;
 	if (FParse::Value(FCommandLine::Get(), TEXT("pfcareertest="), TestSeasons)) { RunCareerTest(TestSeasons); return; }
 	FString CScreen;
@@ -115,6 +116,54 @@ void UPFFlow::Begin(UWorld* World)
 	}
 	if (FParse::Param(FCommandLine::Get(), TEXT("pfmatch"))) StartFriendly();
 	else Go(EPFScreen::Title);
+}
+
+void UPFFlow::RunFeelTest()
+{
+	// headless: the human player in a friendly, stick scripted. Measures how fast the controls answer, for a slow and a fast player.
+	const TArray<FPFClub>& C = PFWorld::Clubs();
+	for (int32 Variant = 0; Variant < 4; ++Variant)
+	{
+		FPFMatch M;
+		FPFMatchSetup S; S.Seed = 77;
+		S.Home = PFWorld::FriendlyTeam(C[0], false, 11); S.Away = PFWorld::FriendlyTeam(C[1], true, 13);
+		S.Home.bHuman = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[0].Stadium;
+		M.Init(S);
+		auto Run = [&M](float Secs, FVector2D Stick, bool bSprint) { FPFPadInput In; In.Move = Stick; In.bSprint = bSprint; for (int32 f = 0; f < int32(Secs * 120); ++f) M.Tick(1.f / 120.f, In); };
+		// get into open play
+		{ FPFPadInput In; In.bPass = true; M.Tick(1.f / 120.f, In); }
+		Run(0.5f, FVector2D::ZeroVector, false);
+		FPFPlayer& H = M.P[M.Human];
+		H.Setup.Stats.Pace = H.Setup.Stats.Accel = H.Setup.Stats.Agility = Variant < 2 ? 30 : 90;
+		H.A = PFAbility(H.Setup.Stats, false);
+		H.Pos = FVector2D(0, 20); H.Vel = FVector2D::ZeroVector;
+		for (FPFPlayer& O : M.P) if (O.Index != M.Human) O.bSentOff = true;   // an empty pitch: nothing but the controls
+		const bool bBall = (Variant % 2) == 1;
+		if (bBall) { M.Ball.Owner = M.Human; M.Ball.Pos = FVector(H.Pos, 0.11f); } else { M.Ball.Owner = -1; M.Ball.Pos = FVector(0, -30, 0.11f); M.Ball.Vel = FVector::ZeroVector; }
+		const FVector2D R(1, 0), L(-1, 0);
+		// time to top speed from a standstill
+		float T = 0; FPFPadInput In; In.Move = R;
+		while (T < 3.f) { M.Tick(1.f / 120.f, In); T += 1.f / 120.f; if (H.Vel.Size() > H.A.MaxSpeed * (bBall ? 0.76f : 0.95f)) break; }
+		const float TTop = T;
+		Run(0.6f, R, false);
+		// reversal: time until moving the other way, time until facing it, speed after 0.1 s
+		const FVector2D Before = H.Vel.GetSafeNormal();
+		T = 0; float TMove = -1, TFace = -1; In.Move = L; float Sp100 = 0;
+		while (T < 1.f)
+		{
+			M.Tick(1.f / 120.f, In); T += 1.f / 120.f;
+			if (TMove < 0 && FVector2D::DotProduct(H.Vel.GetSafeNormal(), Before) < -0.9f) TMove = T;
+			if (TFace < 0 && FVector2D::DotProduct(H.Facing, Before) < -0.9f) TFace = T;
+			if (FMath::IsNearlyEqual(T, 0.1f, 0.005f)) Sp100 = H.Vel.Size();
+		}
+		// stop
+		T = 0; In.Move = FVector2D::ZeroVector; const int32 HumanBefore = M.Human;
+		while (T < 1.f && H.Vel.Size() > 0.2f) { M.Tick(1.f / 120.f, In); T += 1.f / 120.f; }
+		if (M.Human != HumanBefore) UE_LOG(LogPF, Display, TEXT("PFFEEL control switched during the stop test (%d -> %d)"), HumanBefore, M.Human);
+		UE_LOG(LogPF, Display, TEXT("PFFEEL %s player%s: top speed %.1f m/s reached in %.2f s; reverse: moving back in %.3f s, facing back in %.3f s, %.1f m/s after 0.1 s; stop in %.2f s"),
+			Variant < 2 ? TEXT("slow") : TEXT("fast"), bBall ? TEXT(" dribbling") : TEXT(""), H.A.MaxSpeed, TTop, TMove, TFace, Sp100, T);
+	}
+	QuitAt = Time + 0.5f;
 }
 
 void UPFFlow::RunMatchTest(int32 N)
