@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.6.0 (2026-11-24): passing fixed, ball at the feet, ISS Deluxe pace and pitch
+
+From the owner's playtest of v0.5.0: passing was unresponsive, the dribble ran too far from the feet, turns needed to be quicker, the game must be single player and offline only, and the look and flow should follow ISS Deluxe as closely as possible, studied frame by frame from real footage.
+
+### Fixes
+- **Passing was unresponsive.** The match runs at a fixed 120 Hz, and a button press only counted on the frame it happened. Above 120 fps (full screen) many frames run no match step, so most presses were thrown away. Presses are now carried to the next step and buffered for 0.22 s. A press during a turn or trap still counts. The ball leaves the boot on the press, and the clip just plays out. A pass pressed as a teammate's ball arrives plays a first-time pass instead of switching player. The feel test measures it: 20 of 20 single-frame presses at 300 fps passed, with the ball away within 0.01 s.
+- **The dribble ran too far ahead.** It was tuned in metres for full-size players, then players were drawn at half height. The ball is now touched every step and stays 0.24 to 0.40 m ahead (0.26 to 0.44 of a player's drawn height), the same range as in the footage. It swings round with the body at once on a turn.
+- **Turns.** The controlled player faces the new direction at once and keeps most of his speed through a cut (72 to 97%, by agility). AI players keep their v0.5 turning so match balance is unchanged.
+- **Single player, offline only.** There was no online or multiplayer code; friendlies were already HOME, AWAY or WATCH with one human. The engine's online subsystem plugins are now disabled in the project too.
+
+### ISS Deluxe look and flow (see docs/ISS_STUDY.md)
+- **Pace.** Measured from the footage, ISS players run about 5 to 6 of their own heights per second and passes travel about 12. With the half-size players, ours ran about 6.8 and 18. A global `GameSpeed` of 0.85 brings them to about 5.8 and 15. Halves keep their real-time length.
+- **Run cycle.** Stride length is scaled to the half-size bodies, so a two-step cycle takes about 0.3 s at a jog, as in the footage (0.27 s).
+- **Pitch.** Narrow diagonal mowing bands (0.5 m, about 0.4 of a player's height) in the grass colours sampled from the footage, a bright yellow-green, over the same dithered speckle.
+
+### Balance
+- AI matches: 4.0 goals and 26 shots per match (v0.5: 5.3 and 35).
+
 ## v0.5.0 (2026-11-24): ISS framing, dithered pitch, hard shadows
 
 From the owner's reference shots of ISS Deluxe: the camera needed to be much closer, and the pitch needed the same dither, shadows and contrast.

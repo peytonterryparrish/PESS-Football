@@ -26,6 +26,7 @@ int32 FPFStats::Overall(bool bKeeper) const
 
 float FPFMatch::CamZoom = 6.24f;   // NEAR: 2 * 64 / (22.533 * 0.5 * 1.82), so a sprite pixel is exactly 2x2 screen pixels at 1080p (ISS framing)
 float FPFMatch::HeightScale = 0.5f;
+float FPFMatch::GameSpeed = 0.85f;
 int64 FPFMatch::Diag[32] = {};
 
 FPFAbility PFAbility(const FPFStats& S, bool bKeeper)
@@ -328,7 +329,7 @@ void FPFMatch::Tick(float Dt, const FPFPadInput& Pad)
 	Dt = FMath::Min(Dt, 0.1f);
 	BannerT = FMath::Max(0.f, BannerT - Dt);
 	// fixed 120 Hz steps; pressed-this-frame buttons go to the first step only
-	Accum += Dt;
+	Accum += Dt * GameSpeed;
 	// above 120 fps many frames run no step: a press on such a frame used to be dropped (v0.5 "passing is unresponsive")
 	PendPad.bPass |= Pad.bPass; PendPad.bLob |= Pad.bLob; PendPad.bThrough |= Pad.bThrough; PendPad.bSwitch |= Pad.bSwitch;
 	PendPad.bShootPressed |= Pad.bShootPressed; PendPad.bShootReleased |= Pad.bShootReleased;
@@ -448,7 +449,7 @@ void FPFMatch::Step(float Dt, const FPFPadInput& Pad)
 	}
 
 	// ---- open play
-	HalfT += Dt;
+	HalfT += Dt / GameSpeed;      // halves keep their real-time length
 	MatchClock = (Half - 1) * 45.f + FMath::Min(45.f, HalfT / Setup.HalfSeconds * 45.f);
 	if (HalfT >= Setup.HalfSeconds && (Ball.Owner < 0 || FMath::Abs(Ball.Pos.X) < 30.f || HalfT > Setup.HalfSeconds + 8.f))
 	{
@@ -1008,7 +1009,8 @@ void FPFMatch::MovePlayers(float Dt)
 		// run cycle: cadence from a realistic stride length (longer strides when faster), so feet never blur
 		if (Speed > 0.35f)
 		{
-			const float CycleLen = Speed < 2.2f ? 1.5f : FMath::Clamp(1.25f + 0.33f * Speed, 2.2f, 4.6f);   // metres per two steps
+			// metres per two steps, scaled to the half-size bodies: about 0.3 s a cycle at a jog, as measured in ISS Deluxe footage
+			const float CycleLen = 0.45f * (Speed < 2.2f ? 1.5f : FMath::Clamp(1.25f + 0.33f * Speed, 2.2f, 4.6f));
 			Pl.Gait += Speed / CycleLen * Dt;
 		}
 		Pl.Pos.X = FMath::Clamp(Pl.Pos.X, -HalfLen - 4.f, HalfLen + 4.f);
