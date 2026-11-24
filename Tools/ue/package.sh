@@ -7,13 +7,13 @@ REPO="$(cd "$(dirname "$0")/../.." && pwd)"
 UAT="/d/Epic Games/UE_5.8/Engine/Build/BatchFiles/RunUAT.bat"
 VERSION="${1:?version}"
 CONFIG="${2:-Shipping}"
-OUT="/d/PIXFootball/Builds/ProperFootball_v${VERSION}_Windows"
+OUT="/c/PFBuild/Builds/ProperFootball_v${VERSION}_Windows"
 LOG="$REPO/Saved/Logs/package_${VERSION}.log"
 mkdir -p "$REPO/Saved/Logs" "$(dirname "$OUT")"
 sed -i "s/^ProjectVersion=.*/ProjectVersion=$VERSION/" "$REPO/Config/DefaultGame.ini"
 rm -rf "$OUT" "$OUT.staging"
 ARGS=(BuildCookRun "-project=$(cygpath -w "$REPO/ProperFootball.uproject")" -noP4 -platform=Win64 "-clientconfig=$CONFIG" -utf8output -unattended
-      -build -cook -stage -pak -iostore -compressed -prereqs "-stagingdirectory=$(cygpath -w "$OUT.staging")" -nodebuginfo)
+      -build -nocompileeditor -cook -stage -pak -iostore -compressed -prereqs "-stagingdirectory=$(cygpath -w "$OUT.staging")" -nodebuginfo)
 T0=$(date +%s)
 while true; do
     MSYS2_ARG_CONV_EXCL="*" timeout 18000 "$UAT" "${ARGS[@]}" > "$LOG" 2>&1

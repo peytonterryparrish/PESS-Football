@@ -94,6 +94,7 @@ struct FPFPlayer
 	FVector2D Pos = FVector2D::ZeroVector, Vel = FVector2D::ZeroVector;
 	FVector2D Facing = FVector2D(1, 0);
 	FVector2D Wish = FVector2D::ZeroVector;   // desired move direction * (0..1)
+	FVector2D Home = FVector2D::ZeroVector;   // managers: centre of the technical area
 	bool bSprint = false;
 	EPFAct Act = EPFAct::None;
 	FName Clip;
@@ -112,6 +113,8 @@ struct FPFPlayer
 	FVector2D DiveDir = FVector2D::ZeroVector;
 	int32 SpriteSet = 0;
 	bool bBooked = false;
+	bool bSentOff = false;
+	bool bWonBallThisSlide = false;
 	float AIThink = 0;
 };
 
@@ -126,7 +129,7 @@ struct FPFBall
 };
 
 enum class EPFPhase : uint8 { PreKick, Play, Goal, Restart, HalfTime, FullTime };
-enum class EPFRestart : uint8 { Kickoff, ThrowIn, GoalKick, Corner, FreeKick };
+enum class EPFRestart : uint8 { Kickoff, ThrowIn, GoalKick, Corner, FreeKick, Penalty };
 
 struct FPFPadInput
 {
@@ -152,10 +155,14 @@ public:
 	EPFPhase Phase = EPFPhase::PreKick;
 	TArray<FPFMatchEvent> Events;
 	int32 Shots[2] = { 0, 0 };
+	int32 Fouls[2] = { 0, 0 }, Yellows[2] = { 0, 0 }, Reds[2] = { 0, 0 };
 	int32 Human = -1;          // controlled player index
 	FPFMatchSetup Setup;
 	TArray<FPFPlayer> P;
 	TArray<FPFPlayer> Officials;   // [0] referee, [1] [2] assistant referees (drawn, never touch the ball)
+	TArray<FPFPlayer> Managers;    // [0] home, [1] away: in their technical areas
+	struct FCrew { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D Pos; };
+	TArray<FCrew> Crew;            // camera operators and ball boys (static sideline sprites from the owner's pack)
 	FPFBall Ball;
 	FString Banner;            // "GOAL!", "CORNER KICK" ...
 	float BannerT = 0;
@@ -200,6 +207,7 @@ private:
 	void CarrierAI(FPFPlayer& Pl, float Dt);
 	void MovePlayers(float Dt);
 	void MoveOfficials(float Dt);
+	void MoveManagers(float Dt);
 	void BallPhysics(float Dt);
 	void Possession(float Dt);
 	void CheckOut();
@@ -210,6 +218,7 @@ private:
 	int32 NearestToBall(int32 Team, bool bOutfieldOnly) const;
 	FVector2D FormationSpot(const FPFPlayer& Pl) const;
 	void Goal(int32 ScoringTeam);
+	void Foul(FPFPlayer& Offender, FPFPlayer& Victim);
 	void SwitchHuman(int32 NewIdx);
 	EPFDir ScreenDir(FVector2D WorldDir) const;
 	FName PoseFor(const FPFPlayer& Pl) const;

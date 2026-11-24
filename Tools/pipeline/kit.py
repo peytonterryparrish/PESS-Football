@@ -35,7 +35,9 @@ def kit_region(c, min_sat=0.45, max_hue=28):
     best = min(REGION_HUE, key=lambda r: hue_d(h, REGION_HUE[r]))
     if hue_d(h, REGION_HUE[best]) > max_hue: return None
     # red socks vs saturated dark skin/hair: skin hue sits 10-40; socks are 340-360/0-8
-    if best == "socks" and not (h >= 335 or h <= 8): return None
+    # red socks vs auburn/ginger hair and dark skin: the template reds all sit at hue 351-354 and are saturated
+    if best == "socks" and not (342 <= h <= 360 and s > 0.62): return None
+    if best == "trim" and not (285 <= h <= 315 and s > 0.40): return None
     return best
 
 def shade_index(c, region):

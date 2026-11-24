@@ -153,6 +153,28 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 		Of.Facing = o == 1 ? FVector2D(0, 1) : FVector2D(0, -1);
 		Officials.Add(Of);
 	}
+	Managers.Reset();
+	for (int32 t = 0; t < 2; ++t)
+	{
+		FPFPlayer Mg;
+		Mg.Setup.Name = TEXT("Manager");
+		Mg.Setup.Stats.Pace = 30; Mg.A = PFAbility(Mg.Setup.Stats, false);
+		Mg.SpriteSet = SpriteFor(FString::Printf(TEXT("C%02d"), 1 + int32((Setup.Seed + t * 7) % 3)));
+		Mg.Team = 3; Mg.Index = t;
+		Mg.Pos = FVector2D(t == 0 ? -9.f : 9.f, HalfWid + 3.2f);
+		Mg.Home = Mg.Pos;
+		Mg.Facing = FVector2D(0, -1);
+		Managers.Add(Mg);
+	}
+	Crew.Reset();
+	{
+		static const TCHAR* Cam[] = { TEXT("sid_camera_operator_001"), TEXT("sid_camera_operator_004"), TEXT("sid_camera_operator_007") };
+		static const TCHAR* Boy[] = { TEXT("sid_ball_boy_002"), TEXT("sid_ball_boy_005"), TEXT("sid_ball_boy_008"), TEXT("sid_ball_boy_003") };
+		const FVector2D CamPos[] = { FVector2D(-30, HalfWid + 4.5f), FVector2D(0, HalfWid + 6.f), FVector2D(30, HalfWid + 4.5f) };
+		const FVector2D BoyPos[] = { FVector2D(-HalfLen - 3.f, HalfWid - 4.f), FVector2D(HalfLen + 3.f, HalfWid - 4.f), FVector2D(-HalfLen - 3.f, -HalfWid + 6.f), FVector2D(HalfLen + 3.f, -HalfWid + 6.f) };
+		for (int32 i = 0; i < 3; ++i) Crew.Add({ PF::LoadTexture(FString::Printf(TEXT("GameData/UI/%s.png"), Cam[i])), CamPos[i] });
+		for (int32 i = 0; i < 4; ++i) Crew.Add({ PF::LoadTexture(FString::Printf(TEXT("GameData/UI/%s.png"), Boy[i])), BoyPos[i] });
+	}
 	Score[0] = Score[1] = 0;
 	Half = 1; HalfT = 0; MatchClock = 0;
 	KickoffTeam = Rng.Int(2);
@@ -169,6 +191,7 @@ void FPFMatch::AddReferencedObjects(FReferenceCollector& Collector)
 	for (int32 g = 0; g < 2; ++g) { Collector.AddReferencedObject(GoalShadow[g].Tex); Collector.AddReferencedObject(GoalRear[g].Tex); Collector.AddReferencedObject(GoalFront[g].Tex); }
 	for (FPFSpriteSet& S : Sets) Collector.AddReferencedObject(S.Atlas);
 	for (auto& KV : Mids) Collector.AddReferencedObject(KV.Value);
+	for (FCrew& Cr : Crew) Collector.AddReferencedObject(Cr.Tex);
 }
 
 int32 FPFMatch::AttackDir(int32 Team) const
@@ -269,7 +292,7 @@ void FPFMatch::PlaceForRestart()
 	if (Taker >= 0)
 	{
 		FPFPlayer& T = P[Taker];
-		const FVector2D In = SafeN(FVector2D(-RestartSpot.X * 0.3f, -RestartSpot.Y));
+		const FVector2D In = (Restart == EPFRestart::Penalty || Restart == EPFRestart::FreeKick) ? SafeN(GoalCentre(RestartTeam, true) - RestartSpot) : SafeN(FVector2D(-RestartSpot.X * 0.3f, -RestartSpot.Y));
 		T.Pos = RestartSpot - In * 0.6f;
 		T.Facing = In; T.Vel = FVector2D::ZeroVector;
 	}
@@ -391,6 +414,19 @@ void FPFMatch::Step(float Dt, const FPFPadInput& Pad)
 					for (FPFPlayer& Pl : P) if (Pl.Team == T.Team && Pl.Index != T.Index) { float Dd = FVector2D::DistSquared(Pl.Pos, Box); if (Dd < BD) { BD = Dd; R = Pl.Index; } }
 					StartClip(T, TEXT("lob"), EPFKick::Lob); T.KickTarget = R; T.KickAim = R >= 0 ? P[R].Pos : Box; T.KickPower = 0.7f;
 				}
+				else if (Restart == EPFRestart::Penalty)
+				{
+					const FVector2D Goal = GoalCentre(T.Team, true);
+					StartClip(T, TEXT("shot"), EPFKick::Shot);
+					float Aim = Rng.Range(-GoalHalf + 0.4f, GoalHalf - 0.4f);
+					if (bHumanTaker && Pad.Move.SizeSquared() > 0.04f) Aim = FMath::Clamp(FVector2D::CrossProduct(SafeN(Goal - T.Pos), SafeN(Proj.ScreenDirToWorld(Pad.Move))) * -6.f * (AttackDir(T.Team) > 0 ? 1 : -1), -GoalHalf + 0.4f, GoalHalf - 0.4f);
+					T.KickAim = Goal + FVector2D(0, Aim); T.KickPower = 0.85f; T.KickTarget = -1;
+				}
+				else if (Restart == EPFRestart::FreeKick && FVector2D::Distance(T.Pos, GoalCentre(T.Team, true)) < 30.f)
+				{
+					StartClip(T, TEXT("shot"), EPFKick::Shot);
+					T.KickAim = GoalCentre(T.Team, true) + FVector2D(0, Rng.Range(-GoalHalf + 0.5f, GoalHalf - 0.5f)); T.KickPower = 0.8f; T.KickTarget = -1;
+				}
 				else if (Restart == EPFRestart::GoalKick)
 				{
 					StartClip(T, T.bKeeper ? TEXT("gk_punt") : TEXT("lob"), EPFKick::Punt);
@@ -425,9 +461,32 @@ void FPFMatch::Step(float Dt, const FPFPadInput& Pad)
 	if (Human >= 0 && !Setup.bWatchOnly) HumanControl(Dt, Pad);
 	MovePlayers(Dt);
 	MoveOfficials(Dt);
+	MoveManagers(Dt);
 	Possession(Dt);
 	BallPhysics(Dt);
 	CheckOut();
+}
+
+void FPFMatch::MoveManagers(float Dt)
+{
+	for (FPFPlayer& Mg : Managers)
+	{
+		if (Mg.Act != EPFAct::None) { Mg.ActT += Dt; if (Mg.ActT > Mg.ActLen) Mg.Act = EPFAct::None; Mg.Vel = FVector2D::ZeroVector; continue; }
+		Mg.AIThink -= Dt;
+		if (Mg.AIThink <= 0)
+		{
+			Mg.AIThink = Rng.Range(2.f, 5.f);
+			// pace the technical area, or bark an instruction
+			if (Rng.Unit() < 0.3f) { Mg.Act = EPFAct::Clip; Mg.Clip = Rng.Unit() < 0.5f ? FName(TEXT("coach_shout")) : FName(TEXT("coach_point_forward")); Mg.ActT = 0; Mg.ActLen = 1.4f; Mg.Facing = FVector2D(0, -1); }
+			else Mg.Wish = FVector2D(Mg.Home.X + Rng.Range(-3.f, 3.f) - Mg.Pos.X, 0);
+		}
+		const float Dx = Mg.Wish.X;
+		Mg.Vel = FVector2D(FMath::Abs(Dx) > 0.2f ? FMath::Sign(Dx) * 1.3f : 0.f, 0);
+		Mg.Wish.X -= Mg.Vel.X * Dt;
+		Mg.Pos += Mg.Vel * Dt;
+		Mg.Stride += FMath::Abs(Mg.Vel.X) * Dt;
+		if (Mg.Vel.SizeSquared() > 0.01f) Mg.Facing = SafeN(Mg.Vel); else Mg.Facing = FVector2D(0, -1);
+	}
 }
 
 void FPFMatch::MoveOfficials(float Dt)
@@ -577,7 +636,7 @@ void FPFMatch::TeamAI(int32 Team, float Dt)
 	}
 	for (FPFPlayer& Pl : P)
 	{
-		if (Pl.Team != Team) continue;
+		if (Pl.Team != Team || Pl.bSentOff) continue;
 		if (Pl.Index == Human && bHumanTeam) continue;
 		if (Pl.bKeeper) { KeeperAI(Pl, Dt); continue; }
 		if (Pl.Act == EPFAct::Slide || Pl.Act == EPFAct::Fall || Pl.Act == EPFAct::Celebrate) continue;
@@ -764,18 +823,24 @@ void FPFMatch::MovePlayers(float Dt)
 			{
 				Pl.Vel *= FMath::Exp(-Dt * 2.2f);
 				// slide hits the ball
+				if (Pl.ActT < 0.02f) Pl.bWonBallThisSlide = false;
 				if (Pl.ActT < Pl.ActLen * 0.55f && Ball.Pos.Z < 0.6f && FVector2D::Distance(Pl.Pos + Pl.Facing * 0.7f, V2(Ball.Pos)) < 0.95f && Ball.Owner != Pl.Index)
 				{
+					Pl.bWonBallThisSlide = true;
 					if (Ball.Owner >= 0) { P[Ball.Owner].NoTouch = 0.6f; }
 					Ball.Owner = -1; Ball.Vel = FVector(SafeN(Pl.Facing + FVector2D(Rng.Range(-0.4f, 0.4f), Rng.Range(-0.4f, 0.4f))) * Rng.Range(5.f, 9.f), 0.5f);
 					Ball.LastTouch = Pl.Index; Ball.LastTeam = Pl.Team; Pl.NoTouch = 0.4f;
 				}
 				// or the man (foul-free arcade fall for now)
 				for (FPFPlayer& O : P)
-					if (O.Team != Pl.Team && O.Act == EPFAct::None && FVector2D::Distance(O.Pos, Pl.Pos + Pl.Facing * 0.6f) < 0.7f && Pl.ActT < Pl.ActLen * 0.5f && Rng.Unit() < 0.04f)
+					if (O.Team != Pl.Team && !O.bSentOff && O.Act == EPFAct::None && FVector2D::Distance(O.Pos, Pl.Pos + Pl.Facing * 0.6f) < 0.75f && Pl.ActT < Pl.ActLen * 0.5f)
 					{
 						O.Act = EPFAct::Fall; O.Clip = TEXT("fall"); O.ActT = 0; O.ActLen = PFClips::Get(O.Clip).Length(); O.Vel *= 0.3f;
+						const bool bHadBall = Ball.Owner == O.Index || FVector2D::Distance(O.Pos, V2(Ball.Pos)) < 2.5f;
 						if (Ball.Owner == O.Index) { Ball.Owner = -1; }
+						// man before ball (or from behind) is a foul; a clean ball-first slide is not
+						const bool bBehind = FVector2D::DotProduct(O.Facing, Pl.Facing) > 0.5f;
+						if (!Pl.bWonBallThisSlide && bHadBall && Phase == EPFPhase::Play && Rng.Unit() < (bBehind ? 0.9f : 0.6f)) { Foul(Pl, O); return; }
 					}
 			}
 			if (Pl.Act == EPFAct::Dive)
@@ -1049,7 +1114,7 @@ void FPFMatch::Possession(float Dt)
 	int32 Best = -1; float BD = 1e9;
 	for (FPFPlayer& Pl : P)
 	{
-		if (Pl.NoTouch > 0 || Pl.Act == EPFAct::Fall || Pl.Act == EPFAct::Celebrate || Pl.Act == EPFAct::Dive) continue;
+		if (Pl.bSentOff || Pl.NoTouch > 0 || Pl.Act == EPFAct::Fall || Pl.Act == EPFAct::Celebrate || Pl.Act == EPFAct::Dive) continue;
 		const float Reach = Pl.bKeeper ? 1.1f : 0.85f;
 		const float D = FVector2D::Distance(Pl.Pos + Pl.Facing * 0.3f, V2(Ball.Pos));
 		if (D < Reach && D < BD) { BD = D; Best = Pl.Index; }
@@ -1132,6 +1197,12 @@ void FPFMatch::Goal(int32 ScoringTeam)
 	Highlight = 3.5f;
 	Sfx.Add(TEXT("net")); Sfx.Add(TEXT("crowd_goal")); Sfx.Add(TEXT("whistle_short"));
 	if (Officials.Num()) { Officials[0].Act = EPFAct::Clip; Officials[0].Clip = TEXT("ref_whistle"); Officials[0].ActT = 0; Officials[0].ActLen = 1.2f; }
+	for (int32 t = 0; t < Managers.Num(); ++t)
+	{
+		FPFPlayer& Mg = Managers[t];
+		Mg.Act = EPFAct::Clip; Mg.ActT = 0; Mg.ActLen = 2.5f; Mg.Facing = FVector2D(0, -1);
+		Mg.Clip = t == ScoringTeam ? FName(TEXT("coach_celebrate")) : FName(TEXT("coach_frustrated"));
+	}
 	Phase = EPFPhase::Goal; PhaseT = 0;
 	KickoffTeam = 1 - ScoringTeam;
 	// scorer celebrates, conceding keeper despairs
@@ -1148,6 +1219,57 @@ void FPFMatch::Goal(int32 ScoringTeam)
 		}
 	}
 	Ball.Vel *= 0.2f;
+}
+
+void FPFMatch::Foul(FPFPlayer& Off, FPFPlayer& Vic)
+{
+	Fouls[Off.Team]++;
+	Sfx.Add(TEXT("whistle_short"));
+	// cards
+	const float R = Rng.Unit();
+	FString Card;
+	if (R < 0.03f || (R < 0.30f && Off.bBooked))
+	{
+		Off.bSentOff = true; Reds[Off.Team]++; Card = TEXT("RED CARD");
+		Off.Pos = FVector2D(Off.Pos.X, -HalfWid - 6.f); Off.Vel = FVector2D::ZeroVector;
+		Log(Off.Team, FString::Printf(TEXT("%d' %s sent off"), FMath::Max(1, FMath::CeilToInt(MatchClock)), *Off.Setup.Name));
+		if (Off.Index == Human) { const int32 N = NearestToBall(Off.Team, true); if (N >= 0) SwitchHuman(N); }
+	}
+	else if (R < 0.30f) { Off.bBooked = true; Yellows[Off.Team]++; Card = TEXT("YELLOW CARD"); }
+	if (Officials.Num())
+	{
+		FPFPlayer& Ref = Officials[0];
+		Ref.Act = EPFAct::Clip; Ref.Clip = Card.IsEmpty() ? TEXT("ref_whistle") : TEXT("ref_card"); Ref.ActT = 0; Ref.ActLen = Card.IsEmpty() ? 0.8f : 1.9f;
+		Ref.Facing = SafeN(Off.Pos - Ref.Pos);
+	}
+	// where: inside the box = penalty
+	const FVector2D Spot = Vic.Pos;
+	const int32 D = AttackDir(Vic.Team);
+	const bool bInBox = (Spot.X * D > HalfLen - 16.5f) && FMath::Abs(Spot.Y) < 20.15f;
+	RestartTeam = Vic.Team;
+	if (bInBox)
+	{
+		Restart = EPFRestart::Penalty;
+		RestartSpot = FVector2D(D * (HalfLen - 11.f), 0);
+		SetBanner(Card.IsEmpty() ? TEXT("PENALTY!") : FString::Printf(TEXT("PENALTY!  %s"), *Card), 2.2f);
+	}
+	else
+	{
+		Restart = EPFRestart::FreeKick;
+		RestartSpot = FVector2D(FMath::Clamp(Spot.X, -HalfLen + 2.f, HalfLen - 2.f), FMath::Clamp(Spot.Y, -HalfWid + 1.f, HalfWid - 1.f));
+		SetBanner(Card.IsEmpty() ? TEXT("FOUL!") : Card, 1.8f);
+	}
+	PlaceForRestart();
+	if (Restart == EPFRestart::Penalty)
+	{
+		// everyone else out of the box, keepers on the line
+		for (FPFPlayer& Pl : P)
+		{
+			if (Pl.Index == RestartTaker || Pl.bSentOff) continue;
+			if (Pl.bKeeper && Pl.Team != Vic.Team) { Pl.Pos = FVector2D(D * (HalfLen - 0.3f), 0); Pl.Facing = FVector2D(-D, 0); continue; }
+			if (Pl.Pos.X * D > HalfLen - 18.f) Pl.Pos.X = D * (HalfLen - 18.5f);
+		}
+	}
 }
 
 // ------------------------------------------------------------------------------------------------ rendering
@@ -1266,8 +1388,19 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		T.BlendMode = SE_BLEND_Translucent;
 		C->DrawItem(T);
 	};
-	for (const FPFPlayer& Pl : P) DrawShadow(Pl.Pos, 1.f);
+	for (const FPFPlayer& Pl : P) if (!Pl.bSentOff) DrawShadow(Pl.Pos, 1.f);
 	for (const FPFPlayer& Of : Officials) DrawShadow(Of.Pos, 1.f);
+	for (const FPFPlayer& Mg : Managers) DrawShadow(Mg.Pos, 1.f);
+	// sideline crew (static, behind the far touchline)
+	for (const FCrew& Cr : Crew)
+	{
+		if (!Cr.Tex) continue;
+		const FVector2D Feet = ToScreen(Proj.GroundToAtlas(Cr.Pos));
+		const FVector2D Sz(Cr.Tex->GetSizeX() * SpriteScale, Cr.Tex->GetSizeY() * SpriteScale);
+		FCanvasTileItem T(FVector2D(FMath::RoundToFloat(Feet.X - Sz.X * 0.5f), FMath::RoundToFloat(Feet.Y - Sz.Y)), Cr.Tex->GetResource(), Sz, FLinearColor::White);
+		T.BlendMode = SE_BLEND_Translucent;
+		C->DrawItem(T);
+	}
 	DrawShadow(V2(Ball.Pos), 0.45f);
 
 	// controlled-player ring (ISS)
@@ -1284,9 +1417,10 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	// sort sprites by ground depth (atlas y of the feet)
 	struct FDrawItem { float Depth; int32 Kind; int32 Idx; };
 	TArray<FDrawItem> Items;
-	for (const FPFPlayer& Pl : P) Items.Add({ (float)Proj.GroundToAtlas(Pl.Pos).Y, 0, Pl.Index });
+	for (const FPFPlayer& Pl : P) if (!Pl.bSentOff) Items.Add({ (float)Proj.GroundToAtlas(Pl.Pos).Y, 0, Pl.Index });
 	Items.Add({ (float)Proj.GroundToAtlas(V2(Ball.Pos)).Y, 1, 0 });
 	for (const FPFPlayer& Of : Officials) Items.Add({ (float)Proj.GroundToAtlas(Of.Pos).Y, 2, Of.Index });
+	for (const FPFPlayer& Mg : Managers) Items.Add({ (float)Proj.GroundToAtlas(Mg.Pos).Y, 3, Mg.Index });
 	Items.Sort([](const FDrawItem& A, const FDrawItem& B) { return A.Depth < B.Depth; });
 	for (const FDrawItem& It : Items)
 	{
@@ -1302,11 +1436,12 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 			C->DrawItem(T);
 			continue;
 		}
-		const FPFPlayer& Pl = It.Kind == 2 ? Officials[It.Idx] : P[It.Idx];
+		const FPFPlayer& Pl = It.Kind == 2 ? Officials[It.Idx] : It.Kind == 3 ? Managers[It.Idx] : P[It.Idx];
 		if (!Sets.IsValidIndex(Pl.SpriteSet) || !SpriteMat) continue;
 		const FPFSpriteSet& Set = Sets[Pl.SpriteSet];
-		const FPFKit* Kit = It.Kind == 2 ? nullptr : Pl.bKeeper ? (Pl.Team == 0 ? &Setup.Home.KeeperKit : &Setup.Away.KeeperKit) : (Pl.Team == 0 ? &Setup.Home.Kit : &Setup.Away.Kit);
+		const FPFKit* Kit = It.Kind >= 2 ? nullptr : Pl.bKeeper ? (Pl.Team == 0 ? &Setup.Home.KeeperKit : &Setup.Away.KeeperKit) : (Pl.Team == 0 ? &Setup.Home.Kit : &Setup.Away.Kit);
 		if (It.Kind == 2 && !Set.Id.StartsWith(TEXT("R"))) continue;   // officials' sprites not built yet
+		if (It.Kind == 3 && !Set.Id.StartsWith(TEXT("C"))) continue;   // managers' sprites not built yet
 		FName Pose = PoseFor(Pl);
 		if (!Set.Has(Pose))
 		{

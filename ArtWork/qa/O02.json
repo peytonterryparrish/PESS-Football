@@ -1,0 +1,47 @@
+{
+ "rejected": {
+  "east/block": "double_figure",
+  "north-east/fall_ground": "double_figure"
+ },
+ "notes": {
+  "south/sit_ground": [
+   "touches_edge"
+  ],
+  "south/getup_kneel": [
+   "touches_edge"
+  ],
+  "south/hands_on_head": [
+   "blob17"
+  ],
+  "south-east/fall_ground": [
+   "touches_edge"
+  ],
+  "south-east/sit_ground": [
+   "touches_edge"
+  ],
+  "south-east/header_stand": [
+   "blob12"
+  ],
+  "south-east/header_dive": [
+   "blob10"
+  ],
+  "east/fall_ground": [
+   "touches_edge"
+  ],
+  "east/header_stand": [
+   "blob12"
+  ],
+  "east/header_dive": [
+   "touches_edge"
+  ],
+  "north-east/run_passL": [
+   "blob25"
+  ],
+  "north-east/header_stand": [
+   "blob25",
+   "blob24"
+  ]
+ },
+ "frames": 231,
+ "palette": 52
+}

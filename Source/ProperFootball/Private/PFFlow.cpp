@@ -91,6 +91,7 @@ void UPFFlow::Begin(UWorld* World)
 	FParse::Value(FCommandLine::Get(), TEXT("pfshots="), ShotsLeft);
 	FParse::Value(FCommandLine::Get(), TEXT("pfshotgap="), ShotGap);
 	if (FParse::Param(FCommandLine::Get(), TEXT("pfwatch"))) FriendlySide = 2;
+	if (FParse::Param(FCommandLine::Get(), TEXT("pfmanage"))) { FriendlySide = 2; bManageView = true; }
 	int32 TestMatches = 0;
 	if (FParse::Value(FCommandLine::Get(), TEXT("pfsimtest="), TestMatches)) { RunMatchTest(TestMatches); return; }
 	int32 TestSeasons = 0;
@@ -142,8 +143,8 @@ void UPFFlow::RunMatchTest(int32 N)
 		if (MaxStill > 6.f) Stuck++;
 		TotGoals += M.Score[0] + M.Score[1]; TotShots += M.Shots[0] + M.Shots[1];
 		GoalHist.FindOrAdd(M.Score[0] + M.Score[1])++;
-		UE_LOG(LogPF, Display, TEXT("PFSIM %2d  %s %d-%d %s  shots %d-%d  restarts %d  maxstill %.1fs  finished %d  (str %d v %d)"), m, *S.Home.Short, M.Score[0], M.Score[1], *S.Away.Short,
-			M.Shots[0], M.Shots[1], Restarts, MaxStill, M.bFinished ? 1 : 0, C[H].Tier, C[A].Tier);
+		UE_LOG(LogPF, Display, TEXT("PFSIM %2d  %s %d-%d %s  shots %d-%d  fouls %d yel %d red %d  restarts %d  maxstill %.1fs  finished %d  (str %d v %d)"), m, *S.Home.Short, M.Score[0], M.Score[1], *S.Away.Short,
+			M.Shots[0], M.Shots[1], M.Fouls[0] + M.Fouls[1], M.Yellows[0] + M.Yellows[1], M.Reds[0] + M.Reds[1], Restarts, MaxStill, M.bFinished ? 1 : 0, C[H].Tier, C[A].Tier);
 	}
 	UE_LOG(LogPF, Display, TEXT("PFSIM total: %d matches, %.2f goals/match, %.1f shots/match, stuck %d, %.1fs"), N, TotGoals / float(FMath::Max(1, N)), TotShots / float(FMath::Max(1, N)), Stuck, FPlatformTime::Seconds() - T0);
 	QuitAt = Time + 0.5f;
@@ -172,6 +173,7 @@ void UPFFlow::RunCareerTest(int32 Seasons)
 			if (Sim.S.UserClub >= 0) UE_LOG(LogPF, Display, TEXT("PFTEST now managing %s (%s)"), *Sim.UserClub().Name, *Sim.DivisionName(Sim.UserClub().Division));
 			continue;
 		}
+		if (Sim.S.Matchday == 30 && !Sim.S.bUnemployed) for (int32 Id : TArray<int32>(Sim.UserClub().Squad)) if (const FPFPerson* P = Sim.Person(Id)) if (P->ContractYears <= 1 && P->Ovr() >= Sim.UserClub().Strength - 6) Sim.OfferContract(Id);
 		Sim.PlayMatchday();
 		if (Sim.S.Matchday == 20 && s == 0)
 		{
@@ -180,6 +182,20 @@ void UPFFlow::RunCareerTest(int32 Seasons)
 			const TArray<FPFTableRow> T = Sim.Table(Sim.UserClub().Division);
 			UE_LOG(LogPF, Display, TEXT("PFTEST md20 leader %s %d pts"), *Sim.S.Clubs[T[0].Club].Name, T[0].Pts);
 		}
+	}
+	// a youth match through the real engine (scouting path)
+	{
+		FPFMatchSetup Y = Sim.YouthMatchSetup(EPFRegion::WestAfrica, 99);
+		Y.HalfSeconds = 60.f;
+		FPFMatch M; M.Init(Y);
+		for (int32 f = 0; f < 60 * 60 * 6 && !M.bFinished; ++f) M.Tick(1.f / 60.f, FPFPadInput());
+		float Best = 0, Worst = 99; for (const FPFPlayerSetup& PS : Y.Home.XI) { Best = FMath::Max(Best, PFAbility(PS.Stats, false).MaxSpeed); Worst = FMath::Min(Worst, PFAbility(PS.Stats, false).MaxSpeed); }
+		UE_LOG(LogPF, Display, TEXT("PFTEST youth match %s %d-%d %s finished %d, kids' top speed %.1f .. %.1f m/s"), *Y.Home.Short, M.Score[0], M.Score[1], *Y.Away.Short, M.bFinished ? 1 : 0, Worst, Best);
+		// does the best prospect stand out? top-speed vs potential across the region's kids
+		TArray<TPair<int32, float>> PV;
+		for (const FPFPerson& Pp : Sim.S.People) if (Pp.bScoutedOnly && Pp.Club < 0 && Pp.Region == EPFRegion::WestAfrica) PV.Add({ Pp.Potential, PFAbility(Pp.Stats, false).MaxSpeed });
+		PV.Sort([](const TPair<int32, float>& A, const TPair<int32, float>& B) { return A.Key > B.Key; });
+		for (int32 i = 0; i < PV.Num(); i += FMath::Max(1, PV.Num() / 6)) UE_LOG(LogPF, Display, TEXT("PFTEST kid potential %d -> top speed %.1f m/s"), PV[i].Key, PV[i].Value);
 	}
 	// division sizes stay intact
 	for (int32 D = 0; D < 5; ++D) { int32 N = 0; for (const FPFCareerClub& C : Sim.S.Clubs) if (C.Division == D) N++; UE_LOG(LogPF, Display, TEXT("PFTEST end div %d: %d clubs"), D, N); }

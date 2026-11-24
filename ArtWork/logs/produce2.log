@@ -44,3 +44,52 @@
 21:35:14 [23/448] O17 south-west 2 ok
 21:35:22 [24/448] O17 north 2 ok
 21:35:37 [25/448] O18 south 0 ok
+21:36:10 [26/448] O18 south-east 0 ok
+21:36:38 [27/448] O18 north-east 0 ok
+21:36:53 [28/448] O18 north 0 ok
+21:37:24 [29/448] O18 west 0 ok
+21:37:35 [30/448] O18 east 0 ok
+21:38:09 [31/448] O18 north-west 0 ok
+21:38:23 [32/448] O18 south 1 ok
+21:38:31 [33/448] O18 south-west 0 ok
+21:39:03 [34/448] O18 north-east 1 ok
+21:39:20 [35/448] O18 south-east 1 ok
+21:39:34 [36/448] O18 east 1 ok
+21:40:24 [37/448] O18 north-west 1 ok
+21:40:41 [38/448] O18 north 1 ok
+21:41:04 [39/448] O18 south 2 ok
+21:41:17 [40/448] O18 south-east 2 ok
+21:41:23 [41/448] O18 west 1 ok
+21:41:48 [42/448] O18 south-west 1 ok
+21:42:25 [43/448] O18 north-east 2 ok
+21:42:39 [44/448] O18 north 2 ok
+21:43:08 [45/448] O18 east 2 ok
+21:43:08 [46/448] O18 west 2 ok
+21:43:27 [47/448] O18 north-west 2 ok
+21:43:32 [48/448] O18 south-west 2 ok
+21:44:27 [49/448] O19 south-east 0 ok
+21:44:27 [50/448] O19 south 0 ok
+21:45:09 [51/448] O19 north-west 0 ERROR [Errno 28] No space left on device
+21:45:11 [52/448] O19 east 0 ERROR [Errno 28] No space left on device
+21:45:12 [53/448] O19 north-east 0 ERROR [Errno 28] No space left on device
+21:45:15 [54/448] O19 north 0 ERROR [Errno 28] No space left on device
+21:46:04 [55/448] O19 west 0 ERROR [Errno 28] No space left on device
+21:46:31 [56/448] O19 south-west 0 ERROR [Errno 28] No space left on device
+21:46:44 [57/448] O19 south 1 ERROR [Errno 28] No space left on device
+21:46:50 [58/448] O19 north-east 1 ERROR [Errno 28] No space left on device
+21:47:04 [59/448] O19 east 1 ERROR [Errno 28] No space left on device
+21:47:46 [60/448] O19 south-east 1 ok
+21:47:48 [61/448] O19 north 1 ok
+21:48:20 [62/448] O19 west 1 ok
+21:48:48 [63/448] O19 south 2 ok
+21:48:52 [64/448] O19 south-west 1 ok
+21:49:38 [65/448] O19 south-east 2 ok
+21:49:57 [66/448] O19 east 2 ok
+21:50:12 [67/448] O19 north-east 2 ok
+21:50:27 [68/448] O19 north-west 2 ok
+21:50:32 [69/448] O19 north 2 ok
+21:51:48 [70/448] O19 north-west 1 ok
+21:51:49 [71/448] O20 south 0 ok
+21:51:58 [72/448] O19 south-west 2 ok
+21:52:05 [73/448] O19 west 2 ok
+21:52:13 [74/448] O20 south-east 0 ok

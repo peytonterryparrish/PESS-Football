@@ -216,7 +216,7 @@ void UPFCareer::Tick(float Dt, const FPFPadState& Pad)
 		if (!P) { Pop(); return; }
 		TArray<FString> Acts;
 		if (P->bAcademy) { Acts = { TEXT("PROMOTE TO FIRST TEAM"), TEXT("RELEASE"), TEXT("BACK") }; }
-		else { Acts = { P->bListed ? TEXT("TAKE OFF TRANSFER LIST") : TEXT("TRANSFER LIST"), TEXT("ACCEPT BEST OFFER"), TEXT("RELEASE"), TEXT("BACK") }; }
+		else { Acts = { P->bDropped ? TEXT("PUT BACK IN CONTENTION") : TEXT("DROP FROM THE XI"), TEXT("OFFER NEW CONTRACT"), P->bListed ? TEXT("TAKE OFF TRANSFER LIST") : TEXT("TRANSFER LIST"), TEXT("ACCEPT BEST OFFER"), TEXT("RELEASE"), TEXT("BACK") }; }
 		Nav(Acts.Num());
 		if (Pad.pB) { Pop(); return; }
 		if (!Pad.pA) return;
@@ -225,6 +225,8 @@ void UPFCareer::Tick(float Dt, const FPFPadState& Pad)
 		else if (A == TEXT("PROMOTE TO FIRST TEAM")) { Sim.PromoteYouth(P->Id); Msg(FString::Printf(TEXT("%s moves up to the first team."), *P->Name), EPFCScreen::Academy); Back.Pop(); }
 		else if (A == TEXT("RELEASE")) { const FString N = P->Name; Sim.ReleasePlayer(P->Id); Msg(FString::Printf(TEXT("%s has been released."), *N), EPFCScreen::Hub); Back.Reset(); }
 		else if (A.Contains(TEXT("TRANSFER LIST"))) { P->bListed = !P->bListed; }
+		else if (A == TEXT("DROP FROM THE XI") || A == TEXT("PUT BACK IN CONTENTION")) { P->bDropped = !P->bDropped; }
+		else if (A == TEXT("OFFER NEW CONTRACT")) { Msg(Sim.OfferContract(P->Id), EPFCScreen::PlayerCard); }
 		else if (A == TEXT("ACCEPT BEST OFFER"))
 		{
 			bool bAny = false; for (const FPFBid& B : S.Bids) if (B.Person == P->Id && B.Status == 0 && !B.bByUser) bAny = true;
@@ -507,7 +509,7 @@ void UPFCareer::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		{
 			const FPFPerson* P = Sim.Person(Id);
 			Rows.Add({ FString::FromInt(P->Number), P->Name, RoleShort(P->Role), FString::FromInt(P->Age), FString::FromInt(P->Ovr()), Stars(P->Ovr()), Money(Sim.Value(*P)),
-				FString::Printf(TEXT("%d/%d"), P->SeasonApps, P->SeasonGoals), P->InjuryWeeks > 0 ? FString::Printf(TEXT("INJ %dW"), P->InjuryWeeks) : (P->bListed ? TEXT("LISTED") : TEXT("")) });
+				FString::Printf(TEXT("%d/%d"), P->SeasonApps, P->SeasonGoals), P->InjuryWeeks > 0 ? FString::Printf(TEXT("INJ %dW"), P->InjuryWeeks) : P->bDropped ? TEXT("DROPPED") : P->ContractYears <= 1 && !bAc ? TEXT("CONTRACT ENDS") : (P->bListed ? TEXT("LISTED") : TEXT("")) });
 			Col.Add(P->InjuryWeeks > 0 ? Bad : XI.Contains(Id) ? FLinearColor::White : Pale);
 		}
 		DrawList(C, bAc ? TEXT("ACADEMY  -  A: OPTIONS") : TEXT("FIRST TEAM  -  WHITE = STARTING XI  -  A: OPTIONS"), { TEXT("NO"), TEXT("NAME"), TEXT("POS"), TEXT("AGE"), TEXT("OVR"), TEXT("RATING"), TEXT("VALUE"), TEXT("APP/GLS"), TEXT("") },
@@ -522,7 +524,7 @@ void UPFCareer::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		DrawPersonCard(C, *P, false, 80 * U, 200 * U);
 		TArray<FPFMenuItem> MI;
 		if (P->bAcademy) { MI.Add({ TEXT("PROMOTE TO FIRST TEAM") }); MI.Add({ TEXT("RELEASE") }); MI.Add({ TEXT("BACK") }); }
-		else { MI.Add({ P->bListed ? TEXT("TAKE OFF TRANSFER LIST") : TEXT("TRANSFER LIST") }); MI.Add({ TEXT("ACCEPT BEST OFFER") }); MI.Add({ TEXT("RELEASE") }); MI.Add({ TEXT("BACK") }); }
+		else { MI.Add({ P->bDropped ? TEXT("PUT BACK IN CONTENTION") : TEXT("DROP FROM THE XI") }); MI.Add({ TEXT("OFFER NEW CONTRACT") }); MI.Add({ P->bListed ? TEXT("TAKE OFF TRANSFER LIST") : TEXT("TRANSFER LIST") }); MI.Add({ TEXT("ACCEPT BEST OFFER") }); MI.Add({ TEXT("RELEASE") }); MI.Add({ TEXT("BACK") }); }
 		Fl->DrawMenu(C, TEXT("OPTIONS"), MI, Sel, 1000 * U, 320 * U, 700 * U);
 		float Y = 600 * U;
 		for (const FPFBid& B : S.Bids) if (B.Person == P->Id && B.Status == 0 && !B.bByUser)

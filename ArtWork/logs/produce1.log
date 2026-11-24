@@ -235,3 +235,108 @@
 21:35:16 [209/305] O14 north 2 ok
 21:35:30 [210/305] O15 south 0 ok
 21:35:42 [211/305] O14 south-east 2 ok
+21:35:57 [212/305] O15 east 0 ok
+21:35:58 [213/305] O15 south-east 0 ok
+21:36:18 [214/305] O15 north 0 ok
+21:36:31 [215/305] O15 south 1 ok
+21:37:10 [216/305] O15 south-east 1 ok
+21:37:26 [217/305] O15 north-east 0 ok
+21:37:34 [218/305] O15 south 2 ok
+21:38:12 [219/305] O15 south-east 2 ok
+21:38:33 [220/305] O15 east 2 ok
+21:38:50 [221/305] O15 east 1 ok
+21:38:53 [222/305] O15 north 2 ok
+21:38:59 [223/305] O15 north 1 ok
+21:39:19 [224/305] O15 north-east 1 ok
+21:39:50 [225/305] O16 south-east 0 ok
+21:40:05 [226/305] O16 south 0 ok
+21:40:36 [227/305] O16 north-east 0 ok
+21:40:37 [228/305] O15 north-east 2 ok
+21:40:43 [229/305] O16 south 1 ok
+21:40:44 [230/305] O16 east 0 ok
+21:41:39 [231/305] O16 north 0 ok
+21:41:42 [232/305] O16 east 1 ok
+21:41:48 [233/305] O16 north-east 1 ok
+21:41:54 [234/305] O16 south-east 1 ok
+21:42:03 [235/305] O16 north 1 ok
+21:42:19 [236/305] O16 south-east 2 ok
+21:42:56 [237/305] O16 south 2 ok
+21:43:06 [238/305] O16 east 2 ok
+21:43:17 [239/305] O16 north 2 ok
+21:43:41 [240/305] K01 east 0 ok
+21:44:06 [241/305] O16 north-east 2 ok
+21:44:08 [242/305] K01 south 0 ok
+21:44:17 [243/305] K01 south-east 0 ok
+21:44:33 [244/305] K01 north 0 ok
+21:44:42 [245/305] K01 north-east 0 ok
+21:45:02 [246/305] K01 south-east 1 ok
+21:45:41 [247/305] K01 south 1 ERROR [Errno 28] No space left on device
+Exception ignored while finalizing file <_io.TextIOWrapper name='D:\\PIXFootball\\PESS-Football\\ArtWork\\raw\\K02\\north\\_rest.json' mode='w' encoding='utf-8'>:
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\PIXFootball\PESS-Football\Tools\pixellab\produce.py", line 56, in pose_job
+    json.dump(rest, open(kpf, "w"))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device
+21:45:43 [248/305] K01 north 1 ERROR [Errno 28] No space left on device
+21:46:00 [249/305] K01 east 1 ERROR [Errno 28] No space left on device
+21:46:28 [250/305] K02 east 0 ERROR [Errno 28] No space left on device
+21:46:32 [251/305] K01 north-east 1 ERROR [Errno 28] No space left on device
+21:46:46 [252/305] K02 south 0 ERROR [Errno 28] No space left on device
+21:46:46 [253/305] K02 north 1 ERROR Expecting value: line 1 column 1 (char 0)
+Exception ignored while finalizing file <_io.TextIOWrapper name='D:\\PIXFootball\\PESS-Football\\ArtWork\\raw\\K03\\south\\_rest.json' mode='w' encoding='utf-8'>:
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\PIXFootball\PESS-Football\Tools\pixellab\produce.py", line 56, in pose_job
+    json.dump(rest, open(kpf, "w"))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device
+21:47:02 [254/305] K02 south-east 0 ERROR [Errno 28] No space left on device
+Exception ignored while finalizing file <_io.TextIOWrapper name='D:\\PIXFootball\\PESS-Football\\ArtWork\\raw\\K03\\south-east\\_rest.json' mode='w' encoding='utf-8'>:
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\PIXFootball\PESS-Football\Tools\pixellab\produce.py", line 56, in pose_job
+    json.dump(rest, open(kpf, "w"))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device
+21:47:19 [255/305] K02 south 1 ERROR [Errno 28] No space left on device
+Exception ignored while finalizing file <_io.TextIOWrapper name='D:\\PIXFootball\\PESS-Football\\ArtWork\\raw\\K03\\east\\_rest.json' mode='w' encoding='utf-8'>:
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\PIXFootball\PESS-Football\Tools\pixellab\produce.py", line 56, in pose_job
+    json.dump(rest, open(kpf, "w"))
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device
+21:47:26 [256/305] K02 north 0 ok
+21:47:43 [257/305] K02 south-east 1 ok
+21:48:08 [258/305] K02 north-east 1 ok
+21:48:08 [259/305] K03 south 1 ERROR Expecting value: line 1 column 1 (char 0)
+21:48:09 [260/305] K03 south-east 1 ERROR Expecting value: line 1 column 1 (char 0)
+21:48:09 [261/305] K03 east 1 ERROR Expecting value: line 1 column 1 (char 0)
+21:48:13 [262/305] K02 north-east 0 ok
+21:48:31 [263/305] K03 south 0 ok
+21:48:56 [264/305] K03 east 0 ok
+21:49:11 [265/305] K02 east 1 ok
+21:49:13 [266/305] K03 south-east 0 ok
+21:49:13 [267/305] K03 north-east 0 ok
+21:49:29 [268/305] K03 north 0 ok
+21:49:45 [269/305] K03 north-east 1 ok
+21:50:39 [270/305] K03 north 1 ok
+21:50:43 [271/305] K04 south 0 ok
+21:50:44 [272/305] K04 south-east 0 ok
+21:50:49 [273/305] K04 east 0 ok
+21:51:42 [274/305] K04 north-east 0 ok
+21:51:51 [275/305] K04 north 0 ok
+21:51:56 [276/305] K04 south 1 ok

@@ -38,7 +38,7 @@ static FArchive& operator<<(FArchive& Ar, FPFPerson& P)
 {
 	uint8 Reg = (uint8)P.Region, Role = (uint8)P.Role;
 	Ar << P.Id << P.Name << P.Age << Reg << Role << P.Stats << P.Potential << P.Club << P.bAcademy << P.bScoutedOnly << P.Wage << P.ContractYears
-		<< P.Morale << P.InjuryWeeks << P.SeasonApps << P.SeasonGoals << P.CareerApps << P.CareerGoals << P.Sprite << P.Number << P.bListed;
+		<< P.Morale << P.InjuryWeeks << P.SeasonApps << P.SeasonGoals << P.CareerApps << P.CareerGoals << P.Sprite << P.Number << P.bListed << P.bDropped;
 	P.Region = (EPFRegion)Reg; P.Role = (EPFRole)Role;
 	return Ar;
 }
@@ -139,6 +139,18 @@ FPFPerson FPFCareerSim::MakePerson(EPFRole Role, int32 Ovr, int32 Age, EPFRegion
 	else if (Age <= 21) Head = 3 + Rng.Int(14) + (Rng.Unit() < 0.04f ? 12 : 0);
 	else if (Age <= 24) Head = Rng.Int(8);
 	P.Potential = FMath::Clamp(O + Head, O, 97);
+	if (Age <= 17)
+	{
+		// youngsters: one hidden talent number drives both the ceiling and what you SEE now. Raw athletic and ball skills
+		// show talent early (pace, acceleration, agility, touch); technique comes later. That is what scouts judge by eye.
+		const float T = FMath::Clamp(46.f + Rng.Gauss() * 10.f + (Rng.Unit() < 0.06f ? 26.f : 0.f), 28.f, 96.f);
+		const int32 Cur = FMath::Clamp(FMath::RoundToInt(T * 0.55f + (Age - 15) * 3 + Rng.Gauss() * 3.f), 18, 70);
+		P.Stats = PFWorld::RollStats(Rng, Cur, Role);
+		auto Innate = [&](uint8& V) { V = (uint8)FMath::Clamp(FMath::RoundToInt(V * 0.6f + Cur * 0.4f + (T - 50.f) * 0.65f), 1, 99); };
+		Innate(P.Stats.Pace); Innate(P.Stats.Accel); Innate(P.Stats.Agility); Innate(P.Stats.Control); Innate(P.Stats.Reactions);
+		if (Role == EPFRole::GK) Innate(P.Stats.Keeping);
+		P.Potential = FMath::Clamp(FMath::RoundToInt(T), P.Ovr() + 3, 97);
+	}
 	P.Sprite = SpriteForPerson(Rng, Role);
 	P.Wage = FMath::Max(100, int32(300.f * FMath::Exp((O - 45) * 0.1f)));
 	P.ContractYears = 1 + Rng.Int(4);
@@ -341,7 +353,8 @@ TArray<int32> FPFCareerSim::BestXI(int32 Club) const
 	const FPFCareerClub& C = S.Clubs[Club];
 	const TArray<EPFRole> Roles = PFWorld::FormationRoles(C.Formation);
 	TArray<int32> Pool;
-	for (int32 Id : C.Squad) if (const FPFPerson* P = Person(Id)) if (P->InjuryWeeks <= 0) Pool.Add(Id);
+	for (int32 Id : C.Squad) if (const FPFPerson* P = Person(Id)) if (P->InjuryWeeks <= 0 && !P->bDropped) Pool.Add(Id);
+	if (Pool.Num() < 11) for (int32 Id : C.Squad) if (const FPFPerson* P = Person(Id)) if (P->InjuryWeeks <= 0 && P->bDropped) Pool.Add(Id);
 	TArray<int32> XI;
 	for (EPFRole R : Roles)
 	{
@@ -491,6 +504,12 @@ void FPFCareerSim::PlayMatchday(const TFunction<void(FPFFixture&)>& UserResult)
 		TArray<int32> Cand;
 		for (int32 i = 0; i < S.Clubs.Num(); ++i) if (i != S.UserClub && S.Clubs[i].Division >= FMath::Min(4, UserClub().Division)) Cand.Add(i);
 		for (int32 k = 0; k < 3 && Cand.Num(); ++k) { const int32 Pick = Cand[Rng.Int(Cand.Num())]; Cand.Remove(Pick); S.Offers.Add({ Pick, TEXT("Looking for a new manager") }); }
+	}
+	if (MD == 36 && !S.bUnemployed)
+	{
+		int32 N = 0;
+		for (int32 Id : UserClub().Squad) if (const FPFPerson* P = Person(Id)) if (P->ContractYears <= 1) N++;
+		if (N) AddNews(FString::Printf(TEXT("%d of your players are out of contract this summer. Offer new deals from the squad screen."), N));
 	}
 	S.Matchday++;
 	if (SeasonOver()) EndSeason();
@@ -651,7 +670,7 @@ void FPFCareerSim::EndSeason()
 			if (P->ContractYears <= 0)
 			{
 				if (i != S.UserClub && Rng.Unit() < 0.75f) P->ContractYears = 1 + Rng.Int(3);
-				else if (i == S.UserClub) P->ContractYears = 1 + Rng.Int(2);   // user: auto-renew in v0.x (contract talks later)
+				else if (i == S.UserClub) { AddNews(FString::Printf(TEXT("%s leaves %s as his contract runs out."), *P->Name, *C.Name)); P->Club = -1; P->bDropped = false; C.Squad.RemoveAt(k); }
 				else { P->Club = -1; C.Squad.RemoveAt(k); }
 			}
 		}
@@ -1040,6 +1059,17 @@ void FPFCareerSim::PromoteYouth(int32 Id)
 	UserClub().Academy.Remove(Id); UserClub().Squad.Add(Id); P->bAcademy = false; P->Wage = FMath::Max(P->Wage, 400);
 	int32 No = 1; for (int32 X : UserClub().Squad) if (FPFPerson* Q = Person(X)) No = FMath::Max(No, Q->Number + 1);
 	P->Number = No;
+}
+
+FString FPFCareerSim::OfferContract(int32 Id)
+{
+	FPFPerson* P = Person(Id);
+	if (!P || P->Club != S.UserClub) return TEXT("No.");
+	if (P->ContractYears >= 3) return FString::Printf(TEXT("%s is happy with his %d years left."), *P->Name, P->ContractYears);
+	const int32 Demand = WageDemand(*P, S.UserClub);
+	if (SquadWages(S.UserClub) - P->Wage + Demand > UserClub().WageBudget * 1.15f) return FString::Printf(TEXT("He wants %d a week. The board won't stretch to it."), Demand);
+	P->Wage = Demand; P->ContractYears = 3; P->Morale = FMath::Min(100, P->Morale + 10);
+	return FString::Printf(TEXT("%s signs a new 3-year deal at %d a week."), *P->Name, Demand);
 }
 
 void FPFCareerSim::ReleasePlayer(int32 Id)

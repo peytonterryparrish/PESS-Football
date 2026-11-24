@@ -30,6 +30,7 @@ struct FPFPerson
 	FString Sprite = TEXT("O01");
 	int32 Number = 0;
 	bool bListed = false;      // transfer-listed by its club
+	bool bDropped = false;     // left out of the XI by the user
 	int32 Ovr() const { return Stats.Overall(Role == EPFRole::GK); }
 };
 
@@ -97,7 +98,7 @@ struct FPFNews { int32 Season = 0, Matchday = 0; FString Text; };
 // ---------------------------------------------------------------- the save
 struct FPFCareerState
 {
-	int32 Version = 1;
+	int32 Version = 2;
 	uint64 Seed = 1;
 	int32 Season = 2006;            // season starting year
 	int32 Matchday = 0;             // next matchday to play (0-based)
@@ -176,6 +177,7 @@ public:
 	FString SignProspect(int32 Person);
 	void PromoteYouth(int32 Person);
 	void ReleasePlayer(int32 Person);
+	FString OfferContract(int32 Person);
 	FPFMatchSetup YouthMatchSetup(EPFRegion Region, uint64 Seed) const;
 
 	void AddNews(const FString& T);

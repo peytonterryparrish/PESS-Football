@@ -38,7 +38,7 @@ def components(img):
             comps.append(c)
     return comps
 
-def clean(img, idle_bbox):
+def clean(img, idle_bbox, idle_cols=None):
     img = img.convert("RGBA"); px = img.load(); W, H = img.size
     notes = []
     for y in range(H):
@@ -54,27 +54,35 @@ def clean(img, idle_bbox):
         if c is not big and len(c) < 30:
             for p in c: px[p] = (0, 0, 0, 0)
             if len(c) >= 6: notes.append(f"blob{len(c)}")
-    # ball: whitish low-saturation cluster in the lower part of the figure
-    top, bot = idle_bbox[1], idle_bbox[3]
-    knee = top + (bot - top) * 0.62
-    white = set()
-    for y in range(int(knee), H):
-        for x in range(W):
-            c = px[x, y]
-            if c[3] and hsv(c)[1] < 0.30 and hsv(c)[2] > 0.52: white.add((x, y))
-    # grow to grey seams adjacent to whites
-    if len(white) >= 7:
-        grow = set(white)
-        for (x, y) in list(white):
-            for dx in (-1, 0, 1):
-                for dy in (-1, 0, 1):
-                    n = (x + dx, y + dy)
-                    if 0 <= n[0] < W and 0 <= n[1] < H and px[n][3] and hsv(px[n])[1] < 0.2 and hsv(px[n])[2] > 0.25: grow.add(n)
-        xs = [p[0] for p in grow]; ys = [p[1] for p in grow]
-        w, h = max(xs) - min(xs) + 1, max(ys) - min(ys) + 1
-        if 3 <= w <= 12 and 3 <= h <= 12 and len(grow) >= 0.45 * w * h:
-            for p in grow: px[p] = (0, 0, 0, 0)
-            notes.append("ball_removed")
+    # ball: a compact, light, low-saturation cluster of colours the character never wears in its idle frames
+    if idle_cols:
+        def novel(c):
+            return min((c[0] - q[0]) ** 2 + (c[1] - q[1]) ** 2 + (c[2] - q[2]) ** 2 for q in idle_cols) > 28 ** 2
+        mask = set()
+        for y in range(H):
+            for x in range(W):
+                c = px[x, y]
+                if c[3] and hsv(c)[1] < 0.32 and hsv(c)[2] > 0.48 and novel(c[:3]): mask.add((x, y))
+        seen = set()
+        for p0 in list(mask):
+            if p0 in seen: continue
+            comp = []; q = deque([p0]); seen.add(p0)
+            while q:
+                a, b = q.popleft(); comp.append((a, b))
+                for dx in (-1, 0, 1):
+                    for dy in (-1, 0, 1):
+                        n = (a + dx, b + dy)
+                        if n in mask and n not in seen: seen.add(n); q.append(n)
+            xs = [p[0] for p in comp]; ys = [p[1] for p in comp]
+            w, h = max(xs) - min(xs) + 1, max(ys) - min(ys) + 1
+            if len(comp) >= 5 and w <= 16 and h <= 16 and len(comp) >= 0.3 * w * h:
+                # the ball and its outline: a circle fitted to the light cluster, one pixel larger
+                cx, cy = (min(xs) + max(xs)) / 2.0, (min(ys) + max(ys)) / 2.0
+                r = max(w, h) / 2.0 + 1.3
+                for y in range(max(0, int(cy - r - 1)), min(H, int(cy + r + 2))):
+                    for x in range(max(0, int(cx - r - 1)), min(W, int(cx + r + 2))):
+                        if (x - cx) ** 2 + (y - cy) ** 2 <= r * r: px[x, y] = (0, 0, 0, 0)
+                notes.append("ball_removed")
     return img, notes
 
 def palette_for(rots, kit_keyed):
@@ -100,6 +108,7 @@ def build(cid, cast):
     meta = cast[cid]; kind = meta["kind"]; keyed = bool(meta.get("template_kit"))
     rots = {x: Image.open(os.path.join(d, f"rot_{x}.png")).convert("RGBA") for x in DIRS8}
     pal = palette_for(rots.values(), keyed)
+    idle_cols = list({c[:3] for im in rots.values() for c in im.get_flattened_data() if c[3] >= 128})
     poses_all = [n for b in poses_more.SETS[kind] for n in b]
     cells = []      # (key, image, flip_of)
     qa = {"rejected": {}, "notes": {}}
@@ -114,7 +123,7 @@ def build(cid, cast):
         for n in poses_all:
             p = os.path.join(d, x, n + ".png")
             if not os.path.exists(p): continue
-            im, notes = clean(Image.open(p), ib)
+            im, notes = clean(Image.open(p), ib, idle_cols)
             bb = im.getbbox()
             n_op = sum(1 for c in im.get_flattened_data() if c[3])
             bad = None
@@ -164,6 +173,9 @@ def build(cid, cast):
     print(cid, "cells", len(cells), "rejected", len(qa["rejected"]), "flagged", len(qa["notes"]), "atlas", atlas.size)
 
 if __name__ == "__main__":
-    cast = {c["id"]: c for c in json.load(open(os.path.join(ROOT, "Tools", "pixellab", "cast.json")))}
+    cast = {}
+    for cf in ("cast.json", "cast_wave2.json"):
+        fp = os.path.join(ROOT, "Tools", "pixellab", cf)
+        if os.path.exists(fp): cast.update({c["id"]: c for c in json.load(open(fp))})
     ids = sys.argv[1:] or [c for c in cast if os.path.exists(os.path.join(RAW, c, "rot_south.png"))]
     for cid in ids: build(cid, cast)

@@ -97,7 +97,7 @@ def ui():
     me = P(PK, "Retro_Football_Match_Engine_Revised_4K")
     n = 0
     for r in csv.DictReader(open(P(me, "Asset_Manifest.csv"), encoding="utf-8")):
-        if r["group"] in ("01_Match_HUD", "02_Numbers_Names_Events", "03_Minimap"):
+        if r["group"] in ("01_Match_HUD", "02_Numbers_Names_Events", "03_Minimap", "05_Match_Props", "07_Sideline_Crew"):
             shutil.copyfile(P(me, r["png"]), P(d, r["id"] + ".png")); n += 1
     ui_root = P(PK, "Untitled_Retro_Football_93_Club_Tactics_4K")
     for r in csv.DictReader(open(P(ui_root, "Sprite_Manifest.csv"), encoding="utf-8")):
