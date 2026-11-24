@@ -765,8 +765,8 @@ void FPFMatch::CarrierAI(FPFPlayer& Pl, float Dt)
 		Pl.KickAim = Goal + FVector2D(0, Rng.Range(-GoalHalf + 0.5f, GoalHalf - 0.5f)); Pl.KickPower = Rng.Range(0.55f, 1.f); Pl.KickTarget = -1;
 		return;
 	}
-	const bool bPressured = Near < 3.5f;
-	if (bPressured || (DG > 30.f && Rng.Unit() < 0.25f))
+	const bool bPressured = Near < 4.5f;
+	if (bPressured || (DG > 30.f && Rng.Unit() < 0.4f) || (DG > 18.f && Rng.Unit() < 0.15f))
 	{
 		const int32 R = BestPassTarget(Pl, SafeN(Goal - Pl.Pos) * 0.6f + Pl.Facing * 0.4f, Rng.Unit() < 0.3f);
 		if (R >= 0)

@@ -66,4 +66,4 @@ In `PFAbility()`; stats are 1..99.
 - `Tools/pixellab/produce.py`: resumable, parallel, budget-capped production (`--floor` = minimum account balance).
 - `Tools/pipeline/build_atlas.py`: QA + atlases + contact sheets.
 - `Tools/ue/make_assets.py`: the only Unreal assets (sprite material, empty map).
-- Test hooks: `-pfmatch`, `-pfwatch`, `-pfshots=N -pfshotgap=S`, `-pfsimtest=N` (headless AI matches with diagnostics: shots, saves, tackles, blocks, how goals were scored), `-pfcareertest=N`, `-pfcareerscreen=N`.
+- Test hooks: `-pfmatch`, `-pfwatch`, `-pfshots=N -pfshotgap=S`, `-pfsimtest=N` (headless AI matches with diagnostics: shots, saves, tackles, blocks, how goals were scored), `-pffeeltest` (scripted human stick on an empty pitch: times to top speed, reversal, facing and stop), `-pfcareertest=N`, `-pfcareerscreen=N`.

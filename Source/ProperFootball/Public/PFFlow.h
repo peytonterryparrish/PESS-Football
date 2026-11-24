@@ -69,6 +69,7 @@ public:
 	void StartFriendly();
 	void RunCareerTest(int32 Seasons);
 	void RunMatchTest(int32 N);
+	void RunFeelTest();
 	void StartMatch(const FPFMatchSetup& S, TFunction<void(const FPFMatch&)> OnDone);
 
 	EPFScreen Screen = EPFScreen::Title;
