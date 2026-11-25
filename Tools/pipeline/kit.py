@@ -121,3 +121,45 @@ def preview_kit(img, kit):
                 base = hx(kit[inv[r]]); m = mult.get(g, 1.0)
                 px[x, y] = tuple(min(255, int(c * m)) for c in base) + (255,)
     return img
+
+def segment_generic(img, kit, tol=72):
+    """v0.8 base-body pilot: any club kit (segment_source only knows Portsmouth's home slot). A pixel is kit if it is
+    near one of the kit's own colours; body zones (fraction of the figure's height) say which part it is, so a yellow
+    shirt and yellow socks, or dark sleeves (trim) and dark shorts, still land in the right region."""
+    px = img.load(); W, H = img.size
+    l, top, r, bot = img.getbbox()
+    cols = {k: hx(kit[k]) for k in ("shirt", "trim", "shorts", "socks") if k in kit}
+    out = {}
+    for y in range(H):
+        for x in range(W):
+            c = px[x, y]
+            if c[3] == 0: continue
+            f = (y - top) / max(1, bot - top)
+            if f < 0.17 or f > 0.93: continue          # head and hair; boots
+            # a saturated kit colour and its shading (darker/lighter yellows of a yellow shirt) count by hue first
+            h, sat, v = hsv(c[:3]); reg = None
+            for k2, v2 in cols.items():
+                h2, s2, _ = hsv(v2)
+                if s2 > 0.35 and sat > 0.3 and v > 0.2 and hue_d(h, h2) < 24: reg = k2
+            if reg is None:
+                d, reg = min((sum((a - b) ** 2 for a, b in zip(c[:3], v3)) ** 0.5, k) for k, v3 in cols.items())
+                if d > tol: continue
+            if reg == "trim" and f >= 0.62: continue            # dark skin at the knees is not a sleeve
+            # zones decide between regions that share a colour
+            if reg == "socks" and cols.get("shirt") == cols.get("socks"): reg = "shirt"   # same colour: zones decide
+            if f < 0.47 and reg != "shirt": reg = "trim"
+            elif f < 0.70: reg = "shorts" if reg in ("shorts", "trim") else reg
+            else: reg = "socks" if reg in ("socks", "shirt") else reg
+            if reg == "shirt" and f >= 0.70: reg = "socks"
+            out[(x, y)] = reg
+    return out
+
+def to_template_generic(img, kit):
+    seg = segment_generic(img, kit)
+    img = img.copy(); px = img.load()
+    for (x, y), reg in seg.items():
+        v = hsv(px[x, y][:3])[2]
+        ramp = TEMPLATE[reg]
+        i = 0 if v < 0.30 else 1 if v < 0.50 else 2 if v < 0.78 else 3
+        r, g, b = hx(ramp[i]); px[x, y] = (r, g, b, 255)
+    return img, seg

@@ -74,7 +74,7 @@ def fly_anchor(cell, lead):
     return (xe - lead * 2.5, sum(p[1] for p in end) / len(end))
 
 def anchors_for(jpath):
-    d = json.load(open(jpath)); slug, kit = d["id"].rsplit("_", 1)
+    d = json.load(open(jpath)); slug, _, kit = d["id"].rpartition("_")
     rawc = glob.glob(os.path.join(RAW, slug, f"{kit}_{d.get('player', '*')}"))
     at = Image.open(os.path.join(ROOT, d["atlas"])).convert("RGBA")
     out = {}
@@ -103,7 +103,7 @@ def sheet(d, at, out, path):
 
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    files = sorted(glob.glob(os.path.join(CLUBS, "*.json")))
+    files = sorted(glob.glob(os.path.join(CLUBS, "*.json"))) + sorted(glob.glob(os.path.join(ROOT, "GameData", "Sprites", "B*.json")))   # + v0.8 base bodies
     files = [f for f in files if not f.endswith("_hands.json") and (not args or any(os.path.basename(f).startswith(a + "_") for a in args))]
     n = 0
     for f in files:

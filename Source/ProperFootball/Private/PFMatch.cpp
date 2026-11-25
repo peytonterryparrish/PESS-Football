@@ -308,6 +308,9 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 				const int32 CS = ClubSpriteFor(FString::Printf(TEXT("Clubs/%s_%s"), *TS.ClubSlug, *K));
 				if (CS >= 0) Pl.SpriteSet = CS;
 			}
+			// v0.8 base-body pilot (-pfbase): every player in a hand-checked base body, his club's kit coloured in by code
+			static const bool bBase = FParse::Param(FCommandLine::Get(), TEXT("pfbase"));
+			if (bBase) Pl.SpriteSet = SpriteFor(Pl.bKeeper ? TEXT("BK1") : TEXT("B01"));
 			Pl.AIThink = Rng.Range(0, 0.3f);
 			P.Add(Pl);
 		}
@@ -2208,10 +2211,33 @@ FName FPFMatch::PoseFor(const FPFPlayer& Pl) const
 	const float Ph = FMath::Frac(Pl.Gait);
 	if (S < 2.2f)
 	{
+		if (Sets.IsValidIndex(Pl.SpriteSet) && Sets[Pl.SpriteSet].Has(TEXT("walk_passR")))
+		{
+			static const FName W4[] = { TEXT("walk_contactR"), TEXT("walk_passR"), TEXT("walk_contactL"), TEXT("walk_passL") };
+			return W4[FMath::Min(3, int32(Ph * 4.f))];
+		}
 		static const FName W[] = { TEXT("walk_contactR"), TEXT("idle"), TEXT("walk_contactL"), TEXT("idle") };
 		return W[FMath::Min(3, int32(Ph * 4.f))];
 	}
 	const bool bSprint = Pl.bSprint && S > Pl.A.MaxSpeed * 0.9f && !Pl.bKeeper;
+	// v0.8 base bodies carry full cycles (8-frame run, 6-frame sprint and dribble, 4-frame walk), each generated as one
+	// animation; the v0.7 club sets keep the 6-frame mixes below
+	const FPFSpriteSet* BS = Sets.IsValidIndex(Pl.SpriteSet) ? &Sets[Pl.SpriteSet] : nullptr;
+	if (BS && BS->Has(TEXT("run_upR")))
+	{
+		if (Ball.Owner == Pl.Index && S < 5.5f && BS->Has(TEXT("dribble_midR")))
+		{
+			static const FName D6[] = { TEXT("dribble_touchR"), TEXT("dribble_midR"), TEXT("dribble_pushR"), TEXT("dribble_touchL"), TEXT("dribble_midL"), TEXT("dribble_pushL") };
+			return D6[FMath::Min(5, int32(Ph * 6.f))];
+		}
+		if (bSprint && BS->Has(TEXT("sprint_upR")))
+		{
+			static const FName S6[] = { TEXT("sprint_contactR"), TEXT("sprint_downR"), TEXT("sprint_upR"), TEXT("sprint_contactL"), TEXT("sprint_downL"), TEXT("sprint_upL") };
+			return S6[FMath::Min(5, int32(Ph * 6.f))];
+		}
+		static const FName R8[] = { TEXT("run_contactR"), TEXT("run_downR"), TEXT("run_passR"), TEXT("run_upR"), TEXT("run_contactL"), TEXT("run_downL"), TEXT("run_passL"), TEXT("run_upL") };
+		return R8[FMath::Min(7, int32(Ph * 8.f))];
+	}
 	const int32 F = FMath::Min(5, int32(Ph * 6.f));
 	if (Ball.Owner == Pl.Index && S < 5.5f)
 	{
