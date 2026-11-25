@@ -96,6 +96,7 @@ namespace PFClips
 		Add(TEXT("chest"),    { TEXT("chest_control"), TEXT("idle") }, { 0.20f, 0.05f });
 		Add(TEXT("throwin"),  { TEXT("throwin_back"), TEXT("throwin_release"), TEXT("idle") }, { 0.25f, 0.15f, 0.08f }, 1);
 		Add(TEXT("dejected"), { TEXT("hands_on_head") }, { 2.0f });
+		Add(TEXT("feint"),    { TEXT("turn_plant"), TEXT("dribble_touchR") }, { 0.12f, 0.12f });   // right-stick skill move
 		// goalkeeper
 		Add(TEXT("gk_dive_low_R"), { TEXT("gk_ready"), TEXT("gk_dive_low_R1"), TEXT("gk_stretch_R"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
 		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_dive_high_R1"), TEXT("gk_stretch_R"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);

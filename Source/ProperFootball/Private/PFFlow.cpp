@@ -249,6 +249,7 @@ void UPFFlow::RunMatchTest(int32 N)
 		UE_LOG(LogPF, Display, TEXT("PFSIM goals by last kick: none %lld pass %lld lob %lld through %lld shot %lld clear %lld volley %lld header %lld punt %lld throw %lld poke %lld"), Dg[16], Dg[17], Dg[18], Dg[19], Dg[20], Dg[21], Dg[22], Dg[23], Dg[24], Dg[25], Dg[31]);
 		UE_LOG(LogPF, Display, TEXT("PFSIM goal ball: loose %lld, carried in by attacker %lld, by defender %lld; blocks per match %.1f"), Dg[26], Dg[27], Dg[28], Dg[29] / Nn);
 		UE_LOG(LogPF, Display, TEXT("PFSIM laws per match: offsides %.1f, keeper 8 s corners %.1f, keeper hand pick-ups %.1f; kicks %.1f with %.1f players offside; goals ruled out %lld; shots gathered by keeper %.1f, shots wide/over %.1f, shots taken by a defender %.1f / by a team-mate %.1f"), Dg[32] / Nn, Dg[33] / Nn, Dg[34] / Nn, Dg[36] / Nn, Dg[35] / Nn, Dg[37], Dg[38] / Nn, Dg[39] / Nn, Dg[40] / Nn, Dg[41] / Nn);
+		UE_LOG(LogPF, Display, TEXT("PFSIM passes per match %.1f: completed %.0f%%, intercepted %.0f%%, dead %.0f%%, avg length %.1f m; of the intercepted, never came within 2 m of the receiver %lld, taken in the air %lld"), Dg[42] / Nn, Dg[42] ? 100.f * Dg[43] / Dg[42] : 0.f, Dg[42] ? 100.f * Dg[45] / Dg[42] : 0.f, Dg[42] ? 100.f * Dg[46] / Dg[42] : 0.f, Dg[42] ? float(Dg[44]) / Dg[42] : 0.f, Dg[47], Dg[39]);
 		UE_LOG(LogPF, Display, TEXT("PFSIM presser: ticks %lld, avg dist to ball %.2f m, in reach %.1f%%, avg speed %.2f"), Dg[12], Dg[12] ? Dg[13] / 100.f / Dg[12] : 0.f, Dg[12] ? 100.f * Dg[14] / Dg[12] : 0.f, Dg[12] ? Dg[15] / 100.f / Dg[12] : 0.f);
 	}
 	UE_LOG(LogPF, Display, TEXT("PFSIM total: %d matches, %.2f goals/match, %.1f shots/match, stuck %d, %.1fs"), N, TotGoals / float(FMath::Max(1, N)), TotShots / float(FMath::Max(1, N)), Stuck, FPlatformTime::Seconds() - T0);
@@ -474,8 +475,10 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		}
 		FPFPadInput In;
 		In.Move = Pad.Move; In.bSprint = Pad.bSprint;
-		In.bPass = Pad.pA; In.bLob = Pad.pB; In.bThrough = Pad.pY; In.bSwitch = Pad.pLB;
-		In.bShootHeld = Pad.bX; In.bShootPressed = Pad.pX; In.bShootReleased = Pad.rX;
+		// v0.7 (owner): A pass, B shoot (hold for power), X cross, Y through ball, LB + B chip, LB on its own switches; right stick flicks = skills
+		In.bPass = Pad.pA; In.bLob = Pad.pX; In.bThrough = Pad.pY; In.bSwitch = Pad.pLB;
+		In.bShootHeld = Pad.bB; In.bShootPressed = Pad.pB; In.bShootReleased = Pad.rB; In.bChipMod = Pad.bLB;
+		In.bFeintL = Pad.pFlickL; In.bFeintR = Pad.pFlickR;
 		const int32 Sub = (bManageView && M.Highlight <= 0.f) ? 8 : 1;
 		for (int32 k = 0; k < Sub && !M.bFinished; ++k) M.Tick(Dt, k == 0 ? In : FPFPadInput());
 		// sounds (muted while a managed match runs at speed, except the big moments)
@@ -497,6 +500,18 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 	}
 	case EPFScreen::Result:
 		if (Pad.pA || Pad.pB || Pad.pStart) Go(EPFScreen::Main);
+		{
+			// long playtests (-pfautopad): straight into the next friendly, new clubs, ground and kick-off time
+			static const bool bAuto = FParse::Param(FCommandLine::Get(), TEXT("pfautopad"));
+			static float ResT = 0; ResT += Dt;
+			if (bAuto && ResT > 3.f && C.Num() > 1)
+			{
+				ResT = 0;
+				FriendlyHome = FMath::RandRange(0, C.Num() - 1); FriendlyAway = (FriendlyHome + 1 + FMath::RandRange(0, C.Num() - 2)) % C.Num();
+				FriendlyStage = FMath::RandRange(0, 2); FriendlySide = 0;
+				StartFriendly();
+			}
+		}
 		break;
 	case EPFScreen::Options:
 	{
@@ -512,7 +527,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 	}
 	case EPFScreen::PreMatch:
 		PreMatchT += Dt;
-		if (Pad.pA || Pad.pStart || (MatchActor && MatchActor->Match.Setup.bWatchOnly && PreMatchT > 2.f) || ShotsLeft > 0) { Go(EPFScreen::Match); PlaySfx(TEXT("whistle_short"), 0.7f); }
+		if (Pad.pA || Pad.pStart || (MatchActor && MatchActor->Match.Setup.bWatchOnly && PreMatchT > 2.f) || ShotsLeft > 0 || (FParse::Param(FCommandLine::Get(), TEXT("pfautopad")) && PreMatchT > 2.f)) { Go(EPFScreen::Match); PlaySfx(TEXT("whistle_short"), 0.7f); }
 		break;
 	case EPFScreen::Career:
 		if (UPFCareer* Car = UPFCareer::Get(this)) Car->Tick(Dt, Pad);

@@ -56,7 +56,8 @@ def seat_mask(img, home_hex):
     dx, dy = xx - O[0], yy - O[1]
     gx = (dx * AY[1] - dy * AY[0]) / det
     gy = (AX[0] * dy - AX[1] * dx) / det
-    pitch = (np.abs(gx) < 59.2) & (gy > -37.0) & (gy < 35.6)
+    # the pitch, the track and the advertising boards round it (boards stand ~1.5 m beyond the lines): never seats
+    pitch = (np.abs(gx) < 61.6) & (gy > -38.5) & (gy < 35.9)
     # the pack's 72-row left-end stand draws its seats as thin home-colour stripes on grey steps: inside its footprint
     # any stripe nearby counts (its plane sits a little below the pitch, hence the generous depth range)
     global LEFT_STAND
@@ -88,12 +89,55 @@ def place(slug, home_hex, rng):
     json.dump({"slug": slug, "fans": pts}, open(os.path.join(OUT, slug + ".json"), "w"), separators=(",", ":"))
     return len(pts)
 
+import colorsys
+def club_sheet(slug, kits):
+    """The 20 supporters in this club's colours: each fan's jacket (its biggest coloured, non-skin region on the
+    torso) takes the club colour's hue and saturation and keeps its own shading. 12 in the home shirt, 3 in the home
+    trim, 2 in the away shirt, 3 left as they are (neutral jackets)."""
+    base = Image.open(os.path.join(OUT, "fans.png")).convert("RGBA")
+    a = np.asarray(base).astype(np.float32) / 255.0
+    def hexrgb(h): return tuple(int(h[i:i + 2], 16) / 255.0 for i in (1, 3, 5))
+    plan = [kits["home"]["shirt"]] * 12 + [kits["home"]["trim"]] * 3 + [kits["away"]["shirt"]] * 2 + [None] * 3
+    out = a.copy()
+    for f in range(20):
+        tgt = plan[(f * 7) % 20]
+        if tgt is None: continue
+        th, ts, tv = colorsys.rgb_to_hsv(*hexrgb(tgt))
+        for row in (0, 1):
+            cell = a[row * 64:(row + 1) * 64, f * 64:(f + 1) * 64]
+            rgb = cell[..., :3]; al = cell[..., 3] > 0.5
+            mx = rgb.max(-1); mn = rgb.min(-1); sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
+            r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+            skin = (r > g) & (g > b) & (sat > 0.18) & (sat < 0.62) & (mx > 0.3) & ((r - b) > 0.12)
+            torso = np.zeros_like(al); torso[14:40 if row == 0 else 38, :] = True
+            cand = al & torso & ~skin & (mx > 0.12)
+            if cand.sum() < 20: continue
+            # the jacket = the dominant hue among the candidates (12 bins), plus its near neighbours
+            hue = np.zeros_like(mx)
+            for idx in zip(*np.nonzero(cand)):
+                hue[idx] = colorsys.rgb_to_hsv(*rgb[idx])[0]
+            bins = np.floor(hue[cand] * 12).astype(int) % 12
+            main = np.bincount(bins, minlength=12).argmax()
+            jbin = np.floor(hue * 12).astype(int) % 12
+            low_sat_jacket = np.median(sat[cand]) < 0.15
+            jacket = cand & ((np.abs(jbin - main) <= 1) | (np.abs(jbin - main) >= 11) | low_sat_jacket)
+            # keep the shading: value relative to the jacket's mean, applied to the club colour
+            vals = mx[jacket]; vm = max(float(vals.mean()), 1e-3)
+            for (y, x) in zip(*np.nonzero(jacket)):
+                k = mx[y, x] / vm
+                v = float(np.clip(tv * (0.55 + 0.45 * k) if tv > 0.85 else tv * k, 0, 1))
+                rr, gg, bb = colorsys.hsv_to_rgb(th, ts if ts > 0.08 else 0.0, v)
+                out[row * 64 + y, f * 64 + x, :3] = (rr, gg, bb)
+    Image.fromarray((out * 255).astype(np.uint8), "RGBA").save(os.path.join(OUT, slug + ".png"))
+
 def main():
     build_sprites()
     rows = {r["source_slug"]: r["home_primary_hex"] for r in csv.DictReader(open(os.path.join(STAD, "Manifest.csv"), encoding="utf-8"))}
     slugs = sys.argv[1:] or sorted(rows)
+    pal = {k["slug"]: k for k in json.load(open(os.path.join(ROOT, "ArtSource", "Packs", "R08_93_Clubs_South_Idle_Only", "Club_Kit_Palettes.json")))}
     for s in slugs:
         n = place(s, rows[s], random.Random(__import__("zlib").crc32(s.encode())))
+        if s in pal: club_sheet(s, pal[s])
         print(s, n)
 
 if __name__ == "__main__":

@@ -157,8 +157,8 @@ VSEG(47.06, 0.0, 9.16);  HSEG(9.16, 47.06, L);    // goal area
 d = min(d, abs(length(g) - 9.15));                // centre circle
 if (ax < 36.0) d = min(d, abs(length(float2(ax - 41.5, ay)) - 9.15));   // penalty arcs
 if (ax <= 52.5 && ay <= 34.0) d = min(d, abs(length(float2(ax - 52.5, ay - 34.0)) - 0.94));   // corner arcs
-d = min(d, max(length(g) - 0.14, 0.0));           // spots
-d = min(d, max(length(float2(ax - 41.5, ay)) - 0.14, 0.0));
+d = min(d, max(length(g) - 0.06, 0.0));           // spots (22 cm across with the line width)
+d = min(d, max(length(float2(ax - 41.5, ay)) - 0.06, 0.0));
 if (d < 0.06) col = v < 0.2 ? float3(204, 210, 198) : float3(240, 242, 234);
 // ---- depth and light (v0.7, owner: "grass with depth and shading"). Light.x = 0 daylight, 1 sunset, 2 floodlit night.
 // Every effect is applied per world-locked block with a hashed threshold, so edges dither like the pixel art.
@@ -369,6 +369,58 @@ def make_pitch_material():
     EAL.save_asset(path)
     unreal.log("[PF] pitch material ok")
 
+STADIUM_HLSL = r"""
+// The owner's stadium art at a non-integer magnification (about 6.24 screen px per art pixel) without uneven pixel
+// columns or shimmer while the camera pans: 'sharp bilinear' sampling. Inside each art pixel the colour is flat;
+// only a one-screen-pixel band at its edge blends into the next, so every art pixel draws the same size.
+float2 px = UV * Size.xy;
+float2 i = floor(px);
+float2 f = frac(px);
+float2 p = i + 0.5 + clamp((f - 0.5) * Size.z, -0.5, 0.5);   // flat across the art pixel, a one-screen-pixel blend at its edge
+// the texture is point-sampled (full size, nearest), so the blend is done here from the four texels round p
+float2 b = floor(p - 0.5); float2 w = p - 0.5 - b;
+float4 c00 = Texture2DSampleLevel(Tex, TexSampler, (b + float2(0.5, 0.5)) / Size.xy, 0);
+float4 c10 = Texture2DSampleLevel(Tex, TexSampler, (b + float2(1.5, 0.5)) / Size.xy, 0);
+float4 c01 = Texture2DSampleLevel(Tex, TexSampler, (b + float2(0.5, 1.5)) / Size.xy, 0);
+float4 c11 = Texture2DSampleLevel(Tex, TexSampler, (b + float2(1.5, 1.5)) / Size.xy, 0);
+return lerp(lerp(c00, c10, w.x), lerp(c01, c11, w.x), w.y);
+"""
+
+def make_stadium_material():
+    path = "/Game/PF/M_PFStadium"
+    if EAL.does_asset_exist(path):
+        EAL.delete_asset(path)
+    m = AT.create_asset("M_PFStadium", "/Game/PF", unreal.Material, unreal.MaterialFactoryNew())
+    m.set_editor_property("material_domain", unreal.MaterialDomain.MD_UI)
+    m.set_editor_property("blend_mode", unreal.BlendMode.BLEND_OPAQUE)
+    uv = MEL.create_material_expression(m, unreal.MaterialExpressionTextureCoordinate, -900, 0)
+    tex = MEL.create_material_expression(m, unreal.MaterialExpressionTextureObjectParameter, -900, 150)
+    tex.set_editor_property("parameter_name", "Tex")
+    size = MEL.create_material_expression(m, unreal.MaterialExpressionVectorParameter, -900, 300)
+    size.set_editor_property("parameter_name", "Size")
+    size.set_editor_property("default_value", unreal.LinearColor(3840, 2160, 6, 1))
+    mask = MEL.create_material_expression(m, unreal.MaterialExpressionComponentMask, -650, 300)
+    mask.set_editor_property("r", True); mask.set_editor_property("g", True); mask.set_editor_property("b", True); mask.set_editor_property("a", False)
+    MEL.connect_material_expressions(size, "", mask, "")
+    cust = MEL.create_material_expression(m, unreal.MaterialExpressionCustom, -400, 0)
+    cust.set_editor_property("code", STADIUM_HLSL)
+    cust.set_editor_property("output_type", unreal.CustomMaterialOutputType.CMOT_FLOAT4)
+    cust.set_editor_property("description", "PFStadium")
+    cin = []
+    for n in ("UV", "Tex", "Size"):
+        ci = unreal.CustomInput(); ci.set_editor_property("input_name", n); cin.append(ci)
+    cust.set_editor_property("inputs", cin)
+    MEL.connect_material_expressions(uv, "", cust, "UV")
+    MEL.connect_material_expressions(tex, "", cust, "Tex")
+    MEL.connect_material_expressions(mask, "", cust, "Size")
+    rgb = MEL.create_material_expression(m, unreal.MaterialExpressionComponentMask, -150, -50)
+    rgb.set_editor_property("r", True); rgb.set_editor_property("g", True); rgb.set_editor_property("b", True); rgb.set_editor_property("a", False)
+    MEL.connect_material_expressions(cust, "", rgb, "")
+    MEL.connect_material_property(rgb, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+    MEL.recompile_material(m)
+    EAL.save_asset(path)
+    unreal.log("[PF] stadium material ok")
+
 def make_map():
     path = "/Game/Maps/Main"
     if EAL.does_asset_exist(path):
@@ -380,4 +432,5 @@ def make_map():
 
 make_material()
 make_pitch_material()
+make_stadium_material()
 make_map()

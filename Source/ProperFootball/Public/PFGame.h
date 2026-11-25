@@ -22,7 +22,7 @@ struct FPFPadState
 	bool bSprint = false;
 	bool bA = false, bB = false, bX = false, bY = false, bLB = false, bRB = false, bStart = false, bBack = false;     // held
 	bool pA = false, pB = false, pX = false, pY = false, pLB = false, pRB = false, pStart = false, pBack = false;     // pressed this frame
-	bool rX = false;                                                                                                  // X released this frame
+	bool rX = false; bool rB = false; FVector2D Look = FVector2D::ZeroVector; bool pFlickL = false, pFlickR = false;   // B released; right stick and its flicks (skill moves)                                                                                                  // X released this frame
 	bool pUp = false, pDown = false, pLeft = false, pRight = false;                                                   // menu navigation (stick or d-pad, repeating)
 };
 
