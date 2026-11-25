@@ -133,6 +133,7 @@ namespace PFWorld
 		T.Name = C.Name; T.Short = C.Short; T.BadgePath = C.Badge;
 		T.Kit = bAwayKit ? C.Kits.Away : C.Kits.Home;
 		T.KeeperKit = C.Kits.Keeper1;
+		T.ClubSlug = C.Slug; T.bAwayKit = bAwayKit;
 		const TArray<FVector2D> Slots = FormationSlots(TEXT("4-4-2"));
 		const TArray<EPFRole> Roles = FormationRoles(TEXT("4-4-2"));
 		const int32 Base = 46 + C.Tier * 6;    // tier 1 ~52, tier 5 ~76

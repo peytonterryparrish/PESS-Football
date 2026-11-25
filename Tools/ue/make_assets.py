@@ -165,6 +165,132 @@ float3 o = sc <= 0.04045 ? sc / 12.92 : pow((sc + 0.055) / 1.055, 2.4);
 return float4(o, 1.0);
 """
 
+STANDS_HLSL = r"""
+// v0.7 stands: the stadium pack leaves the left-end stand as an empty grey slab (it slopes slightly DOWN in the
+// projection, so it reads as a flat plane) and the near side as a void with stray wall panels. Both are painted here
+// on the ground plane, world-locked like the pitch: advertising boards, a front wall, then rows of seats in the home
+// club's colour filled with supporters. Sizes are halved like the players (seat 0.28 m, row 0.45 m) so fans sit in
+// proportion with the half-height players.
+float pix = max(P1.z, 1.0);
+float2 sp = UV * P1.xy;
+float2 q = floor((sp + Cam.xy) / pix);
+float2 c = q * pix + pix * 0.5 - Cam.xy;
+float2 g = G0.xy + c.x * GA.xy + c.y * GB.xy;
+float dl = -60.6 - g.x;          // depth into the left-end stand
+float dn = -36.6 - g.y;          // depth into the near-side stand
+bool inL = dl > 0.0 && g.y < 33.6;
+bool inN = dn > 0.0 && g.x < 62.0;
+if (!inL && !inN) return float4(0, 0, 0, 0);
+bool nearS = inN && (!inL || dn > dl);
+float r = nearS ? dn : dl;
+float a = nearS ? g.x : -g.y;
+#define HASH(X, Y, OUT) { uint hh = uint(int(X) + 70000) * 1664525u + uint(int(Y) + 70000) * 1013904223u; hh ^= hh >> 16; hh *= 0x7feb352du; hh ^= hh >> 15; hh *= 0x846ca68bu; hh ^= hh >> 16; OUT = float(hh & 65535u) / 65535.0; }
+float3 col;
+if (r < 0.9)
+{
+    // advertising boards, 3 m panels: a bright ground and a row of light 'lettering' blocks
+    float bi = floor((a + 300.0) / 3.0);
+    float hb; HASH(bi, 17, hb);
+    float3 pal[6] = { float3(196, 32, 38), float3(24, 70, 160), float3(250, 200, 30), float3(20, 120, 70), float3(235, 235, 235), float3(30, 30, 36) };
+    col = pal[min(5, int(hb * 6.0))];
+    float fr = r / 0.9;
+    float lu = floor((a + 300.0) / 0.22);
+    float hl; HASH(lu, bi, hl);
+    if (fr > 0.3 && fr < 0.7 && hl > 0.42 && frac((a + 300.0) / 3.0) > 0.08 && frac((a + 300.0) / 3.0) < 0.92)
+        col = hb > 0.66 && hb < 0.84 ? float3(30, 30, 36) : float3(250, 250, 240);
+    if (frac((a + 300.0) / 3.0) < 0.02) col *= 0.55;
+}
+else if (r < 1.25)
+{
+    col = float3(58, 60, 66);                       // the front wall / walkway
+    if (r > 1.17) col = float3(120, 122, 126);
+}
+else
+{
+    float rr = r - 1.25;
+    float row = floor(rr / 0.45);
+    float f = frac(rr / 0.45);
+    float sa = (a + 500.0) / 0.28;
+    float seat = floor(sa);
+    float u = frac(sa);
+    float shade = lerp(1.0, 0.78, saturate(rr / 22.0)) * (fmod(row, 2.0) < 1.0 ? 1.0 : 0.94);
+    if (fmod(seat, 24.0) < 2.0)
+    {
+        col = f < 0.25 ? float3(96, 98, 104) : float3(150, 152, 156);   // stairway
+    }
+    else if (f < 0.2)
+    {
+        col = float3(72, 74, 80);                    // riser
+    }
+    else
+    {
+        float v = (f - 0.2) / 0.8;
+        float ho; HASH(seat, row, ho);
+        float3 seatc = Seat.rgb * 255.0 * 0.8;
+        col = v < 0.35 ? seatc * 0.7 : seatc;
+        if (ho < 0.8)
+        {
+            float hs; HASH(seat + 911, row, hs);
+            float hk; HASH(seat, row + 733, hk);
+            float3 skins[4] = { float3(236, 190, 152), float3(204, 146, 104), float3(146, 90, 58), float3(92, 58, 40) };
+            float3 hair[3] = { float3(42, 32, 26), float3(96, 62, 36), float3(206, 172, 96) };
+            float3 shirt = hs < 0.62 ? Seat.rgb * 255.0 : hs < 0.74 ? float3(240, 240, 236) : hs < 0.84 ? float3(34, 34, 44) : hs < 0.9 ? Seat2.rgb * 255.0 : float3(150 + 100 * hk, 60 + 150 * hs, 80 * hk + 40);
+            float2 hc = float2(0.5 + (hk - 0.5) * 0.2, 0.34);
+            float2 dd = float2((u - hc.x) * 0.28, (v - hc.y) * 0.36);
+            if (length(dd) < 0.085) col = (v < hc.y - 0.05) ? hair[min(2, int(hk * 3.0))] : skins[min(3, int(hs * 4.0))];
+            else if (v > 0.58 && abs(u - 0.5) < 0.46) col = shirt;
+        }
+    }
+    col *= shade;
+}
+float3 sc = saturate(col / 255.0 * Tint.rgb);
+float3 o = sc <= 0.04045 ? sc / 12.92 : pow((sc + 0.055) / 1.055, 2.4);
+return float4(o, 1.0);
+"""
+
+def make_ui_material(name, hlsl, params):
+    path = "/Game/PF/" + name
+    if EAL.does_asset_exist(path):
+        EAL.delete_asset(path)
+    m = AT.create_asset(name, "/Game/PF", unreal.Material, unreal.MaterialFactoryNew())
+    m.set_editor_property("material_domain", unreal.MaterialDomain.MD_UI)
+    m.set_editor_property("blend_mode", unreal.BlendMode.BLEND_TRANSLUCENT)
+    uv = MEL.create_material_expression(m, unreal.MaterialExpressionTextureCoordinate, -900, 0)
+    ins = {"UV": uv}
+    y = 100
+    for n in params:
+        e = MEL.create_material_expression(m, unreal.MaterialExpressionVectorParameter, -900, y); y += 150
+        e.set_editor_property("parameter_name", n)
+        e.set_editor_property("default_value", unreal.LinearColor(1, 1, 1, 1))
+        ins[n] = e
+    cust = MEL.create_material_expression(m, unreal.MaterialExpressionCustom, -400, 0)
+    cust.set_editor_property("code", hlsl)
+    cust.set_editor_property("output_type", unreal.CustomMaterialOutputType.CMOT_FLOAT4)
+    cust.set_editor_property("description", name)
+    cin = []
+    for n in ins:
+        ci = unreal.CustomInput(); ci.set_editor_property("input_name", n); cin.append(ci)
+    cust.set_editor_property("inputs", cin)
+    for n, e in ins.items():
+        if n == "UV":
+            MEL.connect_material_expressions(e, "", cust, n)
+        else:
+            mask = MEL.create_material_expression(m, unreal.MaterialExpressionComponentMask, -650, e.get_editor_property("material_expression_editor_y"))
+            mask.set_editor_property("r", True); mask.set_editor_property("g", True); mask.set_editor_property("b", True); mask.set_editor_property("a", False)
+            MEL.connect_material_expressions(e, "", mask, "")
+            MEL.connect_material_expressions(mask, "", cust, n)
+    rgb = MEL.create_material_expression(m, unreal.MaterialExpressionComponentMask, -150, -50)
+    rgb.set_editor_property("r", True); rgb.set_editor_property("g", True); rgb.set_editor_property("b", True); rgb.set_editor_property("a", False)
+    a = MEL.create_material_expression(m, unreal.MaterialExpressionComponentMask, -150, 100)
+    a.set_editor_property("r", False); a.set_editor_property("g", False); a.set_editor_property("b", False); a.set_editor_property("a", True)
+    MEL.connect_material_expressions(cust, "", rgb, "")
+    MEL.connect_material_expressions(cust, "", a, "")
+    MEL.connect_material_property(rgb, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+    MEL.connect_material_property(a, "", unreal.MaterialProperty.MP_OPACITY)
+    MEL.recompile_material(m)
+    EAL.save_asset(path)
+    unreal.log("[PF] %s ok" % name)
+
 def make_pitch_material():
     path = "/Game/PF/M_PFPitch"
     if EAL.does_asset_exist(path):
@@ -219,4 +345,5 @@ def make_map():
 
 make_material()
 make_pitch_material()
+make_ui_material("M_PFStands", STANDS_HLSL, ("P1", "G0", "GA", "GB", "Cam", "Tint", "Seat", "Seat2"))
 make_map()

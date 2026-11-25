@@ -241,6 +241,7 @@ void UPFFlow::RunMatchTest(int32 N)
 		UE_LOG(LogPF, Display, TEXT("PFSIM keepers per match: dives %.1f, dive saves %.1f, goals with keeper off his line %.1f; raw cut/og %lld passes/gkgoal %lld"), Dg[8] / Nn, Dg[10] / Nn, Dg[11] / Nn, Dg[6], Dg[7]);
 		UE_LOG(LogPF, Display, TEXT("PFSIM goals by last kick: none %lld pass %lld lob %lld through %lld shot %lld clear %lld volley %lld header %lld punt %lld throw %lld poke %lld"), Dg[16], Dg[17], Dg[18], Dg[19], Dg[20], Dg[21], Dg[22], Dg[23], Dg[24], Dg[25], Dg[31]);
 		UE_LOG(LogPF, Display, TEXT("PFSIM goal ball: loose %lld, carried in by attacker %lld, by defender %lld; blocks per match %.1f"), Dg[26], Dg[27], Dg[28], Dg[29] / Nn);
+		UE_LOG(LogPF, Display, TEXT("PFSIM laws per match: offsides %.1f, keeper 8 s corners %.1f, keeper hand pick-ups %.1f; kicks %.1f with %.1f players offside; goals ruled out %lld; shots gathered by keeper %.1f, shots wide/over %.1f, shots taken by a defender %.1f / by a team-mate %.1f"), Dg[32] / Nn, Dg[33] / Nn, Dg[34] / Nn, Dg[36] / Nn, Dg[35] / Nn, Dg[37], Dg[38] / Nn, Dg[39] / Nn, Dg[40] / Nn, Dg[41] / Nn);
 		UE_LOG(LogPF, Display, TEXT("PFSIM presser: ticks %lld, avg dist to ball %.2f m, in reach %.1f%%, avg speed %.2f"), Dg[12], Dg[12] ? Dg[13] / 100.f / Dg[12] : 0.f, Dg[12] ? 100.f * Dg[14] / Dg[12] : 0.f, Dg[12] ? Dg[15] / 100.f / Dg[12] : 0.f);
 	}
 	UE_LOG(LogPF, Display, TEXT("PFSIM total: %d matches, %.2f goals/match, %.1f shots/match, stuck %d, %.1fs"), N, TotGoals / float(FMath::Max(1, N)), TotShots / float(FMath::Max(1, N)), Stuck, FPlatformTime::Seconds() - T0);
@@ -393,8 +394,9 @@ void UPFFlow::StartFriendly()
 	S.Seed = FPlatformTime::Cycles64();
 	S.Home = PFWorld::FriendlyTeam(H, false, S.Seed * 31 + 1);
 	S.Away = PFWorld::FriendlyTeam(A, false, S.Seed * 31 + 2);
-	if (PFWorld::KitsClash(S.Home.Kit, S.Away.Kit)) S.Away.Kit = A.Kits.Away;
-	S.Away.KeeperKit = PFWorld::KitsClash(S.Home.KeeperKit, A.Kits.Keeper1) ? A.Kits.Keeper2 : A.Kits.Keeper1;
+	if (PFWorld::KitsClash(S.Home.Kit, S.Away.Kit)) { S.Away.Kit = A.Kits.Away; S.Away.bAwayKit = true; }
+	S.Away.bKeeper2 = PFWorld::KitsClash(S.Home.KeeperKit, A.Kits.Keeper1);
+	S.Away.KeeperKit = S.Away.bKeeper2 ? A.Kits.Keeper2 : A.Kits.Keeper1;
 	S.Home.bHuman = FriendlySide == 0;
 	S.Away.bHuman = FriendlySide == 1;
 	S.bWatchOnly = FriendlySide == 2;

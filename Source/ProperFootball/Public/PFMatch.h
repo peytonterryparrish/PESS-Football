@@ -66,6 +66,9 @@ struct FPFTeamSetup
 	FString Name = TEXT("Home"), Short = TEXT("HOM");
 	FPFKit Kit;
 	FPFKit KeeperKit;
+	// the club's own animated kit art (v0.7, GameData/Sprites/Clubs/<slug>_<kit>.json); empty for generated clubs
+	FString ClubSlug;
+	bool bAwayKit = false, bKeeper2 = false;
 	TArray<FPFPlayerSetup> XI;
 	bool bHuman = false;
 	FString BadgePath;
@@ -128,7 +131,7 @@ struct FPFBall
 	FVector Pos = FVector::ZeroVector, Vel = FVector::ZeroVector;
 	int32 Owner = -1;
 	int32 LastTouch = -1;
-	int32 LastKind = 0;    // last EPFKick that moved it (16 = poked away)
+	int32 LastKind = 0;    // last EPFKick that moved it (16 = poked away, 17 = blocked, 18 = saved)
 	int32 LastTeam = 0;
 	float Roll = 0;   // distance rolled (sprite rotation)
 	float Curl = 0;
@@ -179,7 +182,7 @@ public:
 	FVector2D CamCenter;       // atlas px
 	static float CamZoom;
 	// test diagnostics: 0 shots, 1 shot dist sum (dm), 2 saves (dive+standing), 3 AI tackles tried, 4 won, 5 slides, 6 lost on cut, 7 passes, 8 intercept/loose pickups, 9 shots inside 12 m
-	static int64 Diag[32];      // stadium pixels -> screen pixels at 1080p (options: near / medium / far)
+	static int64 Diag[48];      // stadium pixels -> screen pixels at 1080p (options: near / medium / far)
 	static constexpr float PlayerHeightM = 1.82f;   // the sprite figure (64 px tall) is drawn at this real height
 	static float HeightScale;
 	static float GameSpeed;     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
@@ -197,7 +200,8 @@ private:
 	TObjectPtr<UTexture2D> ShadowTex = nullptr, RingTex = nullptr, CursorTex = nullptr;
 	struct FGoalLayer { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D XY, WH; };
 	FGoalLayer GoalShadow[2], GoalRear[2], GoalFront[2];
-	TObjectPtr<UMaterialInstanceDynamic> PitchMid = nullptr;   // M_PFPitch: dithered grass + markings, drawn over the plate's grass
+	TObjectPtr<UMaterialInstanceDynamic> PitchMid = nullptr;
+	TObjectPtr<UMaterialInstanceDynamic> StandsMid = nullptr;   // M_PFStands: the left-end and near-side stands, painted with supporters (v0.7)   // M_PFPitch: dithered grass + markings, drawn over the plate's grass
 	FLinearColor PitchTint = FLinearColor::White;
 	float PitchX0 = 57.f, PitchY0 = 34.5f;
 	TMap<uint64, TObjectPtr<UMaterialInstanceDynamic>> Mids;
@@ -215,9 +219,19 @@ private:
 	FPFPadInput PendPad;          // presses seen on frames that ran no 120 Hz step (high frame rates), kept for the next step
 	float BufPass = 0, BufLob = 0, BufThrough = 0, BufShoot = 0;   // input buffer (s left): a press counts if the player can act soon after
 	float StuckT = 0;
+	// ---- Laws of the Game (v0.7)
+	bool bKeeperHands = false;    // the ball's owner is a keeper holding it in his hands (only inside his own penalty area)
+	float HoldT = 0;              // seconds he has held it: over 8 = corner kick to the opponents (Law 12, 2025/26)
+	uint32 OffsideMask = 0;       // players caught offside when a team-mate last played the ball (bit = player index)
+	int32 OffsideTeam = -1;
+	bool bNoOffsideKick = false;  // the next kick is a throw-in, corner or goal kick (no offside from those)
+	bool bIndirectFK = false;     // the pending free kick is indirect (offside, back-pass, impeding the keeper)
+	bool bIndirectLive = false; int32 IndirectTaker = -1;   // an indirect free kick nobody else has touched yet
+	TArray<int32> Wall;           // defenders lined up 9.15 m from a free kick
 	int32 LastShotTeam = -1;
 
 	int32 SpriteFor(const FString& Id);
+	int32 ClubSpriteFor(const FString& Id);   // no stand-in: -1 when that club set isn't built
 	int32 AttackDir(int32 Team) const;    // +1 attacks +x
 	FVector2D GoalCentre(int32 Team, bool bOpponents) const;
 	void PlaceForKickoff(int32 KickTeam);
@@ -240,7 +254,16 @@ private:
 	int32 NearestToBall(int32 Team, bool bOutfieldOnly) const;
 	FVector2D FormationSpot(const FPFPlayer& Pl) const;
 	void Goal(int32 ScoringTeam);
-	void Foul(FPFPlayer& Offender, FPFPlayer& Victim);
+	void Foul(FPFPlayer& Offender, FPFPlayer& Victim, bool bIndirect = false);
+	bool InOwnBox(int32 Team, FVector2D Pos) const;          // inside that team's own penalty area
+	bool CanHandle(const FPFPlayer& K) const;                 // a keeper may use his hands on the ball right now
+	bool KeeperHolding() const { return bKeeperHands && Ball.Owner >= 0; }
+	float SecondLastX(int32 DefTeam, int32 AttackD) const;    // offside line (along the attack), second-last defender
+	void MarkOffside(const FPFPlayer& Kicker);
+	void Offside(FPFPlayer& Pl);
+	void IndirectFreeKick(int32 Team, FVector2D Spot, const TCHAR* Msg);
+	void EnforceRestartDistances();
+	void GiveKeeperHands(FPFPlayer& K);
 	void SwitchHuman(int32 NewIdx);
 	EPFDir ScreenDir(FVector2D WorldDir) const;
 	FName PoseFor(const FPFPlayer& Pl) const;
