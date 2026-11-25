@@ -28,11 +28,14 @@ struct FPFSpriteSet
 	bool bKitKeyed = false;       // kit pixels carry key colours that the sprite material recolours
 	TMap<FName, FPFFrame> Frames; // "dir/pose"
 	TSet<FName> Poses;
+	TMap<FName, FVector2D> Hands; // v0.8: "dir/pose" -> ball centre in cell pixels for ball-in-hands frames (<id>_hands.json)
 
 	bool Load(const FString& InId);
 	// Frame for a direction + pose; falls back to the same pose in the nearest direction, then the idle.
 	const FPFFrame& Get(EPFDir Dir, FName Pose) const;
 	bool Has(FName Pose) const { return Poses.Contains(Pose); }
+	// Where the hands are (cell pixels) for the frame Get() would return; null if not measured.
+	const FVector2D* HandAt(EPFDir Dir, FName Pose) const;
 	static const TCHAR* DirName(EPFDir D);
 };
 

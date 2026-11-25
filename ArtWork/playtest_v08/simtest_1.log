@@ -1,0 +1,14 @@
+PFSIM 14  BFU 0-0 IWA  shots 0-1  fouls 1 yel 1 red 0  restarts 1  maxstill 0.0s  finished 1  (str 4 v 5)
+PFSIM 15  LTT 0-0 BFM  shots 0-0  fouls 0 yel 0 red 0  restarts 1  maxstill 0.0s  finished 1  (str 3 v 4)
+PFSIM 16  WMF 0-0 GLB  shots 0-0  fouls 0 yel 0 red 0  restarts 1  maxstill 0.0s  finished 1  (str 4 v 3)
+PFSIM 17  CVC 0-0 NMB  shots 0-1  fouls 0 yel 0 red 0  restarts 1  maxstill 0.0s  finished 1  (str 3 v 3)
+PFSIM 18  SWA 0-0 SCA  shots 0-0  fouls 1 yel 1 red 0  restarts 3  maxstill 0.0s  finished 1  (str 3 v 2)
+PFSIM 19  NMB 0-0 CRG  shots 0-0  fouls 2 yel 1 red 0  restarts 2  maxstill 0.0s  finished 1  (str 3 v 2)
+PFSIM diag per match: shots 0.4 (avg 21.2 m, 0.0 inside 12 m), standing saves 0.0, AI tackles 46.7 won 46.8, slides 22.3, lost on cut 2.6, passes 188.9
+PFSIM keepers per match: dives 0.1, dive saves 0.0, goals with keeper off his line 0.0; raw cut/og 52 passes/gkgoal 3778
+PFSIM goals by last kick: none 0 pass 0 lob 0 through 0 shot 1 clear 0 volley 0 header 0 punt 0 throw 0 poke 0
+PFSIM goal ball: loose 1, carried in by attacker 0, by defender 0; blocks per match 0.3
+PFSIM laws per match: offsides 0.0, keeper 8 s corners 0.0, keeper hand pick-ups 0.1; kicks 233.9 with 0.0 players offside; goals ruled out 0; shots gathered by keeper 0.0, shots wide/over 1.4, shots taken by a defender 0.1 / by a team-mate 0.0
+PFSIM passes per match 224.1: completed 74%, intercepted 23%, dead 0%, avg length 10.4 m; of the intercepted, never came within 2 m of the receiver 789, taken in the air 28
+PFSIM presser: ticks 263152, avg dist to ball 1.99 m, in reach 49.5%, avg speed 6.19
+PFSIM total: 20 matches, 0.05 goals/match, 0.4 shots/match, stuck 0, 18.8s

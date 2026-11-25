@@ -1,5 +1,69 @@
 # Changelog
 
+## v0.8.0 (2026-11-25): assisted passing, real slide tackles, proper goals, ISS run cadence, the ball in the keeper's hands
+
+From the owner's notes on v0.7.0. Timings come from a frame-by-frame study of the owner's ISS Deluxe reference video (`docs/ISS_STUDY.md`). We match the feel and craft with Proper Football's own art; nothing from that game is copied.
+
+### Passing (owner: "doesn't feel good at all")
+- **A always finds a team-mate.** If nobody stands in the stick's direction it widens the search, then takes the nearest man, instead of kicking the ball into empty grass (most of v0.7's lost passes).
+- **Assisted, predetermined passes.** A short pass (A) picks the team-mate, aims where he'll be when the ball arrives, and travels at a steady, snappy speed (12 to 16.5 m/s) with no slow roll-in. It is steered onto his feet in flight and killed dead there.
+  - A pass from your side is never misplaced.
+  - AI passers keep about a third of their usual error.
+  - The ball turns loose the moment it is touched, deflected or lifted, or if the receiver runs away from it.
+- **The receiver checks his run** and steps toward the ball instead of chasing its path. The one you control does this when your stick is idle.
+- Through balls (Y), crosses and lofted passes (X) are unchanged: they still go into space.
+
+### Slide tackles (owner: "don't work, no animation")
+- **They work.** Your slides: with the ball within 5 m, a slide locks onto where it will be, and the boots reach a little further. A side-on slide that catches the man after the ball is a foul less often. From behind it is still almost always a foul. AI slides keep v0.7's contact rules (the generous version halved the goals in AI matches).
+- **They show.** Slides are drawn side-on, as the front and back views read as a man standing with his arms out. They go slide, then sitting on the turf with the leg out, then up: 0.73 s in all, about 2 m, as in the ISS study.
+
+### Goals (owner: "ruined, terrible")
+- **New goals drawn in code, pixel-art style,** in the same projection as the ball and players, so posts, bar and net always agree with the physics:
+  - True proportions: 7.32 m wide, posts 2.44 m at the players' half height.
+  - White posts with a grey shade, and a see-through mesh net 2 m deep with grey back stanchions.
+  - The frame casts a shadow, and the net bellies out when a goal goes in.
+- The v0.7 photo goal had been squashed to half height as if flat, which threw the back of the net into the wrong place. `-pfgoalart` still draws it, for comparison.
+
+### Running and dribbling (owner: "legs move far too much", "runs look abysmal")
+- **Cadence from the ISS study.** Speed comes from longer strides, not faster legs:
+  - 1.5 to 1.9 steps-pairs per second (was about 4); the dribble uses the same cycle, a touch slower.
+  - The speed of play is unchanged.
+  - `-pfcada=` / `-pfcadb=` tune it.
+
+### Goalkeepers (owner: "the ball isn't held properly", "dives need to be proper")
+- **The ball is always in his hands.** Every ball-in-hands frame of every keeper (and every throw-in) has a measured hand point (`Tools/pipeline/hand_anchors.py`, 279 sets). The held ball is drawn there, in front of him, or behind him when he faces away. Before, it hovered at a fixed height that didn't match the half-size bodies.
+- **ISS-style dives.** A quick lunge, then a short flat flight on an arc (0.22 s, higher for a high dive). He lands full length on the turf for about half a second, then he's up. A caught ball stays in his gloves throughout.
+
+### Sprites (owner: "pixel bleed, missing pixels, grey spots")
+- **Most of the damage was our own clean-up.**
+  - v0.7's "mannequin ghost" rule erased real grey and navy kit.
+  - Its baked-ball rule punched holes in white shirts and socks, then deleted the boots and hands it had cut off.
+- **Both rules are now careful** (`Tools/pipeline/build_club_atlas.py`):
+  - Detached hands and feet are kept; specks, balls, grey crumbs and stray fragments are dropped.
+  - 1–2 px holes are filled, alpha is hard, and every cell keeps a 2-pixel margin so the sprite material can't bleed into its neighbour.
+  - White and light kit is tone-matched to the owner's south idle before the palette snap, so it no longer turns grey.
+  - The owner's south idles are untouched (byte-identical).
+- **Sprites are drawn at whole-pixel positions.**
+- **All 279 sets rebuilt.** Audit (`Tools/pipeline/audit_sprites.py`, `ArtWork/audit_v08/`):
+  - Pinholes 29,905 → 687 (those left are in the owner's own idles and pack dives).
+  - Cells touching their edge 1,264 → 0.
+  - Stray balls 344 → 76 (mostly raised gloves).
+  - Grey patches cut back to the level of genuine grey kit.
+- **The airplane celebration frames** (66 broken cells) are no longer used.
+
+### Testing
+- **Playtest** (`-pfautopad`, 16 minutes, 45 screenshots, then re-tests; log in `docs/STATUS_v0.8.md`): the auto-player's short passes went from 36% to **85% completed**, 75 of 94 to the intended man.
+- **Balance** (60 AI matches): 1.7 goals, 15.9 shots and 63% of passes completed per match (v0.7: 2.1, 16 and 65%).
+- **`-pfactshots=N`:** screenshots of keepers holding the ball, keepers landing after a dive, and slides.
+- **`-pfoldhold` / `-pfgoalart`:** draw the v0.7 held ball or goal, for comparison.
+- **New counters:** `PFPASSLOST` logs every lost pass of yours, and `PFPLAY` lines now count short passes.
+- `Tools/pipeline/audit_sprites.py` audits every atlas cell, `hand_anchors.py` measures the hand points, and `contact.py` tiles screenshots.
+
+### Known issues
+- **Run art:** individual run frames still vary from club to club, because each club's set was generated separately. Fixing that needs the base-body plan in `docs/STATUS_v0.8.md`, which needs the owner's OK to spend.
+- **Weak sets:** `rochdale_home` and `derby-county_home` have the most broken frames.
+- **Stadium near side:** still empty, as delivered.
+
 ## v0.7.0 (2026-11-25): every club in its own kit, the Laws of the Game, your stadiums, fans and goals
 
 From the owner's notes on v0.6.0 and on the v0.7 work in progress.
