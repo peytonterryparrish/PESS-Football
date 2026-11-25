@@ -201,7 +201,8 @@ private:
 	struct FGoalLayer { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D XY, WH; };
 	FGoalLayer GoalShadow[2], GoalRear[2], GoalFront[2];
 	TObjectPtr<UMaterialInstanceDynamic> PitchMid = nullptr;
-	TObjectPtr<UMaterialInstanceDynamic> StandsMid = nullptr;   // M_PFStands: the left-end and near-side stands, painted with supporters (v0.7)   // M_PFPitch: dithered grass + markings, drawn over the plate's grass
+	TObjectPtr<UTexture2D> FanTex = nullptr;   // the owner's ISS Deluxe supporters (GameData/Fans/fans.png: 20 fans, seated row + standing row)
+	TArray<FIntVector> Fans;                   // this stadium's seats: atlas x, y (the hips) and which fan (Tools/pipeline/fans.py)   // M_PFPitch: dithered grass + markings, drawn over the plate's grass
 	FLinearColor PitchTint = FLinearColor::White;
 	float PitchX0 = 57.f, PitchY0 = 34.5f;
 	TMap<uint64, TObjectPtr<UMaterialInstanceDynamic>> Mids;

@@ -160,7 +160,42 @@ if (ax <= 52.5 && ay <= 34.0) d = min(d, abs(length(float2(ax - 52.5, ay - 34.0)
 d = min(d, max(length(g) - 0.14, 0.0));           // spots
 d = min(d, max(length(float2(ax - 41.5, ay)) - 0.14, 0.0));
 if (d < 0.06) col = v < 0.2 ? float3(204, 210, 198) : float3(240, 242, 234);
-float3 sc = saturate(col / 255.0 * Tint.rgb);
+// ---- depth and light (v0.7, owner: "grass with depth and shading"). Light.x = 0 daylight, 1 sunset, 2 floodlit night.
+// Every effect is applied per world-locked block with a hashed threshold, so edges dither like the pixel art.
+float hv; { int2 qi = int2(q) + int2(91000, 37000); uint h = uint(qi.x) * 2246822519u + uint(qi.y) * 3266489917u; h ^= h >> 15; h *= 0x2c1b3c6du; h ^= h >> 12; hv = float(h & 1023u) / 1023.0; }
+// blades: short streaks running across the stripes catch the light differently on each mowing pass
+float blade = frac(sin(dot(floor(g * float2(5.0, 1.6)), float2(12.9898, 78.233))) * 43758.5453);
+col *= 1.0 + (blade - 0.5) * (bandA ? 0.07 : 0.05);
+// wear: bare, flattened turf in the goalmouths and round the centre spot
+float wear = 0.0;
+wear = max(wear, saturate(1.0 - length(float2((ax - 49.0) / 4.5, ay / 6.5))));
+wear = max(wear, 0.6 * saturate(1.0 - length(g) / 4.0));
+if (hv < wear * 0.55) col = lerp(col, float3(150, 140, 92), 0.45 + 0.25 * v);
+// depth: a touch brighter near the camera (the near touchline) and darker toward the far stand
+float depth = saturate((g.y + 34.0) / 68.0);
+float Lgt = lerp(1.05, 0.9, depth);
+// the far stand's shadow across the far side: a short band at midday, a long one at sunset; floodlights at night
+float lx = Light.x;
+bool shade = false;
+if (lx < 1.5)
+{
+    float reach = lx < 0.5 ? 7.0 + 1.5 * sin(g.x * 0.05) : 17.0 + 3.0 * sin(g.x * 0.04);
+    float edge = (34.0 - g.y) - reach;                       // < 0 inside the shadow
+    float sh = saturate(0.5 - edge / 2.5);                   // 2.5 m dithered penumbra
+    if (hv < sh) { Lgt *= lx < 0.5 ? 0.8 : 0.9; col *= float3(0.9, 0.95, 1.08); shade = true; }   // shade is cooler than sunlight
+}
+else
+{
+    // four corner pylons: brighter pools toward the corners, the middle of the pitch slightly dimmer
+    float pool = 0.0;
+    pool = max(pool, saturate(1.0 - length(float2(ax - 60.0, ay - 40.0)) / 55.0));
+    Lgt *= lerp(0.9, 1.12, pool);
+    if (hv < pool * 0.15) Lgt *= 1.06;
+}
+col *= Lgt;
+// the white lines take only a little of the evening / floodlight colour (paint stays white to the eye)
+float3 tint = d < 0.06 ? lerp(float3(1, 1, 1), Tint.rgb, 0.3) : (shade ? lerp(float3(1, 1, 1), Tint.rgb, 0.4) : Tint.rgb);   // shade isn't lit by the low evening sun
+float3 sc = saturate(col / 255.0 * tint);
 float3 o = sc <= 0.04045 ? sc / 12.92 : pow((sc + 0.055) / 1.055, 2.4);
 return float4(o, 1.0);
 """
@@ -301,7 +336,7 @@ def make_pitch_material():
     uv = MEL.create_material_expression(m, unreal.MaterialExpressionTextureCoordinate, -900, 0)
     ins = {"UV": uv}
     y = 100
-    for n in ("P1", "G0", "GA", "GB", "Cam", "Tint"):
+    for n in ("P1", "G0", "GA", "GB", "Cam", "Tint", "Light"):
         e = MEL.create_material_expression(m, unreal.MaterialExpressionVectorParameter, -900, y); y += 150
         e.set_editor_property("parameter_name", n)
         e.set_editor_property("default_value", unreal.LinearColor(1, 1, 1, 1))
@@ -345,5 +380,4 @@ def make_map():
 
 make_material()
 make_pitch_material()
-make_ui_material("M_PFStands", STANDS_HLSL, ("P1", "G0", "GA", "GB", "Cam", "Tint", "Seat", "Seat2"))
 make_map()

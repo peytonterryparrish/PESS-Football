@@ -96,6 +96,7 @@ void UPFFlow::Begin(UWorld* World)
 		FString HS, AS;
 		if (FParse::Value(FCommandLine::Get(), TEXT("pfhome="), HS)) for (int32 i = 0; i < C.Num(); ++i) if (C[i].Slug == HS) FriendlyHome = i;
 		if (FParse::Value(FCommandLine::Get(), TEXT("pfaway="), AS)) for (int32 i = 0; i < C.Num(); ++i) if (C[i].Slug == AS) FriendlyAway = i;
+		FParse::Value(FCommandLine::Get(), TEXT("pfstage="), FriendlyStage);   // 0 3 pm, 1 evening, 2 floodlights
 	}
 	FParse::Value(FCommandLine::Get(), TEXT("pfshots="), ShotsLeft);
 	FParse::Value(FCommandLine::Get(), TEXT("pfshotgap="), ShotGap);
