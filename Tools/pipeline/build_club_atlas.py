@@ -237,11 +237,26 @@ def build(slug, cdir):
     sheet.convert("RGB").save(os.path.join(SHEETS, cid + ".png"))
     print(cid, "frames", len(cells), "rejected", len(qa["rejected"]), "palette", len(pal))
 
+def build_club(s):
+    out = []
+    for cdir in sorted(os.listdir(os.path.join(RAW, s))):
+        kit = cdir.split("_")[0]
+        kind = "keeper" if kit.startswith("keeper") else "outfield"
+        if not complete(os.path.join(RAW, s, cdir), kind): out.append(f"{s} {cdir} incomplete"); continue
+        try: build(s, cdir); out.append(f"{s} {cdir} ok")
+        except Exception as e: out.append(f"{s} {cdir} ERROR {e}")
+    return out
+
 if __name__ == "__main__":
-    slugs = sys.argv[1:] or sorted(os.listdir(RAW))
-    for s in slugs:
-        for cdir in sorted(os.listdir(os.path.join(RAW, s))):
-            kit = cdir.split("_")[0]
-            kind = "keeper" if kit.startswith("keeper") else "outfield"
-            if not complete(os.path.join(RAW, s, cdir), kind): continue
-            build(s, cdir)
+    # python -I build_club_atlas.py [--jobs N] [slugs...]   (clubs in parallel processes)
+    args = sys.argv[1:]; jobs = 1
+    if args[:1] == ["--jobs"]: jobs = int(args[1]); args = args[2:]
+    slugs = args or sorted(os.listdir(RAW))
+    if jobs > 1:
+        from multiprocessing import Pool
+        with Pool(jobs) as pool:
+            for lines in pool.imap_unordered(build_club, slugs):
+                for l in lines: print(l, flush=True)
+    else:
+        for s in slugs:
+            for l in build_club(s): print(l, flush=True)

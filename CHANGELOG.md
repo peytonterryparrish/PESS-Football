@@ -1,5 +1,66 @@
 # Changelog
 
+## v0.7.0 (2026-11-25): every club in its own kit, the Laws of the Game, your stadiums, fans and goals
+
+From the owner's notes on v0.6.0 and on the v0.7 work in progress.
+
+### Players
+- **Every club plays in its own kit.** Each club gets one player in its home kit, one in its away kit and its keeper, generated from the owner's south idles. The poses are new and exaggerated, ISS-style: high knees, big arm pumps, huge backswings and follow-throughs (`Tools/pixellab/poses_x.py`, `produce_clubs.py`). Clubs without a set yet use the shared bodies.
+- **Same art in every direction.** Every frame uses only the colours of the owner's south idle for that player. The idle's speckled grain is added back until each frame's texture measures the same (`Tools/pipeline/build_club_atlas.py`).
+- **Bugs fixed:**
+  - Grey ghost legs left over from the pose generator ("players standing in their legs").
+  - Footballs drawn into frames.
+  - Big hairstyles turned into a block floating above the head; those players are no longer used as animated bodies.
+- **Keeper dives fly flat.** They use the six dive and smother frames that passed a strict audit of the owner's R08 action pack, in each club's keeper kit. The pack's outfield actions failed the audit (scrambled legs) and are not used.
+
+### Rules (docs/RULES.md)
+- **Keepers:**
+  - A keeper handles the ball only inside his own area.
+  - Nobody may challenge a keeper holding the ball. Opponents run out of the area, the one you control included.
+  - Holding it for more than 8 seconds gives the other side a corner.
+  - The back-pass rule applies.
+- **Offside:** given when the ball is played, flagged by the assistant on that half.
+- **Restarts:** opponents stand 9.15 m from free kicks and corners and 2 m from throw-ins, and defenders form walls. Goal kicks are kicked off the ground.
+- **Cards:** a second yellow is a red, and denying a clear goal-scoring chance is a straight red.
+- **Goals that don't count:** straight from a throw-in, or straight from an indirect free kick.
+
+### Controls (owner's layout)
+- **Buttons:** A short pass, B shoot (hold for power), X cross, Y through ball, LB + B chip.
+- **Right-stick skill moves:** flick left for a feint, flick right for a step-over that knocks the ball right. Nearby defenders may commit the wrong way.
+- **Aftertouch curl:** push the stick across a shot, cross or chip just after striking it to bend it.
+- **Your keeper:** you control him when he has the ball. In his hands he can carry it inside his area, and throws, rolls or kicks it out of his hands.
+- **Throw-ins:** rings mark your three nearest team-mates. Point at one, then press A.
+- **Off-screen arrows:** while your side has the ball, arrows at the screen edge point to team-mates you can't see.
+
+### Ball and passing
+- **The ball stops.** It now has real rolling friction, so a loose ball never rolls for long. In the playtest the longest roll was 4.7 s.
+- **Passes arrive.** They're weighted to reach the receiver still rolling, aimed just ahead of him, and he runs onto the ball's path. The receiver you control does this when your stick is idle. A pass can't be cut out in its first 2.2 m. AI pass completion went from 28% to 65%.
+- **Goals stay in.** The ball stays in the net, and the net bulges back and springs into shape.
+
+### Stadium
+- **Your stadium images,** shown exactly as provided. Only the pitch is redrawn.
+- **Your supporters** sit in every ground's own seats, at the players' scale, in the home club's colours, and stand up for goals. They never stand on the track or by the advertising boards.
+- **Your goals:** the pack's goal art, at half height to match the players. The posts stand about 1.3 player heights, as in real life.
+- **Grass with depth and light:**
+  - The far stand's shadow, long and cool at sunset.
+  - Brighter pools toward the floodlights.
+  - Worn goalmouths and centre spot, and grass blades that catch the light differently on each stripe.
+  - The centre and penalty spots are now real size.
+
+### Balance (headless AI matches)
+- 2.1 goals and 16 shots per match, with 65% of passes completed (v0.6: 4.0 goals and 26 shots).
+
+### Testing
+- **`-pfautopad`:** an auto-player plays your side through the real controls, match after match, logging pass completion, roll times and keeper crowding. A 30-minute run with 90 screenshots found the low pass completion, the slow exit from the keeper's area and the oversized spots, all fixed above.
+- **`-pfhome=` / `-pfaway=` / `-pfstage=`:** pick the clubs and the kick-off time.
+- **`-pfcamx=` / `-pfcamy=`:** hold the camera on a point.
+- **`-pfdiveshots=N`:** screenshot keeper dives.
+
+### Known issues
+- The near side of the stadium images is empty, with stray wall panels, as delivered.
+- Throw-ins are rare in AI play: the AI seldom puts the ball out.
+- Second-choice keeper kits use the shared keeper bodies.
+
 ## v0.6.0 (2026-11-24): passing fixed, ball at the feet, ISS Deluxe pace and pitch
 
 From the owner's playtest of v0.5.0: passing was unresponsive, the dribble ran too far from the feet, turns needed to be quicker, the game must be single player and offline only, and the look and flow should follow ISS Deluxe as closely as possible, studied frame by frame from real footage.
