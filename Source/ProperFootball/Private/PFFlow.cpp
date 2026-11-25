@@ -91,6 +91,12 @@ void UPFFlow::Begin(UWorld* World)
 	const TArray<FPFClub>& C = PFWorld::Clubs();
 	if (C.Num() > 1) { FriendlyHome = FMath::RandRange(0, C.Num() - 1); FriendlyAway = (FriendlyHome + 1 + FMath::RandRange(0, C.Num() - 2)) % C.Num(); }
 	// command line: -pfmatch jumps straight into a friendly (autotests, captures)
+	{
+		// -pfhome=<slug> -pfaway=<slug> pick the friendly's clubs (captures of a club's own sprites)
+		FString HS, AS;
+		if (FParse::Value(FCommandLine::Get(), TEXT("pfhome="), HS)) for (int32 i = 0; i < C.Num(); ++i) if (C[i].Slug == HS) FriendlyHome = i;
+		if (FParse::Value(FCommandLine::Get(), TEXT("pfaway="), AS)) for (int32 i = 0; i < C.Num(); ++i) if (C[i].Slug == AS) FriendlyAway = i;
+	}
 	FParse::Value(FCommandLine::Get(), TEXT("pfshots="), ShotsLeft);
 	FParse::Value(FCommandLine::Get(), TEXT("pfshotgap="), ShotGap);
 	if (FParse::Param(FCommandLine::Get(), TEXT("pfwatch"))) FriendlySide = 2;

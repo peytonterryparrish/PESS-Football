@@ -2033,10 +2033,21 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 				// dive as the camera sees it, and lifted to the dive's height (high dives fly higher).
 				FName SP = ClipPose.EndsWith(TEXT("R")) ? FName(TEXT("gk_stretch_R")) : FName(TEXT("gk_stretch_L"));
 				if (!Set.Has(SP)) SP = Set.Has(TEXT("gk_catch_high")) ? FName(TEXT("gk_catch_high")) : FName(TEXT("idle"));
+				const FVector2D DS = SafeN(Proj.DirToScreen(Pl.DiveDir), FVector2D(1, 0));
+				const bool bHighDive = Pl.Clip.ToString().Contains(TEXT("high"));
+				// the club's own flat dive (owner's R08 pack, audited): drawn as is, hands leading toward the dive on screen
+				const FName Fly = DS.X < 0 ? (bHighDive ? FName(TEXT("gk_fly_high_L")) : FName(TEXT("gk_fly_low_L"))) : (bHighDive ? FName(TEXT("gk_fly_high_R")) : FName(TEXT("gk_fly_low_R")));
+				if (Set.Has(Fly))
+				{
+					const FPFFrame& FF = Set.Get(EPFDir::S, Fly);
+					const FVector2D Body = ToScreen(Pv.ToAtlas(FVector(Pl.Pos.X, Pl.Pos.Y, bHighDive ? 0.75f : 0.1f)));
+					FCanvasTileItem DT(FVector2D(Body.X - Set.Pivot.X * SpriteScale, Body.Y - Set.Pivot.Y * SpriteScale), Mid->GetRenderProxy(), Size, FF.UV0, FF.UV1);
+					C->DrawItem(DT);
+					continue;
+				}
 				const FPFFrame& SF = Set.Get(EPFDir::S, SP);
 				if (SF.bValid)
 				{
-					const FVector2D DS = SafeN(Proj.DirToScreen(Pl.DiveDir), FVector2D(1, 0));
 					const float Ang = FMath::RadiansToDegrees(FMath::Atan2(DS.X, -DS.Y));      // clockwise from "head up"
 					const float Z = Pl.Clip.ToString().Contains(TEXT("high")) ? 1.15f : 0.45f;
 					const FVector2D Body = ToScreen(Pv.ToAtlas(FVector(Pl.Pos.X, Pl.Pos.Y, Z)));
