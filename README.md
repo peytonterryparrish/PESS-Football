@@ -25,13 +25,18 @@ Controls (pad first, keyboard fallback):
 | | Pad | Keyboard |
 |---|---|---|
 | Move | Left stick / d-pad | WASD / arrows |
-| Pass / select | A | J / Enter |
-| Lob / back | B | L / Backspace |
-| Shoot (hold for power) / slide tackle | X | K |
-| Through ball | Y | I |
+| Short pass / select (defending: switch player) | A | J / Enter |
+| Shoot, hold for power (defending: slide tackle) / back | B | L / Backspace |
+| Cross (lofted pass outside the attacking third; defending: tackle) | X | K |
+| Through ball (defending: tackle) | Y | I |
+| Chip shot | LB + B | Q + L |
 | Switch player | LB | Q |
+| Skill moves: feint left / step-over and knock right | Right stick flick left / right | Z / C |
+| Aftertouch curl (just after a shot, cross or chip) | Left stick across the ball's flight | WASD |
 | Sprint | RT | Shift |
 | Pause | Start | Esc / P |
+
+Your keeper is yours when he has the ball. In his hands he can carry it anywhere in his area: A throws it to the team-mate you point at, X throws it long, Y rolls it out, and B kicks it out of his hands. At throw-ins, rings mark your three nearest team-mates. Point at one and press A.
 
 Options has music, effects, half length and camera distance (near / medium / far).
 

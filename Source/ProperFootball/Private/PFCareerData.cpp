@@ -764,6 +764,8 @@ FPFMatchSetup FPFCareerSim::MatchSetup(const FPFFixture& F, bool bUserPlays) con
 		T.Name = C.Name; T.Short = C.Short; T.BadgePath = C.Badge;
 		T.Kit = bAway ? C.Kits.Away : C.Kits.Home;
 		T.KeeperKit = C.Kits.Keeper1;
+		if (const FPFClub* W = PFWorld::FindClub(C.ClubId)) T.ClubSlug = W->Slug;
+		T.bAwayKit = bAway;
 		const TArray<int32> XI = BestXI(Club);
 		const TArray<FVector2D> Slots = PFWorld::FormationSlots(C.Formation);
 		const TArray<EPFRole> Roles = PFWorld::FormationRoles(C.Formation);
@@ -778,8 +780,8 @@ FPFMatchSetup FPFCareerSim::MatchSetup(const FPFFixture& F, bool bUserPlays) con
 	};
 	M.Home = Team(F.Home, false);
 	M.Away = Team(F.Away, false);
-	if (PFWorld::KitsClash(M.Home.Kit, M.Away.Kit)) M.Away.Kit = S.Clubs[F.Away].Kits.Away;
-	if (PFWorld::KitsClash(M.Home.KeeperKit, M.Away.KeeperKit)) M.Away.KeeperKit = S.Clubs[F.Away].Kits.Keeper2;
+	if (PFWorld::KitsClash(M.Home.Kit, M.Away.Kit)) { M.Away.Kit = S.Clubs[F.Away].Kits.Away; M.Away.bAwayKit = true; }
+	if (PFWorld::KitsClash(M.Home.KeeperKit, M.Away.KeeperKit)) { M.Away.KeeperKit = S.Clubs[F.Away].Kits.Keeper2; M.Away.bKeeper2 = true; }
 	M.Home.bHuman = bUserPlays && F.Home == S.UserClub;
 	M.Away.bHuman = bUserPlays && F.Away == S.UserClub;
 	M.bWatchOnly = !bUserPlays;

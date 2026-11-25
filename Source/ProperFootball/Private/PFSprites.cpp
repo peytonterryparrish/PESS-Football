@@ -96,13 +96,15 @@ namespace PFClips
 		Add(TEXT("chest"),    { TEXT("chest_control"), TEXT("idle") }, { 0.20f, 0.05f });
 		Add(TEXT("throwin"),  { TEXT("throwin_back"), TEXT("throwin_release"), TEXT("idle") }, { 0.25f, 0.15f, 0.08f }, 1);
 		Add(TEXT("dejected"), { TEXT("hands_on_head") }, { 2.0f });
+		Add(TEXT("feint"),    { TEXT("turn_plant"), TEXT("dribble_touchR") }, { 0.12f, 0.12f });   // right-stick skill move
 		// goalkeeper
-		Add(TEXT("gk_dive_low_R"),  { TEXT("gk_ready"), TEXT("gk_dive_low_R1"), TEXT("gk_dive_low_R1"), TEXT("getup_kneel") }, { 0.05f, 0.12f, 0.45f, 0.45f }, 2);
-		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_dive_high_R1"), TEXT("gk_dive_high_R1"), TEXT("getup_kneel") }, { 0.05f, 0.12f, 0.45f, 0.45f }, 2);
-		Add(TEXT("gk_dive_low_L"),  { TEXT("gk_ready"), TEXT("gk_dive_low_L1"), TEXT("gk_dive_low_L1"), TEXT("getup_kneel") }, { 0.05f, 0.12f, 0.45f, 0.45f }, 2);
-		Add(TEXT("gk_dive_high_L"), { TEXT("gk_ready"), TEXT("gk_dive_high_L1"), TEXT("gk_dive_high_L1"), TEXT("getup_kneel") }, { 0.05f, 0.12f, 0.45f, 0.45f }, 2);
+		Add(TEXT("gk_dive_low_R"), { TEXT("gk_ready"), TEXT("gk_dive_low_R1"), TEXT("gk_stretch_R"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
+		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_dive_high_R1"), TEXT("gk_stretch_R"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
+		Add(TEXT("gk_dive_low_L"), { TEXT("gk_ready"), TEXT("gk_dive_low_L1"), TEXT("gk_stretch_L"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
+		Add(TEXT("gk_dive_high_L"), { TEXT("gk_ready"), TEXT("gk_dive_high_L1"), TEXT("gk_stretch_L"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
 		Add(TEXT("gk_catch"),  { TEXT("gk_catch_chest"), TEXT("gk_hold_ball") }, { 0.18f, 0.2f });
 		Add(TEXT("gk_catch_high"), { TEXT("gk_catch_high"), TEXT("gk_hold_ball") }, { 0.22f, 0.2f });
+		Add(TEXT("gk_pickup"), { TEXT("gk_scoop"), TEXT("gk_catch_chest"), TEXT("gk_hold_ball") }, { 0.16f, 0.10f, 0.15f });   // gathers a ground ball into his arms
 		Add(TEXT("gk_punt"),   { TEXT("gk_hold_ball"), TEXT("gk_punt_drop"), TEXT("gk_punt_strike"), TEXT("idle") }, { 0.15f, 0.12f, 0.16f, 0.1f }, 2);
 		Add(TEXT("gk_throw"),  { TEXT("gk_throw_back"), TEXT("gk_throw_release"), TEXT("idle") }, { 0.2f, 0.14f, 0.08f }, 1);
 		// officials

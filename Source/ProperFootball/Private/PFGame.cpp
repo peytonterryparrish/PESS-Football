@@ -145,7 +145,16 @@ void APFPlayerController::PlayerTick(float Dt)
 	N.bA = Held(0); N.bB = Held(1); N.bX = Held(2); N.bY = Held(3); N.bLB = Held(4); N.bRB = Held(5); N.bStart = Held(6); N.bBack = Held(7); N.bSprint = Held(8);
 	N.pA = N.bA && !Prev.bA; N.pB = N.bB && !Prev.bB; N.pX = N.bX && !Prev.bX; N.pY = N.bY && !Prev.bY;
 	N.pLB = N.bLB && !Prev.bLB; N.pRB = N.bRB && !Prev.bRB; N.pStart = N.bStart && !Prev.bStart; N.pBack = N.bBack && !Prev.bBack;
-	N.rX = !N.bX && Prev.bX;
+	N.rX = !N.bX && Prev.bX; N.rB = !N.bB && Prev.bB;
+	// right stick (skill moves): a flick is the stick crossing 0.7 sideways from near the middle. Keyboard: Z / C.
+	{
+		FVector2D L(GetInputAnalogKeyState(EKeys::Gamepad_RightX), -GetInputAnalogKeyState(EKeys::Gamepad_RightY));
+		if (IsInputKeyDown(EKeys::Z)) L = FVector2D(-1, 0);
+		if (IsInputKeyDown(EKeys::C)) L = FVector2D(1, 0);
+		N.Look = L;
+		N.pFlickL = L.X < -0.7f && Prev.Look.X > -0.45f;
+		N.pFlickR = L.X > 0.7f && Prev.Look.X < 0.45f;
+	}
 	// menu navigation with repeat
 	FVector2D Nav(FMath::Abs(M.X) > 0.5f ? FMath::Sign(M.X) : 0.f, FMath::Abs(M.Y) > 0.5f ? FMath::Sign(M.Y) : 0.f);
 	if (Nav != PrevNav) { NavRepeat = 0.38f; if (!Nav.IsZero()) { N.pLeft = Nav.X < 0; N.pRight = Nav.X > 0; N.pUp = Nav.Y < 0; N.pDown = Nav.Y > 0; } }
