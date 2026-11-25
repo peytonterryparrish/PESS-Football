@@ -138,6 +138,8 @@ struct FPFBall
 	int32 LastTeam = 0;
 	float Roll = 0;   // distance rolled (sprite rotation)
 	float Curl = 0;
+	float GuideV = 0;   // its steady speed while guided (m/s)
+	int32 Guide = -1; // v0.8 assisted pass: the team-mate it is being steered onto (-1 = free ball)
 };
 
 enum class EPFPhase : uint8 { PreKick, Play, Goal, Restart, HalfTime, FullTime };
@@ -166,6 +168,7 @@ public:
 	// playtest log (-pfautopad): what the pad's side did and what went wrong
 	int32 PT_Passes = 0, PT_PassOK = 0, PT_Shots = 0, PT_Chips = 0, PT_Crosses = 0, PT_Feints = 0, PT_FeintBeat = 0, PT_KeeperThrows = 0, PT_ThrowIns = 0;
 	int32 AnyPassFrom = -1, AnyPassTo = -1; float AnyPassT = 0, AnyPassMin = 99; FVector2D AnyPassFromPos;
+	int32 PT_ShortN = 0, PT_ShortOK = 0, PT_ShortToTarget = 0, PT_ShortLost = 0, PT_PassKind = 0, PT_PassTarget = -1; FVector2D PT_PassFromPos = FVector2D::ZeroVector; float PT_PassLen = 0;   // v0.8: short (A) passes only
 	int32 PT_KeeperCrowded = 0; float PT_MaxRoll = 0, PT_RollT = 0; int32 PT_LongRolls = 0; int32 PT_PassFrom = -1; float PT_PassT = 0;
 	void Draw(UCanvas* C, UMaterialInterface* SpriteMat);
 	void AddReferencedObjects(FReferenceCollector& Collector);
@@ -269,6 +272,7 @@ private:
 	void FireKick(FPFPlayer& Pl);
 	void Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, int32 Receiver = -1);
 	int32 BestPassTarget(const FPFPlayer& From, FVector2D Dir, bool bThrough) const;
+	int32 BestPassTargetCone(const FPFPlayer& From, FVector2D Dir, bool bThrough, float MinCos) const;
 	int32 NearestToBall(int32 Team, bool bOutfieldOnly) const;
 	FVector2D FormationSpot(const FPFPlayer& Pl) const;
 	void Goal(int32 ScoringTeam);

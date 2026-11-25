@@ -38,7 +38,14 @@ bool FPFSpriteSet::Load(const FString& InId)
 		FString Dir, Pose;
 		if (Key.Split(TEXT("/"), &Dir, &Pose)) Poses.Add(FName(*Pose));
 	}
-	UE_LOG(LogPF, Log, TEXT("PF sprite set %s: %d frames, %d poses"), *Id, Frames.Num(), Poses.Num());
+	// v0.8: hand anchors (Tools/pipeline/hand_anchors.py), so a held ball is drawn in the gloves
+	if (TSharedPtr<FJsonObject> HJ = PF::LoadJson(FString::Printf(TEXT("GameData/Sprites/%s_hands.json"), *Id)))
+		for (const auto& KV : HJ->Values)
+		{
+			const TArray<TSharedPtr<FJsonValue>>& A = KV.Value->AsArray();
+			if (A.Num() >= 2) Hands.Add(FName(*KV.Key), FVector2D(A[0]->AsNumber(), A[1]->AsNumber()));
+		}
+	UE_LOG(LogPF, Log, TEXT("PF sprite set %s: %d frames, %d poses, %d hand anchors"), *Id, Frames.Num(), Poses.Num(), Hands.Num());
 	return true;
 }
 
@@ -55,6 +62,19 @@ const FPFFrame& FPFSpriteSet::Get(EPFDir Dir, FName Pose) const
 			if (const FPFFrame* F = Frames.Find(FName(*FString::Printf(TEXT("%s/%s"), DirName(DD), *P.ToString())))) return *F;
 		}
 	return None;
+}
+
+const FVector2D* FPFSpriteSet::HandAt(EPFDir Dir, FName Pose) const
+{
+	const int32 D = int32(Dir);
+	static const int32 Order[] = { 0, 1, -1, 2, -2, 3, -3, 4 };
+	for (int32 O : Order)
+	{
+		const EPFDir DD = EPFDir((D + O + 8) % 8);
+		const FName K(*FString::Printf(TEXT("%s/%s"), DirName(DD), *Pose.ToString()));
+		if (Frames.Contains(K)) return Hands.Find(K);
+	}
+	return nullptr;
 }
 
 FName FPFClip::At(float T, int32* OutIndex) const
@@ -88,20 +108,20 @@ namespace PFClips
 		Add(TEXT("lob"),      { TEXT("shot_back"), TEXT("shot_strike"), TEXT("shot_follow") }, { 0.06f, 0.08f, 0.12f }, 1);
 		Add(TEXT("volley"),   { TEXT("volley_strike"), TEXT("shot_follow") }, { 0.10f, 0.14f }, 0);
 		Add(TEXT("header"),   { TEXT("header_stand"), TEXT("header"), TEXT("header_stand") }, { 0.10f, 0.18f, 0.10f }, 1);
-		Add(TEXT("slide"),    { TEXT("tackle_stand"), TEXT("slide"), TEXT("slide"), TEXT("getup_kneel"), TEXT("idle") }, { 0.06f, 0.30f, 0.25f, 0.22f, 0.05f }, 1);
+		Add(TEXT("slide"),    { TEXT("tackle_stand"), TEXT("slide"), TEXT("sit_ground"), TEXT("getup_kneel"), TEXT("idle") }, { 0.05f, 0.30f, 0.26f, 0.12f, 0.03f }, 1);
 		Add(TEXT("tackle"),   { TEXT("tackle_stand"), TEXT("block"), TEXT("idle") }, { 0.08f, 0.14f, 0.05f }, 0);
 		Add(TEXT("fall"),     { TEXT("stumble"), TEXT("fall_ground"), TEXT("fall_ground"), TEXT("getup_kneel"), TEXT("idle") }, { 0.12f, 0.35f, 0.35f, 0.25f, 0.05f });
-		Add(TEXT("celebrate"),{ TEXT("celebrate_arms_up"), TEXT("celebrate_fist"), TEXT("celebrate_arms_up"), TEXT("celebrate_airplane") }, { 0.4f, 0.4f, 0.4f, 0.8f });
+		Add(TEXT("celebrate"),{ TEXT("celebrate_arms_up"), TEXT("celebrate_fist"), TEXT("celebrate_arms_up"), TEXT("celebrate_point") }, { 0.4f, 0.4f, 0.4f, 0.8f });   // v0.8: the airplane frames failed the sprite audit (66 broken cells)
 		Add(TEXT("knee_slide"),{ TEXT("celebrate_knee_slide"), TEXT("celebrate_arms_up") }, { 1.0f, 1.0f });
 		Add(TEXT("chest"),    { TEXT("chest_control"), TEXT("idle") }, { 0.20f, 0.05f });
 		Add(TEXT("throwin"),  { TEXT("throwin_back"), TEXT("throwin_release"), TEXT("idle") }, { 0.25f, 0.15f, 0.08f }, 1);
 		Add(TEXT("dejected"), { TEXT("hands_on_head") }, { 2.0f });
 		Add(TEXT("feint"),    { TEXT("turn_plant"), TEXT("dribble_touchR") }, { 0.12f, 0.12f });   // right-stick skill move
 		// goalkeeper
-		Add(TEXT("gk_dive_low_R"), { TEXT("gk_ready"), TEXT("gk_dive_low_R1"), TEXT("gk_stretch_R"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
-		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_dive_high_R1"), TEXT("gk_stretch_R"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
-		Add(TEXT("gk_dive_low_L"), { TEXT("gk_ready"), TEXT("gk_dive_low_L1"), TEXT("gk_stretch_L"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
-		Add(TEXT("gk_dive_high_L"), { TEXT("gk_ready"), TEXT("gk_dive_high_L1"), TEXT("gk_stretch_L"), TEXT("getup_kneel") }, { 0.04f, 0.08f, 0.55f, 0.42f }, 2);
+		Add(TEXT("gk_dive_low_R"), { TEXT("gk_ready"), TEXT("gk_dive_low_R1"), TEXT("gk_stretch_R"), TEXT("getup_kneel") }, { 0.03f, 0.06f, 0.50f, 0.14f }, 2);
+		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_dive_high_R1"), TEXT("gk_stretch_R"), TEXT("getup_kneel") }, { 0.03f, 0.06f, 0.50f, 0.14f }, 2);
+		Add(TEXT("gk_dive_low_L"), { TEXT("gk_ready"), TEXT("gk_dive_low_L1"), TEXT("gk_stretch_L"), TEXT("getup_kneel") }, { 0.03f, 0.06f, 0.50f, 0.14f }, 2);
+		Add(TEXT("gk_dive_high_L"), { TEXT("gk_ready"), TEXT("gk_dive_high_L1"), TEXT("gk_stretch_L"), TEXT("getup_kneel") }, { 0.03f, 0.06f, 0.50f, 0.14f }, 2);
 		Add(TEXT("gk_catch"),  { TEXT("gk_catch_chest"), TEXT("gk_hold_ball") }, { 0.18f, 0.2f });
 		Add(TEXT("gk_catch_high"), { TEXT("gk_catch_high"), TEXT("gk_hold_ball") }, { 0.22f, 0.2f });
 		Add(TEXT("gk_pickup"), { TEXT("gk_scoop"), TEXT("gk_catch_chest"), TEXT("gk_hold_ball") }, { 0.16f, 0.10f, 0.15f });   // gathers a ground ball into his arms

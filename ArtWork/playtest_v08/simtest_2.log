@@ -1,0 +1,9 @@
+PFSIM 19  NMB 2-0 CRG  shots 4-8  fouls 0 yel 0 red 0  restarts 1  maxstill 0.0s  finished 1  (str 3 v 2)
+PFSIM diag per match: shots 14.8 (avg 10.4 m, 10.8 inside 12 m), standing saves 1.5, AI tackles 58.8 won 49.7, slides 22.1, lost on cut 2.0, passes 52.0
+PFSIM keepers per match: dives 3.7, dive saves 2.0, goals with keeper off his line 0.8; raw cut/og 40 passes/gkgoal 1039
+PFSIM goals by last kick: none 0 pass 0 lob 0 through 0 shot 20 clear 0 volley 0 header 0 punt 0 throw 0 poke 0
+PFSIM goal ball: loose 20, carried in by attacker 0, by defender 0; blocks per match 7.3
+PFSIM laws per match: offsides 0.0, keeper 8 s corners 0.0, keeper hand pick-ups 5.3; kicks 91.2 with 0.0 players offside; goals ruled out 0; shots gathered by keeper 2.7, shots wide/over 1.0, shots taken by a defender 2.2 / by a team-mate 0.2
+PFSIM passes per match 65.4: completed 63%, intercepted 34%, dead 0%, avg length 17.4 m; of the intercepted, never came within 2 m of the receiver 341, taken in the air 20
+PFSIM presser: ticks 374868, avg dist to ball 1.81 m, in reach 42.7%, avg speed 5.93
+PFSIM total: 20 matches, 1.00 goals/match, 14.9 shots/match, stuck 0, 15.2s

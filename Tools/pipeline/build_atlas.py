@@ -40,7 +40,9 @@ def components(img):
             comps.append(c)
     return comps
 
-def clean(img, idle_bbox, idle_cols=None):
+def clean(img, idle_bbox, idle_cols=None, specks=True):
+    """specks=False (v0.8 club pipeline): only hard alpha + the double-figure check; islands are judged later by
+    build_club_atlas.islands(), which keeps detached hands/feet instead of deleting everything under 30 px"""
     img = img.convert("RGBA"); px = img.load(); W, H = img.size
     notes = []
     for y in range(H):
@@ -52,6 +54,7 @@ def clean(img, idle_bbox, idle_cols=None):
     comps.sort(key=len, reverse=True)
     big = comps[0]
     if len(comps) > 1 and len(comps[1]) >= 0.3 * len(big): notes.append("double_figure")
+    if not specks: return img, notes
     for c in comps:
         if c is not big and len(c) < 30:
             for p in c: px[p] = (0, 0, 0, 0)

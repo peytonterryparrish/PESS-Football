@@ -1,0 +1,92 @@
+Sprite audit (before): 279 sets, 58446 cells, dir C:\Users\peyto\AppData\Local\Temp\claude\cf4a23f16c21affd\cd235f07-9a5d-4fef-9b5a-f6743af49caa\scratchpad\before
+
+defect           total   cells  idle cells
+island_ball        344     344          20
+island_debris     3638    3003          54
+island_limb       1567    1465           6
+grey_blob         6805    5922          88
+soft_alpha           0       0           0
+hidden_rgb           0       0           0
+fringe             983     983           0
+pinhole          29905   15433         811
+hole_gap         30066   21229        1410
+notch           176109   55381        1966
+touch_edge        1264    1264           0
+uv_bleed          1682    1682           0
+stale_cells          0
+
+(island_limb = detached but body-coloured and within 3 px of the body: usually a legit hand/foot, not removed)
+
+Worst 30 sets (weighted score; counts per defect):
+  2761.8  chelsea_away                       island_ball=6 island_debris=138 island_limb=81 grey_blob=1 pinhole=544 hole_gap=331 notch=1549 touch_edge=4 uv_bleed=5
+  2158.8  blackburn-rovers_away              island_ball=1 island_debris=82 island_limb=80 grey_blob=85 fringe=4 pinhole=328 hole_gap=212 notch=1024 touch_edge=6 uv_bleed=7
+  2038.4  birmingham-city_away               island_ball=2 island_debris=211 island_limb=39 grey_blob=56 pinhole=83 hole_gap=75 notch=612 touch_edge=6 uv_bleed=6
+  1988.8  darlington_away                    island_debris=43 island_limb=7 grey_blob=133 pinhole=332 hole_gap=160 notch=829 touch_edge=6 uv_bleed=7
+  1940.0  coventry-city_home                 island_ball=2 island_debris=9 island_limb=37 grey_blob=28 fringe=4 pinhole=507 hole_gap=334 notch=1325 touch_edge=5 uv_bleed=8
+  1897.2  burnley_away                       island_ball=1 island_debris=22 island_limb=1 grey_blob=223 pinhole=153 hole_gap=91 notch=801 touch_edge=7 uv_bleed=8
+  1872.4  darlington_home                    island_ball=10 island_debris=75 island_limb=5 grey_blob=146 pinhole=86 hole_gap=100 notch=827 touch_edge=11 uv_bleed=14
+  1835.6  west-ham-united_away               island_ball=7 island_debris=140 island_limb=23 grey_blob=35 pinhole=172 hole_gap=98 notch=943 touch_edge=7 uv_bleed=9
+  1771.4  southampton_home                   island_debris=1 grey_blob=252 pinhole=111 hole_gap=117 notch=652 touch_edge=3 uv_bleed=4
+  1743.4  cardiff-city_keeper1               island_debris=233 island_limb=29 fringe=1 pinhole=72 hole_gap=45 notch=557 touch_edge=1 uv_bleed=2
+  1728.2  wrexham_keeper1                    island_ball=1 island_debris=121 island_limb=29 grey_blob=47 fringe=7 pinhole=189 hole_gap=153 notch=781 touch_edge=2 uv_bleed=3
+  1705.8  luton-town_away                    island_ball=5 island_debris=77 island_limb=50 grey_blob=27 fringe=2 pinhole=295 hole_gap=125 notch=1069 touch_edge=6 uv_bleed=6
+  1673.2  huddersfield-town_away             island_ball=3 island_debris=34 island_limb=1 grey_blob=181 pinhole=108 hole_gap=105 notch=756 touch_edge=5 uv_bleed=5
+  1668.4  walsall_away                       island_ball=4 island_debris=27 island_limb=16 grey_blob=128 pinhole=217 hole_gap=141 notch=817 touch_edge=5 uv_bleed=8
+  1619.8  liverpool_away                     island_debris=29 island_limb=6 grey_blob=187 pinhole=95 hole_gap=101 notch=834 touch_edge=4 uv_bleed=5
+  1596.2  scunthorpe-united_keeper1          island_debris=191 island_limb=26 grey_blob=1 pinhole=109 hole_gap=52 notch=676 touch_edge=1 uv_bleed=2
+  1560.8  grimsby-town_home                  island_ball=1 island_debris=11 island_limb=7 grey_blob=117 fringe=2 pinhole=248 hole_gap=154 notch=894 touch_edge=5 uv_bleed=6
+  1538.8  reading_away                       island_debris=10 island_limb=33 fringe=3 pinhole=465 hole_gap=206 notch=1229 touch_edge=5 uv_bleed=6
+  1506.2  sheffield-united_away              island_ball=1 island_debris=51 island_limb=5 grey_blob=130 pinhole=93 hole_gap=83 notch=771 touch_edge=10 uv_bleed=10
+  1502.8  reading_home                       island_ball=16 island_debris=51 island_limb=19 grey_blob=46 fringe=17 pinhole=185 hole_gap=139 notch=759 touch_edge=5 uv_bleed=7
+  1502.2  barnet_away                        island_ball=1 island_debris=60 island_limb=8 grey_blob=82 fringe=30 pinhole=169 hole_gap=106 notch=711 touch_edge=6 uv_bleed=6
+  1478.8  northampton-town_away              island_debris=61 island_limb=49 grey_blob=8 fringe=2 pinhole=319 hole_gap=120 notch=964 touch_edge=6 uv_bleed=7
+  1465.4  swindon-town_away                  island_ball=1 island_debris=46 island_limb=5 grey_blob=97 fringe=98 pinhole=87 hole_gap=105 notch=732 touch_edge=6 uv_bleed=6
+  1442.4  hull-city_away                     island_debris=11 island_limb=6 grey_blob=50 pinhole=313 hole_gap=277 notch=812 touch_edge=5 uv_bleed=5
+  1436.8  boston-united_away                 island_ball=4 island_debris=2 island_limb=3 grey_blob=112 pinhole=229 hole_gap=140 notch=774 touch_edge=5 uv_bleed=7
+  1431.0  carlisle-united_away               island_ball=2 island_debris=1 grey_blob=178 pinhole=112 hole_gap=113 notch=595 touch_edge=5 uv_bleed=5
+  1419.8  crewe-alexandra_away               island_ball=2 island_debris=7 island_limb=2 grey_blob=91 pinhole=253 hole_gap=149 notch=754 touch_edge=8 uv_bleed=9
+  1401.4  hartlepool-united_away             island_ball=1 island_debris=48 island_limb=43 grey_blob=30 pinhole=198 hole_gap=279 notch=877 touch_edge=5 uv_bleed=6
+  1387.0  crewe-alexandra_home               island_ball=1 island_debris=26 island_limb=2 grey_blob=131 pinhole=114 hole_gap=108 notch=715 touch_edge=7 uv_bleed=9
+  1383.4  yeovil-town_away                   island_ball=1 island_debris=5 island_limb=4 grey_blob=71 fringe=26 pinhole=185 hole_gap=345 notch=717 touch_edge=6 uv_bleed=8
+
+Worst 40 cells:
+   61.6  chelsea_away                       south/shield                     island_debris=3 pinhole=20 hole_gap=1 notch=13
+   54.2  yeovil-town_away                   east/celebrate_airplane          island_debris=2 grey_blob=6 fringe=1 pinhole=3 hole_gap=1 notch=16
+   54.0  peterborough-united_away           east/fall_ground                 island_debris=3 grey_blob=4 pinhole=2 notch=5 touch_edge=1 uv_bleed=1
+   50.4  birmingham-city_home               south-east/fall_ground           island_debris=1 island_limb=1 grey_blob=2 pinhole=9 notch=22 touch_edge=1 uv_bleed=1
+   48.8  manchester-city_away               east/fall_ground                 island_limb=1 grey_blob=3 pinhole=9 hole_gap=1 notch=14 touch_edge=1 uv_bleed=1
+   46.8  rushden-and-diamonds_away          east/fall_ground                 island_debris=3 grey_blob=2 pinhole=6 hole_gap=3 notch=19
+   43.2  tottenham-hotspur_away             south-east/fall_ground           grey_blob=4 pinhole=4 notch=21 touch_edge=1 uv_bleed=1
+   42.0  brighton-hove-albion_away          south-east/getup_kneel           island_debris=1 island_limb=1 pinhole=16 hole_gap=1 notch=10
+   41.8  everton_home                       north-east/fall_ground           island_debris=1 grey_blob=3 pinhole=8 hole_gap=2 notch=14
+   41.0  colchester-united_away             north-east/fall_ground           grey_blob=4 pinhole=7 hole_gap=4 notch=15
+   41.0  manchester-city_away               east/sprint_contactL             pinhole=18 hole_gap=4 notch=5
+   40.2  yeovil-town_away                   east/getup_kneel                 grey_blob=6 fringe=1 pinhole=2 hole_gap=2 notch=11
+   39.8  sheffield-united_away              east/sit_ground                  island_debris=2 pinhole=7 hole_gap=2 notch=4 touch_edge=1 uv_bleed=1
+   39.6  brentford_home                     east/fall_ground                 grey_blob=2 pinhole=8 hole_gap=1 notch=8 touch_edge=1 uv_bleed=1
+   38.8  newcastle-united_away              east/fall_ground                 grey_blob=4 pinhole=8 hole_gap=1 notch=9
+   38.4  grimsby-town_home                  south-east/getup_kneel           grey_blob=1 fringe=1 pinhole=8 hole_gap=2 notch=12 touch_edge=1 uv_bleed=1
+   38.2  darlington_away                    south/celebrate_airplane         island_debris=2 grey_blob=1 pinhole=10 notch=6
+   38.0  crewe-alexandra_away               north/header_dive                island_ball=1 island_debris=1 grey_blob=1 hole_gap=2 notch=10 touch_edge=1 uv_bleed=1
+   38.0  queens-park-rangers_away           east/celebrate_airplane          grey_blob=3 pinhole=10 hole_gap=1 notch=10
+   37.4  shrewsbury-town_away               south-east/fall_ground           island_limb=1 grey_blob=2 pinhole=6 hole_gap=1 notch=12 touch_edge=1 uv_bleed=1
+   36.8  huddersfield-town_away             east/idle_breathe                island_ball=1 island_debris=1 grey_blob=1 pinhole=1 notch=4 touch_edge=1 uv_bleed=1
+   36.4  derby-county_away                  south/fall_ground                grey_blob=1 pinhole=7 hole_gap=5 notch=7 touch_edge=1 uv_bleed=1
+   36.4  wrexham_away                       east/fall_ground                 grey_blob=4 pinhole=6 hole_gap=2 notch=12
+   36.2  burnley_away                       east/header_dive                 island_debris=1 grey_blob=2 pinhole=4 notch=6 touch_edge=1 uv_bleed=1
+   36.0  huddersfield-town_away             east/getup_kneel                 grey_blob=3 pinhole=3 hole_gap=2 notch=10 touch_edge=1 uv_bleed=1
+   35.8  mansfield-town_home                south/fall_ground                grey_blob=4 pinhole=2 notch=4 touch_edge=1 uv_bleed=1
+   35.6  birmingham-city_away               north-east/fall_ground           island_debris=3 grey_blob=1 notch=8 touch_edge=1 uv_bleed=1
+   35.0  gillingham_away                    north-east/fall_ground           island_debris=1 grey_blob=3 pinhole=1 notch=5 touch_edge=1 uv_bleed=1
+   35.0  lincoln-city_home                  south-east/fall_ground           island_ball=1 island_limb=1 grey_blob=1 pinhole=1 hole_gap=3 notch=5 touch_edge=1 uv_bleed=1
+   34.8  everton_away                       east/header_dive                 island_debris=1 island_limb=1 grey_blob=2 pinhole=2 notch=14 touch_edge=1 uv_bleed=1
+   34.6  chelsea_away                       south/celebrate_fist             pinhole=14 hole_gap=4 notch=13
+   34.6  everton_away                       east/fall_ground                 grey_blob=2 pinhole=6 notch=8 touch_edge=1 uv_bleed=1
+   34.2  barnet_home                        north-east/fall_ground           fringe=1 pinhole=14 hole_gap=2 notch=11
+   33.8  blackburn-rovers_away              north/celebrate_airplane         island_debris=1 grey_blob=3 pinhole=5 hole_gap=2 notch=4
+   33.8  darlington_away                    north-east/fall_ground           grey_blob=1 pinhole=6 hole_gap=4 notch=9 touch_edge=1 uv_bleed=1
+   33.4  darlington_home                    south/fall_ground                island_debris=1 grey_blob=5 hole_gap=1 notch=7
+   33.2  brighton-hove-albion_home          east/sit_ground                  island_debris=1 grey_blob=3 notch=6 touch_edge=1 uv_bleed=1
+   33.2  darlington_home                    east/header_dive                 grey_blob=4 hole_gap=2 notch=1 touch_edge=1 uv_bleed=1
+   33.0  boston-united_away                 east/header_dive                 grey_blob=2 pinhole=5 hole_gap=1 notch=5 touch_edge=1 uv_bleed=1
+   33.0  luton-town_away                    south/walk_contactR              pinhole=13 hole_gap=5 notch=10

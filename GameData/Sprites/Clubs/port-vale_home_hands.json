@@ -1,0 +1,98 @@
+{
+"south/throwin_back": [
+47.5,
+18
+],
+"south/throwin_release": [
+47.5,
+32
+],
+"south/getup_kneel": [
+48.0,
+63.9
+],
+"south-east/throwin_back": [
+35.7,
+24
+],
+"south-east/throwin_release": [
+53.8,
+32
+],
+"south-east/getup_kneel": [
+62,
+62.0
+],
+"east/throwin_back": [
+38.5,
+29
+],
+"east/throwin_release": [
+59.2,
+29
+],
+"east/getup_kneel": [
+66,
+63.0
+],
+"north-east/throwin_back": [
+44.9,
+30
+],
+"north-east/throwin_release": [
+62.9,
+24
+],
+"north-east/getup_kneel": [
+62,
+58.6
+],
+"north/throwin_back": [
+46.9,
+32
+],
+"north/throwin_release": [
+46.7,
+23
+],
+"north/getup_kneel": [
+47.5,
+56.4
+],
+"south-west/throwin_back": [
+59.3,
+24
+],
+"south-west/throwin_release": [
+41.2,
+32
+],
+"south-west/getup_kneel": [
+33,
+62.0
+],
+"west/throwin_back": [
+56.5,
+29
+],
+"west/throwin_release": [
+35.8,
+29
+],
+"west/getup_kneel": [
+29,
+63.0
+],
+"north-west/throwin_back": [
+50.1,
+30
+],
+"north-west/throwin_release": [
+32.1,
+24
+],
+"north-west/getup_kneel": [
+33,
+58.6
+]
+}

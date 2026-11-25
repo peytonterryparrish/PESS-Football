@@ -1,0 +1,474 @@
+{
+"south/gk_dive_low_R1": [
+44.0,
+49.2
+],
+"south/gk_dive_high_R1": [
+47.5,
+23
+],
+"south/gk_dive_low_L1": [
+51.0,
+49.9
+],
+"south/gk_dive_high_L1": [
+46.7,
+23
+],
+"south/gk_stretch_R": [
+47.4,
+25
+],
+"south/gk_stretch_L": [
+46.6,
+26
+],
+"south/gk_catch_chest": [
+46.5,
+49.2
+],
+"south/gk_catch_high": [
+47.3,
+12
+],
+"south/gk_scoop": [
+47.0,
+74.8
+],
+"south/gk_hold_ball": [
+47.0,
+44.5
+],
+"south/getup_kneel": [
+47.0,
+57.5
+],
+"south/gk_throw_back": [
+47.3,
+25
+],
+"south/gk_throw_release": [
+42.5,
+51.6
+],
+"south/gk_punt_drop": [
+46.5,
+46.0
+],
+"south-east/gk_dive_low_R1": [
+46,
+51.3
+],
+"south-east/gk_dive_high_R1": [
+47.3,
+21
+],
+"south-east/gk_dive_low_L1": [
+51,
+49.4
+],
+"south-east/gk_dive_high_L1": [
+46.3,
+21
+],
+"south-east/gk_stretch_R": [
+51.2,
+21
+],
+"south-east/gk_stretch_L": [
+48.9,
+21
+],
+"south-east/gk_catch_chest": [
+58,
+50.2
+],
+"south-east/gk_catch_high": [
+43.2,
+13
+],
+"south-east/gk_scoop": [
+74,
+61.8
+],
+"south-east/gk_hold_ball": [
+56,
+45.8
+],
+"south-east/getup_kneel": [
+55,
+58.8
+],
+"south-east/gk_throw_back": [
+42.4,
+22
+],
+"south-east/gk_throw_release": [
+53,
+50.9
+],
+"south-east/gk_punt_drop": [
+61,
+46.3
+],
+"east/gk_dive_low_R1": [
+49,
+47.3
+],
+"east/gk_dive_high_R1": [
+46.4,
+18
+],
+"east/gk_dive_low_L1": [
+50,
+44.3
+],
+"east/gk_dive_high_L1": [
+46.6,
+17
+],
+"east/gk_stretch_R": [
+47.8,
+17
+],
+"east/gk_stretch_L": [
+47.8,
+17
+],
+"east/gk_catch_chest": [
+49,
+49.7
+],
+"east/gk_catch_high": [
+42.4,
+12
+],
+"east/gk_scoop": [
+71,
+49.5
+],
+"east/gk_hold_ball": [
+46,
+45.8
+],
+"east/getup_kneel": [
+52,
+58.0
+],
+"east/gk_throw_back": [
+36.9,
+24
+],
+"east/gk_throw_release": [
+68,
+47.8
+],
+"east/gk_punt_drop": [
+47,
+46.3
+],
+"north-east/gk_dive_low_R1": [
+52,
+45.3
+],
+"north-east/gk_dive_high_R1": [
+48.8,
+19
+],
+"north-east/gk_dive_low_L1": [
+49,
+42.6
+],
+"north-east/gk_dive_high_L1": [
+50.8,
+19
+],
+"north-east/gk_stretch_R": [
+47.3,
+19
+],
+"north-east/gk_stretch_L": [
+48.5,
+19
+],
+"north-east/gk_catch_chest": [
+49,
+49.4
+],
+"north-east/gk_catch_high": [
+47.9,
+14
+],
+"north-east/gk_scoop": [
+75,
+39.0
+],
+"north-east/gk_hold_ball": [
+48,
+47.0
+],
+"north-east/getup_kneel": [
+58,
+57.1
+],
+"north-east/gk_throw_back": [
+44.6,
+30
+],
+"north-east/gk_throw_release": [
+50,
+48.0
+],
+"north-east/gk_punt_drop": [
+48,
+47.3
+],
+"north/gk_dive_low_R1": [
+50.0,
+45.8
+],
+"north/gk_dive_high_R1": [
+47.0,
+26
+],
+"north/gk_dive_low_L1": [
+44.5,
+46.2
+],
+"north/gk_dive_high_L1": [
+45.7,
+25
+],
+"north/gk_stretch_R": [
+46.6,
+23
+],
+"north/gk_stretch_L": [
+48.0,
+24
+],
+"north/gk_catch_chest": [
+47.0,
+48.1
+],
+"north/gk_catch_high": [
+47.2,
+14
+],
+"north/gk_scoop": [
+47.0,
+65.8
+],
+"north/gk_hold_ball": [
+47.0,
+46.0
+],
+"north/getup_kneel": [
+47.0,
+56.4
+],
+"north/gk_throw_back": [
+50.1,
+31
+],
+"north/gk_throw_release": [
+46.0,
+46.1
+],
+"north/gk_punt_drop": [
+46.0,
+46.4
+],
+"south/gk_fly_high_L": [
+18.5,
+31.2
+],
+"south/gk_fly_high_R": [
+77.5,
+31.2
+],
+"south/gk_fly_low_L": [
+16.5,
+63.1
+],
+"south/gk_fly_low_R": [
+79.5,
+63.1
+],
+"south/gk_fly_take": [
+30.1,
+37
+],
+"south/gk_smother": [
+22.5,
+71.8
+],
+"south-west/gk_dive_low_R1": [
+44,
+49.4
+],
+"south-west/gk_dive_high_R1": [
+48.7,
+21
+],
+"south-west/gk_dive_low_L1": [
+49,
+51.3
+],
+"south-west/gk_dive_high_L1": [
+47.7,
+21
+],
+"south-west/gk_stretch_R": [
+46.1,
+21
+],
+"south-west/gk_stretch_L": [
+43.8,
+21
+],
+"south-west/gk_catch_chest": [
+37,
+50.2
+],
+"south-west/gk_catch_high": [
+51.8,
+13
+],
+"south-west/gk_scoop": [
+21,
+61.8
+],
+"south-west/gk_hold_ball": [
+39,
+45.8
+],
+"south-west/getup_kneel": [
+40,
+58.8
+],
+"south-west/gk_throw_back": [
+52.6,
+22
+],
+"south-west/gk_throw_release": [
+42,
+50.9
+],
+"south-west/gk_punt_drop": [
+34,
+46.3
+],
+"west/gk_dive_low_R1": [
+45,
+44.3
+],
+"west/gk_dive_high_R1": [
+48.4,
+17
+],
+"west/gk_dive_low_L1": [
+46,
+47.3
+],
+"west/gk_dive_high_L1": [
+48.6,
+18
+],
+"west/gk_stretch_R": [
+47.2,
+17
+],
+"west/gk_stretch_L": [
+47.2,
+17
+],
+"west/gk_catch_chest": [
+46,
+49.7
+],
+"west/gk_catch_high": [
+52.6,
+12
+],
+"west/gk_scoop": [
+24,
+49.5
+],
+"west/gk_hold_ball": [
+49,
+45.8
+],
+"west/getup_kneel": [
+43,
+58.0
+],
+"west/gk_throw_back": [
+58.1,
+24
+],
+"west/gk_throw_release": [
+27,
+47.8
+],
+"west/gk_punt_drop": [
+48,
+46.3
+],
+"north-west/gk_dive_low_R1": [
+46,
+42.6
+],
+"north-west/gk_dive_high_R1": [
+44.2,
+19
+],
+"north-west/gk_dive_low_L1": [
+43,
+45.3
+],
+"north-west/gk_dive_high_L1": [
+46.2,
+19
+],
+"north-west/gk_stretch_R": [
+46.5,
+19
+],
+"north-west/gk_stretch_L": [
+47.7,
+19
+],
+"north-west/gk_catch_chest": [
+46,
+49.4
+],
+"north-west/gk_catch_high": [
+47.1,
+14
+],
+"north-west/gk_scoop": [
+20,
+39.0
+],
+"north-west/gk_hold_ball": [
+47,
+47.0
+],
+"north-west/getup_kneel": [
+37,
+57.1
+],
+"north-west/gk_throw_back": [
+50.4,
+30
+],
+"north-west/gk_throw_release": [
+45,
+48.0
+],
+"north-west/gk_punt_drop": [
+47,
+47.3
+]
+}
