@@ -339,13 +339,13 @@ void UPFFlow::ApplyCamera()
 	// sprites are exactly as big on screen as before but you see twice as much of the pitch (about 28 m across, ISS
 	// shows 22 m) and the pitch is half as many screens long. -pfscale=0.5 brings back the v0.8 framing.
 	static float Hs = -1.f;
-	if (Hs < 0.f) { Hs = 1.f; FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs); Hs = FMath::Clamp(Hs, 0.25f, 2.f); }
+	if (Hs < 0.f) { Hs = 0.6f; FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs); Hs = FMath::Clamp(Hs, 0.25f, 2.f); }
 	FPFMatch::HeightScale = Hs;
 	// v0.9 (owner: "5 different camera angles, 2 even closer and 3 even further away"): six zooms, the v0.9 default
 	// third. Sprite pixels at 1080p: 3:1, 2.5:1, 2:1 (default), 1.67:1, 1.33:1, 1:1. -pfcam=N picks one (captures).
 	static const float Z[] = { 4.68f, 3.90f, 3.12f, 2.60f, 2.08f, 1.56f };
 	{ int32 Cf = -1; if (FParse::Value(FCommandLine::Get(), TEXT("pfcam="), Cf)) CameraOpt = FMath::Clamp(Cf, 0, 5); }
-	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 5)] / Hs;
+	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 5)];   // v0.9.1: the zoom frames the pitch; HeightScale alone sets the players' size (owner: "players 40% smaller")
 }
 
 void UPFFlow::SaveOptions()

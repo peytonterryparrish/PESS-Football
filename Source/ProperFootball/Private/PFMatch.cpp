@@ -28,8 +28,8 @@ int32 FPFStats::Overall(bool bKeeper) const
 }
 
 float FPFMatch::CamZoom = 3.12f;   // NEAR: 2 * 64 / (22.533 * 0.5 * 1.82), so a sprite pixel is exactly 2x2 screen pixels at 1080p (ISS framing)
-float FPFMatch::HeightScale = 1.0f;   // v0.9: true size against the pitch (UPFFlow::ApplyCamera; -pfscale=0.5 is v0.8)
-float FPFMatch::GameSpeed = 0.85f;
+float FPFMatch::HeightScale = 0.6f;   // v0.9.1: players 40% smaller than true size against the pitch (owner); -pfscale=1 is v0.9.0
+float FPFMatch::GameSpeed = 0.95f;   // v0.9.1: a touch faster (owner), was 0.85
 int64 FPFMatch::Diag[48] = {};
 
 FPFAbility PFAbility(const FPFStats& S, bool bKeeper)
@@ -720,7 +720,7 @@ void FPFMatch::Tick(float Dt, const FPFPadInput& PadIn)
 		if (Sw >= 0)
 		{
 			if (Sw == 0) Keep = CamZoom;
-			if (Sw < 6) { CamZoom = Zs[Sw] / HeightScale; FScreenshotRequest::RequestScreenshot(FString::Printf(TEXT("cam%c_%d.png"), Stage == 0 ? 'A' : 'B', Sw), false, false); HitStop = 0.3f; ++Sw; }
+			if (Sw < 6) { CamZoom = Zs[Sw]; FScreenshotRequest::RequestScreenshot(FString::Printf(TEXT("cam%c_%d.png"), Stage == 0 ? 'A' : 'B', Sw), false, false); HitStop = 0.3f; ++Sw; }
 			else { CamZoom = Keep; Sw = -1; ++Stage; }
 		}
 		else if (Sw == -1 && Phase == EPFPhase::Play && ((Stage == 0 && HalfT > 25.f) || (Stage == 1 && FMath::Abs(Ball.Pos.X) > 36.f && Ball.Owner >= 0))) Sw = 0;
