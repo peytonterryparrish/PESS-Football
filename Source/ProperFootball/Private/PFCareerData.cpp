@@ -780,7 +780,7 @@ FPFMatchSetup FPFCareerSim::MatchSetup(const FPFFixture& F, bool bUserPlays) con
 	};
 	M.Home = Team(F.Home, false);
 	M.Away = Team(F.Away, false);
-	if (PFWorld::KitsClash(M.Home.Kit, M.Away.Kit)) { M.Away.Kit = S.Clubs[F.Away].Kits.Away; M.Away.bAwayKit = true; }
+	M.Away.Kit = PFWorld::AwayKitFor(M.Home.Kit, S.Clubs[F.Away].Kits, M.Away.bAwayKit);
 	if (PFWorld::KitsClash(M.Home.KeeperKit, M.Away.KeeperKit)) { M.Away.KeeperKit = S.Clubs[F.Away].Kits.Keeper2; M.Away.bKeeper2 = true; }
 	M.Home.bHuman = bUserPlays && F.Home == S.UserClub;
 	M.Away.bHuman = bUserPlays && F.Away == S.UserClub;

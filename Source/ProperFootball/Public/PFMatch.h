@@ -202,6 +202,7 @@ public:
 	static float HeightScale;
 	static float GameSpeed;     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
 	float Highlight = 0;
+	float HitStop = 0, ShakeT = 9.f, ShakeAmp = 0;   // v0.9 impact: a few frames' freeze and a camera kick when a shot is struck
 	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)
 	FLinearColor CardColor = FLinearColor::Yellow;   // the card the referee is holding up (while his ref_card clip plays)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
 

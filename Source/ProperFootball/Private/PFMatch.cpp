@@ -27,8 +27,8 @@ int32 FPFStats::Overall(bool bKeeper) const
 	return FMath::RoundToInt((Pace + Accel + Agility + Control + Passing + Shooting + Tackling + Positioning + Reactions + Heading) / 10.f);
 }
 
-float FPFMatch::CamZoom = 6.24f;   // NEAR: 2 * 64 / (22.533 * 0.5 * 1.82), so a sprite pixel is exactly 2x2 screen pixels at 1080p (ISS framing)
-float FPFMatch::HeightScale = 0.5f;
+float FPFMatch::CamZoom = 3.12f;   // NEAR: 2 * 64 / (22.533 * 0.5 * 1.82), so a sprite pixel is exactly 2x2 screen pixels at 1080p (ISS framing)
+float FPFMatch::HeightScale = 1.0f;   // v0.9: true size against the pitch (UPFFlow::ApplyCamera; -pfscale=0.5 is v0.8)
 float FPFMatch::GameSpeed = 0.85f;
 int64 FPFMatch::Diag[48] = {};
 
@@ -48,7 +48,7 @@ FPFAbility PFAbility(const FPFStats& S, bool bKeeper)
 	A.PassErrDeg = 15.f - 14.f * FMath::Pow(Pas, 0.9f);
 	A.PassPower = 0.85f + 0.3f * Pas;
 	A.ShotErrDeg = 19.f - 15.f * FMath::Pow(Sho, 0.9f);
-	A.ShotPower = 17.f + 16.f * Sho;
+	A.ShotPower = 23.f + 15.f * Sho;   // v0.9: 23 .. 38 m/s at full power (was 17 .. 33: "doesn't shoot strong enough")
 	A.ReactSec = 0.65f - 0.55f * Rea;
 	A.AnimRate = 0.95f + 0.4f * (Pace * 0.5f + Agi * 0.5f);
 	A.TackleReach = 0.9f + 0.9f * Tac;
@@ -231,6 +231,7 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 	Setup = InSetup;
 	Rng = PF::FRng(Setup.Seed);
 	FParse::Value(FCommandLine::Get(), TEXT("pfcada="), PFCadA); FParse::Value(FCommandLine::Get(), TEXT("pfcadb="), PFCadB);
+	{ float Hs = HeightScale; if (FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs)) HeightScale = FMath::Clamp(Hs, 0.25f, 2.f); }
 	Proj.Load();
 	Stadium = PF::LoadTexture(FString::Printf(TEXT("ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Clubs/%s/%s_Stadium_4K.png"), *Setup.StadiumSlug, *Setup.Stage));   // full size, point-sampled (M_PFStadium blends the edges)
 	// owner v0.7: the stadium art exactly as provided (crisp, nearest pixels); M_PFStadium is kept but off
@@ -658,7 +659,8 @@ void FPFMatch::Tick(float Dt, const FPFPadInput& PadIn)
 	BannerT = FMath::Max(0.f, BannerT - Dt);
 	NetHitT[0] += Dt; NetHitT[1] += Dt;
 	// fixed 120 Hz steps; pressed-this-frame buttons go to the first step only
-	Accum += Dt * GameSpeed;
+	if (HitStop > 0.f) HitStop -= Dt; else Accum += Dt * GameSpeed;
+	ShakeT += Dt;
 	// above 120 fps many frames run no step: a press on such a frame used to be dropped (v0.5 "passing is unresponsive")
 	PendPad.bPass |= Pad.bPass; PendPad.bLob |= Pad.bLob; PendPad.bThrough |= Pad.bThrough; PendPad.bSwitch |= Pad.bSwitch;
 	PendPad.bShootPressed |= Pad.bShootPressed; PendPad.bShootReleased |= Pad.bShootReleased; PendPad.bFeintL |= Pad.bFeintL; PendPad.bFeintR |= Pad.bFeintR;
@@ -1061,7 +1063,7 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 		if (BufShoot > 0 && !H.bCharging) { H.bCharging = true; H.Charge = 0; BufShoot = 0; }
 		if (H.bCharging)
 		{
-			H.Charge = FMath::Min(1.f, H.Charge + Dt / 0.55f);
+			H.Charge = FMath::Min(1.f, H.Charge + Dt / 0.45f);
 			if (Pad.bShootReleased || !Pad.bShootHeld || H.Charge >= 1.f)
 			{
 				H.bCharging = false;
@@ -1073,7 +1075,7 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 				if (FVector2D::Distance(H.Pos, Goal) > 40.f) Aim = H.Pos + AimDir * 40.f;
 				const bool bChip = Pad.bChipMod && FVector2D::Distance(H.Pos, Goal) < 40.f;   // LB + B: chip
 				if (bChip) Aim = Goal + FVector2D(0, FMath::Clamp(Aim.Y - Goal.Y, -GoalHalf + 0.8f, GoalHalf - 0.8f));
-				StartClip(H, bChip ? TEXT("lob") : TEXT("shot"), bChip ? EPFKick::Chip : EPFKick::Shot); H.KickAim = Aim; H.KickPower = FMath::Max(0.25f, H.Charge); H.KickTarget = -1;
+				StartClip(H, bChip ? TEXT("lob") : TEXT("shot"), bChip ? EPFKick::Chip : EPFKick::Shot); H.KickAim = Aim; H.KickPower = FMath::Max(0.45f, H.Charge); H.KickTarget = -1;
 				H.bEventFired = true; FireKick(H);
 			}
 		}
@@ -1234,6 +1236,13 @@ void FPFMatch::TeamAI(int32 Team, float Dt)
 		else if (!bInPoss && Pl.Index == Press)
 		{
 			Target = BallG; Urgency = 1.f; Pl.bSprint = FVector2D::Distance(Pl.Pos, BallG) > 6.f;
+			// v0.9: against the pad's dribbler he stays goal-side at a jockeying distance, then steps in (ISS defenders
+			// show the man the way, they don't glue to him)
+			if (Ball.Owner == Human && !Setup.bWatchOnly && FVector2D::Distance(Pl.Pos, BallG) < 5.f)
+			{
+				const FVector2D OwnGoal = GoalCentre(Team, false);
+				Target = BallG + SafeN(OwnGoal - BallG) * 1.1f; Pl.bSprint = false;
+			}
 			// tackle attempts (reaction-gated so poor players are late)
 			Pl.AIThink -= Dt;
 			const float DB = FVector2D::Distance(Pl.Pos, V2(Ball.Pos));
@@ -1248,10 +1257,24 @@ void FPFMatch::TeamAI(int32 Team, float Dt)
 				{
 					FPFPlayer& O = P[Ball.Owner];
 					StartClip(Pl, TEXT("tackle")); Diag[3]++;
-					if (Rng.Unit() < FMath::Clamp(Pl.A.TackleWin * 0.7f + O.A.TouchDist * 0.08f, 0.08f, 0.85f))
+					float Win = FMath::Clamp(Pl.A.TackleWin * 0.7f + O.A.TouchDist * 0.08f, 0.08f, 0.85f);
+					// v0.9 (owner: "I can't beat anybody or get past anybody"): against the pad's dribbler a tackle from behind or
+					// from the side he is running away from rarely wins it, a man shielding it (slow, back to the tackler) keeps it
+					// more often, and a missed tackle leaves the defender beaten for a moment, so taking a man on can work
+					const bool bVsPad = O.Index == Human && !Setup.bWatchOnly;
+					if (bVsPad)
+					{
+						const FVector2D ToDef = SafeN(Pl.Pos - O.Pos);
+						const float Away = FVector2D::DotProduct(SafeN(O.Vel, O.Facing), ToDef);   // -1 running straight away from him
+						if (Away < -0.3f && O.Vel.Size() > 3.f) Win *= 0.35f;
+						else if (O.Vel.Size() < 2.f && FVector2D::DotProduct(O.Facing, ToDef) < -0.2f) Win *= 0.5f;
+						else Win *= 0.75f;
+					}
+					if (Rng.Unit() < Win)
 					{
 						Ball.Owner = Pl.Index; Ball.Vel = FVector::ZeroVector; O.NoTouch = 0.45f; Ball.LastTouch = Pl.Index; Ball.LastTeam = Team; Ball.LastKind = 0; Diag[4]++;
 					}
+					else if (bVsPad) { Pl.Vel *= 0.25f; Pl.NoTouch = FMath::Max(Pl.NoTouch, 0.5f); Pl.FooledT = 0.35f; Pl.AIThink += 0.4f; }
 				}
 				else if (D < 3.2f && Rng.Unit() < 0.18f)
 				{
@@ -1563,7 +1586,7 @@ void FPFMatch::MovePlayers(float Dt)
 		const bool bKicking = Pl.Act == EPFAct::Clip && !Pl.bEventFired && Pl.PendingKick != EPFKick::None;
 		float MaxV = Pl.A.MaxSpeed * (Pl.bSprint ? Pl.A.SprintMul : 1.f) * (Pl.bKeeper ? 0.85f : 1.f);
 		const bool bOnBall = Ball.Owner == Pl.Index;
-		if (bOnBall) MaxV *= 0.8f;
+		if (bOnBall) MaxV *= (Pl.Index == Human && !Setup.bWatchOnly) ? 0.93f : 0.8f;   // v0.9: ISS dribbles at ~0.97x the run; the pad's man at 0.93x
 		if (bKicking) MaxV *= (Pl.PendingKick == EPFKick::Shot ? 0.55f : 0.8f);
 		FVector2D Wish = Pl.Wish;
 		if (Wish.SizeSquared() > 1.f) Wish = SafeN(Wish);
@@ -1579,17 +1602,23 @@ void FPFMatch::MovePlayers(float Dt)
 				const float Cos = FVector2D::DotProduct(Pl.Vel / Speed, Want);
 				const float K = FMath::Clamp((Cos + 1.f) * 0.5f, 0.f, 1.f);
 				const bool bPad = Pl.Index == Human && !Setup.bWatchOnly;   // arcade cuts for the controlled player: most of the speed survives
-				const float Keep = bPad ? FMath::Max(Pl.A.TurnKeep, 0.72f + 0.25f * Pl.A.TurnKeep) * (bOnBall ? 0.92f : 1.f) : Pl.A.TurnKeep * (bOnBall ? 0.75f : 1.f);
+				float Keep = bPad ? FMath::Max(Pl.A.TurnKeep, 0.72f + 0.25f * Pl.A.TurnKeep) * (bOnBall ? 0.92f : 1.f) : Pl.A.TurnKeep * (bOnBall ? 0.75f : 1.f);
+				// v0.9 (owner: movement "doesn't feel good"): an about-turn is no longer free; the pad's man plants and
+				// goes back from about a third of his speed (agile players keep more)
+				if (bPad && Cos < -0.3f) Keep = FMath::Min(Keep, 0.25f + 0.25f * Pl.A.TurnKeep);
 				if (Cos < 0.92f) Speed *= FMath::Lerp(Keep, 1.f, K * K);
 			}
 			if (!bKicking)
 			{
 				const float Ang = FMath::RadiansToDegrees(FMath::Atan2(FVector2D::CrossProduct(Pl.Facing, Want), FVector2D::DotProduct(Pl.Facing, Want)));
-				const float MaxTurn = Pl.Index == Human && !Setup.bWatchOnly ? 360.f : Pl.A.TurnRate * Dt;   // the pad's player snaps round
+				const float MaxTurn = Pl.Index == Human && !Setup.bWatchOnly ? 1500.f * Dt : Pl.A.TurnRate * Dt;   // v0.9: the pad's man turns fast (180 in 0.12 s) but through the in-between views, not a one-frame flip
 				Pl.Facing = SafeN(Rot(Pl.Facing, FMath::Clamp(Ang, -MaxTurn, MaxTurn)));
 			}
 			Speed = Speed < WantSpeed ? FMath::Min(WantSpeed, Speed + Pl.A.Accel * Dt) : FMath::Max(WantSpeed, Speed - 32.f * Dt);
-			Pl.Vel = (bKicking ? SafeN(Pl.Vel, Want) : Want) * Speed;
+			// the pad's man runs where he faces once he has turned most of the way (no moonwalking through a turn)
+			const bool bPadMove = Pl.Index == Human && !Setup.bWatchOnly && !bKicking;
+			const FVector2D MoveDir = bPadMove && FVector2D::DotProduct(Pl.Facing, Want) < 0.7f ? SafeN(Pl.Facing + Want * 0.5f, Want) : Want;
+			Pl.Vel = (bKicking ? SafeN(Pl.Vel, Want) : MoveDir) * Speed;
 		}
 		else
 		{
@@ -1608,7 +1637,7 @@ void FPFMatch::MovePlayers(float Dt)
 			// rises gently with speed; a jog ~1.8/s, a full run ~2.3/s, a sprint ~2.6/s, a dribble a touch slower
 			// ISS Deluxe (measured, docs/ISS_STUDY.md): speed comes from longer strides, not faster legs. Stride per cycle
 			// = 0.8 m + 0.44 s x speed in full-size metres; our bodies are drawn half size, so a world metre is two real ones.
-			const float Vr = 2.f * Speed;
+			const float Vr = Speed / HeightScale;
 			const float Cad = Speed < 2.2f ? 1.2f : PFCadA * FMath::Clamp(Vr / (0.8f + PFCadB * Vr), 1.3f, 1.95f);
 			Pl.Gait += Cad * Dt;
 		}
@@ -1674,7 +1703,9 @@ void FPFMatch::Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, 
 	{
 		Err = Pl.A.ShotErrDeg * (0.6f + Power * 0.7f) * (Pl.bSprint ? 1.4f : 1.f);
 		Dir = Rot(Dir, Rng.Gauss() * Err * 0.5f);
-		const float Spd = FMath::Lerp(13.f, Pl.A.ShotPower, Power);
+		const float Spd = FMath::Lerp(17.f, Pl.A.ShotPower, Power);
+		// v0.9 impact (owner: "shooting feels very lackluster"): the pad's shot freezes play for a few frames and kicks the camera
+		if (Pl.Index == Human && !Setup.bWatchOnly) { HitStop = 0.035f + 0.04f * Power; ShakeT = 0; ShakeAmp = 2.f + 4.f * Power; }
 		V = FVector(Dir * Spd, 1.0f + Power * 4.5f + Rng.Range(-0.5f, 1.5f) + FMath::Max(0.f, (D - 18.f) * 0.08f));
 		Shots[Pl.Team]++;
 		LastShotTeam = Pl.Team;
@@ -1731,7 +1762,7 @@ void FPFMatch::Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, 
 			for (int32 It = 0; It < 3; ++It)
 			{
 				const float Dm = FMath::Max(1.f, (float)FVector2D::Distance(Meet, From));
-				const float Tf = Dm / FMath::Clamp(11.f + Dm * 0.12f, 12.f, 16.5f);
+				const float Tf = Dm / FMath::Clamp(14.f + Dm * 0.25f, 16.f, 22.f);
 				Meet = Rc.Pos + Rc.Vel * FMath::Min(Tf, 1.5f) * 0.5f;   // receivers check their run as it comes (TeamAI)
 			}
 			To = Meet + Rc.Facing * 0.3f - From; Dir = SafeN(To, Dir);
@@ -1742,7 +1773,7 @@ void FPFMatch::Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, 
 		if (bAssist)
 		{
 			// ISS: the pass travels at a near-constant speed and is stopped dead at the feet (no slow roll-in)
-			Ball.GuideV = FMath::Clamp(11.f + Dp * 0.12f, 12.f, 16.5f);
+			Ball.GuideV = FMath::Clamp(14.f + Dp * 0.25f, 16.f, 22.f);   // v0.9: ISS's ~22 m/s short pass (was 12 .. 16.5: passes looked slow at the wider view)
 			V = FVector(Dir * Ball.GuideV, 0.f);
 			Ball.Owner = -1; Ball.Vel = V; Ball.LastKind = (int32)Type; Ball.Pos.Z = 0.11f; Ball.Guide = Receiver;
 			Sfx.Add(TEXT("kick_pass")); Ball.LastTouch = Pl.Index; Ball.LastTeam = Pl.Team; Ball.Curl = 0;
@@ -1784,7 +1815,8 @@ void FPFMatch::BallPhysics(float Dt)
 	if (Ball.Owner >= 0)
 	{
 		FPFPlayer& O = P[Ball.Owner];
-		const FVector2D Foot = O.Pos + O.Facing * 0.55f;
+		const float BodyK = HeightScale * 2.f;   // v0.9: distances that must read against the drawn body (1 at v0.8's half size)
+		const FVector2D Foot = O.Pos + O.Facing * (0.55f + 0.12f * (BodyK - 1.f));   // 0.67 m at true size: at the boot, not a step away
 		const FVector2D BP = V2(Ball.Pos);
 		const float Spd = O.Vel.Size();
 		if (O.bKeeper && bKeeperHands && !(O.Act == EPFAct::Clip && O.PendingKick != EPFKick::None))
@@ -1826,9 +1858,9 @@ void FPFMatch::BallPhysics(float Dt)
 			O.DribbleDir = Mv;                                        // the ball swings round with the body at once (arcade)
 			const float Steps = O.Gait * 2.f;                         // steps taken
 			const float U = FMath::Frac(Steps);                       // a touch every step: the ball never leaves the boots (ISS)
-			const float Amp = FMath::Clamp(O.A.TouchDist * 0.08f, 0.04f, 0.16f) * (O.bSprint ? 1.6f : 1.f);
-			const float Ahead = 0.24f + Amp * FMath::Sin(U * PI);     // metres; players are drawn at half height, so this reads as at the feet
-			const float Side = 0.04f * FMath::Cos(PI * Steps);        // swaps feet smoothly, one step to the next
+			const float Amp = FMath::Clamp(O.A.TouchDist * 0.08f, 0.04f, 0.16f) * (O.bSprint ? 1.6f : 1.f) * BodyK;
+			const float Ahead = 0.24f * BodyK + Amp * FMath::Sin(U * PI);     // metres, scaled so it reads as at the feet
+			const float Side = 0.04f * BodyK * FMath::Cos(PI * Steps);        // swaps feet smoothly, one step to the next
 			const FVector2D Lat(-O.DribbleDir.Y, O.DribbleDir.X);
 			const FVector2D NP = O.Pos + O.DribbleDir * Ahead + Lat * Side;
 			// the ball's velocity is the carrier's: AI prediction, the camera lead and anyone reading Ball.Vel see a smooth run,
@@ -1836,9 +1868,13 @@ void FPFMatch::BallPhysics(float Dt)
 			Ball.Vel = FVector(O.Vel, 0);
 			Ball.Pos = FVector(NP, 0.11f);
 			// a touch that runs out from the boots can be nicked by an opponent who gets a foot to it
-			if (Ahead > 0.27f)
+			// v0.9: a rate per second, not 5% per 120 Hz step (that took the ball off the pad's dribbler almost at once:
+			// owner "I can't get past anybody")
+			const bool bPadCarrier = O.Index == Human && !Setup.bWatchOnly;
+			const float NickP = 1.f - FMath::Exp(-Dt * (bPadCarrier ? 1.2f + 2.f * O.A.FirstTouchErr : 6.f));
+			if (Ahead > 0.27f * BodyK)
 				for (FPFPlayer& D : P)
-					if (D.Team != O.Team && !D.bSentOff && !D.bKeeper && D.NoTouch <= 0 && D.Act == EPFAct::None && FVector2D::Distance(D.Pos + D.Facing * 0.3f, NP) < 0.6f && Rng.Unit() < 0.05f)
+					if (D.Team != O.Team && !D.bSentOff && !D.bKeeper && D.NoTouch <= 0 && D.Act == EPFAct::None && FVector2D::Distance(D.Pos + D.Facing * 0.3f, NP) < 0.6f && Rng.Unit() < NickP)
 					{
 						Ball.Owner = -1; { const FVector2D Lt(-O.DribbleDir.Y, O.DribbleDir.X); const float Sg = FVector2D::DotProduct(D.Pos - O.Pos, Lt) > 0 ? -1.f : 1.f; Ball.Vel = FVector(SafeN(Lt * Sg - O.DribbleDir * 0.3f) * 3.5f, 0.f); Ball.LastKind = 16; } Ball.LastTouch = D.Index; Ball.LastTeam = D.Team;
 						O.NoTouch = 0.4f; Diag[4]++;
@@ -2316,6 +2352,7 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	Cam.X = FMath::Clamp(Cam.X, View.X * 0.5f, Proj.AtlasSize.X - View.X * 0.5f);
 	Cam.Y = FMath::Clamp(Cam.Y, View.Y * 0.5f, Proj.AtlasSize.Y - View.Y * 0.5f);
 	FVector2D TL = Cam - View * 0.5f;
+	if (ShakeT < 0.25f) { const float A = ShakeAmp * (1.f - ShakeT / 0.25f) / Zoom * (SH / 1080.f); TL += FVector2D(FMath::Sin(ShakeT * 90.f), FMath::Cos(ShakeT * 70.f)) * A; }
 	// snap so each stadium pixel lands on whole screen pixels
 	TL.X = FMath::RoundToFloat(TL.X * Zoom) / Zoom; TL.Y = FMath::RoundToFloat(TL.Y * Zoom) / Zoom;
 	auto ToScreen = [&](FVector2D A) { return FVector2D(FMath::RoundToFloat((A.X - TL.X) * Zoom), FMath::RoundToFloat((A.Y - TL.Y) * Zoom)); };

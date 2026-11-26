@@ -334,8 +334,15 @@ void UPFFlow::LoadOptions()
 
 void UPFFlow::ApplyCamera()
 {
-	static const float Z[] = { 6.24f, 4.68f, 3.12f };   // near / medium / far: sprite pixels 2:1, 1.5:1, 1:1 at 1080p (HeightScale 0.5)
-	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 2)];
+	// v0.9 (owner: "running across the field feels like an eternity", "hard to move the ball around"): players are drawn
+	// at true size against the pitch (HeightScale 1, was 0.5), and the camera pulls back by the same amount, so the
+	// sprites are exactly as big on screen as before but you see twice as much of the pitch (about 28 m across, ISS
+	// shows 22 m) and the pitch is half as many screens long. -pfscale=0.5 brings back the v0.8 framing.
+	static float Hs = -1.f;
+	if (Hs < 0.f) { Hs = 1.f; FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs); Hs = FMath::Clamp(Hs, 0.25f, 2.f); }
+	FPFMatch::HeightScale = Hs;
+	static const float Z[] = { 6.24f, 4.68f, 3.12f };   // near / medium / far: sprite pixels 2:1, 1.5:1, 1:1 at 1080p (at any HeightScale)
+	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 2)] * 0.5f / Hs;
 }
 
 void UPFFlow::SaveOptions()
@@ -402,7 +409,7 @@ void UPFFlow::StartFriendly()
 	S.Seed = FPlatformTime::Cycles64();
 	S.Home = PFWorld::FriendlyTeam(H, false, S.Seed * 31 + 1);
 	S.Away = PFWorld::FriendlyTeam(A, false, S.Seed * 31 + 2);
-	if (PFWorld::KitsClash(S.Home.Kit, S.Away.Kit)) { S.Away.Kit = A.Kits.Away; S.Away.bAwayKit = true; }
+	S.Away.Kit = PFWorld::AwayKitFor(S.Home.Kit, A.Kits, S.Away.bAwayKit);
 	S.Away.bKeeper2 = PFWorld::KitsClash(S.Home.KeeperKit, A.Kits.Keeper1);
 	S.Away.KeeperKit = S.Away.bKeeper2 ? A.Kits.Keeper2 : A.Kits.Keeper1;
 	S.Home.bHuman = FriendlySide == 0;
