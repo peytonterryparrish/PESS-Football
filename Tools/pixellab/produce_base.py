@@ -24,6 +24,19 @@ BODIES = {
                 desc="retro 16-bit pixel art football goalkeeper, warm brown skin, short black hair, blue goalkeeper jersey "
                 "with magenta long sleeves, green shorts, red socks, grey goalkeeper gloves, black boots, no ball"),
 }
+# v0.8 full set (owner OK after the pilot): 5 more outfield bodies (compact hair: big hairstyles break up when
+# animated, v0.7) from the v0.6 template bodies, and a second keeper
+def _cast():
+    c = json.load(open(os.path.join(HERE, "cast.json")))
+    return {e["id"]: e for e in c}
+for _bid, _src in {"B02": "O11", "B03": "O06", "B04": "O12", "B05": "O14", "B06": "O09"}.items():
+    BODIES[_bid] = dict(kind="outfield", reuse=_src, desc=_cast()[_src]["desc"])
+# O14's v0.6 back turns grew a pink and yellow sash its front (the owner's idle design) doesn't have: the builder paints
+# it out (build_base_atlas.no_sash)
+BODIES["B05"]["sash"] = ["north", "north-east", "north-west"]
+BODIES["BK2"] = dict(kind="keeper", src="Clubs/newcastle-united/South_Native64/keeper1/G003.png", club="newcastle-united", kit="keeper1",
+                     desc="retro 16-bit pixel art football goalkeeper, deep brown skin, brown short crew cut, blue goalkeeper jersey "
+                     "with magenta long sleeves, green shorts, red socks, grey goalkeeper gloves, black boots, no ball")
 lock = threading.Lock(); state = {"start": None, "spend": 40.0, "stop": False}
 
 def say(*a):

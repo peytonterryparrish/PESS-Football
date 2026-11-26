@@ -300,17 +300,42 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 			Pl.Setup = PS; Pl.Team = t; Pl.Index = P.Num();
 			Pl.bKeeper = PS.Role == EPFRole::GK;
 			Pl.A = PFAbility(PS.Stats, Pl.bKeeper);
-			Pl.SpriteSet = SpriteFor(PS.Sprite);
-			// v0.7: the club's own kit art, animated (one body per kit); the shared template bodies stand in until it's built
-			if (!TS.ClubSlug.IsEmpty())
+			// v0.8.1: every player is drawn in one of the hand-checked base bodies (5 outfield, 2 keepers), his club's kit
+			// coloured in by the sprite material. -pfclubsets brings back v0.7's per-club kit art.
+			static const bool bClubSets = FParse::Param(FCommandLine::Get(), TEXT("pfclubsets"));
+			if (bClubSets)
 			{
-				const FString K = Pl.bKeeper ? (TS.bKeeper2 ? TEXT("keeper2") : TEXT("keeper1")) : (TS.bAwayKit ? TEXT("away") : TEXT("home"));
-				const int32 CS = ClubSpriteFor(FString::Printf(TEXT("Clubs/%s_%s"), *TS.ClubSlug, *K));
-				if (CS >= 0) Pl.SpriteSet = CS;
+				Pl.SpriteSet = SpriteFor(PS.Sprite);
+				if (!TS.ClubSlug.IsEmpty())
+				{
+					const FString K = Pl.bKeeper ? (TS.bKeeper2 ? TEXT("keeper2") : TEXT("keeper1")) : (TS.bAwayKit ? TEXT("away") : TEXT("home"));
+					const int32 CS = ClubSpriteFor(FString::Printf(TEXT("Clubs/%s_%s"), *TS.ClubSlug, *K));
+					if (CS >= 0) Pl.SpriteSet = CS;
+				}
 			}
-			// v0.8 base-body pilot (-pfbase): every player in a hand-checked base body, his club's kit coloured in by code
-			static const bool bBase = FParse::Param(FCommandLine::Get(), TEXT("pfbase"));
-			if (bBase) Pl.SpriteSet = SpriteFor(Pl.bKeeper ? TEXT("BK1") : TEXT("B01"));
+			else
+			{
+				// a player keeps his skin tone and hair: his template body maps to the nearest base body
+				static const TMap<FString, FString> Near = {
+					{TEXT("O01"), TEXT("B01")}, {TEXT("O02"), TEXT("B01")}, {TEXT("O07"), TEXT("B01")}, {TEXT("O13"), TEXT("B01")},
+					{TEXT("O11"), TEXT("B02")}, {TEXT("O16"), TEXT("B02")},
+					{TEXT("O03"), TEXT("B03")}, {TEXT("O06"), TEXT("B03")},
+					{TEXT("O12"), TEXT("B04")}, {TEXT("O15"), TEXT("B04")},
+					{TEXT("O05"), TEXT("B05")}, {TEXT("O08"), TEXT("B05")}, {TEXT("O10"), TEXT("B05")}, {TEXT("O14"), TEXT("B05")},
+					{TEXT("O04"), TEXT("B02")}, {TEXT("O09"), TEXT("B02")},   // B06 (ginger mop) failed the audit, held back
+					{TEXT("K01"), TEXT("BK1")}, {TEXT("K02"), TEXT("BK1")}, {TEXT("K03"), TEXT("BK2")}, {TEXT("K04"), TEXT("BK2")}};
+				FString Want;
+				if (const FString* N = Near.Find(PS.Sprite))
+					Want = *N;
+				if (Want.IsEmpty() || Want.StartsWith(TEXT("BK")) != Pl.bKeeper)
+				{
+					// unknown id, or an outfield body in goal (and the reverse): the same player always gets the same body
+					const uint32 Hh = GetTypeHash(PS.Name + PS.Sprite);
+					Want = Pl.bKeeper ? FString::Printf(TEXT("BK%d"), 1 + int32(Hh % 2)) : FString::Printf(TEXT("B%02d"), 1 + int32(Hh % 5));
+				}
+				const bool bHave = FPaths::FileExists(PF::DataPath(FString::Printf(TEXT("GameData/Sprites/%s.json"), *Want)));
+				Pl.SpriteSet = SpriteFor(bHave ? Want : (Pl.bKeeper ? FString(TEXT("BK1")) : FString(TEXT("B01"))));
+			}
 			Pl.AIThink = Rng.Range(0, 0.3f);
 			P.Add(Pl);
 		}

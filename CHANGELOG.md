@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.8.1 (2026-11-25): base bodies are the default
+
+The art plan from v0.8's status report, now in the game. Every player is drawn in one of seven hand-checked base bodies, and the sprite material colours in his club's kit (stripes, hoops and halves included). Each body has one consistent animation set, so runs, sprints and dribbles cycle properly in every direction.
+
+- **Seven bodies.** Five outfield bodies with different builds, skin tones and hair, and two keepers. All come from the owner's own south idles and the v0.6 template bodies.
+  - Each outfield body has 273 frames in 5 drawn directions (3 mirrored): run 8, sprint 6, dribble 6, walk 4, slide 4, tackles, falls, passes, shots, volley, headers, chest, celebrations and throw-in.
+  - The keepers have their set position, shuffles, catches, scoop, punch, throw, punt, dive starts, run and walk, plus the owner's six audited flat dives from the R08 pack.
+- **Each player keeps his look.** His template body maps to the nearest base body by skin tone and hair, so a squad looks the same match to match.
+- **Generated the v0.8 way:** one PixelLab job per animation, frames in playing order, natural gait angles, three takes, with the cleanest take picked per direction and animation. Every direction was audited by eye.
+- **Better clean-up** (`Tools/pipeline/build_base_atlas.py`):
+  - Grey and purple leftovers inside a kit area become that kit.
+  - Pinned takes (`ArtWork/base_pilot/picks.json`) replace one with a ball stuck to the boot.
+  - A sash that one body's back views grew, which isn't in its front design, is painted out.
+- **Held back: B06** (ginger mop). Its hair is a different colour in the front view than in the others, and its standing turns have a hair wisp the moving frames don't have. Those players use B02, the other golden-tan body.
+- **`-pfclubsets`** brings back v0.7's per-club kit art. Those 279 sets stay in the build for now.
+- **Cost:** $27.40 of PixelLab credit for all bodies, pilot included.
+
 ## v0.8.0 (2026-11-25): assisted passing, real slide tackles, proper goals, ISS run cadence, the ball in the keeper's hands
 
 From the owner's notes on v0.7.0. Timings come from a frame-by-frame study of the owner's ISS Deluxe reference video (`docs/ISS_STUDY.md`). We match the feel and craft with Proper Football's own art; nothing from that game is copied.

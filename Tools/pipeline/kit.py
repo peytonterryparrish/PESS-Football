@@ -137,20 +137,22 @@ def segment_generic(img, kit, tol=72):
             f = (y - top) / max(1, bot - top)
             if f < 0.17 or f > 0.93: continue          # head and hair; boots
             # a saturated kit colour and its shading (darker/lighter yellows of a yellow shirt) count by hue first
-            h, sat, v = hsv(c[:3]); reg = None
+            h, sat, v = hsv(c[:3]); reg = None; best = 1e9
             for k2, v2 in cols.items():
-                h2, s2, _ = hsv(v2)
-                if s2 > 0.35 and sat > 0.3 and v > 0.2 and hue_d(h, h2) < 24: reg = k2
+                h2, s2, vv2 = hsv(v2)
+                if s2 > 0.35 and sat > 0.3 and v > 0.2 and hue_d(h, h2) < 24:
+                    sc = hue_d(h, h2) + 120 * abs(v - vv2)          # same hue: the nearer brightness wins (blue shirt vs navy shorts)
+                    if sc < best: best, reg = sc, k2
             if reg is None:
                 d, reg = min((sum((a - b) ** 2 for a, b in zip(c[:3], v3)) ** 0.5, k) for k, v3 in cols.items())
                 if d > tol: continue
             if reg == "trim" and f >= 0.62: continue            # dark skin at the knees is not a sleeve
-            # zones decide between regions that share a colour
-            if reg == "socks" and cols.get("shirt") == cols.get("socks"): reg = "shirt"   # same colour: zones decide
-            if f < 0.47 and reg != "shirt": reg = "trim"
-            elif f < 0.70: reg = "shorts" if reg in ("shorts", "trim") else reg
-            else: reg = "socks" if reg in ("socks", "shirt") else reg
-            if reg == "shirt" and f >= 0.70: reg = "socks"
+            # zones settle colours a kit uses twice (yellow shirt + yellow socks, navy shorts + navy socks)
+            hs, ss, _ = hsv(cols["shirt"]) if "shirt" in cols else (0, 0, 0)
+            shirt_hue = ss > 0.3 and sat > 0.25 and hue_d(h, hs) < 24
+            if f < 0.47: reg = "shirt" if (reg == "shirt" or shirt_hue) else "trim"
+            elif f < 0.70: reg = "shorts" if reg in ("shorts", "trim", "socks") else reg
+            else: reg = "socks"
             out[(x, y)] = reg
     return out
 

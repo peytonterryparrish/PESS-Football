@@ -97,6 +97,51 @@ def ghost_score(im):
         if len(comp) >= 14 and max(w, h) >= 2.5 * min(w, h): g += len(comp)
     return g
 
+def kit_fill(im, passes=3, need=3):
+    """v0.8.1: grey, purple and blue leftovers inside a kit area (the guide's grey, a template body's own grey blot on the
+    shorts, dithered sock bands) become that kit region. Only pixels that aren't warm like skin, hair or the white shirt
+    number are touched, and only when `need` of their 8 neighbours are key pixels of ONE region; a few passes fill a blot
+    from its edges in."""
+    px = im.load(); W, H = im.size; n = 0
+    inv = set(kit.REGION_CODE.values())
+    for _ in range(passes):
+        ch = []
+        for y in range(1, H - 1):
+            for x in range(1, W - 1):
+                r, g, b, a = px[x, y]
+                if not a or (b == 1 and r in inv): continue
+                if r > g > b and r - b >= 45: continue          # skin, hair, highlights, the number: warm, kept
+                if r + g + b < 200: continue                    # outline and boot blacks kept
+                cnt = {}
+                for dy in (-1, 0, 1):
+                    for dx in (-1, 0, 1):
+                        if dx or dy:
+                            q = px[x + dx, y + dy]
+                            if q[3] and q[2] == 1 and q[0] in inv: cnt.setdefault(q[0], []).append(q[1])
+                if not cnt: continue
+                reg, gs = max(cnt.items(), key=lambda kv: len(kv[1]))
+                if len(gs) >= need: ch.append((x, y, reg, sorted(gs)[len(gs) // 2]))
+        for x, y, reg, gv in ch: px[x, y] = (reg, gv, 1, 255)
+        n += len(ch)
+        if not ch: break
+    return im, n
+
+def no_sash(im):
+    """v0.8.1: in back views of a body whose turns drifted (produce_base BODIES[...]["sash"]), trim on the torso (above
+    the waistband) becomes shirt, and the sash's bright yellow and pink leftovers too. Only for dark-skinned bodies:
+    their skin never gets this bright."""
+    px = im.load(); W, H = im.size
+    rows = [y for y in range(H) if sum(1 for x in range(W) if px[x, y][3] and px[x, y][2] == 1 and px[x, y][0] == 80) >= 4]   # the waistband (a stray pixel isn't)
+    if not rows: return im, 0
+    lim = rows[0] - 2; n = 0
+    for y in range(lim):
+        for x in range(W):
+            r, g, b, a = px[x, y]
+            if not a: continue
+            if b == 1 and r == 160: px[x, y] = (40, g, 1, 255); n += 1
+            elif b != 1 and r > 180 and ((g > 140 and b < 130) or (b > 140)): px[x, y] = (40, 192, 1, 255); n += 1
+    return im, n
+
 def prep(im, idle_cols, keeper, ibox):
     im, notes = BA.clean(im, ibox, specks=False)
     im, n2 = BC.scrub(im, idle_cols, keeper); notes += n2
@@ -137,6 +182,8 @@ def build(bid, sheets=False):
     cells, chosen = [], {}
     def add(key, im):
         im, _ = kit.snap_frame(im, pal)
+        if key.split("/")[0] in body.get("sash", ()): im, _ = no_sash(im)
+        im, _ = kit_fill(im)
         im, _ = BC.tidy(im, fill=True)
         cells.append((key, im))
     for x in DIRS8:

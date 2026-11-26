@@ -16,7 +16,7 @@
  "east/dribble": 0,
  "east/tackle": 2,
  "east/kick": 2,
- "east/misc": 2,
+ "east/misc": 0,
  "north-east/run": 0,
  "north-east/sprint_walk": 0,
  "north-east/dribble": 0,
