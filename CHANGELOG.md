@@ -1,5 +1,39 @@
 # Changelog
 
+## v0.9.0 (2026-11-26): the feel pass
+
+The owner rated v0.8.1 "2 or 3 out of 10". This round goes after the reasons, measured against the ISS Deluxe study.
+
+**Scale and camera**
+- Players are drawn at true size against the pitch (they were half size), and the camera pulls back to match. Sprites are as big on screen as before, but you see about 28 m of pitch instead of 14 m. The pitch is half as many screens long, and speeds match ISS for a player's height. `-pfscale=0.5` is the v0.8 framing.
+- Six camera zooms in Options (CLOSEST, CLOSER, STANDARD, WIDE, WIDER, WIDEST). Comparison shots: `ArtWork/camera_v09/compare_A.png` and `compare_B.png`. `-pfcam=0..5` picks one; `-pfcamsweep` captures all six.
+
+**Play**
+- **Locked passes.** Once you pass, the receiver ignores the stick and runs onto the ball himself until he has it (lofted balls: to where they come down). A pass or shot pressed just before it arrives is still played first time.
+- **Taking a man on.** You dribble at 93% of running speed (was 80%). Defenders jockey instead of sprinting into you. A tackle from behind, or on a man shielding the ball, usually fails, and a missed tackle leaves the defender beaten for a moment. A loose touch can no longer be nicked almost at once (it was 5% per 120 Hz step).
+- **Movement weight.** An about-turn costs speed and takes about 0.1 s through the in-between directions (it was a one-frame flip).
+- **Shooting.** 23–38 m/s at full power (was 17–33), a firm tap, quicker charge, and a freeze-frame and camera kick when you strike it.
+- **Passing.** ~22 m/s (ISS), up from 12–16.5.
+
+**Animation (PixelLab, all seven bodies)**
+- Slide tackle: drop, a flat slide with the leg out (held 0.38 s), hand down, crouch up, with turf and dust thrown up behind.
+- Shot: big back-swing, high follow-through. Tackle: lunge and poke.
+- Run, sprint and dribble: harder lean, high back heel, bigger arm drive; the dribble is bent over the ball.
+- Keeper dive: crouch, thrown take-off, reach, then the owner's flat R08 flight and landing, with turf where he lands; no get-up, he snaps to ready (ISS).
+
+**Crowd**
+- The owner's 20 supporters got a 3-frame cheer and a 3-frame "no!" (PixelLab). On a goal the scorers' fans cheer and the others put their hands on their heads; a save or the woodwork makes the shooting side's fans clutch their heads.
+
+**Bug fixes**
+- Kit clash: striped kits against reversed stripes (Northcalder v Saltmarsh) no longer clash; 1.2% of pairings that clashed with both away kits get a plain change kit.
+- Fans were drawn twice too big once players went true size.
+- Dust uses its own random numbers, so `-pfsimtest` results stay comparable.
+- The playtest bot carries the ball in when free (it passed every 2.2 s and almost never shot).
+
+**Tests:** 20-match sim 1.55 goals/match, 0 stuck; pad side 84% passes completed in an autopad match; feel test reverse 0.11 s, passes answer every press.
+
+**Cost:** about $16 on PixelLab across the round (fans $3.95, animations ~$8.5 of our jobs; the rest of the balance drop was the medieval project running at the same time).
+
 ## v0.8.1 (2026-11-25): base bodies are the default
 
 The art plan from v0.8's status report, now in the game. Every player is drawn in one of seven hand-checked base bodies, and the sprite material colours in his club's kit (stripes, hoops and halves included). Each body has one consistent animation set, so runs, sprints and dribbles cycle properly in every direction.

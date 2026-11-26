@@ -205,8 +205,10 @@ def build(bid, sheets=False):
             chosen[f"{x}/{name}"] = t
             for n, (im, _) in zip(batch, cand[t]):
                 if f"{x}/{n}" not in {k for k, _ in cells}: add(f"{x}/{n}", im)
-    if keeper and any(k == "south/gk_push_R" for k, _ in cells):   # v0.9: the left take-off is the right one mirrored
-        add("south/gk_push_L", dict(cells)["south/gk_push_R"].transpose(Image.FLIP_LEFT_RIGHT))
+    if keeper:   # v0.9: the left-hand dive frames are the right-hand ones mirrored (front-on, so a flip is exact)
+        have = dict(cells)
+        for n in ("gk_push", "gk_load", "gk_reach", "gk_fly", "gk_land"):
+            if f"south/{n}_R" in have and f"south/{n}_L" not in have: add(f"south/{n}_L", have[f"south/{n}_R"].transpose(Image.FLIP_LEFT_RIGHT))
     if keeper:   # the owner's audited flat dives (R08 pack), recoloured into the template kit
         kits = {k["slug"]: k for k in json.load(open(os.path.join(produce_base.IDLES, "Club_Kit_Palettes.json")))}
         player = os.path.splitext(os.path.basename(body["src"]))[0]

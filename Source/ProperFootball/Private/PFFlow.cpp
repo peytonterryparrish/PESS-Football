@@ -326,7 +326,7 @@ void UPFFlow::LoadOptions()
 			if (K == TEXT("music")) MusicVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("sfx")) SfxVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("halflen")) FriendlyLen = FMath::Clamp(FCString::Atoi(*V), 0, 3);
-			if (K == TEXT("cam")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 2);
+			if (K == TEXT("cam6")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 5);   // v0.9: six zooms (the old 3-way "cam" key is ignored)
 		}
 	}
 	ApplyCamera();
@@ -341,14 +341,17 @@ void UPFFlow::ApplyCamera()
 	static float Hs = -1.f;
 	if (Hs < 0.f) { Hs = 1.f; FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs); Hs = FMath::Clamp(Hs, 0.25f, 2.f); }
 	FPFMatch::HeightScale = Hs;
-	static const float Z[] = { 6.24f, 4.68f, 3.12f };   // near / medium / far: sprite pixels 2:1, 1.5:1, 1:1 at 1080p (at any HeightScale)
-	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 2)] * 0.5f / Hs;
+	// v0.9 (owner: "5 different camera angles, 2 even closer and 3 even further away"): six zooms, the v0.9 default
+	// third. Sprite pixels at 1080p: 3:1, 2.5:1, 2:1 (default), 1.67:1, 1.33:1, 1:1. -pfcam=N picks one (captures).
+	static const float Z[] = { 4.68f, 3.90f, 3.12f, 2.60f, 2.08f, 1.56f };
+	{ int32 Cf = -1; if (FParse::Value(FCommandLine::Get(), TEXT("pfcam="), Cf)) CameraOpt = FMath::Clamp(Cf, 0, 5); }
+	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 5)] / Hs;
 }
 
 void UPFFlow::SaveOptions()
 {
 	ApplyCamera();
-	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
+	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam6=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
 	if (Music) Music->SetVolumeMultiplier((MusicName == TEXT("crowd_loop") ? 0.55f * SfxVol : 0.45f * MusicVol) / 10.f);
 }
 
@@ -526,7 +529,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		Items.Add({ TEXT("MUSIC"), nullptr, [this](int32 D) { MusicVol = FMath::Clamp(MusicVol + D, 0, 10); SaveOptions(); } });
 		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), nullptr, [this](int32 D) { SfxVol = FMath::Clamp(SfxVol + D, 0, 10); SaveOptions(); PlaySfx(TEXT("ui_select")); } });
 		Items.Add({ TEXT("HALF LENGTH"), nullptr, [this](int32 D) { FriendlyLen = (FriendlyLen + D + 4) % 4; SaveOptions(); } });
-		Items.Add({ TEXT("CAMERA"), nullptr, [this](int32 D) { CameraOpt = (CameraOpt + D + 3) % 3; SaveOptions(); } });
+		Items.Add({ TEXT("CAMERA"), nullptr, [this](int32 D) { CameraOpt = (CameraOpt + D + 6) % 6; SaveOptions(); ApplyCamera(); } });
 		Items.Add({ TEXT("BACK"), nullptr, nullptr, [this]() { Go(EPFScreen::Main); } });
 		MenuInput(Items, Sel, Pad);
 		if (Pad.pB) Go(EPFScreen::Main);
@@ -822,8 +825,8 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		Items.Add({ TEXT("MUSIC"), [M]() { return M; }, [](int32) {} });
 		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), [S2]() { return S2; }, [](int32) {} });
 		Items.Add({ TEXT("HALF LENGTH"), [H]() { return H; }, [](int32) {} });
-		static const TCHAR* CamL[] = { TEXT("NEAR"), TEXT("MEDIUM"), TEXT("FAR") };
-		const FString Cm = CamL[FMath::Clamp(CameraOpt, 0, 2)];
+		static const TCHAR* CamL[] = { TEXT("CLOSEST"), TEXT("CLOSER"), TEXT("STANDARD"), TEXT("WIDE"), TEXT("WIDER"), TEXT("WIDEST") };
+		const FString Cm = CamL[FMath::Clamp(CameraOpt, 0, 5)];
 		Items.Add({ TEXT("CAMERA"), [Cm]() { return Cm; }, [](int32) {} });
 		Items.Add({ TEXT("BACK") });
 		DrawMenu(C, TEXT("OPTIONS"), Items, Sel, C->ClipX * 0.5f - 420 * U, C->ClipY * 0.4f, 840 * U);

@@ -111,7 +111,7 @@ namespace PFClips
 		Add(TEXT("volley"),   { TEXT("volley_strike"), TEXT("shot_follow") }, { 0.10f, 0.14f }, 0);
 		Add(TEXT("header"),   { TEXT("header_stand"), TEXT("header"), TEXT("header_stand") }, { 0.10f, 0.18f, 0.10f }, 1);
 		// ISS slide (docs/ISS_STUDY.md 5.3): drop 0.05 s, one held flat slide 0.33 s, hand down, crouch up: ~0.73 s
-		Add(TEXT("slide"),    { TEXT("slide_go"), TEXT("slide_flat"), TEXT("slide_hand"), TEXT("slide_up"), TEXT("idle") }, { 0.05f, 0.33f, 0.14f, 0.18f, 0.03f }, 1);
+		Add(TEXT("slide"),    { TEXT("slide_go"), TEXT("slide_flat"), TEXT("slide_hand"), TEXT("slide_up"), TEXT("idle") }, { 0.06f, 0.38f, 0.14f, 0.18f, 0.03f }, 1);   // v0.9: the flat slide held a little longer than ISS so it reads
 		Add(TEXT("tackle"),   { TEXT("tackle_lunge"), TEXT("tackle_poke"), TEXT("idle") }, { 0.07f, 0.15f, 0.05f }, 0);
 		Add(TEXT("fall"),     { TEXT("stumble"), TEXT("fall_ground"), TEXT("fall_ground"), TEXT("getup_kneel"), TEXT("idle") }, { 0.12f, 0.35f, 0.35f, 0.25f, 0.05f });
 		Add(TEXT("celebrate"),{ TEXT("celebrate_arms_up"), TEXT("celebrate_fist"), TEXT("celebrate_arms_up"), TEXT("celebrate_point") }, { 0.4f, 0.4f, 0.4f, 0.8f });   // v0.8: the airplane frames failed the sprite audit (66 broken cells)

@@ -117,3 +117,39 @@ ARC_KEEP = [
 ]
 OUT_JOBS = OUT_JOBS + ARC_OUT
 KEEP_JOBS = KEEP_JOBS + ARC_KEEP
+
+# ---------------------------------------------------------------------------------------------------------------
+# v0.9 round 2 (owner: "still feel the animations could be better on the dribbling, the running, the shooting ...
+# more arcadish and dramatic like ISS Deluxe"; keepers "more convincing and drawn better"). Pushed further again.
+RUNB = cycle("runb", [
+    ("contact", dict(lean=22, r_hip=58, r_knee=8, l_hip=-48, l_knee=110, r_sh=-72, r_el=100, l_sh=78, l_el=100)),
+    ("down",    dict(lean=23, drop=0.09, r_hip=24, r_knee=50, l_hip=22, l_knee=135, r_sh=-25, r_el=100, l_sh=30, l_el=100)),
+    ("pass",    dict(lean=23, rise=0.02, r_hip=-28, r_knee=35, l_hip=72, l_knee=110, r_sh=45, r_el=100, l_sh=-45, l_el=100)),
+    ("up",      dict(lean=22, rise=0.10, r_hip=-55, r_knee=85, l_hip=85, l_knee=50, r_sh=72, r_el=100, l_sh=-72, l_el=100)),
+])
+SPRINTA = cycle("sprinta", [
+    ("contact", dict(lean=30, r_hip=70, r_knee=12, l_hip=-58, l_knee=120, r_sh=-85, r_el=100, l_sh=90, l_el=100)),
+    ("down",    dict(lean=31, drop=0.10, r_hip=30, r_knee=55, l_hip=35, l_knee=140, r_sh=-30, r_el=100, l_sh=35, l_el=100)),
+    ("up",      dict(lean=30, rise=0.12, r_hip=-60, r_knee=95, l_hip=95, l_knee=60, r_sh=85, r_el=100, l_sh=-85, l_el=100)),
+])
+DRIBBLEA = cycle("dribblea", [
+    ("touch", dict(lean=26, drop=0.08, r_hip=55, r_knee=28, r_abd=8, l_hip=-30, l_knee=80, r_sh=-40, r_shabd=35, r_el=70, l_sh=45, l_shabd=35, l_el=70, head=20)),
+    ("mid",   dict(lean=27, drop=0.11, r_hip=15, r_knee=50, l_hip=25, l_knee=110, r_sh=-10, r_shabd=35, r_el=70, l_sh=12, l_shabd=35, l_el=70, head=20)),
+    ("push",  dict(lean=26, drop=0.06, r_hip=-25, r_knee=40, l_hip=55, l_knee=75, r_sh=30, r_shabd=35, r_el=70, l_sh=-30, l_shabd=35, l_el=70, head=20)),
+])
+# keeper dive as one 5-frame animation, front-on: load, take-off, reach, full flat flight, landing flat on the turf
+B["gk_fly_R"]  = dict(roll=84, air=0.45, r_abd=15, l_abd=25, l_knee=20, r_knee=10, r_sh=178, r_shabd=25, l_sh=178, l_shabd=15, r_el=0, l_el=0, head=-5)
+B["gk_land_R"] = dict(roll=90, air=0.001, r_abd=10, l_abd=20, l_knee=35, r_knee=15, l_hip=20, r_sh=172, r_shabd=20, l_sh=165, l_shabd=10, r_el=10, l_el=15, head=-5)
+ARC2_OUT = [
+    ("arc_run2", RUNB, "football player sprinting flat out, leaning far forward, high knees, big arm drive, no ball", None),
+    ("arc_sprint", SPRINTA, "football player in an all-out sprint, body leaning hard forward, no ball", None),
+    ("arc_dribble", DRIBBLEA, "football player dribbling at speed, bent over the ball, short sharp touches, no ball", None),
+]
+ARC2_KEEP = [
+    ("gk_dive2", ["gk_load_R", "gk_push_R", "gk_reach_R", "gk_fly_R", "gk_land_R"],
+     "goalkeeper making a full-length diving save to his right, flying flat through the air, then landing on the grass, no ball", ["south"]),
+]
+OUT_JOBS = OUT_JOBS + ARC2_OUT
+# gk_dive2 was generated (v0.9) but its flat flight and landing frames failed the audit (cut off at the canvas edge,
+# broken into fragments): PixelLab can't draw a horizontal body. The owner's flat R08 frames stay; it isn't built.
+# KEEP_JOBS = KEEP_JOBS + ARC2_KEEP

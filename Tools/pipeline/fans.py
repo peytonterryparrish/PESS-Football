@@ -31,13 +31,30 @@ def build_sprites():
     for pose in ("seated", "standing"):
         for f in sorted(os.listdir(os.path.join(FANS, pose))):
             if f.endswith(".png"): names.append((pose, f))
-    sheet = Image.new("RGBA", (64 * 20, 64 * 2), (0, 0, 0, 0))
-    meta = {"cell": 64, "seated_hips": [32, 47], "standing_feet": [32, 63], "fans": 20, "rows": ["seated", "standing"]}
+    # v0.9: rows 2-4 cheer, 5-7 "no!" (Tools/pixellab/produce_fans.py; picked takes in ArtWork/raw_fans/picks.json),
+    # cut from PixelLab's 96 px canvas back to the 64 px cell; a fan without them keeps standing
+    REACT = ["fan_up", "fan_jump", "fan_fist", "fan_head", "fan_bow", "fan_slump"]
+    # cells are 64 wide and 80 tall (v0.9): the 64 px art sits at the bottom, with 16 px above for raised arms
+    CH = 80
+    sheet = Image.new("RGBA", (64 * 20, CH * 8), (0, 0, 0, 0))
+    meta = {"cell": 64, "cell_h": CH, "seated_hips": [32, 63], "standing_feet": [32, 79], "fans": 20, "rows": ["seated", "standing"] + REACT}
     for pose in ("seated", "standing"):
         fs = sorted(f for p, f in names if p == pose)
         for i, f in enumerate(fs[:20]):
             im = Image.open(os.path.join(FANS, pose, f)).convert("RGBA")
-            sheet.paste(im, (i * 64, (0 if pose == "seated" else 1) * 64))
+            sheet.paste(im, (i * 64, (0 if pose == "seated" else 1) * CH + 16))
+    raw = os.path.join(ROOT, "ArtWork", "raw_fans")
+    picks = json.load(open(os.path.join(raw, "picks.json"))) if os.path.exists(os.path.join(raw, "picks.json")) else {}
+    for i in range(20):
+        for r, n in enumerate(REACT):
+            job = "cheer" if r < 3 else "no"
+            t = picks.get(f"F{i:02d}/{job}", 1 if job == "cheer" else 0)   # cheer take 0 drew crossed arms (audit)
+            p = os.path.join(raw, f"F{i:02d}", job, f"t{t}", n + ".png")
+            if os.path.exists(p):
+                im = Image.open(p).convert("RGBA").crop((16, 8, 80, 88))
+            else:
+                im = sheet.crop((i * 64, CH, i * 64 + 64, 2 * CH))
+            sheet.paste(im, (i * 64, (2 + r) * CH))
     sheet.save(os.path.join(OUT, "fans.png"))
     json.dump(meta, open(os.path.join(OUT, "fans.json"), "w"))
 
@@ -103,8 +120,9 @@ def club_sheet(slug, kits):
         tgt = plan[(f * 7) % 20]
         if tgt is None: continue
         th, ts, tv = colorsys.rgb_to_hsv(*hexrgb(tgt))
-        for row in (0, 1):
-            cell = a[row * 64:(row + 1) * 64, f * 64:(f + 1) * 64]
+        CH = 80 if a.shape[0] % 80 == 0 else 64
+        for row in range(a.shape[0] // CH):
+            cell = a[row * CH:(row + 1) * CH, f * 64:(f + 1) * 64][CH - 64:]
             rgb = cell[..., :3]; al = cell[..., 3] > 0.5
             mx = rgb.max(-1); mn = rgb.min(-1); sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
             r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
@@ -127,7 +145,7 @@ def club_sheet(slug, kits):
                 k = mx[y, x] / vm
                 v = float(np.clip(tv * (0.55 + 0.45 * k) if tv > 0.85 else tv * k, 0, 1))
                 rr, gg, bb = colorsys.hsv_to_rgb(th, ts if ts > 0.08 else 0.0, v)
-                out[row * 64 + y, f * 64 + x, :3] = (rr, gg, bb)
+                out[row * CH + (CH - 64) + y, f * 64 + x, :3] = (rr, gg, bb)
     Image.fromarray((out * 255).astype(np.uint8), "RGBA").save(os.path.join(OUT, slug + ".png"))
 
 def main():
