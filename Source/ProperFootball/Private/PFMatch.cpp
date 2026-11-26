@@ -300,13 +300,41 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 			Pl.Setup = PS; Pl.Team = t; Pl.Index = P.Num();
 			Pl.bKeeper = PS.Role == EPFRole::GK;
 			Pl.A = PFAbility(PS.Stats, Pl.bKeeper);
-			Pl.SpriteSet = SpriteFor(PS.Sprite);
-			// v0.7: the club's own kit art, animated (one body per kit); the shared template bodies stand in until it's built
-			if (!TS.ClubSlug.IsEmpty())
+			// v0.8.1: every player is drawn in one of the hand-checked base bodies (5 outfield, 2 keepers), his club's kit
+			// coloured in by the sprite material. -pfclubsets brings back v0.7's per-club kit art.
+			static const bool bClubSets = FParse::Param(FCommandLine::Get(), TEXT("pfclubsets"));
+			if (bClubSets)
 			{
-				const FString K = Pl.bKeeper ? (TS.bKeeper2 ? TEXT("keeper2") : TEXT("keeper1")) : (TS.bAwayKit ? TEXT("away") : TEXT("home"));
-				const int32 CS = ClubSpriteFor(FString::Printf(TEXT("Clubs/%s_%s"), *TS.ClubSlug, *K));
-				if (CS >= 0) Pl.SpriteSet = CS;
+				Pl.SpriteSet = SpriteFor(PS.Sprite);
+				if (!TS.ClubSlug.IsEmpty())
+				{
+					const FString K = Pl.bKeeper ? (TS.bKeeper2 ? TEXT("keeper2") : TEXT("keeper1")) : (TS.bAwayKit ? TEXT("away") : TEXT("home"));
+					const int32 CS = ClubSpriteFor(FString::Printf(TEXT("Clubs/%s_%s"), *TS.ClubSlug, *K));
+					if (CS >= 0) Pl.SpriteSet = CS;
+				}
+			}
+			else
+			{
+				// a player keeps his skin tone and hair: his template body maps to the nearest base body
+				static const TMap<FString, FString> Near = {
+					{TEXT("O01"), TEXT("B01")}, {TEXT("O02"), TEXT("B01")}, {TEXT("O07"), TEXT("B01")}, {TEXT("O13"), TEXT("B01")},
+					{TEXT("O11"), TEXT("B02")}, {TEXT("O16"), TEXT("B02")},
+					{TEXT("O03"), TEXT("B03")}, {TEXT("O06"), TEXT("B03")},
+					{TEXT("O12"), TEXT("B04")}, {TEXT("O15"), TEXT("B04")},
+					{TEXT("O05"), TEXT("B05")}, {TEXT("O08"), TEXT("B05")}, {TEXT("O10"), TEXT("B05")}, {TEXT("O14"), TEXT("B05")},
+					{TEXT("O04"), TEXT("B02")}, {TEXT("O09"), TEXT("B02")},   // B06 (ginger mop) failed the audit, held back
+					{TEXT("K01"), TEXT("BK1")}, {TEXT("K02"), TEXT("BK1")}, {TEXT("K03"), TEXT("BK2")}, {TEXT("K04"), TEXT("BK2")}};
+				FString Want;
+				if (const FString* N = Near.Find(PS.Sprite))
+					Want = *N;
+				if (Want.IsEmpty() || Want.StartsWith(TEXT("BK")) != Pl.bKeeper)
+				{
+					// unknown id, or an outfield body in goal (and the reverse): the same player always gets the same body
+					const uint32 Hh = GetTypeHash(PS.Name + PS.Sprite);
+					Want = Pl.bKeeper ? FString::Printf(TEXT("BK%d"), 1 + int32(Hh % 2)) : FString::Printf(TEXT("B%02d"), 1 + int32(Hh % 5));
+				}
+				const bool bHave = FPaths::FileExists(PF::DataPath(FString::Printf(TEXT("GameData/Sprites/%s.json"), *Want)));
+				Pl.SpriteSet = SpriteFor(bHave ? Want : (Pl.bKeeper ? FString(TEXT("BK1")) : FString(TEXT("B01"))));
 			}
 			Pl.AIThink = Rng.Range(0, 0.3f);
 			P.Add(Pl);
@@ -2208,10 +2236,33 @@ FName FPFMatch::PoseFor(const FPFPlayer& Pl) const
 	const float Ph = FMath::Frac(Pl.Gait);
 	if (S < 2.2f)
 	{
+		if (Sets.IsValidIndex(Pl.SpriteSet) && Sets[Pl.SpriteSet].Has(TEXT("walk_passR")))
+		{
+			static const FName W4[] = { TEXT("walk_contactR"), TEXT("walk_passR"), TEXT("walk_contactL"), TEXT("walk_passL") };
+			return W4[FMath::Min(3, int32(Ph * 4.f))];
+		}
 		static const FName W[] = { TEXT("walk_contactR"), TEXT("idle"), TEXT("walk_contactL"), TEXT("idle") };
 		return W[FMath::Min(3, int32(Ph * 4.f))];
 	}
 	const bool bSprint = Pl.bSprint && S > Pl.A.MaxSpeed * 0.9f && !Pl.bKeeper;
+	// v0.8 base bodies carry full cycles (8-frame run, 6-frame sprint and dribble, 4-frame walk), each generated as one
+	// animation; the v0.7 club sets keep the 6-frame mixes below
+	const FPFSpriteSet* BS = Sets.IsValidIndex(Pl.SpriteSet) ? &Sets[Pl.SpriteSet] : nullptr;
+	if (BS && BS->Has(TEXT("run_upR")))
+	{
+		if (Ball.Owner == Pl.Index && S < 5.5f && BS->Has(TEXT("dribble_midR")))
+		{
+			static const FName D6[] = { TEXT("dribble_touchR"), TEXT("dribble_midR"), TEXT("dribble_pushR"), TEXT("dribble_touchL"), TEXT("dribble_midL"), TEXT("dribble_pushL") };
+			return D6[FMath::Min(5, int32(Ph * 6.f))];
+		}
+		if (bSprint && BS->Has(TEXT("sprint_upR")))
+		{
+			static const FName S6[] = { TEXT("sprint_contactR"), TEXT("sprint_downR"), TEXT("sprint_upR"), TEXT("sprint_contactL"), TEXT("sprint_downL"), TEXT("sprint_upL") };
+			return S6[FMath::Min(5, int32(Ph * 6.f))];
+		}
+		static const FName R8[] = { TEXT("run_contactR"), TEXT("run_downR"), TEXT("run_passR"), TEXT("run_upR"), TEXT("run_contactL"), TEXT("run_downL"), TEXT("run_passL"), TEXT("run_upL") };
+		return R8[FMath::Min(7, int32(Ph * 8.f))];
+	}
 	const int32 F = FMath::Min(5, int32(Ph * 6.f));
 	if (Ball.Owner == Pl.Index && S < 5.5f)
 	{
