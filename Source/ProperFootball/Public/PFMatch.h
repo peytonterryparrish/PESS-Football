@@ -202,6 +202,13 @@ public:
 	static float HeightScale;
 	static float GameSpeed;     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
 	float Highlight = 0;
+	float HitStop = 0, ShakeT = 9.f, ShakeAmp = 0;
+	// v0.9 turf and dust kicked up by slides and keeper landings (owner: "it's really hard to see how the slide tackles are looking")
+	struct FDust { FVector Pos, Vel; float T = 0, Life = 0.5f; int32 Kind = 0; };
+	TArray<FDust> Dust;
+	void SpawnDust(FVector2D At, FVector2D Dir, int32 N, float Speed);
+	// v0.9 crowd reactions: +1 cheering (home goal / home fans), -1 "no!" (a goal against, a near miss), seconds left
+	int32 CrowdMood = 0; int32 CrowdTeam = 0; float CrowdT = 0;   // v0.9 impact: a few frames' freeze and a camera kick when a shot is struck
 	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)
 	FLinearColor CardColor = FLinearColor::Yellow;   // the card the referee is holding up (while his ref_card clip plays)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
 
@@ -290,6 +297,12 @@ private:
 	EPFDir ScreenDir(FVector2D WorldDir) const;
 	FName PoseFor(const FPFPlayer& Pl) const;
 	UMaterialInstanceDynamic* MidFor(UMaterialInterface* M, int32 Set, const FPFKit* Kit);
-	void SetBanner(const FString& S, float T = 1.6f) { Banner = S; BannerT = T; }
+	void SetBanner(const FString& S, float T = 1.6f)
+	{
+		Banner = S; BannerT = T;
+		// v0.9 crowd: a save or the woodwork makes the shooting side's fans clutch their heads (not over a goal cheer)
+		if ((S == TEXT("SAVE!") || S == TEXT("POST!") || S == TEXT("CROSSBAR!")) && !(CrowdMood != 0 && CrowdT > 1.f && Phase == EPFPhase::Goal))
+		{ CrowdMood = -1; CrowdTeam = LastShotTeam >= 0 ? LastShotTeam : 0; CrowdT = 2.f; }
+	}
 	void Log(int32 Team, const FString& S);
 };

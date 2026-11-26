@@ -122,8 +122,37 @@ namespace PFWorld
 
 	bool KitsClash(const FPFKit& A, const FPFKit& B)
 	{
+		// v0.9 bug fix: a striped (hooped, halved) shirt reads as both its colours, so black-with-white-stripes against
+		// white-with-black-stripes clashes even though the base shirt colours are far apart
 		auto D = [](const FLinearColor& X, const FLinearColor& Y) { return FMath::Abs(X.R - Y.R) + FMath::Abs(X.G - Y.G) + FMath::Abs(X.B - Y.B); };
-		return D(A.Shirt, B.Shirt) < 0.45f;
+		if (D(A.Shirt, B.Shirt) < 0.45f) return true;
+		if (A.Pattern != 0 && B.Pattern != 0 && D(A.Shirt, B.Trim) < 0.45f && D(A.Trim, B.Shirt) < 0.45f) return true;
+		if (A.Pattern != 0 && D(A.Trim, B.Shirt) < 0.45f && D(A.Shorts, B.Shorts) < 0.45f) return true;
+		if (B.Pattern != 0 && D(B.Trim, A.Shirt) < 0.45f && D(A.Shorts, B.Shorts) < 0.45f) return true;
+		return false;
+	}
+
+	FPFKit AwayKitFor(const FPFKit& HomeKit, const FPFKitSet& AwayKits, bool& bAwayKit)
+	{
+		bAwayKit = false;
+		if (!KitsClash(HomeKit, AwayKits.Home)) return AwayKits.Home;
+		bAwayKit = true;
+		if (!KitsClash(HomeKit, AwayKits.Away)) return AwayKits.Away;
+		auto D = [](const FLinearColor& X, const FLinearColor& Y) { return FMath::Abs(X.R - Y.R) + FMath::Abs(X.G - Y.G) + FMath::Abs(X.B - Y.B); };
+		static const FLinearColor Cand[] = { FLinearColor(0.95f, 0.95f, 0.93f), FLinearColor(0.98f, 0.82f, 0.12f), FLinearColor(0.80f, 0.10f, 0.12f),
+			FLinearColor(0.45f, 0.72f, 0.95f), FLinearColor(0.08f, 0.08f, 0.10f), FLinearColor(0.10f, 0.55f, 0.25f), FLinearColor(0.95f, 0.45f, 0.10f) };
+		FLinearColor Best = Cand[0]; float BestD = -1.f;
+		for (const FLinearColor& Cc : Cand)
+		{
+			const float Dd = FMath::Min(D(Cc, HomeKit.Shirt), HomeKit.Pattern != 0 ? D(Cc, HomeKit.Trim) : 9.f);
+			if (Dd > BestD) { BestD = Dd; Best = Cc; }
+		}
+		FPFKit K;
+		K.Shirt = Best; K.Pattern = 0;
+		K.Trim = D(Best, FLinearColor::White) < 0.6f ? FLinearColor(0.08f, 0.08f, 0.10f) : FLinearColor(0.95f, 0.95f, 0.93f);
+		K.Shorts = D(Best, HomeKit.Shorts) < 0.45f ? K.Trim : Best;
+		K.Socks = K.Shorts;
+		return K;
 	}
 
 	FPFTeamSetup FriendlyTeam(const FPFClub& C, bool bAwayKit, uint64 Seed)

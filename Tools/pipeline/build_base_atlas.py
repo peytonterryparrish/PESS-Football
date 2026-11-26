@@ -191,7 +191,9 @@ def build(bid, sheets=False):
         add(f"{x}/idle", im)
     for x in GEN:
         ibox = rots[x].getbbox(); idle_n = sum(1 for c in rots[x].get_flattened_data() if c[3] >= 128)
-        for name, batch, _ in jobs:
+        for j in jobs:
+            name, batch = j[0], j[1]
+            if len(j) > 3 and j[3] and x not in j[3]: continue
             takes = sorted(int(t[1:]) for t in os.listdir(os.path.join(d, x)) if t.startswith("t") and
                            all(os.path.exists(os.path.join(d, x, t, f"{n}.png")) for n in batch))
             if not takes: continue
@@ -203,6 +205,10 @@ def build(bid, sheets=False):
             chosen[f"{x}/{name}"] = t
             for n, (im, _) in zip(batch, cand[t]):
                 if f"{x}/{n}" not in {k for k, _ in cells}: add(f"{x}/{n}", im)
+    if keeper:   # v0.9: the left-hand dive frames are the right-hand ones mirrored (front-on, so a flip is exact)
+        have = dict(cells)
+        for n in ("gk_push", "gk_load", "gk_reach", "gk_fly", "gk_land"):
+            if f"south/{n}_R" in have and f"south/{n}_L" not in have: add(f"south/{n}_L", have[f"south/{n}_R"].transpose(Image.FLIP_LEFT_RIGHT))
     if keeper:   # the owner's audited flat dives (R08 pack), recoloured into the template kit
         kits = {k["slug"]: k for k in json.load(open(os.path.join(produce_base.IDLES, "Club_Kit_Palettes.json")))}
         player = os.path.splitext(os.path.basename(body["src"]))[0]
@@ -224,7 +230,7 @@ def build(bid, sheets=False):
     json.dump(chosen, open(os.path.join(PILOT, f"{bid}_chosen_takes.json"), "w"), indent=1)
     if sheets:
         kits = {k["slug"]: k for k in json.load(open(os.path.join(produce_base.IDLES, "Club_Kit_Palettes.json")))}
-        order = ["idle"] + [n for _, b, _ in jobs for n in b]
+        order = ["idle"] + [n for j in jobs for n in j[1]]
         for kname, kk in (("liverpool", kits["liverpool"]["keeper1" if keeper else "home"]), ("newcastle", kits["newcastle-united"]["keeper1" if keeper else "home"])):
             for x in DIRS8:
                 row = [n for n in order if f"{x}/{n}" in frames]
