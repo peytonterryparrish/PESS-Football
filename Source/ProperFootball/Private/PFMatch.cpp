@@ -334,6 +334,9 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 					const uint32 Hh = GetTypeHash(PS.Name + PS.Sprite);
 					Want = Pl.bKeeper ? FString::Printf(TEXT("BK%d"), 1 + int32(Hh % 2)) : FString::Printf(TEXT("B%02d"), 1 + int32(Hh % 5));
 				}
+				// test: -pfbody=B01 -pfkeeperbody=BK1 put everyone in one body (art pilots)
+				{ static FString FB, FK; static bool bRd = false; if (!bRd) { bRd = true; FParse::Value(FCommandLine::Get(), TEXT("pfbody="), FB); FParse::Value(FCommandLine::Get(), TEXT("pfkeeperbody="), FK); }
+				  if (!Pl.bKeeper && !FB.IsEmpty()) Want = FB; if (Pl.bKeeper && !FK.IsEmpty()) Want = FK; }
 				const bool bHave = FPaths::FileExists(PF::DataPath(FString::Printf(TEXT("GameData/Sprites/%s.json"), *Want)));
 				Pl.SpriteSet = SpriteFor(bHave ? Want : (Pl.bKeeper ? FString(TEXT("BK1")) : FString(TEXT("B01"))));
 			}
@@ -2267,7 +2270,7 @@ FName FPFMatch::PoseFor(const FPFPlayer& Pl) const
 		if (Pl.bKeeper && FVector2D::Distance(Pl.Pos, V2(Ball.Pos)) < 30.f) return TEXT("gk_ready");
 		return FMath::Fmod(Pl.Stride * 0.f + (Pl.Index * 0.37f + MatchClock * 60.f), 1.6f) < 0.8f ? FName(TEXT("idle")) : FName(TEXT("idle_breathe"));
 	}
-	if (Pl.bCharging) return TEXT("shot_plant");
+	if (Pl.bCharging) return TEXT("shot_a_plant");
 	// distance-driven cycles: the feet stay planted because frames advance with ground covered
 	const float Ph = FMath::Frac(Pl.Gait);
 	if (S < 2.2f)
@@ -2297,6 +2300,9 @@ FName FPFMatch::PoseFor(const FPFPlayer& Pl) const
 			return S6[FMath::Min(5, int32(Ph * 6.f))];
 		}
 		static const FName R8[] = { TEXT("run_contactR"), TEXT("run_downR"), TEXT("run_passR"), TEXT("run_upR"), TEXT("run_contactL"), TEXT("run_downL"), TEXT("run_passL"), TEXT("run_upL") };
+		static const FName RA[] = { TEXT("runa_contactR"), TEXT("runa_downR"), TEXT("runa_passR"), TEXT("runa_upR"), TEXT("runa_contactL"), TEXT("runa_downL"), TEXT("runa_passL"), TEXT("runa_upL") };
+		static const bool bOldRun = FParse::Param(FCommandLine::Get(), TEXT("pfoldrun"));
+		if (!bOldRun && BS->Has(TEXT("runa_upL"))) return RA[FMath::Min(7, int32(Ph * 8.f))];   // v0.9 arcade run (-pfoldrun: v0.8's)
 		return R8[FMath::Min(7, int32(Ph * 8.f))];
 	}
 	const int32 F = FMath::Min(5, int32(Ph * 6.f));
@@ -2647,6 +2653,16 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		if (It.Kind == 2 && !Set.Id.StartsWith(TEXT("R"))) continue;   // officials' sprites not built yet
 		if (It.Kind == 3 && !Set.Id.StartsWith(TEXT("C"))) continue;   // managers' sprites not built yet
 		FName Pose = PoseFor(Pl);
+		// v0.9 arcade poses: a body that hasn't got them yet draws its v0.8 pose
+		if (!Set.Has(Pose))
+		{
+			static const TMap<FName, FName> ArcFallback = {
+				{ TEXT("shot_a_plant"), TEXT("shot_plant") }, { TEXT("shot_a_back"), TEXT("shot_back") }, { TEXT("shot_a_strike"), TEXT("shot_strike") },
+				{ TEXT("shot_a_follow"), TEXT("shot_follow") }, { TEXT("slide_go"), TEXT("tackle_stand") }, { TEXT("slide_flat"), TEXT("slide") },
+				{ TEXT("slide_hand"), TEXT("sit_ground") }, { TEXT("slide_up"), TEXT("getup_kneel") }, { TEXT("tackle_lunge"), TEXT("tackle_stand") },
+				{ TEXT("tackle_poke"), TEXT("block") }, { TEXT("gk_push_R"), TEXT("gk_dive_low_R1") }, { TEXT("gk_push_L"), TEXT("gk_dive_low_L1") } };
+			if (const FName* Fb = ArcFallback.Find(Pose)) Pose = *Fb;
+		}
 		if (Pose == TEXT("sit_ground") && !Set.Has(Pose)) Pose = TEXT("slide");
 		if (!Set.Has(Pose))
 		{
@@ -2657,6 +2673,12 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		EPFDir DrawDir = ScreenDir(Pl.Facing);
 		// v0.8: a slide is drawn side-on (toward or away from the camera it reads as a man standing with his arms out)
 		if (It.Kind == 0 && Pl.Act == EPFAct::Slide) DrawDir = Proj.DirToScreen(Pl.Facing).X >= 0 ? EPFDir::E : EPFDir::W;
+		// v0.9 keeper take-off: drawn front-on like the flight frames, thrown toward the dive's side of the screen
+		if (It.Kind == 0 && Pl.Act == EPFAct::Dive && (Pose == TEXT("gk_push_R") || Pose == TEXT("gk_push_L")) && !Pl.DiveDir.IsNearlyZero())
+		{
+			DrawDir = EPFDir::S;
+			Pose = Proj.DirToScreen(Pl.DiveDir).X < 0 ? FName(TEXT("gk_push_R")) : FName(TEXT("gk_push_L"));   // facing the camera, his right is screen-left
+		}
 		const FPFFrame& F = Set.Get(DrawDir, Pose);
 		if (!F.bValid) continue;
 		const bool bHolds = It.Kind == 0 && HeldBy == Pl.Index;

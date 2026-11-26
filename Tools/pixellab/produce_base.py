@@ -103,9 +103,10 @@ def main():
         if not prepare(bid): continue
         jobs = poses_base.KEEP_JOBS if BODIES[bid]["kind"] == "keeper" else poses_base.OUT_JOBS
         for take in range(a.takes):
-            for name, batch, action in jobs:
+            for j in jobs:
+                name, batch, action = j[:3]; dirs = (j[3] if len(j) > 3 else None) or GEN   # v0.9: a job may limit its views
                 if a.only and name not in a.only: continue
-                for x in GEN: tasks.append((bid, x, take, name, batch, action))
+                for x in dirs: tasks.append((bid, x, take, name, batch, action))
     with ThreadPoolExecutor(a.workers) as ex:
         fut = {ex.submit(job, *t): t for t in tasks}
         for f in as_completed(fut):
