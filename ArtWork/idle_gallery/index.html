@@ -1,0 +1,107 @@
+<title>South Idle Casting</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a casting board. Each sprite stands on its own patch of pitch and gets a Yes / No / Best. */
+:root{--bg:#eef1ea;--card:#ffffff;--fg:#17201a;--muted:#5d6a60;--line:#d5dcd3;--grass:#3d7d3f;--grass2:#367238;--yes:#1f7a3a;--no:#b23a2e;--best:#a87200;--on:#ffffff;--accent:#1d5f8a;
+--disp:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121813;--card:#1b231d;--fg:#e6ece6;--muted:#97a59a;--line:#2c3a2f;--yes:#3fae60;--no:#e0604f;--best:#e0a72a;--on:#0d120e;--accent:#6fb3e0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121813;--card:#1b231d;--fg:#e6ece6;--muted:#97a59a;--line:#2c3a2f;--yes:#3fae60;--no:#e0604f;--best:#e0a72a;--on:#0d120e;--accent:#6fb3e0;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:30px}
+h1,h2{font-family:var(--disp);text-wrap:balance;margin:0}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.1}
+h2{font-size:1.2rem}
+p{margin:0;max-width:68ch;color:var(--muted)}
+.lab{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.85rem}
+.cy{color:var(--yes)}.cn{color:var(--no)}.cb{color:var(--best)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+button{font:inherit;cursor:pointer}
+.f{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:4px 12px;font-size:.85rem}
+.f[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.status{font-size:.8rem;color:var(--muted)}
+section{display:grid;gap:12px}
+.head{display:grid;gap:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:grid}
+.c.v-yes{border-color:var(--yes);box-shadow:0 0 0 1px var(--yes)}
+.c.v-best{border-color:var(--best);box-shadow:0 0 0 2px var(--best)}
+.c.v-no .pitch img{opacity:.28}
+.pitch{background:repeating-linear-gradient(90deg,var(--grass) 0 24px,var(--grass2) 24px 48px);display:grid;place-items:center;aspect-ratio:1;max-width:100%}
+.pitch img{width:128px;height:128px;image-rendering:pixelated}
+.meta{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;gap:4px}
+.id{font-family:var(--mono);font-size:.8rem}
+.vb{display:flex;gap:3px}
+.vb button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:5px;padding:2px 6px;font-size:.72rem}
+.vb button:focus-visible,.f:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.vb .y[aria-pressed="true"]{background:var(--yes);border-color:var(--yes);color:var(--on)}
+.vb .n[aria-pressed="true"]{background:var(--no);border-color:var(--no);color:var(--on)}
+.vb .b[aria-pressed="true"]{background:var(--best);border-color:var(--best);color:var(--on)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.how div{border-left:3px solid var(--line);padding-left:12px;display:grid;gap:2px}
+.how b{font-family:var(--disp)}
+@media (prefers-reduced-motion:no-preference){.c{transition:box-shadow .15s,border-color .15s}}
+</style>
+<div class="wrap">
+<header style="display:grid;gap:12px">
+<span class="lab">Proper Football · art reset · one model, one kit</span>
+<h1>South idle casting</h1>
+<p>112 front-facing idle sprites made on PixelLab, all 64×64 like your R08 pack and styled from it. One kit for now: red shirt, white shorts, red socks. Mark each one <b>Yes</b>, <b>No</b> or <b>Best</b>. Marks save as you go, and I read them back to choose the one model every direction and animation gets built from.</p>
+<div class="how">
+<div><b>Look for</b><span class="status">Arms clear of the body, both feet planted, a face that reads at 64 px, no black outline.</span></div>
+<div><b>Best</b><span class="status">Mark the few you would put in the game. The top Best becomes the model.</span></div>
+<div><b>Shown at 2×</b><span class="status">Each art pixel is 2×2 here. In game they are drawn smaller.</span></div>
+</div>
+</header>
+<div class="bar">
+<span class="count" id="count"></span>
+<span class="status" id="status">Connecting…</span>
+<div class="filters" role="group" aria-label="Show">
+<button class="f" id="f-all" data-f="all" aria-pressed="true">All</button>
+<button class="f" id="f-todo" data-f="todo" aria-pressed="false">Not marked</button>
+<button class="f" id="f-yes" data-f="yes" aria-pressed="false">Yes + Best</button>
+<button class="f" id="f-best" data-f="best" aria-pressed="false">Best</button>
+</div>
+</div>
+<section><div class="head"><span class="lab">Reference</span><h2>Your R08 sprites, used as the style</h2></div>
+<div class="grid"><div class="c"><div class="pitch"><img src="img/R_F001.png" alt="R08 F001"></div><div class="meta"><span class="id">R08 F001</span></div></div><div class="c"><div class="pitch"><img src="img/R_F005.png" alt="R08 F005"></div><div class="meta"><span class="id">R08 F005</span></div></div><div class="c"><div class="pitch"><img src="img/R_F021.png" alt="R08 F021"></div><div class="meta"><span class="id">R08 F021</span></div></div><div class="c"><div class="pitch"><img src="img/R_F041.png" alt="R08 F041"></div><div class="meta"><span class="id">R08 F041</span></div></div></div></section>
+<section id="gA"><div class="head"><span class="lab">Batch A · 16 sprites</span><h2>Your R08 style, relaxed</h2><p>Styled from four of your R08 sprites; arms hanging with a small gap.</p></div><div class="grid" data-ids="A00,A01,A02,A03,A04,A05,A06,A07,A08,A09,A10,A11,A12,A13,A14,A15"></div></section>
+<section id="gB"><div class="head"><span class="lab">Batch B · 16 sprites</span><h2>Your R08 style, A-pose</h2><p>Same style, arms angled out about 30° so they separate cleanly for animation.</p></div><div class="grid" data-ids="B00,B01,B02,B03,B04,B05,B06,B07,B08,B09,B10,B11,B12,B13,B14,B15"></div></section>
+<section id="gC"><div class="head"><span class="lab">Batch C · 16 sprites</span><h2>ISS-inspired, stocky</h2><p>R08 style pushed toward a compact 16-bit arcade build: bigger head, broader shoulders.</p></div><div class="grid" data-ids="C00,C01,C02,C03,C04,C05,C06,C07,C08,C09,C10,C11,C12,C13,C14,C15"></div></section>
+<section id="gD"><div class="head"><span class="lab">Batch D · 16 sprites</span><h2>T-pose</h2><p>Arms straight out at shoulder height. Easiest for rigging, least natural as an idle.</p></div><div class="grid" data-ids="D00,D01,D02,D03,D04,D05,D06,D07,D08,D09,D10,D11,D12,D13,D14,D15"></div></section>
+<section id="gE"><div class="head"><span class="lab">Batch E · 16 sprites</span><h2>R08 body copied, A-pose</h2><p>Two R08 players as the body reference, a third as the style reference.</p></div><div class="grid" data-ids="E00,E01,E02,E03,E04,E05,E06,E07,E08,E09,E10,E11,E12,E13,E14,E15"></div></section>
+<section id="gF"><div class="head"><span class="lab">Batch F · 16 sprites</span><h2>R08 body copied, stockier</h2><p>Same method, a heavier build. Note how consistent the 16 are: closest to 'one model'.</p></div><div class="grid" data-ids="F00,F01,F02,F03,F04,F05,F06,F07,F08,F09,F10,F11,F12,F13,F14,F15"></div></section>
+<section id="gG"><div class="head"><span class="lab">Batch G · 16 sprites</span><h2>R08 body copied, ready stance</h2><p>Knees slightly bent, arms a little forward, like a player waiting for the ball.</p></div><div class="grid" data-ids="G00,G01,G02,G03,G04,G05,G06,G07,G08,G09,G10,G11,G12,G13,G14,G15"></div></section>
+
+</div>
+<script>
+const votes={};let db=null,filter="all";
+const $=s=>document.querySelector(s);
+const VALID=new Set(["yes","no","best"]);
+function card(id){return `<div class="c" id="c-${id}" data-id="${id}"><div class="pitch"><img src="img/${id}.png" alt="Candidate ${id}" loading="lazy"></div><div class="meta"><span class="id">${id}</span><span class="vb"><button class="y" id="y-${id}" data-v="yes" aria-pressed="false">Yes</button><button class="n" id="n-${id}" data-v="no" aria-pressed="false">No</button><button class="b" id="b-${id}" data-v="best" aria-pressed="false">Best</button></span></div></div>`}
+document.querySelectorAll(".grid[data-ids]").forEach(gr=>gr.innerHTML=gr.dataset.ids.split(",").map(card).join(""));
+function paint(){let y=0,n=0,b=0,t=0;
+ document.querySelectorAll('.c[data-id]').forEach(el=>{const v=votes[el.dataset.id]||"";t++;
+  if(v==="yes")y++;if(v==="no")n++;if(v==="best")b++;
+  el.className="c"+(v?" v-"+v:"");
+  el.querySelectorAll('.vb button').forEach(bt=>bt.setAttribute('aria-pressed',String(bt.dataset.v===v)));
+  el.hidden=!(filter==="all"||(filter==="todo"&&!v)||(filter==="yes"&&(v==="yes"||v==="best"))||(filter==="best"&&v==="best"));});
+ $('#count').innerHTML=`<span class="cb">${b} best</span> · <span class="cy">${y} yes</span> · <span class="cn">${n} no</span> · ${t-y-n-b} to go`;}
+document.addEventListener('click',async e=>{
+ const f=e.target.closest('.f');if(f){filter=f.dataset.f;document.querySelectorAll('.f').forEach(x=>x.setAttribute('aria-pressed',String(x===f)));paint();return}
+ const bt=e.target.closest('.vb button');if(!bt)return;
+ const id=bt.closest('.c').dataset.id;const v=votes[id]===bt.dataset.v?"":bt.dataset.v;
+ votes[id]=v;paint();
+ if(db){try{await db.doc("picks/"+id).set({v,at:Date.now()});$('#status').textContent="Saved";}catch(err){$('#status').textContent="Not saved: this view can't write. Marks stay on this screen.";}}
+});
+paint();
+(async()=>{const t=setTimeout(()=>{$('#status').textContent="Marks stay on this screen only (no connection)."},10000);
+ try{db=await window.claude?.use?.("db");}catch(e){db=null}
+ if(!db){clearTimeout(t);$('#status').textContent="Marks stay on this screen only.";return}
+ db.collection("picks").onSnapshot(s=>{clearTimeout(t);s.docs.forEach(d=>{const v=d.data().v;votes[d.id]=VALID.has(v)?v:"";});paint();$('#status').textContent="Marks save automatically";},
+  ()=>{clearTimeout(t);$('#status').textContent="Couldn't load saved marks. New marks stay on this screen."});
+})();
+</script>

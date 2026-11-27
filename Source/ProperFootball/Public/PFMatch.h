@@ -146,6 +146,7 @@ struct FPFBall
 	float Curl = 0;
 	float GuideV = 0;   // its steady speed while guided (m/s)
 	int32 Guide = -1; // v0.8 assisted pass: the team-mate it is being steered onto (-1 = free ball)
+	bool bBeatsKeeper = false;   // v0.9.6: a well-struck pad shot the keeper will not get a hand to (rolled when struck)
 	FVector2D ThroughAim = FVector2D::ZeroVector;   // v0.9.4: the space a through ball was played into
 	float ThroughT = 0;                             // seconds since it was played
 };
@@ -230,6 +231,8 @@ public:
 	static float GameSpeed;     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
 	float Highlight = 0;
 	float HitStop = 0, ShakeT = 9.f, ShakeAmp = 0;
+	float PadShotQ = -1.f;   // v0.9.6: the quality of the pad's shot being struck (0 scuffed .. 1 perfect), -1 none
+	FString LastShotNote;    // v0.9.6: "far post, good" etc. (tests, captures)
 	// v0.9 turf and dust kicked up by slides and keeper landings (owner: "it's really hard to see how the slide tackles are looking")
 	struct FDust { FVector Pos, Vel; float T = 0, Life = 0.5f; int32 Kind = 0; };
 	TArray<FDust> Dust;
