@@ -193,6 +193,9 @@ public:
 	TArray<FPFPlayer> Managers;    // [0] home, [1] away: in their technical areas
 	TArray<FVector2D> HeadScreen;  // v0.9.2: each player's head on screen last frame (HUD ratings); X < -1e8 = not drawn
 	int32 TeamOverall(int32 Team) const;
+	// test helpers (feel test): the stick direction that points along a world direction, and the goal a team attacks
+	FVector2D StickFor(FVector2D WorldDir) const { return Proj.DirToScreen(WorldDir).GetSafeNormal(); }
+	FVector2D AttackGoal(int32 Team) const { return GoalCentre(Team, true); }
 	struct FCrew { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D Pos; };
 	TArray<FCrew> Crew;            // camera operators and ball boys (static sideline sprites from the owner's pack)
 	FPFBall Ball;

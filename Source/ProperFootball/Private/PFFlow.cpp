@@ -205,6 +205,78 @@ void UPFFlow::RunFeelTest()
 		UE_LOG(LogPF, Display, TEXT("PFFEEL pass at 300 fps: %d / %d presses passed, ball away in %.3f s on average (worst %.3f s); dribble%s: ball at most %.2f m from the player"),
 			Passed, Presses, Passed ? LatSum / Passed : -1.f, LatMax, Trial == 1 ? TEXT(" sprinting") : TEXT(""), MaxAhead);
 	}
+	// v0.9.3 aim test (owner: "if I aim far left the ball should go far left ... near post, near post"): shots from three
+	// spots at the near post, the centre and the far post, on an empty goal; where they cross the line
+	for (int32 Spot = 0; Spot < 3; ++Spot)
+		for (int32 Tg = 0; Tg < 3; ++Tg)
+		{
+			FPFMatch M;
+			FPFMatchSetup S; S.Seed = 300 + Spot * 3 + Tg;
+			S.Home = PFWorld::FriendlyTeam(C[0], false, 11); S.Away = PFWorld::FriendlyTeam(C[1], true, 13);
+			S.Home.bHuman = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[0].Stadium;
+			M.Init(S);
+			{ FPFPadInput In; In.bPass = true; M.Tick(1.f / 120.f, In); }
+			FPFPadInput In; for (int32 f = 0; f < 60; ++f) M.Tick(1.f / 120.f, In);
+			for (FPFPlayer& O : M.P) if (O.Index != M.Human) { O.bSentOff = true; O.Act = EPFAct::None; O.PendingKick = EPFKick::None; O.Pos = FVector2D(0, -60); }
+			FPFPlayer& H = M.P[M.Human];
+			H.Setup.Stats.Shooting = 75; H.A = PFAbility(H.Setup.Stats, false);
+			const FVector2D G = M.AttackGoal(H.Team);
+			const float Sg = G.X > 0 ? 1.f : -1.f;
+			H.Pos = FVector2D(G.X - Sg * 18.f, (Spot - 1) * 10.f); H.Vel = FVector2D::ZeroVector; H.Act = EPFAct::None; H.Facing = FVector2D(Sg, 0);
+			M.Ball.Owner = M.Human; M.Ball.Pos = FVector(H.Pos, 0.11f); M.Ball.Vel = FVector::ZeroVector;
+			M.Phase = EPFPhase::Play;   // some seeds put the earlier kick-off out of play (a throw-in)
+			const float Side = H.Pos.Y > 0 ? 1.f : H.Pos.Y < 0 ? -1.f : 1.f;
+			const FVector2D Target(G.X, Tg == 1 ? 0.f : (Tg == 0 ? Side : -Side) * 3.0f);   // Tg 0 near post, 1 centre, 2 far post
+			FPFPadInput Q; Q.Move = M.StickFor(Target - H.Pos);
+			Q.bShootPressed = true; Q.bShootHeld = true; M.Tick(1.f / 120.f, Q); Q.bShootPressed = false;
+			for (int32 f = 0; f < 24; ++f) M.Tick(1.f / 120.f, Q);
+			Q.bShootHeld = false; Q.bShootReleased = true; M.Tick(1.f / 120.f, Q); Q.bShootReleased = false; Q.Move = FVector2D::ZeroVector;
+			float T = 0; while (T < 3.f && FMath::Abs(M.Ball.Pos.X) < FMath::Abs(G.X)) { M.Tick(1.f / 120.f, Q); T += 1.f / 120.f; }
+			UE_LOG(LogPF, Display, TEXT("PFAIM from y %+.0f aiming y %+.1f: crossed the line at y %+.2f (z %.1f) after %.2f s; shots %d, last kick %d, owner %d, phase %d, stick %.2f %.2f"), H.Pos.Y, Target.Y, M.Ball.Pos.Y, M.Ball.Pos.Z, T, M.Shots[0] + M.Shots[1], M.Ball.LastKind, M.Ball.Owner, int32(M.Phase), M.StickFor(Target - H.Pos).X, M.StickFor(Target - H.Pos).Y);
+		}
+	// v0.9.3 save test (owner: saves should be "a proper dive, catching the ball"): 18 shots at the near and far post
+	// against a real keeper; how he deals with each
+	{
+		int32 Dives = 0, Standing = 0, Goals = 0, Caught = 0, N = 0;
+		for (int32 k = 0; k < 18; ++k)
+		{
+			FPFMatch M;
+			FPFMatchSetup S; S.Seed = 500 + k;
+			S.Home = PFWorld::FriendlyTeam(C[0], false, 11); S.Away = PFWorld::FriendlyTeam(C[1], true, 13);
+			S.Home.bHuman = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[0].Stadium;
+			M.Init(S);
+			{ FPFPadInput In; In.bPass = true; M.Tick(1.f / 120.f, In); }
+			FPFPadInput In; for (int32 f = 0; f < 60; ++f) M.Tick(1.f / 120.f, In);
+			FPFPlayer& H = M.P[M.Human];
+			const FVector2D G = M.AttackGoal(H.Team);
+			const float Sg = G.X > 0 ? 1.f : -1.f;
+			int32 Kp = -1;
+			for (FPFPlayer& O : M.P)
+				if (O.Index != M.Human)
+				{
+					O.Act = EPFAct::None; O.PendingKick = EPFKick::None;
+					if (O.bKeeper && O.Team != H.Team) { Kp = O.Index; O.Pos = FVector2D(G.X - Sg * 1.5f, 0); O.Vel = FVector2D::ZeroVector; }
+					else { O.bSentOff = true; O.Pos = FVector2D(0, -60); }
+				}
+			H.Setup.Stats.Shooting = 70; H.A = PFAbility(H.Setup.Stats, false);
+			H.Pos = FVector2D(G.X - Sg * 17.f, (k % 3 - 1) * 8.f); H.Vel = FVector2D::ZeroVector; H.Act = EPFAct::None; H.Facing = FVector2D(Sg, 0);
+			M.Ball.Owner = M.Human; M.Ball.Pos = FVector(H.Pos, 0.11f); M.Ball.Vel = FVector::ZeroVector; M.Phase = EPFPhase::Play;
+			const float Ty = ((k / 3) % 2 == 0 ? 1.f : -1.f) * 2.9f;
+			FPFPadInput Q; Q.Move = M.StickFor(FVector2D(G.X, Ty) - H.Pos);
+			Q.bShootPressed = true; Q.bShootHeld = true; M.Tick(1.f / 120.f, Q); Q.bShootPressed = false;
+			for (int32 f = 0; f < 30; ++f) M.Tick(1.f / 120.f, Q);
+			Q.bShootHeld = false; Q.bShootReleased = true; M.Tick(1.f / 120.f, Q); Q.bShootReleased = false; Q.Move = FVector2D::ZeroVector;
+			bool bDived = false, bStood = false; const int32 Sc0 = M.Score[H.Team];
+			for (int32 f = 0; f < 300; ++f)
+			{
+				M.Tick(1.f / 120.f, Q);
+				if (Kp >= 0) { const FPFPlayer& K = M.P[Kp]; if (K.Act == EPFAct::Dive && !K.DiveDir.IsNearlyZero()) bDived = true; else if (K.Act != EPFAct::None && !bDived) bStood = true; }
+				if (M.Score[H.Team] != Sc0 || (M.Ball.Owner == Kp && Kp >= 0)) break;
+			}
+			++N; Dives += bDived; Standing += (!bDived && bStood); Goals += M.Score[H.Team] != Sc0; Caught += (Kp >= 0 && M.Ball.Owner == Kp);
+		}
+		UE_LOG(LogPF, Display, TEXT("PFSAVE %d shots at the corners: keeper dived %d, stood %d, caught %d, goals %d"), N, Dives, Standing, Caught, Goals);
+	}
 	QuitAt = Time + 0.5f;
 }
 

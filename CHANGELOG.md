@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.9.3 (2026-11-27): aim where you point
+
+- **Shots go where the stick points:** the ball is aimed where the stick's line meets the goal line (near post, far post, anywhere between), kept just inside the posts; no stick aims at the far corner. The pad's random shot error is under half what it was, scaled by the shooter's rating. Aim test: 9 shots from three spots all land within about a metre of the target (75-rated shooter).
+- **Passes go where the stick points:** the target is picked by the angle on screen, as the controller sees it, inside about 37 degrees, before anything else.
+- **True 8-way movement:** the controlled player faces and runs along the chosen direction at once (no curving through a turn); reversing still costs speed.
+- **Keepers dive:** only a ball straight at him (under 0.45 m away) is caught standing; anything wider is a dive, and the passive body block only fires on a ball that hits him. Save test: 18 corner shots, he dived at all 18 (caught 4).
+- Balance: 20-match sim 2.20 goals/match (dives 3.4 per match, standing saves 1.5), 0 stuck.
+
 ## v0.9.2 (2026-11-27): realism, ratings and called runs
 
 **Movement and animation**

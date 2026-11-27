@@ -1017,7 +1017,10 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 	FVector2D WDir = Stick.IsZero() ? FVector2D::ZeroVector : SafeN(Proj.ScreenDirToWorld(Snapped));
 	const float Mag = FMath::Clamp(Stick.Size(), 0.f, 1.f);
 	if (H.Act == EPFAct::None || H.Act == EPFAct::Clip) { H.Wish = WDir * Mag; H.bSprint = Pad.bSprint; }
-	const FVector2D AimDir = WDir.IsZero() ? H.Facing : WDir;
+	// v0.9.3 (owner: "make it true to our controller aim"): movement is 8-way, but passes and shots aim along the
+	// stick's exact angle on screen (not the snapped one)
+	const FVector2D RawDir = Stick.IsZero() ? FVector2D::ZeroVector : SafeN(Proj.ScreenDirToWorld(Stick));
+	const FVector2D AimDir = RawDir.IsZero() ? H.Facing : RawDir;
 	const bool bHasBall = Ball.Owner == Human;
 	if (Pad.bPass) BufPass = 0.22f;
 	if (Pad.bLob) BufLob = 0.22f;
@@ -1142,6 +1145,19 @@ void FPFMatch::HumanControl(float Dt, const FPFPadInput& Pad)
 				const FVector2D ToGoal = SafeN(Goal - H.Pos);
 				const float Side = FVector2D::CrossProduct(ToGoal, AimDir);
 				FVector2D Aim = Goal + FVector2D(0, FMath::Clamp(-Side * 6.f, -GoalHalf + 0.4f, GoalHalf - 0.4f) * (AttackDir(H.Team) > 0 ? 1 : -1));
+				// v0.9.3 (owner: "if I aim far left the ball should go far left ... near post, near post"): the shot goes
+				// where the stick's line meets the goal line, kept just inside the posts; no stick: the far corner
+				const int32 Ad = AttackDir(H.Team);
+				if (!RawDir.IsZero() && RawDir.X * Ad > 0.12f)
+				{
+					const float T = (Goal.X - H.Pos.X) / RawDir.X;
+					Aim = FVector2D(Goal.X, FMath::Clamp(H.Pos.Y + RawDir.Y * T, -GoalHalf + 0.35f, GoalHalf - 0.35f));
+				}
+				else if (RawDir.IsZero())
+				{
+					float KY = 0; for (const FPFPlayer& K : P) if (K.bKeeper && K.Team != H.Team && !K.bSentOff) KY = K.Pos.Y;
+					Aim = FVector2D(Goal.X, (KY > 0 ? -1.f : 1.f) * (GoalHalf - 0.6f));
+				}
 				if (FVector2D::Distance(H.Pos, Goal) > 40.f) Aim = H.Pos + AimDir * 40.f;
 				const bool bChip = Pad.bChipMod && FVector2D::Distance(H.Pos, Goal) < 40.f;   // LB + B: chip
 				if (bChip) Aim = Goal + FVector2D(0, FMath::Clamp(Aim.Y - Goal.Y, -GoalHalf + 0.8f, GoalHalf - 0.8f));
@@ -1239,6 +1255,7 @@ int32 FPFMatch::BestPassTarget(const FPFPlayer& From, FVector2D Dir, bool bThrou
 	// (about +-70 degrees); if nobody is there, the widest sensible cone (not straight back); then the nearest man.
 	// v0.9.2: a through ball goes to the man on a called run (LB) first
 	if (bThrough) for (const FPFPlayer& Pl : P) if (Pl.Team == From.Team && Pl.Index != From.Index && Pl.RunT > 0.f && !Pl.bSentOff) return Pl.Index;
+	if (From.Index == Human && !Setup.bWatchOnly) { const int32 T = BestPassTargetCone(From, Dir, bThrough, 0.8f); if (T >= 0) return T; }   // within ~37 deg of the stick
 	const int32 B = BestPassTargetCone(From, Dir, bThrough, 0.35f);
 	if (B >= 0 || bThrough || From.Index != Human || Setup.bWatchOnly) return B;   // the AI's choice (pass or carry it) is its own
 	const int32 W = BestPassTargetCone(From, Dir, false, -0.35f);
@@ -1260,7 +1277,11 @@ int32 FPFMatch::BestPassTargetCone(const FPFPlayer& From, FVector2D Dir, bool bT
 		const FVector2D To = Pl.Pos - From.Pos;
 		const float D = To.Size();
 		if (D < 4.f || D > 55.f) continue;
-		const float Cos = FVector2D::DotProduct(To / D, Dir);
+		float Cos = FVector2D::DotProduct(To / D, Dir);
+		// v0.9.3 (owner: "when I try to pass forward, he doesn't pass forward ... true to our controller aim"): for the
+		// pad's passer the angle is measured on screen, as the stick sees it, and it outweighs everything else
+		const bool bPadAim = From.Index == Human && !Setup.bWatchOnly;
+		if (bPadAim) Cos = FVector2D::DotProduct(SafeN(Proj.DirToScreen(To)), SafeN(Proj.DirToScreen(Dir)));
 		if (Cos < MinCos) continue;
 		// open = nearest opponent to the lane
 		float Open = 99;
@@ -1275,7 +1296,10 @@ int32 FPFMatch::BestPassTargetCone(const FPFPlayer& From, FVector2D Dir, bool bT
 		// a team-mate in an offside position is not an option (the flag would go up)
 		const int32 Ad = AttackDir(From.Team);
 		const bool bOff = Pl.Pos.X * Ad > 0.f && Pl.Pos.X * Ad > FMath::Max(SecondLastX(1 - From.Team, Ad), Ball.Pos.X * Ad) + 0.25f;
-		const float S = Cos * 30.f - D * 0.35f + FMath::Min(Open, 6.f) * 3.f - (Open < 1.5f ? 35.f : 0.f) + (bThrough ? Forward * 0.4f : Forward * 0.1f) - (Pl.bKeeper ? 25.f : 0.f) - (bOff ? 60.f * (0.35f + 0.6f * T01(From.Setup.Stats.Passing)) : 0.f);
+		// v0.9.3 balance: the AI wants a clearer lane (68% of its passes were completed; real football ~80%), the
+		// better the passer the clearer he reads it
+		const float NeedOpen = 1.5f;
+		const float S = Cos * (bPadAim ? 140.f : 30.f) - D * (bPadAim ? 0.2f : 0.35f) + FMath::Min(Open, 6.f) * 3.f - (Open < NeedOpen ? 35.f : 0.f) + (bThrough ? Forward * 0.4f : Forward * 0.1f) - (Pl.bKeeper ? 25.f : 0.f) - (bOff ? 60.f * (0.35f + 0.6f * T01(From.Setup.Stats.Passing)) : 0.f);
 		if (S > BestScore) { BestScore = S; Best = Pl.Index; }
 	}
 	return Best;
@@ -1539,10 +1563,10 @@ void FPFMatch::KeeperAI(FPFPlayer& K, float Dt)
 			const bool bOnTarget = FMath::Abs(Y) < GoalHalf + 1.f && InOwnBox(K.Team, K.Pos) && bShotKind;
 			if (bOnTarget && K.ReactWait == 0 && TimeTo < 1.6f) K.ReactWait = K.A.KeeperReact;   // > 0: reading it
 			if (K.ReactWait > 0) { K.ReactWait -= Dt; if (K.ReactWait <= 0) K.ReactWait = -1.f; }  // -1: read, waiting for the moment
-			const float Need = FMath::Abs(Off) < 0.9f ? 0.12f : DiveMoveT * FMath::Clamp(FMath::Abs(Off) / FMath::Max(K.A.KeeperReach, 0.5f), 0.45f, 1.f) + 0.04f;
+			const float Need = FMath::Abs(Off) < 0.45f ? 0.12f : DiveMoveT * FMath::Clamp(FMath::Abs(Off) / FMath::Max(K.A.KeeperReach, 0.5f), 0.45f, 1.f) + 0.04f;
 			if (K.ReactWait < 0 && bOnTarget && TimeTo > Need)
 			{
-				K.Wish = FVector2D(0, FMath::Sign(Off)) * FMath::Clamp(FMath::Abs(Off) / 2.f, 0.f, 1.f);   // set feet, shuffle across
+				K.Wish = FVector2D(0, FMath::Sign(Off)) * FMath::Clamp(FMath::Abs(Off) / 4.f, 0.f, 0.45f);   // set feet, a short shuffle (he dives for the rest)
 				return;
 			}
 			if (K.ReactWait < 0)
@@ -1552,7 +1576,9 @@ void FPFMatch::KeeperAI(FPFPlayer& K, float Dt)
 				{
 					const bool bRight = (Off * (Goal.X > 0 ? -1 : 1)) > 0;  // keeper's right while facing the pitch
 					const bool bHigh = Z > 1.3f;
-					if (FMath::Abs(Off) < 0.9f) { StartClip(K, bHigh ? TEXT("gk_catch_high") : TEXT("gk_catch")); K.Act = EPFAct::Dive; K.DiveDir = FVector2D::ZeroVector; }
+					// v0.9.3 (owner: "a lot of the saves are just him standing straight up"): only a ball straight at him is
+					// caught standing; anything else is a dive
+					if (FMath::Abs(Off) < 0.45f) { StartClip(K, bHigh ? TEXT("gk_catch_high") : TEXT("gk_catch")); K.Act = EPFAct::Dive; K.DiveDir = FVector2D::ZeroVector; }
 					else
 					{
 						const FName C = bHigh ? (bRight ? TEXT("gk_dive_high_R") : TEXT("gk_dive_high_L")) : (bRight ? TEXT("gk_dive_low_R") : TEXT("gk_dive_low_L"));
@@ -1722,13 +1748,14 @@ void FPFMatch::MovePlayers(float Dt)
 			if (!bKicking)
 			{
 				const float Ang = FMath::RadiansToDegrees(FMath::Atan2(FVector2D::CrossProduct(Pl.Facing, Want), FVector2D::DotProduct(Pl.Facing, Want)));
-				const float MaxTurn = Pl.Index == Human && !Setup.bWatchOnly ? 1500.f * Dt : Pl.A.TurnRate * Dt;   // v0.9: the pad's man turns fast (180 in 0.12 s) but through the in-between views, not a one-frame flip
+				const float MaxTurn = Pl.Index == Human && !Setup.bWatchOnly ? 360.f : Pl.A.TurnRate * Dt;   // v0.9.3: the pad's man faces the stick's direction at once (true 8-way)
 				Pl.Facing = SafeN(Rot(Pl.Facing, FMath::Clamp(Ang, -MaxTurn, MaxTurn)));
 			}
 			Speed = Speed < WantSpeed ? FMath::Min(WantSpeed, Speed + Pl.A.Accel * Dt) : FMath::Max(WantSpeed, Speed - 32.f * Dt);
 			// the pad's man runs where he faces once he has turned most of the way (no moonwalking through a turn)
 			const bool bPadMove = Pl.Index == Human && !Setup.bWatchOnly && !bKicking;
-			const FVector2D MoveDir = bPadMove && FVector2D::DotProduct(Pl.Facing, Want) < 0.7f ? SafeN(Pl.Facing + Want * 0.5f, Want) : Want;
+			const FVector2D MoveDir = Want;   // v0.9.3: straight along the chosen direction (no curve through a turn); a reversal still costs speed
+			(void)bPadMove;
 			Pl.Vel = (bKicking ? SafeN(Pl.Vel, Want) : MoveDir) * Speed;
 		}
 		else
@@ -1842,7 +1869,7 @@ void FPFMatch::Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, 
 	{
 	case EPFKick::Shot:
 	{
-		Err = Pl.A.ShotErrDeg * (0.6f + Power * 0.7f) * (Pl.bSprint ? 1.4f : 1.f);
+		Err = Pl.A.ShotErrDeg * (0.6f + Power * 0.7f) * (Pl.bSprint ? 1.4f : 1.f) * ((Pl.Index == Human && !Setup.bWatchOnly) ? 0.45f : 1.f);   // v0.9.3: the pad's aim is respected
 		Dir = Rot(Dir, Rng.Gauss() * Err * 0.5f);
 		const float Spd = FMath::Lerp(17.f, Pl.A.ShotPower, Power);
 		// v0.9 impact (owner: "shooting feels very lackluster"): the pad's shot freezes play for a few frames and kicks the camera
@@ -2097,7 +2124,8 @@ void FPFMatch::BallPhysics(float Dt)
 		{
 			if (!K.bKeeper || K.NoTouch > 0 || K.Act == EPFAct::Dive || Ball.LastTeam == K.Team) continue;
 			const float Kee = T01(K.Setup.Stats.Keeping);
-			if (FVector2D::Distance(K.Pos, V2(Ball.Pos)) < 0.5f + Kee * 0.38f && Ball.Pos.Z < 2.3f)
+			// v0.9.3: a passive block only when the ball hits his body; reaching for it is a dive (KeeperAI)
+			if (FVector2D::Distance(K.Pos, V2(Ball.Pos)) < 0.32f + Kee * 0.12f && Ball.Pos.Z < 2.3f)
 			{
 				// outside his area he can only block it with his body
 				const bool bCatch = InOwnBox(K.Team, V2(Ball.Pos)) && Rng.Unit() < 0.3f + 0.6f * Kee;
@@ -2178,7 +2206,8 @@ void FPFMatch::Possession(float Dt)
 		// a firm pass is only cut out by a body right in its path (not plucked from 0.85 m away)
 		const bool bPassBy = !bShotIn && Pl.Team != Ball.LastTeam && Ball.Pos.Z < 0.6f && V2(Ball.Vel).Size() > 9.f;
 		const bool bMeant = Ball.LastTeam == Pl.Team && P.IsValidIndex(Ball.LastTouch) && P[Ball.LastTouch].KickTarget == Pl.Index;
-		const float Reach = (Pl.bKeeper && CanHandle(Pl)) ? (bShotIn ? 0.6f : 1.1f) : bShotIn ? 0.32f : bMeant ? 1.2f : bPassBy ? 0.5f : 0.85f;
+		// v0.9.3: a shot he has to reach for is a dive (KeeperAI), not a standing grab
+		const float Reach = (Pl.bKeeper && CanHandle(Pl)) ? (bShotIn ? 0.5f : 1.1f) : bShotIn ? 0.32f : bMeant ? 1.2f : bPassBy ? 0.5f : 0.85f;
 		const float D = FVector2D::Distance(Pl.Pos + Pl.Facing * 0.3f, V2(Ball.Pos));
 		if (D < Reach && D < BD) { BD = D; Best = Pl.Index; }
 	}
