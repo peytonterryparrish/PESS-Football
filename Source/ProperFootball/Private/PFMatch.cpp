@@ -350,7 +350,7 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 				// v0.9.6 (owner: "two different models on the field ... start simple with 1 model"): everyone is drawn in one
 				// outfield body and one keeper body until the new art is approved. -pfbody=X -pfkeeperbody=Y pick others,
 				// -pfbody=mixed brings back the five bodies.
-				{ static FString FB = TEXT("B01"), FK = TEXT("BK2"); static bool bRd = false; if (!bRd) { bRd = true; FParse::Value(FCommandLine::Get(), TEXT("pfbody="), FB); FParse::Value(FCommandLine::Get(), TEXT("pfkeeperbody="), FK); if (FB == TEXT("mixed")) { FB.Reset(); FK.Reset(); } }
+				{ static FString FB = TEXT("N01"), FK = TEXT("NK1"); static bool bRd = false; if (!bRd) { bRd = true; FParse::Value(FCommandLine::Get(), TEXT("pfbody="), FB); FParse::Value(FCommandLine::Get(), TEXT("pfkeeperbody="), FK); if (FB == TEXT("mixed")) { FB.Reset(); FK.Reset(); } }
 				  if (!Pl.bKeeper && !FB.IsEmpty()) Want = FB; if (Pl.bKeeper && !FK.IsEmpty()) Want = FK; }
 				const bool bHave = FPaths::FileExists(PF::DataPath(FString::Printf(TEXT("GameData/Sprites/%s.json"), *Want)));
 				Pl.SpriteSet = SpriteFor(bHave ? Want : (Pl.bKeeper ? FString(TEXT("BK1")) : FString(TEXT("B01"))));

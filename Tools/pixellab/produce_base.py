@@ -37,6 +37,12 @@ BODIES["B05"]["sash"] = ["north", "north-east", "north-west"]
 BODIES["BK2"] = dict(kind="keeper", src="Clubs/newcastle-united/South_Native64/keeper1/G003.png", club="newcastle-united", kit="keeper1",
                      desc="retro 16-bit pixel art football goalkeeper, deep brown skin, brown short crew cut, blue goalkeeper jersey "
                      "with magenta long sleeves, green shorts, red socks, grey goalkeeper gloves, black boots, no ball")
+# v0.9.6 art reset (owner: "start simple with 1 model, 1 jersey"): the one outfield body and its keeper, from the owner's
+# pick on the south idle casting page (Tools/pixellab/reset_bodies.py writes their ref96.png; PF_RAW_BASE=raw_base_n)
+BODIES["N01"] = dict(kind="outfield", desc="retro 16-bit pixel art footballer, stocky compact arcade build, slightly large head, "
+                     "blue short-sleeved shirt, green shorts, red socks, black boots, empty hands, no ball")
+BODIES["NK1"] = dict(kind="keeper", desc="retro 16-bit pixel art football goalkeeper, stocky compact arcade build, slightly large head, "
+                     "blue goalkeeper jersey with magenta long sleeves, green shorts, red socks, grey goalkeeper gloves, black boots, no ball")
 lock = threading.Lock(); state = {"start": None, "spend": 40.0, "stop": False}
 
 def say(*a):
