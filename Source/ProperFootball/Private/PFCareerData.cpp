@@ -434,6 +434,14 @@ void FPFCareerSim::ApplyResult(FPFFixture& F, int32 HG, int32 AG, int32 PenWinne
 	{
 		const bool bHome = F.Home == S.UserClub;
 		BoardAfterMatch(bHome ? HG : AG, bHome ? AG : HG, bHome);
+		// v0.9.4: the user's own result goes in the news (and is kept for the INSTANT RESULT popup)
+		const int32 GF = bHome ? HG : AG, GA = bHome ? AG : HG;
+		const FString Opp = S.Clubs[bHome ? F.Away : F.Home].Name;
+		const TCHAR* Verb = GF > GA ? TEXT("Won") : GF < GA ? TEXT("Lost") : TEXT("Drew");
+		FString Line = FString::Printf(TEXT("%s: %s %d-%d %s %s"), *CompName(F.Comp), Verb, GF, GA, bHome ? TEXT("at home to") : TEXT("away at"), *Opp);
+		if (F.bPens) Line += F.PenWinner == S.UserClub ? TEXT(", won on penalties") : TEXT(", lost on penalties");
+		LastUserResult = Line + TEXT(".");
+		AddNews(LastUserResult);
 	}
 }
 
@@ -496,6 +504,8 @@ void FPFCareerSim::PlayMatchday(const TFunction<void(FPFFixture&)>& UserResult)
 	ScoutTick();
 	ProcessBids();
 	if (S.bWindowOpen) AIWindowActivity();
+	// v0.9.4: when the window shuts, pending bids for contracted players lapse (free agents can still sign)
+	else for (FPFBid& B : S.Bids) if (B.Status == 0) if (const FPFPerson* P = Person(B.Person)) if (P->Club >= 0) { B.Status = 2; B.Note = TEXT("The transfer window closed."); }
 	for (int32 i = 0; i < S.Clubs.Num(); ++i) RecalcStrength(i);
 	// mid-season sacking
 	if (!S.bUnemployed && MD >= 15 && S.BoardConfidence < 10)
@@ -871,7 +881,7 @@ void FPFCareerSim::ProcessBids()
 				if (XI.Contains(P->Id)) Need *= 1.35f;
 			}
 			if (B.Fee >= V * Need) Accepted.Add(i);
-			else { B.Status = 2; B.Note = FString::Printf(TEXT("Rejected: they want about %lld."), int64(V * Need)); }
+			else { B.Status = 2; B.Note = FString::Printf(TEXT("Rejected: they want about %s."), *Money(int64(V * Need))); }   // v0.9.4: formatted money
 		}
 		if (!Accepted.Num()) continue;
 		// the player chooses: money weighted by club stature
@@ -882,7 +892,7 @@ void FPFCareerSim::ProcessBids()
 			const FPFCareerClub& C = S.Clubs[B.FromClub];
 			if (C.TransferBudget < B.Fee) { S.Bids[i].Status = 4; S.Bids[i].Note = TEXT("The money isn't there any more."); continue; }
 			const float Demand = WageDemand(*P, B.FromClub);
-			if (B.Wage < Demand * 0.9f) { S.Bids[i].Status = 4; S.Bids[i].Note = FString::Printf(TEXT("He wants %d a week."), int32(Demand)); continue; }
+			if (B.Wage < Demand * 0.9f) { S.Bids[i].Status = 4; S.Bids[i].Note = FString::Printf(TEXT("He wants %s a week."), *Money(int64(Demand))); continue; }   // v0.9.4: formatted money
 			const float Score = B.Wage * (1.f + (4 - C.Division) * 0.25f + C.Prestige * 0.05f) + Rng.Range(0.f, B.Wage * 0.15f);
 			if (Score > BestScore) { BestScore = Score; Best = i; }
 		}
@@ -894,10 +904,11 @@ void FPFCareerSim::ProcessBids()
 		S.Clubs[W.FromClub].Squad.Add(P->Id);
 		S.Clubs[W.FromClub].TransferBudget -= W.Fee; S.Clubs[W.FromClub].Balance -= W.Fee;
 		P->Club = W.FromClub; P->Wage = W.Wage; P->ContractYears = 3; P->bListed = false; P->bAcademy = false; P->bScoutedOnly = false;
+		P->bDropped = false; P->Number = NextShirtNumber(W.FromClub, P->Id);   // v0.9.4: fresh start and a free shirt at the new club
 		W.Status = 3; W.Note = TEXT("Done deal.");
 		for (int32 i : KV.Value) if (i != Best && S.Bids[i].Status == 0) { S.Bids[i].Status = 2; S.Bids[i].Note = FString::Printf(TEXT("He chose %s."), *S.Clubs[W.FromClub].Name); }
 		for (int32 i : Accepted) if (i != Best && S.Bids[i].Status != 4) { S.Bids[i].Status = 2; S.Bids[i].Note = FString::Printf(TEXT("He chose %s."), *S.Clubs[W.FromClub].Name); }
-		AddNews(FString::Printf(TEXT("%s joins %s from %s for %lld."), *P->Name, *S.Clubs[W.FromClub].Name, From >= 0 ? *S.Clubs[From].Name : TEXT("free agency"), W.Fee));
+		AddNews(FString::Printf(TEXT("%s joins %s from %s for %s."), *P->Name, *S.Clubs[W.FromClub].Name, From >= 0 ? *S.Clubs[From].Name : TEXT("free agency"), *Money(W.Fee)));   // v0.9.4: formatted money
 	}
 	// AI offers for the user's listed players
 	if (S.bWindowOpen && !S.bUnemployed)
@@ -912,26 +923,68 @@ void FPFCareerSim::ProcessBids()
 			if (Buyer < 0) continue;
 			FPFBid B; B.Person = Id; B.FromClub = Buyer; B.Fee = int64(Value(*P) * Rng.Range(0.75f, 1.1f)); B.Wage = WageDemand(*P, Buyer);
 			S.Bids.Add(B);
-			AddNews(FString::Printf(TEXT("%s bid %lld for %s."), *S.Clubs[Buyer].Name, B.Fee, *P->Name));
+			AddNews(FString::Printf(TEXT("%s bid %s for %s."), *S.Clubs[Buyer].Name, *Money(B.Fee), *P->Name));   // v0.9.4: formatted money
 		}
 	// keep the list short
 	if (S.Bids.Num() > 80) S.Bids.RemoveAt(0, S.Bids.Num() - 80);
 }
 
-void FPFCareerSim::SellToBest(int32 Id)
+FString FPFCareerSim::Money(int64 V)
+{
+	const bool bNeg = V < 0; V = FMath::Abs(V);
+	FString Str = V >= 1000000 ? FString::Printf(TEXT("%.1fM"), V / 1e6) : V >= 1000 ? FString::Printf(TEXT("%lldK"), V / 1000) : FString::Printf(TEXT("%lld"), V);
+	return (bNeg ? TEXT("-") : TEXT("")) + FString(TEXT("£")) + Str;
+}
+
+int32 FPFCareerSim::NextShirtNumber(int32 Club, int32 Except) const
+{
+	int32 No = 1;
+	if (S.Clubs.IsValidIndex(Club)) for (int32 X : S.Clubs[Club].Squad) if (X != Except) if (const FPFPerson* Q = Person(X)) No = FMath::Max(No, Q->Number + 1);
+	return No;
+}
+
+FString FPFCareerSim::CanLetGo(int32 Id) const
+{
+	// v0.9.4: never let the user strip the first team bare
+	const FPFPerson* P = Person(Id);
+	if (!P || P->Club != S.UserClub || S.UserClub < 0) return TEXT("He isn't yours to let go.");
+	if (P->bAcademy) return FString();
+	const TArray<int32>& Sq = S.Clubs[S.UserClub].Squad;
+	if (Sq.Num() <= 16) return TEXT("You need at least 16 in the first team.");
+	if (P->Role == EPFRole::GK)
+	{
+		int32 Keepers = 0; for (int32 X : Sq) if (const FPFPerson* Q = Person(X)) if (Q->Role == EPFRole::GK) Keepers++;
+		if (Keepers <= 2) return TEXT("You need at least two goalkeepers.");
+	}
+	return FString();
+}
+
+FString FPFCareerSim::SellToBest(int32 Id)
 {
 	// the user accepts the best pending bid for one of his players
 	FPFPerson* P = Person(Id);
-	if (!P || P->Club != S.UserClub) return;
+	if (!P || P->Club != S.UserClub) return TEXT("No.");
+	if (!S.bWindowOpen) return TEXT("The transfer window is closed.");   // v0.9.4
+	const FString Why = CanLetGo(Id);
+	if (!Why.IsEmpty()) return Why;
 	int32 Best = -1;
-	for (int32 i = 0; i < S.Bids.Num(); ++i) if (S.Bids[i].Person == Id && S.Bids[i].Status == 0 && !S.Bids[i].bByUser && (Best < 0 || S.Bids[i].Fee > S.Bids[Best].Fee)) Best = i;
-	if (Best < 0) return;
+	for (int32 i = 0; i < S.Bids.Num(); ++i)
+	{
+		FPFBid& Bi = S.Bids[i];
+		if (Bi.Person != Id || Bi.Status != 0 || Bi.bByUser) continue;
+		// v0.9.4: a buyer who can no longer afford the fee drops out
+		if (!S.Clubs.IsValidIndex(Bi.FromClub) || S.Clubs[Bi.FromClub].TransferBudget < Bi.Fee) { Bi.Status = 4; Bi.Note = TEXT("The money isn't there any more."); continue; }
+		if (Best < 0 || Bi.Fee > S.Bids[Best].Fee) Best = i;
+	}
+	if (Best < 0) return TEXT("The interested clubs can't raise the money any more.");
 	FPFBid& B = S.Bids[Best];
 	UserClub().Squad.Remove(Id); UserClub().Balance += B.Fee; UserClub().TransferBudget += B.Fee;
 	S.Clubs[B.FromClub].Squad.Add(Id); S.Clubs[B.FromClub].TransferBudget -= B.Fee; S.Clubs[B.FromClub].Balance -= B.Fee;
 	P->Club = B.FromClub; P->Wage = B.Wage; P->bListed = false; P->ContractYears = 3;
+	P->bDropped = false; P->Number = NextShirtNumber(B.FromClub, Id);   // v0.9.4
 	B.Status = 3; B.Note = TEXT("Sold.");
-	AddNews(FString::Printf(TEXT("%s sold to %s for %lld."), *P->Name, *S.Clubs[B.FromClub].Name, B.Fee));
+	AddNews(FString::Printf(TEXT("%s sold to %s for %s."), *P->Name, *S.Clubs[B.FromClub].Name, *Money(B.Fee)));
+	return FString();
 }
 
 void FPFCareerSim::AIWindowActivity()
@@ -954,6 +1007,7 @@ void FPFCareerSim::AIWindowActivity()
 		if (From >= 0) { S.Clubs[From].Squad.Remove(P.Id); S.Clubs[From].Balance += Fee; }
 		C.Squad.Add(P.Id); C.TransferBudget -= Fee; C.Balance -= Fee;
 		P.Club = Buyer; P.ContractYears = 2 + Rng.Int(3); P.Wage = WageDemand(P, Buyer);
+		P.bDropped = false; P.bListed = false; P.Number = NextShirtNumber(Buyer, P.Id);   // v0.9.4: free shirt at the new club
 		if (P.Ovr() >= 65) AddNews(FString::Printf(TEXT("%s sign %s%s."), *C.Name, *P.Name, From >= 0 ? *FString::Printf(TEXT(" from %s"), *S.Clubs[From].Name) : TEXT("")));
 	}
 }
@@ -1060,7 +1114,7 @@ FString FPFCareerSim::SignProspect(int32 Id)
 	UserClub().Academy.Add(Id);
 	S.Prospects.Remove(Id);
 	AddNews(FString::Printf(TEXT("%s (%d, %s) joins the %s academy."), *P->Name, P->Age, PFRegionName(P->Region), *UserClub().Name));
-	return FString::Printf(TEXT("%s signed for %lld."), *P->Name, Fee);
+	return FString::Printf(TEXT("%s signed for %s."), *P->Name, *Money(Fee));   // v0.9.4: formatted money
 }
 
 void FPFCareerSim::PromoteYouth(int32 Id)
@@ -1083,10 +1137,13 @@ FString FPFCareerSim::OfferContract(int32 Id)
 	return FString::Printf(TEXT("%s signs a new 3-year deal at %d a week."), *P->Name, Demand);
 }
 
-void FPFCareerSim::ReleasePlayer(int32 Id)
+FString FPFCareerSim::ReleasePlayer(int32 Id)
 {
 	FPFPerson* P = Person(Id);
-	if (!P || P->Club != S.UserClub) return;
+	if (!P || P->Club != S.UserClub) return TEXT("No.");
+	const FString Why = CanLetGo(Id);   // v0.9.4: keep 16 players and two keepers
+	if (!Why.IsEmpty()) return Why;
 	UserClub().Squad.Remove(Id); UserClub().Academy.Remove(Id);
-	P->Club = -1; P->bAcademy = false;
+	P->Club = -1; P->bAcademy = false; P->bDropped = false; P->bListed = false;   // v0.9.4
+	return FString();
 }

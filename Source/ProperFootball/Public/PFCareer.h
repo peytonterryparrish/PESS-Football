@@ -43,6 +43,7 @@ public:
 	bool bYouthMatch = false;
 	int32 HalfLenSetting = 1;
 	int32 ListCount = 0;   // rows on the current list screen (input clamps to it)
+	bool bConfirmNew = false;   // v0.9.4: NEW CAREER pressed once over an existing save
 
 private:
 	UPFFlow* F() const;

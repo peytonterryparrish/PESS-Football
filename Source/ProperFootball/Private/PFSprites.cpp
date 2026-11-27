@@ -39,7 +39,9 @@ bool FPFSpriteSet::Load(const FString& InId)
 		if (Key.Split(TEXT("/"), &Dir, &Pose)) Poses.Add(FName(*Pose));
 	}
 	// v0.8: hand anchors (Tools/pipeline/hand_anchors.py), so a held ball is drawn in the gloves
-	if (TSharedPtr<FJsonObject> HJ = PF::LoadJson(FString::Printf(TEXT("GameData/Sprites/%s_hands.json"), *Id)))
+	// v0.9.4: officials and managers never hold the ball and have no anchors: only look when the file is there (no log warning)
+	const FString HandsRel = FString::Printf(TEXT("GameData/Sprites/%s_hands.json"), *Id);
+	if (TSharedPtr<FJsonObject> HJ = FPaths::FileExists(PF::DataPath(HandsRel)) ? PF::LoadJson(HandsRel) : nullptr)
 		for (const auto& KV : HJ->Values)
 		{
 			const TArray<TSharedPtr<FJsonValue>>& A = KV.Value->AsArray();

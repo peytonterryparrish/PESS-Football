@@ -165,8 +165,10 @@ public:
 	int32 WageDemand(const FPFPerson& P, int32 ToClub) const;
 	FString MakeBid(int32 Person, int64 Fee, int32 Wage);       // user bid; resolves over following matchdays
 	void ProcessBids();                                          // AI responses, rival bids, completions
-	void SellToBest(int32 Person);                               // user lists/sells
+	FString SellToBest(int32 Person);                            // user lists/sells; v0.9.4: returns "" when sold, else why not
 	void AIWindowActivity();
+	FString CanLetGo(int32 Person) const;                        // v0.9.4: "" if the user's squad can spare him (16+ players, 2+ keepers)
+	static FString Money(int64 V);                               // v0.9.4: "£1.2M" style, shared with the career screens
 	int32 SquadWages(int32 Club) const;
 
 	// youth
@@ -176,11 +178,12 @@ public:
 	TArray<int32> YouthMatchSquad(EPFRegion Region, int32 Count, uint64 Seed);   // prospects + local kids for a youth match
 	FString SignProspect(int32 Person);
 	void PromoteYouth(int32 Person);
-	void ReleasePlayer(int32 Person);
+	FString ReleasePlayer(int32 Person);                         // v0.9.4: returns "" when released, else why not
 	FString OfferContract(int32 Person);
 	FPFMatchSetup YouthMatchSetup(EPFRegion Region, uint64 Seed, TArray<int32>* OutKids = nullptr) const;
 
 	void AddNews(const FString& T);
+	FString LastUserResult;                // v0.9.4: the user's latest result line (not saved), shown after INSTANT RESULT
 	FString DivisionName(int32 D) const;
 	FString CompName(int32 Comp) const;
 	int32 Expectation(int32 Club) const;   // expected league position
@@ -196,6 +199,7 @@ private:
 	void AutoPick(int32 Club);
 	void Regens();
 	void EnsureSquad(int32 Club);
+	int32 NextShirtNumber(int32 Club, int32 Except) const;   // v0.9.4: one above the highest number in the club's squad
 	FString CupWinnerNote;
 	void BoardAfterMatch(int32 GF, int32 GA, bool bHome);
 };

@@ -14,6 +14,7 @@
 #include "Sound/SoundBase.h"
 #include "Components/AudioComponent.h"
 #include "Misc/CommandLine.h"
+#include "Misc/ConfigCacheIni.h"
 
 // ------------------------------------------------------------------------------------------------ font
 bool FPFFont::Load(const FString& Name)
@@ -183,6 +184,7 @@ void UPFFlow::RunFeelTest()
 		for (FPFPlayer& O : M.P) if (O.Team == 1) O.bSentOff = true;
 		FPFPlayer& H = M.P[M.Human];
 		H.Pos = FVector2D(-10, 0); H.Vel = FVector2D::ZeroVector; H.Act = EPFAct::None;
+		M.Phase = EPFPhase::Play;   // v0.9.4: some seeds had the kick-off go out (a restart): the dribble was never measured
 		M.Ball.Owner = M.Human; M.Ball.Pos = FVector(H.Pos, 0.11f); M.Ball.Vel = FVector::ZeroVector;
 		In.Move = FVector2D(1, 0); In.bSprint = Trial == 1;
 		float MaxAhead = 0;
@@ -267,15 +269,100 @@ void UPFFlow::RunFeelTest()
 			for (int32 f = 0; f < 30; ++f) M.Tick(1.f / 120.f, Q);
 			Q.bShootHeld = false; Q.bShootReleased = true; M.Tick(1.f / 120.f, Q); Q.bShootReleased = false; Q.Move = FVector2D::ZeroVector;
 			bool bDived = false, bStood = false; const int32 Sc0 = M.Score[H.Team];
+			float MinD = 99, LineY = 0, LineZ = 0, DiveAt = -1, T = 0; FName Clip; const float V0 = M.Ball.Vel.Size();
 			for (int32 f = 0; f < 300; ++f)
 			{
-				M.Tick(1.f / 120.f, Q);
-				if (Kp >= 0) { const FPFPlayer& K = M.P[Kp]; if (K.Act == EPFAct::Dive && !K.DiveDir.IsNearlyZero()) bDived = true; else if (K.Act != EPFAct::None && !bDived) bStood = true; }
+				M.Tick(1.f / 120.f, Q); T += 1.f / 120.f;
+				if (Kp >= 0) { const FPFPlayer& K = M.P[Kp]; if (K.Act == EPFAct::Dive && !K.DiveDir.IsNearlyZero()) { if (!bDived) { DiveAt = T; Clip = K.Clip; } bDived = true; } else if (K.Act != EPFAct::None && !bDived) bStood = true;
+					MinD = FMath::Min(MinD, (float)FVector2D::Distance(K.Pos, FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y))); }
+				if (FMath::Abs(M.Ball.Pos.X) > FMath::Abs(G.X) - 0.2f && LineZ == 0) { LineY = M.Ball.Pos.Y; LineZ = M.Ball.Pos.Z; }
 				if (M.Score[H.Team] != Sc0 || (M.Ball.Owner == Kp && Kp >= 0)) break;
 			}
+			if (Kp >= 0) UE_LOG(LogPF, Display, TEXT("PFSAVE   shot %2d at %.0f m/s, keeper %d (reach %.1f m): %s, dived at %.2f s (%s), nearest the ball %.2f m, ball at the line y %+.1f z %.1f"),
+				k, V0, M.P[Kp].Setup.Stats.Keeping, M.P[Kp].A.KeeperReach, M.Score[H.Team] != Sc0 ? TEXT("GOAL") : M.Ball.Owner == Kp ? TEXT("caught") : TEXT("kept out"), DiveAt, *Clip.ToString(), MinD, LineY, LineZ);
 			++N; Dives += bDived; Standing += (!bDived && bStood); Goals += M.Score[H.Team] != Sc0; Caught += (Kp >= 0 && M.Ball.Owner == Kp);
 		}
 		UE_LOG(LogPF, Display, TEXT("PFSAVE %d shots at the corners: keeper dived %d, stood %d, caught %d, goals %d"), N, Dives, Standing, Caught, Goals);
+	}
+	// v0.9.4 through-ball test (owner: "those through balls are broken ... the balls need to go much further ... the
+	// player that is supposed to run along with it and retrieve it"): a midfielder in his own half or around halfway,
+	// a full side against a full side in shape. Pad: Y with the stick up the pitch (every other one after an LB call);
+	// AI: the carrier's through ball. Completed = a team-mate has it before the opponents do.
+	for (int32 Mode = 0; Mode < 2; ++Mode)
+	{
+		int32 N = 0, Done = 0, ToMan = 0, Off = 0, ByKeeper = 0, ByDef = 0, Dead = 0, OutN = 0;
+		float BallSum = 0, BallMax = 0, TSum = 0, RunSum = 0, LeadSum = 0, BoostSum = 0;
+		for (int32 k = 0; k < 24; ++k)
+		{
+			FPFMatch M;
+			FPFMatchSetup S; S.Seed = 700 + k;
+			S.Home = PFWorld::FriendlyTeam(C[(k * 5) % C.Num()], false, 11 + k); S.Away = PFWorld::FriendlyTeam(C[(k * 7 + 3) % C.Num()], true, 13 + k);
+			S.Home.bHuman = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[0].Stadium;
+			M.Init(S);
+			{ FPFPadInput In; In.bPass = true; M.Tick(1.f / 120.f, In); }
+			FPFPadInput In; for (int32 f = 0; f < 60; ++f) M.Tick(1.f / 120.f, In);
+			const int32 Ad = M.AttackSign(0);
+			int32 Cr = -1;
+			for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && Q.Setup.Role == EPFRole::MID && (Cr < 0 || FMath::Abs(Q.Setup.Slot.Y) < FMath::Abs(M.P[Cr].Setup.Slot.Y))) Cr = Q.Index;
+			if (Cr < 0) continue;
+			for (FPFPlayer& Q : M.P) { Q.Act = EPFAct::None; Q.PendingKick = EPFKick::None; Q.NoTouch = 0; Q.RunT = 0; }
+			{
+				FPFPlayer& H = M.P[Cr];
+				H.Pos = FVector2D(Ad * (-10.f + (k % 4) * 5.f), ((k / 4) % 3 - 1) * 12.f); H.Vel = FVector2D::ZeroVector; H.Facing = FVector2D(Ad, 0);
+				M.Human = Cr; M.Phase = EPFPhase::Play;
+				M.Ball = FPFBall(); M.Ball.Owner = Cr; M.Ball.Pos = FVector(H.Pos, 0.11f); M.Ball.LastTouch = Cr; M.Ball.LastTeam = 0;
+			}
+			// both sides in shape round him (he shields it a moment, the stick idle)
+			M.TestTakeShape();
+			for (int32 f = 0; f < 30 && M.Ball.Owner == Cr; ++f) M.Tick(1.f / 120.f, In);
+			if (M.Ball.Owner != Cr || M.Phase != EPFPhase::Play) continue;
+			int32 Rc = -1;
+			if (Mode == 0)
+			{
+				if (k % 2) { FPFPadInput Lb; Lb.bSwitch = true; M.Tick(1.f / 120.f, Lb); for (int32 f = 0; f < 50; ++f) M.Tick(1.f / 120.f, In); }
+				if (M.Ball.Owner != Cr) continue;
+				FPFPadInput Y; Y.bThrough = true; Y.Move = M.StickFor(FVector2D(Ad, 0)); M.Tick(1.f / 120.f, Y);
+				Rc = M.P[Cr].KickTarget;
+			}
+			else
+			{
+				M.Setup.Home.bHuman = false; M.Human = -1;
+				Rc = M.TestThroughBall(Cr, FVector2D(Ad, 0));
+			}
+			if (Rc < 0 || M.Ball.Owner == Cr) continue;
+			const FVector2D From(M.Ball.Pos.X, M.Ball.Pos.Y), RcFrom = M.P[Rc].Pos;
+			const float RcAhead = (RcFrom.X - From.X) * Ad, Lead = FVector2D::Distance(RcFrom, M.Ball.ThroughAim), Boost = M.P[Rc].BoostMul;
+			float T = 0;
+			TArray<FVector2D> DefFrom; for (const FPFPlayer& Q : M.P) DefFrom.Add(Q.Pos);
+			float RcTop = 0, RcSum = 0; int32 RcN = 0; const float BallZ0 = M.Ball.Vel.Z, BallV0 = FVector2D(M.Ball.Vel.X, M.Ball.Vel.Y).Size();
+			while (T < 7.f && M.Ball.Owner < 0 && M.Phase == EPFPhase::Play)
+			{
+				M.Tick(1.f / 120.f, FPFPadInput()); T += 1.f / 120.f;
+				const float V = M.P[Rc].Vel.Size(); RcTop = FMath::Max(RcTop, V); RcSum += V; ++RcN;
+			}
+			UE_LOG(LogPF, Display, TEXT("PFTHRU   predicted margin %+.2f s, runner there in %.2f s; ball launched %.1f m/s (up %.1f); runner top %.1f m/s, average %.1f (his top speed %.1f, sprint %.1f), boost left %.2f"), M.DbgThroughMargin, M.DbgThroughRun, BallV0, BallZ0, RcTop, RcN ? RcSum / RcN : 0.f, M.P[Rc].A.MaxSpeed, M.P[Rc].A.MaxSpeed * M.P[Rc].A.SprintMul, M.P[Rc].BoostT);
+			++N;
+			const FVector2D At(M.Ball.Pos.X, M.Ball.Pos.Y);
+			const float BallD = FVector2D::Distance(From, At);
+			const TCHAR* What = TEXT("dead");
+			if (M.Ball.Owner >= 0 && M.P[M.Ball.Owner].Team == 0)
+			{
+				++Done; ToMan += M.Ball.Owner == Rc; BallSum += BallD; BallMax = FMath::Max(BallMax, BallD); TSum += T;
+				RunSum += FVector2D::Distance(RcFrom, M.P[M.Ball.Owner].Pos); What = M.Ball.Owner == Rc ? TEXT("runner") : TEXT("team-mate");
+			}
+			else if (M.Ball.Owner >= 0)
+			{
+				if (M.P[M.Ball.Owner].bKeeper) { ++ByKeeper; What = TEXT("keeper"); } else { ++ByDef; What = TEXT("defender"); }
+				UE_LOG(LogPF, Display, TEXT("PFTHRU   lost: the runner was %.1f m from the ball (ball z %.1f, %.1f from the space), the winner (role %d) ran %.1f m"), FVector2D::Distance(M.P[Rc].Pos, At), M.Ball.Pos.Z, FVector2D::Distance(At, M.Ball.ThroughAim), int32(M.P[M.Ball.Owner].Setup.Role), FVector2D::Distance(DefFrom[M.Ball.Owner], At));
+			}
+			else if (M.Banner == TEXT("OFFSIDE")) { ++Off; What = TEXT("offside"); }
+			else if (M.Phase != EPFPhase::Play) { ++OutN; What = TEXT("out of play"); }
+			else ++Dead;
+			LeadSum += Lead; BoostSum += Boost;
+			UE_LOG(LogPF, Display, TEXT("PFTHRU %s %2d: receiver %d (%.0f m ahead of the ball, burst x%.2f), played %.0f m beyond him -> %s after %.2f s, ball travelled %.1f m"), Mode == 0 ? TEXT("pad") : TEXT("ai "), k, Rc, RcAhead, Boost, Lead, What, T, BallD);
+		}
+		UE_LOG(LogPF, Display, TEXT("PFTHRU %s total: %d through balls, completed %d (%.0f%%, to the runner %d), cut out by a defender %d, keeper %d, offside %d, out %d, dead %d; completed ones travelled %.1f m on average (longest %.1f m) in %.2f s, the runner ran %.1f m; played %.1f m beyond the runner on average, burst x%.2f"),
+			Mode == 0 ? TEXT("pad") : TEXT("ai"), N, Done, N ? 100.f * Done / N : 0.f, ToMan, ByDef, ByKeeper, Off, OutN, Dead, Done ? BallSum / Done : 0.f, BallMax, Done ? TSum / Done : 0.f, Done ? RunSum / Done : 0.f, N ? LeadSum / N : 0.f, N ? BoostSum / N : 0.f);
 	}
 	QuitAt = Time + 0.5f;
 }
@@ -321,7 +408,7 @@ void UPFFlow::RunMatchTest(int32 N)
 		UE_LOG(LogPF, Display, TEXT("PFSIM goals by last kick: none %lld pass %lld lob %lld through %lld shot %lld clear %lld volley %lld header %lld punt %lld throw %lld poke %lld"), Dg[16], Dg[17], Dg[18], Dg[19], Dg[20], Dg[21], Dg[22], Dg[23], Dg[24], Dg[25], Dg[31]);
 		UE_LOG(LogPF, Display, TEXT("PFSIM goal ball: loose %lld, carried in by attacker %lld, by defender %lld; blocks per match %.1f"), Dg[26], Dg[27], Dg[28], Dg[29] / Nn);
 		UE_LOG(LogPF, Display, TEXT("PFSIM laws per match: offsides %.1f, keeper 8 s corners %.1f, keeper hand pick-ups %.1f; kicks %.1f with %.1f players offside; goals ruled out %lld; shots gathered by keeper %.1f, shots wide/over %.1f, shots taken by a defender %.1f / by a team-mate %.1f"), Dg[32] / Nn, Dg[33] / Nn, Dg[34] / Nn, Dg[36] / Nn, Dg[35] / Nn, Dg[37], Dg[38] / Nn, Dg[39] / Nn, Dg[40] / Nn, Dg[41] / Nn);
-		UE_LOG(LogPF, Display, TEXT("PFSIM passes per match %.1f: completed %.0f%%, intercepted %.0f%%, dead %.0f%%, avg length %.1f m; of the intercepted, never came within 2 m of the receiver %lld, taken in the air %lld"), Dg[42] / Nn, Dg[42] ? 100.f * Dg[43] / Dg[42] : 0.f, Dg[42] ? 100.f * Dg[45] / Dg[42] : 0.f, Dg[42] ? 100.f * Dg[46] / Dg[42] : 0.f, Dg[42] ? float(Dg[44]) / Dg[42] : 0.f, Dg[47], Dg[39]);
+		UE_LOG(LogPF, Display, TEXT("PFSIM passes per match %.1f: completed %.0f%%, intercepted %.0f%%, dead %.0f%%, avg length %.1f m; of the intercepted, never came within 2 m of the receiver %lld, taken in the air %lld"), Dg[42] / Nn, Dg[42] ? 100.f * Dg[43] / Dg[42] : 0.f, Dg[42] ? 100.f * Dg[45] / Dg[42] : 0.f, Dg[42] ? 100.f * Dg[46] / Dg[42] : 0.f, Dg[42] ? float(Dg[44]) / Dg[42] : 0.f, Dg[47], Dg[30]);
 		UE_LOG(LogPF, Display, TEXT("PFSIM presser: ticks %lld, avg dist to ball %.2f m, in reach %.1f%%, avg speed %.2f"), Dg[12], Dg[12] ? Dg[13] / 100.f / Dg[12] : 0.f, Dg[12] ? 100.f * Dg[14] / Dg[12] : 0.f, Dg[12] ? Dg[15] / 100.f / Dg[12] : 0.f);
 	}
 	UE_LOG(LogPF, Display, TEXT("PFSIM total: %d matches, %.2f goals/match, %.1f shots/match, stuck %d, %.1fs"), N, TotGoals / float(FMath::Max(1, N)), TotShots / float(FMath::Max(1, N)), Stuck, FPlatformTime::Seconds() - T0);
@@ -452,7 +539,7 @@ void UPFFlow::SetMusic(FName Name)
 
 void UPFFlow::Go(EPFScreen S)
 {
-	Screen = S; Sel = 0; bPause = false;
+	Screen = S; Sel = 0; bPause = false; ScreenT = 0;
 	if (S == EPFScreen::Main || S == EPFScreen::Title) PickBackground(TEXT("England"));
 	SetMusic(S == EPFScreen::Title ? FName(TEXT("music_title")) : S == EPFScreen::Match ? FName(TEXT("crowd_loop")) : FName(TEXT("music_menu")));
 }
@@ -531,11 +618,12 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 	{
 		TArray<FPFMenuItem> Items;
 		const int32 N = C.Num();
-		Items.Add({ TEXT("HOME"), [this, &C]() { return C.IsValidIndex(FriendlyHome) ? C[FriendlyHome].Name : FString(); }, [this, N](int32 D) { FriendlyHome = (FriendlyHome + D + N) % N; } });
-		Items.Add({ TEXT("AWAY"), [this, &C]() { return C.IsValidIndex(FriendlyAway) ? C[FriendlyAway].Name : FString(); }, [this, N](int32 D) { FriendlyAway = (FriendlyAway + D + N) % N; } });
+		// v0.9.4: the two cyclers skip each other's club (a club can't play itself)
+		Items.Add({ TEXT("HOME"), [this, &C]() { return C.IsValidIndex(FriendlyHome) ? C[FriendlyHome].Name : FString(); }, [this, N](int32 D) { FriendlyHome = (FriendlyHome + D + N) % N; if (FriendlyHome == FriendlyAway && N > 1) FriendlyHome = (FriendlyHome + D + N) % N; } });
+		Items.Add({ TEXT("AWAY"), [this, &C]() { return C.IsValidIndex(FriendlyAway) ? C[FriendlyAway].Name : FString(); }, [this, N](int32 D) { FriendlyAway = (FriendlyAway + D + N) % N; if (FriendlyAway == FriendlyHome && N > 1) FriendlyAway = (FriendlyAway + D + N) % N; } });
 		Items.Add({ TEXT("YOU PLAY"), [this]() { return FString(FriendlySide == 0 ? TEXT("HOME") : FriendlySide == 1 ? TEXT("AWAY") : TEXT("WATCH")); }, [this](int32 D) { FriendlySide = (FriendlySide + D + 3) % 3; } });
 		Items.Add({ TEXT("KICK-OFF"), [this]() { return FString(FriendlyStage == 0 ? TEXT("3 PM") : FriendlyStage == 1 ? TEXT("EVENING") : TEXT("FLOODLIGHTS")); }, [this](int32 D) { FriendlyStage = (FriendlyStage + D + 3) % 3; } });
-		Items.Add({ TEXT("HALF LENGTH"), [this]() { static const TCHAR* L[] = { TEXT("1.5 MIN"), TEXT("2.5 MIN"), TEXT("4 MIN"), TEXT("5 MIN") }; return FString(L[FriendlyLen % 4]); }, [this](int32 D) { FriendlyLen = (FriendlyLen + D + 4) % 4; } });
+		Items.Add({ TEXT("HALF LENGTH"), [this]() { static const TCHAR* L[] = { TEXT("1.5 MIN"), TEXT("2.5 MIN"), TEXT("4 MIN"), TEXT("5 MIN") }; return FString(L[FriendlyLen % 4]); }, [this](int32 D) { FriendlyLen = (FriendlyLen + D + 4) % 4; SaveOptions(); } });   // v0.9.4: kept, as in Options
 		Items.Add({ TEXT("PLAY"), nullptr, nullptr, [this]() { StartFriendly(); } });
 		MenuInput(Items, Sel, Pad);
 		if (Pad.pB) Go(EPFScreen::Main);
@@ -581,7 +669,8 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		break;
 	}
 	case EPFScreen::Result:
-		if (Pad.pA || Pad.pB || Pad.pStart) Go(EPFScreen::Main);
+		ScreenT += Dt;
+		if (ScreenT > 1.f && (Pad.pA || Pad.pB || Pad.pStart)) Go(EPFScreen::Main);   // v0.9.4: a pass pressed at the whistle no longer skips it
 		{
 			// long playtests (-pfautopad): straight into the next friendly, new clubs, ground and kick-off time
 			static const bool bAuto = FParse::Param(FCommandLine::Get(), TEXT("pfautopad"));
@@ -609,6 +698,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 	}
 	case EPFScreen::PreMatch:
 		PreMatchT += Dt;
+		if (Pad.pB && !MatchDone && ShotsLeft <= 0) { Go(EPFScreen::Friendly); break; }   // v0.9.4: back out of a friendly before kick-off
 		if (Pad.pA || Pad.pStart || (MatchActor && MatchActor->Match.Setup.bWatchOnly && PreMatchT > 2.f) || ShotsLeft > 0 || (FParse::Param(FCommandLine::Get(), TEXT("pfautopad")) && PreMatchT > 2.f)) { Go(EPFScreen::Match); PlaySfx(TEXT("whistle_short"), 0.7f); }
 		break;
 	case EPFScreen::Career:
@@ -714,7 +804,8 @@ void UPFFlow::DrawTitle(UCanvas* C)
 	Text(C, TEXT("PROPER FOOTBALL"), CX, CY - 110 * U, 4.f, FLinearColor(1, 1, 1), EPFAlign::Center);
 	Text(C, TEXT("ENGLISH FOOTBALL  -  EVERY TIER  -  NO END"), CX, CY + 40 * U, 1.f, FLinearColor(0.6f, 0.8f, 1.f), EPFAlign::Center, true);
 	if (FMath::Fmod(Time, 1.f) < 0.65f) Text(C, TEXT("PRESS A"), CX, CY + 160 * U, 1.4f, FLinearColor(1, 0.85f, 0.25f), EPFAlign::Center);
-	Text(C, TEXT("v0.1.0"), C->ClipX - 30 * U, C->ClipY - 50 * U, 0.7f, FLinearColor(0.6f, 0.6f, 0.7f), EPFAlign::Right, true);
+	static const FString Ver = []() { FString V = TEXT("0.9.4"); GConfig->GetString(TEXT("/Script/EngineSettings.GeneralProjectSettings"), TEXT("ProjectVersion"), V, GGameIni); return TEXT("v") + V; }();   // v0.9.4: was a fixed "v0.1.0"
+	Text(C, Ver, C->ClipX - 30 * U, C->ClipY - 50 * U, 0.7f, FLinearColor(0.6f, 0.6f, 0.7f), EPFAlign::Right, true);
 }
 
 void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
@@ -742,7 +833,7 @@ void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
 		Text(C, FString::Printf(TEXT("%d"), H0), X + 330 * U, Y + 76 * U, 1.f, RCol(H0), EPFAlign::Center);
 		Text(C, FString::Printf(TEXT("%d"), A0), X + 470 * U, Y + 76 * U, 1.f, RCol(A0), EPFAlign::Center);
 	}
-	for (int32 i = 0; i < M.P.Num() && i < M.HeadScreen.Num(); ++i)
+	for (int32 i = 0; i < M.P.Num() && i < M.HeadScreen.Num() && !bDotsNow; ++i)   // v0.9.4: not over the manage view's dots
 	{
 		const FVector2D Hs = M.HeadScreen[i];
 		if (Hs.X < -1e8f || M.P[i].bSentOff) continue;
@@ -853,7 +944,8 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 	case EPFScreen::Match:
 		if (MatchActor)
 		{
-			if (bManageView && MatchActor->Match.Highlight <= 0.f && MatchActor->Match.Phase == EPFPhase::Play) DrawDots(C, MatchActor->Match);
+			bDotsNow = bManageView && MatchActor->Match.Highlight <= 0.f && MatchActor->Match.Phase == EPFPhase::Play;
+			if (bDotsNow) DrawDots(C, MatchActor->Match);
 			else MatchActor->Match.Draw(C, SpriteMat);
 			DrawMatchHUD(C, MatchActor->Match);
 			if (bManageView) Text(C, MatchActor->Match.Highlight > 0.f ? TEXT("HIGHLIGHT") : TEXT("SIMULATING  x8"), C->ClipX - 40 * U, 40 * U, 0.8f, FLinearColor(1, 0.85f, 0.3f), EPFAlign::Right);
@@ -878,15 +970,18 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 			Text(C, FString::Printf(TEXT("%d - %d"), M.Score[0], M.Score[1]), CX, 300 * U, 3.f, FLinearColor::White, EPFAlign::Center);
 			Text(C, M.Setup.Home.Name, CX - 540 * U, 480 * U, 0.9f, FLinearColor::White, EPFAlign::Center, true);
 			Text(C, M.Setup.Away.Name, CX + 540 * U, 480 * U, 0.9f, FLinearColor::White, EPFAlign::Center, true);
-			float Ly = 540 * U;
-			for (int32 e = 0; e < M.Events.Num() && e < 4; ++e)
+			// v0.9.4: each side's scorers in its own column (a 3-3 used to show only the first four events)
+			float Ly[2] = { 540 * U, 540 * U };
+			for (int32 e = 0; e < M.Events.Num(); ++e)
 			{
 				const FPFMatchEvent& E = M.Events[e];
-				Text(C, E.Text, E.Team == 0 ? CX - 80 * U : CX + 80 * U, Ly, 0.8f, FLinearColor(0.85f, 0.9f, 1.f), E.Team == 0 ? EPFAlign::Right : EPFAlign::Left, true);
-				Ly += 36 * U;
+				const int32 Tm = FMath::Clamp(E.Team, 0, 1);
+				if (Ly[Tm] > 650 * U) continue;
+				Text(C, E.Text, Tm == 0 ? CX - 80 * U : CX + 80 * U, Ly[Tm], 0.8f, FLinearColor(0.85f, 0.9f, 1.f), Tm == 0 ? EPFAlign::Right : EPFAlign::Left, true);
+				Ly[Tm] += 36 * U;
 			}
-			const float PT = FMath::Max(1.f, M.PossT[0] + M.PossT[1]);
-			const int32 PossH = FMath::RoundToInt(100.f * M.PossT[0] / PT);
+			const float PT = M.PossT[0] + M.PossT[1];
+			const int32 PossH = PT < 1.f ? 50 : FMath::RoundToInt(100.f * M.PossT[0] / PT);   // v0.9.4: 50-50 before a ball is kicked
 			const FString Rows[][3] = {
 				{ FString::FromInt(PossH) + TEXT("%"), TEXT("POSSESSION"), FString::FromInt(100 - PossH) + TEXT("%") },
 				{ FString::FromInt(M.Shots[0]), TEXT("SHOTS"), FString::FromInt(M.Shots[1]) },
