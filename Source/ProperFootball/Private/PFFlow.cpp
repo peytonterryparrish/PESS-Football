@@ -326,7 +326,7 @@ void UPFFlow::LoadOptions()
 			if (K == TEXT("music")) MusicVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("sfx")) SfxVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("halflen")) FriendlyLen = FMath::Clamp(FCString::Atoi(*V), 0, 3);
-			if (K == TEXT("cam6")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 5);   // v0.9: six zooms (the old 3-way "cam" key is ignored)
+			if (K == TEXT("cam7")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 5);   // v0.9.2: six zooms, WIDE the default (older keys are ignored)
 		}
 	}
 	ApplyCamera();
@@ -351,7 +351,7 @@ void UPFFlow::ApplyCamera()
 void UPFFlow::SaveOptions()
 {
 	ApplyCamera();
-	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam6=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
+	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam7=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
 	if (Music) Music->SetVolumeMultiplier((MusicName == TEXT("crowd_loop") ? 0.55f * SfxVol : 0.45f * MusicVol) / 10.f);
 }
 
@@ -660,6 +660,23 @@ void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
 	const int32 Min = FMath::FloorToInt(M.MatchClock), Sec = FMath::FloorToInt(FMath::Fmod(M.MatchClock, 1.f) * 60.f);
 	Box(C, X, Y + 70 * U, 160 * U, 50 * U, FLinearColor(0.02f, 0.04f, 0.14f, 0.85f));
 	Text(C, FString::Printf(TEXT("%02d:%02d"), Min, Sec), X + 80 * U, Y + 76 * U, 1.f, FLinearColor(0.5f, 1.f, 0.6f), EPFAlign::Center);
+	// v0.9.2 (owner: "overall of the players, overall of the teams ... who's good, who sucks"): team ratings beside the
+	// clock, each player's rating over his head (red under 55, amber to 69, green 70 and up)
+	auto RCol = [](int32 R) { return R >= 70 ? FLinearColor(0.45f, 1.f, 0.45f) : R >= 55 ? FLinearColor(1.f, 0.8f, 0.3f) : FLinearColor(1.f, 0.38f, 0.32f); };
+	{
+		const int32 H0 = M.TeamOverall(0), A0 = M.TeamOverall(1);
+		Box(C, X + 170 * U, Y + 70 * U, 370 * U, 50 * U, FLinearColor(0.02f, 0.04f, 0.14f, 0.85f));
+		Text(C, TEXT("OVR"), X + 190 * U, Y + 80 * U, 0.7f, FLinearColor(0.7f, 0.75f, 0.9f));
+		Text(C, FString::Printf(TEXT("%d"), H0), X + 330 * U, Y + 76 * U, 1.f, RCol(H0), EPFAlign::Center);
+		Text(C, FString::Printf(TEXT("%d"), A0), X + 470 * U, Y + 76 * U, 1.f, RCol(A0), EPFAlign::Center);
+	}
+	for (int32 i = 0; i < M.P.Num() && i < M.HeadScreen.Num(); ++i)
+	{
+		const FVector2D Hs = M.HeadScreen[i];
+		if (Hs.X < -1e8f || M.P[i].bSentOff) continue;
+		const int32 R = M.P[i].Setup.Stats.Overall(M.P[i].bKeeper);
+		Text(C, FString::Printf(TEXT("%d"), R), Hs.X, Hs.Y - 26 * U, 0.55f, RCol(R), EPFAlign::Center, true);
+	}
 	// banner
 	if (M.BannerT > 0 && !M.Banner.IsEmpty())
 	{
@@ -673,6 +690,7 @@ void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
 		const FPFPlayer& Hp = M.P[M.Human];
 		Box(C, 40 * U, H - 110 * U, 470 * U, 60 * U, FLinearColor(0.05f, 0.12f, 0.45f, 0.85f));
 		Text(C, FString::Printf(TEXT("%d  %s"), Hp.Setup.Number, *Hp.Setup.Name.ToUpper()), 56 * U, H - 100 * U, 1.f);
+		{ const int32 R = Hp.Setup.Stats.Overall(Hp.bKeeper); Text(C, FString::Printf(TEXT("%d"), R), 490 * U, H - 100 * U, 1.f, RCol(R), EPFAlign::Right); }
 		if (Hp.bCharging)
 		{
 			Box(C, 40 * U, H - 44 * U, 470 * U, 18 * U, FLinearColor(0, 0, 0, 0.7f));
@@ -684,6 +702,7 @@ void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
 		const FPFPlayer& O = M.P[M.Ball.Owner];
 		Box(C, W - 510 * U, H - 110 * U, 470 * U, 60 * U, O.Team == 0 ? FLinearColor(0.05f, 0.12f, 0.45f, 0.85f) : FLinearColor(0.5f, 0.08f, 0.06f, 0.85f));
 		Text(C, FString::Printf(TEXT("%s  %d"), *O.Setup.Name.ToUpper(), O.Setup.Number), W - 56 * U, H - 100 * U, 1.f, FLinearColor::White, EPFAlign::Right);
+		{ const int32 R = O.Setup.Stats.Overall(O.bKeeper); Text(C, FString::Printf(TEXT("%d"), R), W - 490 * U, H - 100 * U, 1.f, RCol(R)); }
 	}
 	// minimap (bottom centre)
 	const float MW = 300 * U, MH = 194 * U, MX = W * 0.5f - MW * 0.5f, MY = H - MH - 30 * U;

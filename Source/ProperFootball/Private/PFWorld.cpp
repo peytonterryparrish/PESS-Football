@@ -173,7 +173,7 @@ namespace PFWorld
 			FPFPlayerSetup P;
 			P.Role = Roles[i]; P.Slot = Slots[i]; P.Number = i + 1;
 			P.Name = RandomName(R);
-			P.Stats = RollStats(R, Base + R.Int(9) - 4, P.Role);
+			P.Stats = RollStats(R, Base + R.Int(25) - 12, P.Role);   // v0.9.2: a real spread inside a squad (+-12)
 			P.Sprite = P.Role == EPFRole::GK ? (KS.Num() ? KS[R.Int(KS.Num())] : (OS.Num() ? OS[0] : TEXT("O01"))) : (OS.Num() ? OS[R.Int(OS.Num())] : TEXT("O01"));
 			T.XI.Add(P);
 		}
