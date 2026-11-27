@@ -1,0 +1,10 @@
+{
+ "action": "run",
+ "body": "N01",
+ "first": "east/run_contactR",
+ "loop": true,
+ "frames": 9,
+ "dt": 0.07,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: running in place, side view, a smooth looping run cycle, relaxed run, loose arms, exaggerated anticipation and follow-through. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow. The animation loops: the last frame leads back into the first.",
+ "seed": 977
+}

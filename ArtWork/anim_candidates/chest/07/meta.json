@@ -1,0 +1,10 @@
+{
+ "action": "chest",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.1,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: chest control, side view: chest out, arms back and wide, knees soft, then looking down to his feet, quick chest-down then step, snappy, readable key poses. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 949
+}

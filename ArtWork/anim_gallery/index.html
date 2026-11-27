@@ -1,0 +1,125 @@
+<title>Animation Approval</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a casting board. Each sprite stands on its own patch of pitch and gets a Yes / No / Best. */
+:root{--bg:#eef1ea;--card:#ffffff;--fg:#17201a;--muted:#5d6a60;--line:#d5dcd3;--grass:#3d7d3f;--grass2:#367238;--yes:#1f7a3a;--no:#b23a2e;--best:#a87200;--on:#ffffff;--accent:#1d5f8a;
+--disp:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121813;--card:#1b231d;--fg:#e6ece6;--muted:#97a59a;--line:#2c3a2f;--yes:#3fae60;--no:#e0604f;--best:#e0a72a;--on:#0d120e;--accent:#6fb3e0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121813;--card:#1b231d;--fg:#e6ece6;--muted:#97a59a;--line:#2c3a2f;--yes:#3fae60;--no:#e0604f;--best:#e0a72a;--on:#0d120e;--accent:#6fb3e0;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:30px}
+h1,h2{font-family:var(--disp);text-wrap:balance;margin:0}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.1}
+h2{font-size:1.2rem}
+p{margin:0;max-width:68ch;color:var(--muted)}
+.lab{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.85rem}
+.cy{color:var(--yes)}.cn{color:var(--no)}.cb{color:var(--best)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+button{font:inherit;cursor:pointer}
+.f{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:4px 12px;font-size:.85rem}
+.f[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.status{font-size:.8rem;color:var(--muted)}
+section{display:grid;gap:12px}
+.head{display:grid;gap:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+.nav{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.88rem}.nav a{color:var(--accent)}
+section{scroll-margin-top:64px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:grid}
+.c.v-yes{border-color:var(--yes);box-shadow:0 0 0 1px var(--yes)}
+.c.v-best{border-color:var(--best);box-shadow:0 0 0 2px var(--best)}
+.c.v-no .pitch img{opacity:.28}
+.pitch{background:repeating-linear-gradient(90deg,var(--grass) 0 24px,var(--grass2) 24px 48px);display:grid;place-items:center;aspect-ratio:1;max-width:100%}
+.pitch img{width:100%;height:auto;max-width:240px;image-rendering:pixelated}
+.meta{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;gap:4px}
+.id{font-family:var(--mono);font-size:.8rem}
+.vb{display:flex;gap:3px}
+.vb button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:5px;padding:2px 6px;font-size:.72rem}
+.vb button:focus-visible,.f:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.vb .y[aria-pressed="true"]{background:var(--yes);border-color:var(--yes);color:var(--on)}
+.vb .n[aria-pressed="true"]{background:var(--no);border-color:var(--no);color:var(--on)}
+.vb .b[aria-pressed="true"]{background:var(--best);border-color:var(--best);color:var(--on)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.how div{border-left:3px solid var(--line);padding-left:12px;display:grid;gap:2px}
+.how b{font-family:var(--disp)}
+@media (prefers-reduced-motion:no-preference){.c{transition:box-shadow .15s,border-color .15s}}
+</style>
+<div class="wrap">
+<header style="display:grid;gap:12px">
+<span class="lab">Proper Football · v0.9.8 · one model, every action</span>
+<h1>Pick one animation per action</h1>
+<p>490 animations made on PixelLab for one player and his keeper, each recorded as it plays at game speed. Every action has 20 or more different takes. Mark the one you want in the game <b>Best</b>. Mark any others you'd be happy to mix in <b>Yes</b>, and the rest <b>No</b> if you like. Marks save as you go and I read them back to build the game's art from your Bests.</p>
+<div class="how">
+<div><b>One direction shown</b><span class="status">Each take is shown from one side. The one you pick gets drawn in all 12 directions.</span></div>
+<div><b>Template kit</b><span class="status">Blue, green and red are the colour keys the game swaps for each club's kit.</span></div>
+<div><b>Shown at 2×</b><span class="status">Each art pixel is 2×2 here. Drawn balls are removed; the game draws its own ball.</span></div>
+</div>
+<nav class="nav"><a href="#s-idle">Idle</a> <a href="#s-walk">Walk</a> <a href="#s-run">Run</a> <a href="#s-sprint">Sprint</a> <a href="#s-dribble">Dribble</a> <a href="#s-gk_dive_low">Keeper dive, low</a> <a href="#s-gk_dive_high">Keeper dive, high</a> <a href="#s-gk_goalkick">Keeper goal kick</a> <a href="#s-pass">Pass</a> <a href="#s-shot">Shot</a> <a href="#s-volley">Volley</a> <a href="#s-header">Header</a> <a href="#s-chest">Chest control</a> <a href="#s-throwin">Throw-in</a> <a href="#s-tackle">Standing tackle</a> <a href="#s-slide">Slide tackle</a> <a href="#s-fall">Fall and get up</a> <a href="#s-gk_ready">Keeper ready stance</a> <a href="#s-gk_catch">Keeper chest catch</a> <a href="#s-gk_high">Keeper high catch</a> <a href="#s-gk_scoop">Keeper low gather</a> <a href="#s-gk_punch">Keeper punch</a> <a href="#s-gk_throw">Keeper throw</a> <a href="#s-gk_punt">Keeper punt</a> <a href="#s-celebrate">Goal celebration</a></nav>
+</header>
+<div class="bar">
+<span class="count" id="count"></span>
+<span class="status" id="status">Connecting…</span>
+<div class="filters" role="group" aria-label="Show">
+<button class="f" id="f-all" data-f="all" aria-pressed="true">All</button>
+<button class="f" id="f-todo" data-f="todo" aria-pressed="false">Not marked</button>
+<button class="f" id="f-yes" data-f="yes" aria-pressed="false">Yes + Best</button>
+<button class="f" id="f-best" data-f="best" aria-pressed="false">Best</button>
+</div>
+</div>
+<section id="s-idle"><div class="head"><span class="lab">Moving · 20 takes · loop · 8 frames at 140 ms</span><h2>Idle</h2><p>Standing idle on the spot, facing the camera, breathing, tiny weight shifts.</p></div><div class="grid" data-ids="idle_00,idle_01,idle_02,idle_03,idle_04,idle_05,idle_06,idle_07,idle_08,idle_09,idle_10,idle_11,idle_12,idle_13,idle_14,idle_15,idle_16,idle_17,idle_18,idle_19"></div></section>
+<section id="s-walk"><div class="head"><span class="lab">Moving · 20 takes · loop · 8 frames at 120 ms</span><h2>Walk</h2><p>Walking in place, side view, a natural walk cycle.</p></div><div class="grid" data-ids="walk_00,walk_01,walk_02,walk_03,walk_04,walk_05,walk_06,walk_07,walk_08,walk_09,walk_10,walk_11,walk_12,walk_13,walk_14,walk_15,walk_16,walk_17,walk_18,walk_19"></div></section>
+<section id="s-run"><div class="head"><span class="lab">Moving · 20 takes · loop · 8 frames at 70 ms</span><h2>Run</h2><p>Running in place, side view, a smooth looping run cycle.</p></div><div class="grid" data-ids="run_00,run_01,run_02,run_03,run_04,run_05,run_06,run_07,run_08,run_09,run_10,run_11,run_12,run_13,run_14,run_15,run_16,run_17,run_18,run_19"></div></section>
+<section id="s-sprint"><div class="head"><span class="lab">Moving · 20 takes · loop · 6 frames at 85 ms</span><h2>Sprint</h2><p>Sprinting flat out in place, side view, a looping sprint cycle.</p></div><div class="grid" data-ids="sprint_00,sprint_01,sprint_02,sprint_03,sprint_04,sprint_05,sprint_06,sprint_07,sprint_08,sprint_09,sprint_10,sprint_11,sprint_12,sprint_13,sprint_14,sprint_15,sprint_16,sprint_17,sprint_18,sprint_19"></div></section>
+<section id="s-dribble"><div class="head"><span class="lab">Moving · 20 takes · loop · 8 frames at 90 ms</span><h2>Dribble</h2><p>Dribbling a football in place, side view, short quick steps with touches, but draw no ball.</p></div><div class="grid" data-ids="dribble_00,dribble_01,dribble_02,dribble_03,dribble_04,dribble_05,dribble_06,dribble_07,dribble_08,dribble_09,dribble_10,dribble_11,dribble_12,dribble_13,dribble_14,dribble_15,dribble_16,dribble_17,dribble_18,dribble_19"></div></section>
+<section id="s-gk_dive_low"><div class="head"><span class="lab">Goalkeeper dives · 15 takes · plays once · 14 frames at 75 ms</span><h2>Keeper dive, low</h2><p>Goalkeeper diving low to his right (to the left of the picture), facing the camera: set his weight, push off the near leg, fly sideways close to the grass with his body in a straight line, arms in a narrow V reaching for the ball, head visible between the arms, land on his side, lie, then kneel and get up.</p></div><div class="grid" data-ids="gk_dive_low_00,gk_dive_low_01,gk_dive_low_02,gk_dive_low_03,gk_dive_low_04,gk_dive_low_05,gk_dive_low_06,gk_dive_low_07,gk_dive_low_08,gk_dive_low_09,gk_dive_low_10,gk_dive_low_11,gk_dive_low_12,gk_dive_low_13,gk_dive_low_14"></div></section>
+<section id="s-gk_dive_high"><div class="head"><span class="lab">Goalkeeper dives · 15 takes · plays once · 14 frames at 80 ms</span><h2>Keeper dive, high</h2><p>Goalkeeper diving high to his right (to the left of the picture), facing the camera: set his weight, push off, fly through the air with his body angled 35 degrees up, top arm reaching high, head visible below the top arm, land on his side, lie, then kneel and get up.</p></div><div class="grid" data-ids="gk_dive_high_00,gk_dive_high_01,gk_dive_high_02,gk_dive_high_03,gk_dive_high_04,gk_dive_high_05,gk_dive_high_06,gk_dive_high_07,gk_dive_high_08,gk_dive_high_09,gk_dive_high_10,gk_dive_high_11,gk_dive_high_12,gk_dive_high_13,gk_dive_high_14"></div></section>
+<section id="s-gk_goalkick"><div class="head"><span class="lab">Goal kick · 20 takes · plays once · 16 frames at 150 ms</span><h2>Keeper goal kick</h2><p>Goalkeeper taking a goal kick, side view, always facing right: he walks BACKWARDS to the left of the picture for four clear steps while still facing right, stops and settles, then runs forward to the right for three strides, plants his standing foot and swings his kicking leg through with a big follow-through.</p></div><div class="grid" data-ids="gk_goalkick_00,gk_goalkick_01,gk_goalkick_02,gk_goalkick_03,gk_goalkick_04,gk_goalkick_05,gk_goalkick_06,gk_goalkick_07,gk_goalkick_08,gk_goalkick_09,gk_goalkick_10,gk_goalkick_11,gk_goalkick_12,gk_goalkick_13,gk_goalkick_14,gk_goalkick_15,gk_goalkick_16,gk_goalkick_17,gk_goalkick_18,gk_goalkick_19"></div></section>
+<section id="s-pass"><div class="head"><span class="lab">On the ball · 20 takes · plays once · 8 frames at 70 ms</span><h2>Pass</h2><p>Playing a side-foot pass, side view: plant the standing foot, swing the kicking leg, follow through.</p></div><div class="grid" data-ids="pass_00,pass_01,pass_02,pass_03,pass_04,pass_05,pass_06,pass_07,pass_08,pass_09,pass_10,pass_11,pass_12,pass_13,pass_14,pass_15,pass_16,pass_17,pass_18,pass_19"></div></section>
+<section id="s-shot"><div class="head"><span class="lab">On the ball · 20 takes · plays once · 10 frames at 70 ms</span><h2>Shot</h2><p>Striking a powerful shot, side view: plant, big back-swing with heel to backside, strike, high follow-through.</p></div><div class="grid" data-ids="shot_00,shot_01,shot_02,shot_03,shot_04,shot_05,shot_06,shot_07,shot_08,shot_09,shot_10,shot_11,shot_12,shot_13,shot_14,shot_15,shot_16,shot_17,shot_18,shot_19"></div></section>
+<section id="s-volley"><div class="head"><span class="lab">On the ball · 20 takes · plays once · 8 frames at 80 ms</span><h2>Volley</h2><p>Hitting a volley, side view: body tilted away, kicking leg swings horizontal at hip height.</p></div><div class="grid" data-ids="volley_00,volley_01,volley_02,volley_03,volley_04,volley_05,volley_06,volley_07,volley_08,volley_09,volley_10,volley_11,volley_12,volley_13,volley_14,volley_15,volley_16,volley_17,volley_18,volley_19"></div></section>
+<section id="s-header"><div class="head"><span class="lab">On the ball · 20 takes · plays once · 8 frames at 90 ms</span><h2>Header</h2><p>Jumping header, side view: jump with back arched and arms up, snap forward at the waist, head leads, land.</p></div><div class="grid" data-ids="header_00,header_01,header_02,header_03,header_04,header_05,header_06,header_07,header_08,header_09,header_10,header_11,header_12,header_13,header_14,header_15,header_16,header_17,header_18,header_19"></div></section>
+<section id="s-chest"><div class="head"><span class="lab">On the ball · 20 takes · plays once · 8 frames at 100 ms</span><h2>Chest control</h2><p>Chest control, side view: chest out, arms back and wide, knees soft, then looking down to his feet.</p></div><div class="grid" data-ids="chest_00,chest_01,chest_02,chest_03,chest_04,chest_05,chest_06,chest_07,chest_08,chest_09,chest_10,chest_11,chest_12,chest_13,chest_14,chest_15,chest_16,chest_17,chest_18,chest_19"></div></section>
+<section id="s-throwin"><div class="head"><span class="lab">On the ball · 20 takes · plays once · 10 frames at 100 ms</span><h2>Throw-in</h2><p>Throw-in, side view: both hands bring the ball behind his head with back arched, both feet down, throw forward, arms finish straight out in front, but draw no ball.</p></div><div class="grid" data-ids="throwin_00,throwin_01,throwin_02,throwin_03,throwin_04,throwin_05,throwin_06,throwin_07,throwin_08,throwin_09,throwin_10,throwin_11,throwin_12,throwin_13,throwin_14,throwin_15,throwin_16,throwin_17,throwin_18,throwin_19"></div></section>
+<section id="s-tackle"><div class="head"><span class="lab">Defending and falls · 20 takes · plays once · 8 frames at 80 ms</span><h2>Standing tackle</h2><p>Standing tackle, side view: long lunging step, leg stabbed across to poke the ball, recover upright.</p></div><div class="grid" data-ids="tackle_00,tackle_01,tackle_02,tackle_03,tackle_04,tackle_05,tackle_06,tackle_07,tackle_08,tackle_09,tackle_10,tackle_11,tackle_12,tackle_13,tackle_14,tackle_15,tackle_16,tackle_17,tackle_18,tackle_19"></div></section>
+<section id="s-slide"><div class="head"><span class="lab">Defending and falls · 20 takes · plays once · 12 frames at 70 ms</span><h2>Slide tackle</h2><p>Sliding tackle, side view: drop and slide along the grass, lead leg straight, trailing leg tucked, one arm trailing, then get up.</p></div><div class="grid" data-ids="slide_00,slide_01,slide_02,slide_03,slide_04,slide_05,slide_06,slide_07,slide_08,slide_09,slide_10,slide_11,slide_12,slide_13,slide_14,slide_15,slide_16,slide_17,slide_18,slide_19"></div></section>
+<section id="s-fall"><div class="head"><span class="lab">Defending and falls · 20 takes · plays once · 12 frames at 90 ms</span><h2>Fall and get up</h2><p>Tripped and falling, side view: stumble, fall flat on the grass, lie, kneel, stand back up.</p></div><div class="grid" data-ids="fall_00,fall_01,fall_02,fall_03,fall_04,fall_05,fall_06,fall_07,fall_08,fall_09,fall_10,fall_11,fall_12,fall_13,fall_14,fall_15,fall_16,fall_17,fall_18,fall_19"></div></section>
+<section id="s-gk_ready"><div class="head"><span class="lab">Goalkeeper · 20 takes · loop · 8 frames at 120 ms</span><h2>Keeper ready stance</h2><p>Goalkeeper ready stance facing the camera: wide stance, knees bent, hands at hip height out in front, bouncing lightly on his toes.</p></div><div class="grid" data-ids="gk_ready_00,gk_ready_01,gk_ready_02,gk_ready_03,gk_ready_04,gk_ready_05,gk_ready_06,gk_ready_07,gk_ready_08,gk_ready_09,gk_ready_10,gk_ready_11,gk_ready_12,gk_ready_13,gk_ready_14,gk_ready_15,gk_ready_16,gk_ready_17,gk_ready_18,gk_ready_19"></div></section>
+<section id="s-gk_catch"><div class="head"><span class="lab">Goalkeeper · 20 takes · plays once · 8 frames at 100 ms</span><h2>Keeper chest catch</h2><p>Goalkeeper catching a ball at his chest facing the camera, elbows in, shoulders rounded over it, but draw no ball.</p></div><div class="grid" data-ids="gk_catch_00,gk_catch_01,gk_catch_02,gk_catch_03,gk_catch_04,gk_catch_05,gk_catch_06,gk_catch_07,gk_catch_08,gk_catch_09,gk_catch_10,gk_catch_11,gk_catch_12,gk_catch_13,gk_catch_14,gk_catch_15,gk_catch_16,gk_catch_17,gk_catch_18,gk_catch_19"></div></section>
+<section id="s-gk_high"><div class="head"><span class="lab">Goalkeeper · 20 takes · plays once · 8 frames at 100 ms</span><h2>Keeper high catch</h2><p>Goalkeeper jumping to catch a high ball facing the camera: one knee raised, arms up in front of his face line, head visible below the hands, land, but draw no ball.</p></div><div class="grid" data-ids="gk_high_00,gk_high_01,gk_high_02,gk_high_03,gk_high_04,gk_high_05,gk_high_06,gk_high_07,gk_high_08,gk_high_09,gk_high_10,gk_high_11,gk_high_12,gk_high_13,gk_high_14,gk_high_15,gk_high_16,gk_high_17,gk_high_18,gk_high_19"></div></section>
+<section id="s-gk_scoop"><div class="head"><span class="lab">Goalkeeper · 20 takes · plays once · 8 frames at 120 ms</span><h2>Keeper low gather</h2><p>Goalkeeper gathering a low rolling ball facing the camera: one knee to the grass, scoop it to the chest, stand up, but draw no ball.</p></div><div class="grid" data-ids="gk_scoop_00,gk_scoop_01,gk_scoop_02,gk_scoop_03,gk_scoop_04,gk_scoop_05,gk_scoop_06,gk_scoop_07,gk_scoop_08,gk_scoop_09,gk_scoop_10,gk_scoop_11,gk_scoop_12,gk_scoop_13,gk_scoop_14,gk_scoop_15,gk_scoop_16,gk_scoop_17,gk_scoop_18,gk_scoop_19"></div></section>
+<section id="s-gk_punch"><div class="head"><span class="lab">Goalkeeper · 20 takes · plays once · 8 frames at 90 ms</span><h2>Keeper punch</h2><p>Goalkeeper jumping to punch the ball away facing the camera: one fist driven up above his head, other arm down for balance, land.</p></div><div class="grid" data-ids="gk_punch_00,gk_punch_01,gk_punch_02,gk_punch_03,gk_punch_04,gk_punch_05,gk_punch_06,gk_punch_07,gk_punch_08,gk_punch_09,gk_punch_10,gk_punch_11,gk_punch_12,gk_punch_13,gk_punch_14,gk_punch_15,gk_punch_16,gk_punch_17,gk_punch_18,gk_punch_19"></div></section>
+<section id="s-gk_throw"><div class="head"><span class="lab">Goalkeeper · 20 takes · plays once · 8 frames at 100 ms</span><h2>Keeper throw</h2><p>Goalkeeper overarm throw, side view: ball arm straight back, front arm pointing at the target, long step, release, follow through, but draw no ball.</p></div><div class="grid" data-ids="gk_throw_00,gk_throw_01,gk_throw_02,gk_throw_03,gk_throw_04,gk_throw_05,gk_throw_06,gk_throw_07,gk_throw_08,gk_throw_09,gk_throw_10,gk_throw_11,gk_throw_12,gk_throw_13,gk_throw_14,gk_throw_15,gk_throw_16,gk_throw_17,gk_throw_18,gk_throw_19"></div></section>
+<section id="s-gk_punt"><div class="head"><span class="lab">Goalkeeper · 20 takes · plays once · 10 frames at 80 ms</span><h2>Keeper punt</h2><p>Goalkeeper punt kick, side view: holding the ball at waist height, drops it, kicks it on the volley with the laces, kicking leg finishes at chest height, but draw no ball.</p></div><div class="grid" data-ids="gk_punt_00,gk_punt_01,gk_punt_02,gk_punt_03,gk_punt_04,gk_punt_05,gk_punt_06,gk_punt_07,gk_punt_08,gk_punt_09,gk_punt_10,gk_punt_11,gk_punt_12,gk_punt_13,gk_punt_14,gk_punt_15,gk_punt_16,gk_punt_17,gk_punt_18,gk_punt_19"></div></section>
+<section id="s-celebrate"><div class="head"><span class="lab">Celebrations · 20 takes · plays once · 12 frames at 120 ms</span><h2>Goal celebration</h2><p>Goal celebration facing the camera.</p></div><div class="grid" data-ids="celebrate_00,celebrate_01,celebrate_02,celebrate_03,celebrate_04,celebrate_05,celebrate_06,celebrate_07,celebrate_08,celebrate_09,celebrate_10,celebrate_11,celebrate_12,celebrate_13,celebrate_14,celebrate_15,celebrate_16,celebrate_17,celebrate_18,celebrate_19"></div></section>
+</div>
+<script>
+const votes={};let db=null,filter="all";
+const $=s=>document.querySelector(s);
+const VALID=new Set(["yes","no","best"]);
+function card(id){return `<div class="c" id="c-${id}" data-id="${id}"><div class="pitch"><img src="img/${id}.gif" alt="Take ${id}" loading="lazy"></div><div class="meta"><span class="id">${id.replace(/^.*_(\d+)$/,"#$1")}</span><span class="vb"><button class="y" id="y-${id}" data-v="yes" aria-pressed="false">Yes</button><button class="n" id="n-${id}" data-v="no" aria-pressed="false">No</button><button class="b" id="b-${id}" data-v="best" aria-pressed="false">Best</button></span></div></div>`}
+document.querySelectorAll(".grid[data-ids]").forEach(gr=>gr.innerHTML=gr.dataset.ids.split(",").map(card).join(""));
+function paint(){let y=0,n=0,b=0,t=0;
+ document.querySelectorAll('.c[data-id]').forEach(el=>{const v=votes[el.dataset.id]||"";t++;
+  if(v==="yes")y++;if(v==="no")n++;if(v==="best")b++;
+  el.className="c"+(v?" v-"+v:"");
+  el.querySelectorAll('.vb button').forEach(bt=>bt.setAttribute('aria-pressed',String(bt.dataset.v===v)));
+  el.hidden=!(filter==="all"||(filter==="todo"&&!v)||(filter==="yes"&&(v==="yes"||v==="best"))||(filter==="best"&&v==="best"));});
+ $('#count').innerHTML=`<span class="cb">${b} best</span> · <span class="cy">${y} yes</span> · <span class="cn">${n} no</span> · ${t-y-n-b} to go`;}
+document.addEventListener('click',async e=>{
+ const f=e.target.closest('.f');if(f){filter=f.dataset.f;document.querySelectorAll('.f').forEach(x=>x.setAttribute('aria-pressed',String(x===f)));paint();return}
+ const bt=e.target.closest('.vb button');if(!bt)return;
+ const id=bt.closest('.c').dataset.id;const v=votes[id]===bt.dataset.v?"":bt.dataset.v;
+ votes[id]=v;paint();
+ if(db){try{await db.doc("picks/"+id).set({v,at:Date.now()});$('#status').textContent="Saved";}catch(err){$('#status').textContent="Not saved: this view can't write. Marks stay on this screen.";}}
+});
+paint();
+(async()=>{const t=setTimeout(()=>{$('#status').textContent="Marks stay on this screen only (no connection)."},10000);
+ try{db=await window.claude?.use?.("db");}catch(e){db=null}
+ if(!db){clearTimeout(t);$('#status').textContent="Marks stay on this screen only.";return}
+ db.collection("picks").onSnapshot(s=>{clearTimeout(t);s.docs.forEach(d=>{const v=d.data().v;votes[d.id]=VALID.has(v)?v:"";});paint();$('#status').textContent="Marks save automatically";},
+  ()=>{clearTimeout(t);$('#status').textContent="Couldn't load saved marks. New marks stay on this screen."});
+})();
+</script>

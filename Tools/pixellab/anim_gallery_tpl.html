@@ -1,0 +1,101 @@
+<title>Animation Approval</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a casting board. Each sprite stands on its own patch of pitch and gets a Yes / No / Best. */
+:root{--bg:#eef1ea;--card:#ffffff;--fg:#17201a;--muted:#5d6a60;--line:#d5dcd3;--grass:#3d7d3f;--grass2:#367238;--yes:#1f7a3a;--no:#b23a2e;--best:#a87200;--on:#ffffff;--accent:#1d5f8a;
+--disp:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121813;--card:#1b231d;--fg:#e6ece6;--muted:#97a59a;--line:#2c3a2f;--yes:#3fae60;--no:#e0604f;--best:#e0a72a;--on:#0d120e;--accent:#6fb3e0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121813;--card:#1b231d;--fg:#e6ece6;--muted:#97a59a;--line:#2c3a2f;--yes:#3fae60;--no:#e0604f;--best:#e0a72a;--on:#0d120e;--accent:#6fb3e0;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:30px}
+h1,h2{font-family:var(--disp);text-wrap:balance;margin:0}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.1}
+h2{font-size:1.2rem}
+p{margin:0;max-width:68ch;color:var(--muted)}
+.lab{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.85rem}
+.cy{color:var(--yes)}.cn{color:var(--no)}.cb{color:var(--best)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+button{font:inherit;cursor:pointer}
+.f{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:4px 12px;font-size:.85rem}
+.f[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.status{font-size:.8rem;color:var(--muted)}
+section{display:grid;gap:12px}
+.head{display:grid;gap:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+.nav{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.88rem}.nav a{color:var(--accent)}
+section{scroll-margin-top:64px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:grid}
+.c.v-yes{border-color:var(--yes);box-shadow:0 0 0 1px var(--yes)}
+.c.v-best{border-color:var(--best);box-shadow:0 0 0 2px var(--best)}
+.c.v-no .pitch img{opacity:.28}
+.pitch{background:repeating-linear-gradient(90deg,var(--grass) 0 24px,var(--grass2) 24px 48px);display:grid;place-items:center;aspect-ratio:1;max-width:100%}
+.pitch img{width:100%;height:auto;max-width:240px;image-rendering:pixelated}
+.meta{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;gap:4px}
+.id{font-family:var(--mono);font-size:.8rem}
+.vb{display:flex;gap:3px}
+.vb button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:5px;padding:2px 6px;font-size:.72rem}
+.vb button:focus-visible,.f:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.vb .y[aria-pressed="true"]{background:var(--yes);border-color:var(--yes);color:var(--on)}
+.vb .n[aria-pressed="true"]{background:var(--no);border-color:var(--no);color:var(--on)}
+.vb .b[aria-pressed="true"]{background:var(--best);border-color:var(--best);color:var(--on)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.how div{border-left:3px solid var(--line);padding-left:12px;display:grid;gap:2px}
+.how b{font-family:var(--disp)}
+@media (prefers-reduced-motion:no-preference){.c{transition:box-shadow .15s,border-color .15s}}
+</style>
+<div class="wrap">
+<header style="display:grid;gap:12px">
+<span class="lab">Proper Football · v0.9.8 · one model, every action</span>
+<h1>Pick one animation per action</h1>
+<p>%%N%% animations made on PixelLab for one player and his keeper, each recorded as it plays at game speed. Every action has 20 or more different takes. Mark the one you want in the game <b>Best</b>. Mark any others you'd be happy to mix in <b>Yes</b>, and the rest <b>No</b> if you like. Marks save as you go and I read them back to build the game's art from your Bests.</p>
+<div class="how">
+<div><b>One direction shown</b><span class="status">Each take is shown from one side. The one you pick gets drawn in all 12 directions.</span></div>
+<div><b>Template kit</b><span class="status">Blue, green and red are the colour keys the game swaps for each club's kit.</span></div>
+<div><b>Shown at 2×</b><span class="status">Each art pixel is 2×2 here. Drawn balls are removed; the game draws its own ball.</span></div>
+</div>
+<nav class="nav">%%NAV%%</nav>
+</header>
+<div class="bar">
+<span class="count" id="count"></span>
+<span class="status" id="status">Connecting…</span>
+<div class="filters" role="group" aria-label="Show">
+<button class="f" id="f-all" data-f="all" aria-pressed="true">All</button>
+<button class="f" id="f-todo" data-f="todo" aria-pressed="false">Not marked</button>
+<button class="f" id="f-yes" data-f="yes" aria-pressed="false">Yes + Best</button>
+<button class="f" id="f-best" data-f="best" aria-pressed="false">Best</button>
+</div>
+</div>
+%%SECTIONS%%
+</div>
+<script>
+const votes={};let db=null,filter="all";
+const $=s=>document.querySelector(s);
+const VALID=new Set(["yes","no","best"]);
+function card(id){return `<div class="c" id="c-${id}" data-id="${id}"><div class="pitch"><img src="img/${id}.gif" alt="Take ${id}" loading="lazy"></div><div class="meta"><span class="id">${id.replace(/^.*_(\d+)$/,"#$1")}</span><span class="vb"><button class="y" id="y-${id}" data-v="yes" aria-pressed="false">Yes</button><button class="n" id="n-${id}" data-v="no" aria-pressed="false">No</button><button class="b" id="b-${id}" data-v="best" aria-pressed="false">Best</button></span></div></div>`}
+document.querySelectorAll(".grid[data-ids]").forEach(gr=>gr.innerHTML=gr.dataset.ids.split(",").map(card).join(""));
+function paint(){let y=0,n=0,b=0,t=0;
+ document.querySelectorAll('.c[data-id]').forEach(el=>{const v=votes[el.dataset.id]||"";t++;
+  if(v==="yes")y++;if(v==="no")n++;if(v==="best")b++;
+  el.className="c"+(v?" v-"+v:"");
+  el.querySelectorAll('.vb button').forEach(bt=>bt.setAttribute('aria-pressed',String(bt.dataset.v===v)));
+  el.hidden=!(filter==="all"||(filter==="todo"&&!v)||(filter==="yes"&&(v==="yes"||v==="best"))||(filter==="best"&&v==="best"));});
+ $('#count').innerHTML=`<span class="cb">${b} best</span> · <span class="cy">${y} yes</span> · <span class="cn">${n} no</span> · ${t-y-n-b} to go`;}
+document.addEventListener('click',async e=>{
+ const f=e.target.closest('.f');if(f){filter=f.dataset.f;document.querySelectorAll('.f').forEach(x=>x.setAttribute('aria-pressed',String(x===f)));paint();return}
+ const bt=e.target.closest('.vb button');if(!bt)return;
+ const id=bt.closest('.c').dataset.id;const v=votes[id]===bt.dataset.v?"":bt.dataset.v;
+ votes[id]=v;paint();
+ if(db){try{await db.doc("picks/"+id).set({v,at:Date.now()});$('#status').textContent="Saved";}catch(err){$('#status').textContent="Not saved: this view can't write. Marks stay on this screen.";}}
+});
+paint();
+(async()=>{const t=setTimeout(()=>{$('#status').textContent="Marks stay on this screen only (no connection)."},10000);
+ try{db=await window.claude?.use?.("db");}catch(e){db=null}
+ if(!db){clearTimeout(t);$('#status').textContent="Marks stay on this screen only.";return}
+ db.collection("picks").onSnapshot(s=>{clearTimeout(t);s.docs.forEach(d=>{const v=d.data().v;votes[d.id]=VALID.has(v)?v:"";});paint();$('#status').textContent="Marks save automatically";},
+  ()=>{clearTimeout(t);$('#status').textContent="Couldn't load saved marks. New marks stay on this screen."});
+})();
+</script>

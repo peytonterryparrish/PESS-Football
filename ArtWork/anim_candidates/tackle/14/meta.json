@@ -1,0 +1,10 @@
+{
+ "action": "tackle",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: standing tackle, side view: long lunging step, leg stabbed across to poke the ball, recover upright, lunging tackle, arms out, ISS Deluxe style SNES timing. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 998
+}

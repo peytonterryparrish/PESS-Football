@@ -1,0 +1,10 @@
+{
+ "action": "header",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.09,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: jumping header, side view: jump with back arched and arms up, snap forward at the waist, head leads, land, towering header, knees up, smooth, clean motion. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 949
+}

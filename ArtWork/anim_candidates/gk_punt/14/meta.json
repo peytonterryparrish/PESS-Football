@@ -1,0 +1,10 @@
+{
+ "action": "gk_punt",
+ "body": "NK1",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 11,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit goalkeeper, blue shirt with long magenta sleeves, grey gloves, green shorts, red socks: goalkeeper punt kick, side view: holding the ball at waist height, drops it, kicks it on the volley with the laces, kicking leg finishes at chest height, but draw no ball, low driven punt, ISS Deluxe style SNES timing. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 998
+}

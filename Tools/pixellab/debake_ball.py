@@ -12,7 +12,7 @@ MIN = 8
 def whiteish(c): return c[3] >= 128 and min(c[:3]) >= 178 and max(c[:3]) - min(c[:3]) < 40
 def greyish(c): return c[3] >= 128 and max(c[:3]) - min(c[:3]) < 34 and max(c[:3]) >= 40
 
-def blobs(im):
+def find_blobs(im):
     px = im.load(); W, H = im.size; seen = set(); out = []
     for y in range(H):
         for x in range(W):
@@ -28,9 +28,9 @@ def blobs(im):
             if len(comp) >= MIN: out.append(comp)
     return out
 
-def clean(im):
+def clean(im, blobs=True):
     im = im.convert("RGBA").copy(); px = im.load(); W, H = im.size; n = 0
-    for comp in blobs(im):
+    for comp in (find_blobs(im) if blobs else []):
         xs = [p[0] for p in comp]; ys = [p[1] for p in comp]
         x0, x1, y0, y1 = min(xs) - 1, max(xs) + 1, min(ys) - 1, max(ys) + 1
         if x1 - x0 > 14 or y1 - y0 > 14: continue      # too big for a ball: a sleeve or shorts highlight, leave it

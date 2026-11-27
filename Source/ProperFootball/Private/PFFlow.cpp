@@ -16,6 +16,8 @@
 #include "Misc/CommandLine.h"
 #include "Misc/ConfigCacheIni.h"
 
+static void PFPassTests();   // v0.9.8 (RunFeelTest)
+
 // ------------------------------------------------------------------------------------------------ font
 bool FPFFont::Load(const FString& Name)
 {
@@ -106,6 +108,7 @@ void UPFFlow::Begin(UWorld* World)
 	int32 TestMatches = 0;
 	if (FParse::Value(FCommandLine::Get(), TEXT("pfsimtest="), TestMatches)) { RunMatchTest(TestMatches); return; }
 	if (FParse::Param(FCommandLine::Get(), TEXT("pffeeltest"))) { RunFeelTest(); return; }
+	if (FParse::Param(FCommandLine::Get(), TEXT("pfpasstest"))) { PFPassTests(); QuitAt = Time + 0.5f; return; }   // v0.9.8: only the pad passing tests
 	int32 TestSeasons = 0;
 	if (FParse::Value(FCommandLine::Get(), TEXT("pfcareertest="), TestSeasons)) { RunCareerTest(TestSeasons); return; }
 	FString CScreen;
@@ -124,6 +127,231 @@ void UPFFlow::Begin(UWorld* World)
 	}
 	if (FParse::Param(FCommandLine::Get(), TEXT("pfmatch"))) StartFriendly();
 	else Go(EPFScreen::Title);
+}
+
+// v0.9.8 pad passing test (owner: "if I tap it, it's a very short pass to the closest player ... the longer I hold it, the
+// further the ball will travel to a different player"; "wherever I'm aiming is where it actually passes"; "the through
+// balls are atrocious"). The stick is aimed on screen at one team-mate (exactly, or a thumb's 6-7 degrees off), A is held
+// for that man's distance on the power bar; did the ball go to him? Through balls: Y aimed at the space ahead of a
+// forward, held for the lead; did he run onto it in stride, onside?
+// how long a player holds the button for that distance (the bar: a tap, then 12-42 m / a 5-24 m lead over 0.12-0.45 s)
+static float PFPassHoldFor(float Dist) { return Dist < FPFMatch::PassMinD + 1.f ? 0.05f : FPFMatch::PassTapT + (FPFMatch::PassFullT - FPFMatch::PassTapT) * FMath::Clamp((Dist - FPFMatch::PassMinD) / (FPFMatch::PassMaxD - FPFMatch::PassMinD), 0.f, 1.f); }
+static float PFThroughHoldFor(float Lead) { return Lead < 6.5f ? 0.05f : FPFMatch::PassTapT + (FPFMatch::PassFullT - FPFMatch::PassTapT) * FMath::Clamp((Lead - FPFMatch::ThroughMinLead) / (FPFMatch::ThroughMaxLead - FPFMatch::ThroughMinLead), 0.f, 1.f); }
+static FVector2D PFRotScreen(FVector2D S, float Deg) { const float R = FMath::DegreesToRadians(Deg), Cc = FMath::Cos(R), Ss = FMath::Sin(R); return FVector2D(S.X * Cc - S.Y * Ss, S.X * Ss + S.Y * Cc); }
+static void PFPassTests()
+{
+	const TArray<FPFClub>& C = PFWorld::Clubs();
+	auto NewMatch = [&C](FPFMatch& M, uint64 Seed, int32 Ci)
+	{
+		FPFMatchSetup S; S.Seed = Seed;
+		S.Home = PFWorld::FriendlyTeam(C[(Ci * 5) % C.Num()], false, 11 + Ci); S.Away = PFWorld::FriendlyTeam(C[(Ci * 7 + 3) % C.Num()], true, 13 + Ci);
+		S.Home.bHuman = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[0].Stadium;
+		M.Init(S);
+		{ FPFPadInput In; In.bPass = true; M.Tick(1.f / 120.f, In); }
+		FPFPadInput In; for (int32 f = 0; f < 60; ++f) M.Tick(1.f / 120.f, In);
+		for (FPFPlayer& Q : M.P) { Q.Act = EPFAct::None; Q.PendingKick = EPFKick::None; Q.NoTouch = 0; Q.RunT = 0; Q.BoostT = 0; }
+	};
+	auto GiveBall = [](FPFMatch& M, int32 Who)
+	{
+		FPFPlayer& H = M.P[Who];
+		H.Vel = FVector2D::ZeroVector; H.Facing = FVector2D(M.AttackSign(0), 0);
+		M.Human = Who; M.Phase = EPFPhase::Play;
+		M.Ball = FPFBall(); M.Ball.Owner = Who; M.Ball.Pos = FVector(H.Pos, 0.11f); M.Ball.LastTouch = Who; M.Ball.LastTeam = 0;
+	};
+	// press, hold for Hold seconds with the stick on Stick, release; returns the receiver the passer picked (-2: no kick)
+	auto PressHold = [](FPFMatch& M, bool bThrough, FVector2D Stick, float Hold)
+	{
+		const int32 From = M.Human;
+		FPFPadInput Q; Q.Move = Stick;
+		if (bThrough) { Q.bThrough = true; Q.bThroughHeld = true; } else { Q.bPass = true; Q.bPassHeld = true; }
+		M.Tick(1.f / 120.f, Q); Q.bPass = Q.bThrough = false;
+		float T = 1.f / 120.f;
+		while (T < Hold && M.Ball.Owner == From) { M.Tick(1.f / 120.f, Q); T += 1.f / 120.f; }
+		Q.bPassHeld = Q.bThroughHeld = false;
+		for (int32 f = 0; f < 3 && M.Ball.Owner == From; ++f) M.Tick(1.f / 120.f, Q);
+		return M.Ball.Owner == From ? -2 : M.P[From].KickTarget;
+	};
+	// ---- A: aim, nobody in the way (8 team-mates round the passer, opponents off), the stick on each, 0 / +7 / -7 degrees
+	{
+		static const FVector2D Lay[] = { {10, 0}, {24, 3}, {12, 12}, {2, 10}, {16, -14}, {30, -6}, {-8, -8}, {6, -22} };
+		int32 N = 0, Picked = 0, Got = 0, PickedJ = 0, NJ = 0, Space = 0;
+		for (int32 Yp = 0; Yp < 3; ++Yp)
+			for (int32 t = 0; t < 8; ++t)
+				for (int32 j = 0; j < 3; ++j)
+				{
+					FPFMatch M; NewMatch(M, 4100 + Yp * 100 + t * 10 + j, t);
+					const int32 Ad = M.AttackSign(0);
+					int32 Pa = -1; TArray<int32> Mates;
+					for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && !Q.bKeeper && Pa < 0 && Q.Setup.Role == EPFRole::MID) Pa = Q.Index;
+					for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && !Q.bKeeper && Q.Index != Pa) Mates.Add(Q.Index);
+					{ int32 Kept = 0; for (FPFPlayer& Q : M.P) if (Q.Team == 1) { if (Q.bKeeper || (Q.Setup.Role == EPFRole::DEF && Kept++ == 0)) { Q.Pos = FVector2D(Ad * (Q.bKeeper ? 51.f : 46.f), Q.bKeeper ? 0.f : 31.f); Q.Vel = FVector2D::ZeroVector; } else { Q.bSentOff = true; Q.Pos = FVector2D(0, -80); } } }   // their keeper and one defender deep (a real offside line)
+					const FVector2D From(Ad * -12.f, (Yp - 1) * 14.f);
+					M.P[Pa].Pos = From;
+					for (int32 i = 0; i < Mates.Num(); ++i)
+					{
+						FPFPlayer& Q = M.P[Mates[i]];
+						if (i < 8) { Q.Pos = From + FVector2D(Ad * Lay[i].X, Lay[i].Y * Ad); Q.Vel = FVector2D::ZeroVector; Q.bSettled = true; }
+						else { Q.bSentOff = true; Q.Pos = FVector2D(0, 80); }
+					}
+					GiveBall(M, Pa);
+					const int32 Tg = Mates[t];
+					const float Jit = j == 0 ? 0.f : j == 1 ? 7.f : -7.f;
+					const FVector2D Stick = PFRotScreen(M.StickFor(M.P[Tg].Pos - From), Jit);
+					const float Hold = PFPassHoldFor(FVector2D::Distance(M.P[Tg].Pos, From));
+					const int32 R = PressHold(M, false, Stick, Hold);
+					float T = 0; while (T < 4.f && M.Ball.Owner < 0 && M.Phase == EPFPhase::Play) { M.Tick(1.f / 120.f, FPFPadInput()); T += 1.f / 120.f; }
+					++N; Picked += R == Tg; Got += M.Ball.Owner == Tg; Space += R == -1;
+					if (j) { ++NJ; PickedJ += R == Tg; }
+					if (R != Tg) UE_LOG(LogPF, Display, TEXT("PFPASS A miss: aimed at mate %d (%.0f m, %+.0f deg thumb, hold %.2f s) -> picked %d, ball with %d"), t, FVector2D::Distance(M.P[Tg].Pos, From), Jit, Hold, R, M.Ball.Owner);
+				}
+		UE_LOG(LogPF, Display, TEXT("PFPASS A (open, aimed) %d passes: picked the aimed man %d (%.0f%%; %d / %d with the thumb 7 deg off), he got it %d (%.0f%%), into space %d"),
+			N, Picked, 100.f * Picked / FMath::Max(1, N), PickedJ, NJ, Got, 100.f * Got / FMath::Max(1, N), Space);
+	}
+	// ---- B: a full side in shape against a full side; aim at each team-mate 6-40 m away (thumb 0 / +-6 deg), hold for his distance
+	{
+		int32 N = 0, Picked = 0, Got = 0, Lost = 0, Bn[3] = { 0, 0, 0 }, Bp[3] = { 0, 0, 0 };
+		for (int32 k = 0; k < 12; ++k)
+			for (int32 t = 0; t < 10; ++t)
+			{
+				FPFMatch M; NewMatch(M, 5200 + k, k);
+				const int32 Ad = M.AttackSign(0);
+				int32 Pa = -1;
+				for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && Q.Setup.Role == EPFRole::MID && (Pa < 0 || FMath::Abs(Q.Setup.Slot.Y) < FMath::Abs(M.P[Pa].Setup.Slot.Y))) Pa = Q.Index;
+				M.P[Pa].Pos = FVector2D(Ad * (-20.f + (k % 4) * 10.f), ((k / 4) % 3 - 1) * 12.f);
+				GiveBall(M, Pa);
+				M.TestTakeShape();
+				TArray<int32> Mates;
+				for (const FPFPlayer& Q : M.P) { const float D = FVector2D::Distance(Q.Pos, M.P[Pa].Pos); if (Q.Team == 0 && !Q.bKeeper && Q.Index != Pa && D > 6.f && D < 40.f) Mates.Add(Q.Index); }
+				if (t >= Mates.Num()) break;
+				const int32 Tg = Mates[t];
+				const FVector2D From = M.P[Pa].Pos;
+				const float Jit = ((k + t) % 3 == 0) ? 0.f : ((k + t) % 3 == 1) ? 6.f : -6.f;
+				const float D = FVector2D::Distance(M.P[Tg].Pos, From);
+				const FVector2D Stick = PFRotScreen(M.StickFor(M.P[Tg].Pos - From), Jit);
+				const int32 R = PressHold(M, false, Stick, PFPassHoldFor(D));
+				float T = 0; while (T < 4.f && M.Ball.Owner < 0 && M.Phase == EPFPhase::Play) { M.Tick(1.f / 120.f, FPFPadInput()); T += 1.f / 120.f; }
+				const int32 Band = D < 15.f ? 0 : D < 27.f ? 1 : 2;
+				++N; ++Bn[Band]; Picked += R == Tg; Bp[Band] += R == Tg; Got += M.Ball.Owner == Tg; Lost += M.Ball.Owner >= 0 && M.P[M.Ball.Owner].Team != 0;
+				if (R != Tg) { UE_LOG(LogPF, Display, TEXT("PFPASS B miss: aimed at %d (%.0f m, %+.0f deg) -> picked %d (%.0f m), ball with %d"), Tg, D, Jit, R, R >= 0 ? (float)FVector2D::Distance(M.P[R].Pos, From) : -1.f, M.Ball.Owner); }
+				else if (M.Ball.Owner != Tg) UE_LOG(LogPF, Display, TEXT("PFPASS B picked but not got: %d (%.0f m, %+.0f deg), ball with %d (team %d) after %.2f s, ball %.1f m from him"), Tg, D, Jit, M.Ball.Owner, M.Ball.Owner >= 0 ? M.P[M.Ball.Owner].Team : -1, T, (float)FVector2D::Distance(M.P[Tg].Pos, FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y)));
+			}
+		UE_LOG(LogPF, Display, TEXT("PFPASS B (in shape, aimed) %d passes: picked the aimed man %d (%.0f%%: under 15 m %d/%d, 15-27 m %d/%d, 27-40 m %d/%d), he got it %d (%.0f%%), lost to the opponents %d"),
+			N, Picked, 100.f * Picked / FMath::Max(1, N), Bp[0], Bn[0], Bp[1], Bn[1], Bp[2], Bn[2], Got, 100.f * Got / FMath::Max(1, N), Lost);
+	}
+	// ---- C: tap vs hold along one line: two team-mates on the stick's line at 9 m and 26 m; a tap should find the near
+	// one, a long hold the far one
+	{
+		int32 TapNear = 0, HoldFar = 0, N = 0;
+		for (int32 k = 0; k < 12; ++k)
+		{
+			for (int32 Mode = 0; Mode < 2; ++Mode)
+			{
+				FPFMatch M; NewMatch(M, 6100 + k, k);
+				const int32 Ad = M.AttackSign(0);
+				int32 Pa = -1; TArray<int32> Mates;
+				for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && !Q.bKeeper) { if (Pa < 0) Pa = Q.Index; else Mates.Add(Q.Index); }
+				{ int32 Kept = 0; for (FPFPlayer& Q : M.P) if (Q.Team == 1) { if (Q.bKeeper || (Q.Setup.Role == EPFRole::DEF && Kept++ == 0)) { Q.Pos = FVector2D(Ad * (Q.bKeeper ? 51.f : 46.f), Q.bKeeper ? 0.f : 31.f); Q.Vel = FVector2D::ZeroVector; } else { Q.bSentOff = true; Q.Pos = FVector2D(0, -80); } } }   // their keeper and one defender deep (a real offside line)
+				const FVector2D From(Ad * -10.f, (k % 3 - 1) * 10.f);
+				const float Ang = FMath::DegreesToRadians(-50.f + k * 9.f);
+				const FVector2D Line = FVector2D(FMath::Cos(Ang) * Ad, FMath::Sin(Ang));
+				M.P[Pa].Pos = From;
+				for (int32 i = 0; i < Mates.Num(); ++i) { FPFPlayer& Q = M.P[Mates[i]]; if (i < 2) { Q.Pos = From + Line * (i == 0 ? 9.f : 26.f) + FVector2D(0, i == 0 ? 0.8f : -1.2f); Q.bSettled = true; } else { Q.bSentOff = true; Q.Pos = FVector2D(0, 80); } }
+				GiveBall(M, Pa);
+				const int32 R = PressHold(M, false, M.StickFor(Line), Mode == 0 ? 0.03f : PFPassHoldFor(26.f));
+				if (Mode == 0) TapNear += R == Mates[0]; else HoldFar += R == Mates[1];
+			}
+			++N;
+		}
+		UE_LOG(LogPF, Display, TEXT("PFPASS C (two men on one line, 9 m and 26 m) %d lines: a tap found the near man %d, a long hold the far man %d"), N, TapNear, HoldFar);
+	}
+	// ---- D: through balls with the pad: a full side in shape against a full side; Y aimed at the space 6 or 12 m ahead of
+	// a forward (thumb 0 / +-5 deg), held for that lead. Did he run onto it in stride, onside?
+	{
+		int32 N = 0, Picked = 0, Got = 0, Mate = 0, Off = 0, ByDef = 0, ByKeeper = 0, Out = 0, Dead = 0, Stride = 0, Carried = 0;
+		float SpdSum = 0, TSum = 0, LeadSum = 0;
+		for (int32 k = 0; k < 36; ++k)
+		{
+			FPFMatch M; NewMatch(M, 7300 + k, k);
+			const int32 Ad = M.AttackSign(0);
+			int32 Pa = -1;
+			for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && Q.Setup.Role == EPFRole::MID && (Pa < 0 || FMath::Abs(Q.Setup.Slot.Y) < FMath::Abs(M.P[Pa].Setup.Slot.Y))) Pa = Q.Index;
+			M.P[Pa].Pos = FVector2D(Ad * (-8.f + (k % 3) * 7.f), ((k / 3) % 3 - 1) * 10.f);
+			GiveBall(M, Pa);
+			M.TestTakeShape();
+			FPFPadInput Idle; for (int32 f = 0; f < 20; ++f) M.Tick(1.f / 120.f, Idle);
+			if (M.Ball.Owner != Pa || M.Phase != EPFPhase::Play) continue;
+			TArray<int32> Fw;
+			for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && !Q.bKeeper && Q.Index != Pa && (Q.Pos.X - M.P[Pa].Pos.X) * Ad > 6.f && Q.Setup.Role != EPFRole::DEF) Fw.Add(Q.Index);
+			if (!Fw.Num()) continue;
+			const int32 Tg = Fw[k % Fw.Num()];
+			const float Lead = (k / 9) % 2 ? 12.f : 6.f;
+			const FVector2D From = M.P[Pa].Pos, RFrom = M.P[Tg].Pos;
+			const FVector2D Space = RFrom + FVector2D(Ad * Lead, -FMath::Sign(RFrom.Y) * FMath::Min(FMath::Abs(RFrom.Y) * 0.15f, 3.f));
+			const float Jit = (k % 3 == 0) ? 0.f : (k % 3 == 1) ? 5.f : -5.f;
+			const int32 R = PressHold(M, true, PFRotScreen(M.StickFor(Space - From), Jit), PFThroughHoldFor(Lead));
+			if (R == -2) continue;
+			++N; Picked += R == Tg;
+			const int32 Run = R >= 0 ? R : Tg;
+			const FVector2D BallDir0 = FVector2D(M.Ball.Vel.X, M.Ball.Vel.Y).GetSafeNormal();
+			const float BallV0 = FVector2D(M.Ball.Vel.X, M.Ball.Vel.Y).Size();
+			const float Margin0 = M.DbgThroughMargin;
+			const float RunTop = M.P[Run].A.MaxSpeed * M.P[Run].A.SprintMul;
+			float T = 0;
+			while (T < 6.f && M.Ball.Owner < 0 && M.Phase == EPFPhase::Play) { M.Tick(1.f / 120.f, FPFPadInput()); T += 1.f / 120.f; }
+			const TCHAR* What = TEXT("dead");
+			if (M.Ball.Owner >= 0 && M.P[M.Ball.Owner].Team == 0)
+			{
+				const FPFPlayer& O = M.P[M.Ball.Owner];
+				const float Sp = O.Vel.Size(); const FVector2D Dir0 = O.Vel.GetSafeNormal();
+				if (M.Ball.Owner == Run) ++Got; else ++Mate;
+				SpdSum += Sp / RunTop; TSum += T; LeadSum += FVector2D::Distance(RFrom, O.Pos);
+				const bool bStride = Sp > 0.7f * RunTop && FVector2D::DotProduct(Dir0, BallDir0) > 0.2f;   // at speed, running on with the ball (a diagonal run onto it counts, checking back does not)
+				Stride += bStride;
+				// his first touch carries him on (the stick left alone)
+				const FVector2D P0 = O.Pos; const int32 Who = M.Ball.Owner;
+				for (int32 f = 0; f < 48 && M.Ball.Owner == Who; ++f) M.Tick(1.f / 120.f, FPFPadInput());
+				Carried += M.Ball.Owner == Who && (M.P[Who].Pos - P0).Size() > 2.f;
+				What = Who == Run ? (bStride ? TEXT("runner, in stride") : TEXT("runner, checked")) : TEXT("team-mate");
+				UE_LOG(LogPF, Display, TEXT("PFTHRU2 %2d: aimed %.0f m ahead of %d (%+.0f deg) -> picked %d, %s after %.2f s at %.1f m/s (%.0f%% of his sprint, %.0f deg off the ball's line), %.1f m from where he started; ball launched %.1f m/s"),
+					k, Lead, Tg, Jit, R, What, T, Sp, 100.f * Sp / RunTop, FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp((float)FVector2D::DotProduct(Dir0, BallDir0), -1.f, 1.f))), (float)FVector2D::Distance(RFrom, P0), BallV0);
+				continue;
+			}
+			else if (M.Ball.Owner >= 0) { if (M.P[M.Ball.Owner].bKeeper) { ++ByKeeper; What = TEXT("keeper"); } else { ++ByDef; What = TEXT("defender"); } }
+			else if (M.Banner == TEXT("OFFSIDE")) { ++Off; What = TEXT("offside"); }
+			else if (M.Phase != EPFPhase::Play) { ++Out; What = TEXT("out of play"); }
+			else ++Dead;
+			UE_LOG(LogPF, Display, TEXT("PFTHRU2 %2d: aimed %.0f m ahead of %d (%+.0f deg) -> picked %d, %s after %.2f s (ball launched %.1f m/s, now %.1f, travelled %.1f m; runner %.1f m from it; predicted margin %.2f)"), k, Lead, Tg, Jit, R, What, T,
+				BallV0, FVector2D(M.Ball.Vel.X, M.Ball.Vel.Y).Size(), (float)FVector2D::Distance(From, FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y)), (float)FVector2D::Distance(M.P[Run].Pos, FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y)), Margin0);
+		}
+		const int32 Dn = Got + Mate;
+		UE_LOG(LogPF, Display, TEXT("PFTHRU2 total %d pad through balls: picked the aimed runner %d (%.0f%%), runner got it %d (%.0f%%), a team-mate %d, defender %d, keeper %d, offside %d, out %d, dead %d; of those received: in stride %d, first touch carried him on %d, at %.0f%% of sprint on average, after %.2f s, %.1f m from his start"),
+			N, Picked, 100.f * Picked / FMath::Max(1, N), Got, 100.f * Got / FMath::Max(1, N), Mate, ByDef, ByKeeper, Off, Out, Dead, Stride, Carried, Dn ? 100.f * SpdSum / Dn : 0.f, Dn ? TSum / Dn : 0.f, Dn ? LeadSum / Dn : 0.f);
+	}
+	// ---- E: the goal kick routine (owner: "the keeper steps back about four steps, then runs up and kicks when the button
+	// is pressed"): the ball goes out off an opponent over our goal line; the keeper's steps and when it is struck. Pad
+	// (X pressed at once, or A for a short one) and AI.
+	for (int32 Mode = 0; Mode < 3; ++Mode)
+	{
+		FPFMatch M; NewMatch(M, 8100 + Mode, Mode);
+		if (Mode == 2) M.Setup.Home.bHuman = false;
+		const int32 Ad = M.AttackSign(0);
+		int32 Opp = -1; for (const FPFPlayer& Q : M.P) if (Q.Team == 1 && !Q.bKeeper) { Opp = Q.Index; break; }
+		M.Phase = EPFPhase::Play;
+		M.Ball = FPFBall(); M.Ball.Pos = FVector(-Ad * 51.5f, 12.f, 0.11f); M.Ball.Vel = FVector(-Ad * 6.f, 0.f, 0.f); M.Ball.LastTouch = Opp; M.Ball.LastTeam = 1;
+		float T = 0, MaxBack = 0, KickAt = -1; FVector2D Start(0, 0); int32 Kp = -1; bool bSeen = false; float Launch = 0;
+		bool bPressed = false;
+		while (T < 8.f)
+		{
+			FPFPadInput Q;
+			if (M.Phase == EPFPhase::Restart && !bSeen) { bSeen = true; for (const FPFPlayer& K : M.P) if (K.Team == 0 && K.bKeeper) { Kp = K.Index; Start = K.Pos; } T = 0; }
+			if (bSeen && Mode < 2 && !bPressed && T > 0.3f) { bPressed = true; if (Mode == 0) Q.bLob = true; else Q.bPass = true; }
+			M.Tick(1.f / 120.f, Q); T += 1.f / 120.f;
+			if (bSeen && Kp >= 0) MaxBack = FMath::Max(MaxBack, (float)FVector2D::Distance(M.P[Kp].Pos, Start));
+			if (bSeen && KickAt < 0 && M.Ball.Owner < 0 && M.Phase == EPFPhase::Play && FVector2D(M.Ball.Vel.X, M.Ball.Vel.Y).Size() > 3.f) { KickAt = T; Launch = M.Ball.Vel.Size(); break; }
+		}
+		UE_LOG(LogPF, Display, TEXT("PFGK %s: goal kick seen %d, keeper stepped back up to %.1f m, ball struck %.2f s after the restart at %.1f m/s (kind %d)"),
+			Mode == 0 ? TEXT("pad X ") : Mode == 1 ? TEXT("pad A ") : TEXT("AI    "), bSeen ? 1 : 0, MaxBack, KickAt, Launch, M.Ball.LastKind);
+	}
 }
 
 void UPFFlow::RunFeelTest()
@@ -393,7 +621,7 @@ void UPFFlow::RunFeelTest()
 				M.Tick(1.f / 120.f, FPFPadInput()); T += 1.f / 120.f;
 				const float V = M.P[Rc].Vel.Size(); RcTop = FMath::Max(RcTop, V); RcSum += V; ++RcN;
 			}
-			UE_LOG(LogPF, Display, TEXT("PFTHRU   predicted margin %+.2f s, runner there in %.2f s; ball launched %.1f m/s (up %.1f); runner top %.1f m/s, average %.1f (his top speed %.1f, sprint %.1f), boost left %.2f"), M.DbgThroughMargin, M.DbgThroughRun, BallV0, BallZ0, RcTop, RcN ? RcSum / RcN : 0.f, M.P[Rc].A.MaxSpeed, M.P[Rc].A.MaxSpeed * M.P[Rc].A.SprintMul, M.P[Rc].BoostT);
+			UE_LOG(LogPF, Display, TEXT("PFTHRU   predicted margin %+.2f s (best ground %+.2f), runner there in %.2f s; ball launched %.1f m/s (up %.1f); runner top %.1f m/s, average %.1f (his top speed %.1f, sprint %.1f), boost left %.2f"), M.DbgThroughMargin, M.DbgMaxM, M.DbgThroughRun, BallV0, BallZ0, RcTop, RcN ? RcSum / RcN : 0.f, M.P[Rc].A.MaxSpeed, M.P[Rc].A.MaxSpeed * M.P[Rc].A.SprintMul, M.P[Rc].BoostT);
 			++N;
 			const FVector2D At(M.Ball.Pos.X, M.Ball.Pos.Y);
 			const float BallD = FVector2D::Distance(From, At);
@@ -417,6 +645,7 @@ void UPFFlow::RunFeelTest()
 		UE_LOG(LogPF, Display, TEXT("PFTHRU %s total: %d through balls, completed %d (%.0f%%, to the runner %d), cut out by a defender %d, keeper %d, offside %d, out %d, dead %d; completed ones travelled %.1f m on average (longest %.1f m) in %.2f s, the runner ran %.1f m; played %.1f m beyond the runner on average, burst x%.2f"),
 			Mode == 0 ? TEXT("pad") : TEXT("ai"), N, Done, N ? 100.f * Done / N : 0.f, ToMan, ByDef, ByKeeper, Off, OutN, Dead, Done ? BallSum / Done : 0.f, BallMax, Done ? TSum / Done : 0.f, Done ? RunSum / Done : 0.f, N ? LeadSum / N : 0.f, N ? BoostSum / N : 0.f);
 	}
+	PFPassTests();   // v0.9.8
 	QuitAt = Time + 0.5f;
 }
 
@@ -705,6 +934,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		In.Move = Pad.Move; In.bSprint = Pad.bSprint;
 		// v0.7 (owner): A pass, B shoot (hold for power), X cross, Y through ball, LB + B chip, LB on its own switches; right stick flicks = skills
 		In.bPass = Pad.pA; In.bLob = Pad.pX; In.bThrough = Pad.pY; In.bSwitch = Pad.pLB;
+		In.bPassHeld = Pad.bA; In.bThroughHeld = Pad.bY;   // v0.9.8: hold A / Y to fill the pass power bar
 		In.bShootHeld = Pad.bB; In.bShootPressed = Pad.pB; In.bShootReleased = Pad.rB; In.bChipMod = Pad.bLB;
 		In.bFeintL = Pad.pFlickL; In.bFeintR = Pad.pFlickR;
 		const int32 Sub = (bManageView && M.Highlight <= 0.f) ? 8 : 1;
@@ -897,6 +1127,25 @@ void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
 		if (Hs.X < -1e8f || M.P[i].bSentOff) continue;
 		const int32 R = M.P[i].Setup.Stats.Overall(M.P[i].bKeeper);
 		Text(C, FString::Printf(TEXT("%d"), R), Hs.X, Hs.Y - 26 * U, 0.55f, RCol(R), EPFAlign::Center, true);
+	}
+	// v0.9.8 pass power bar, over the controlled player while A / Y is held: three bands (a tap: the nearest man that way;
+	// medium; long and driven), ticks where they meet; green for a pass, cyan for a through ball
+	if (M.bPassCharging && M.Human >= 0 && M.HeadScreen.IsValidIndex(M.Human) && M.HeadScreen[M.Human].X > -1e8f && !bDotsNow && !M.Setup.bWatchOnly)
+	{
+		const FVector2D Hs = M.HeadScreen[M.Human];
+		const float BW = FMath::RoundToFloat(72 * U), BH = FMath::RoundToFloat(10 * U), Px = FMath::Max(1.f, FMath::RoundToFloat(2 * U));
+		const float X0 = FMath::RoundToFloat(Hs.X - BW * 0.5f), Y0 = FMath::RoundToFloat(Hs.Y - 50 * U);
+		const float T1 = FPFMatch::PassTapT / FPFMatch::PassFullT, T2 = 0.28f / FPFMatch::PassFullT;
+		const float Ch = FMath::Clamp(M.PassCharge, 0.f, 1.f);
+		const bool bThru = M.bPassChargeThrough;
+		const FLinearColor Band = Ch < T1 ? (bThru ? FLinearColor(0.55f, 0.95f, 1.f) : FLinearColor(0.55f, 1.f, 0.45f))
+			: Ch < T2 ? (bThru ? FLinearColor(0.3f, 0.75f, 1.f) : FLinearColor(1.f, 0.88f, 0.25f)) : (bThru ? FLinearColor(0.35f, 0.45f, 1.f) : FLinearColor(1.f, 0.45f, 0.2f));
+		Box(C, X0 - Px, Y0 - Px, BW + 2 * Px, BH + 2 * Px, FLinearColor(0.f, 0.f, 0.f, 0.85f));
+		Box(C, X0, Y0, BW, BH, FLinearColor(0.08f, 0.1f, 0.16f, 0.9f));
+		Box(C, X0, Y0, FMath::RoundToFloat(BW * FMath::Max(Ch, 0.04f)), BH, Band);
+		Box(C, X0, Y0, FMath::RoundToFloat(BW * FMath::Max(Ch, 0.04f)), Px, FLinearColor(1.f, 1.f, 1.f, 0.35f));   // top highlight
+		Box(C, FMath::RoundToFloat(X0 + BW * T1), Y0, Px, BH, FLinearColor(0.f, 0.f, 0.f, 0.85f));
+		Box(C, FMath::RoundToFloat(X0 + BW * T2), Y0, Px, BH, FLinearColor(0.f, 0.f, 0.f, 0.85f));
 	}
 	// banner
 	if (M.BannerT > 0 && !M.Banner.IsEmpty())

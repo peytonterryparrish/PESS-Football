@@ -1,0 +1,10 @@
+{
+ "action": "gk_throw",
+ "body": "NK1",
+ "first": "east/gk_throw_back",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.1,
+ "prompt": "a stocky retro 16-bit goalkeeper, blue shirt with long magenta sleeves, grey gloves, green shorts, red socks: goalkeeper overarm throw, side view: ball arm straight back, front arm pointing at the target, long step, release, follow through, but draw no ball, bowling overarm throw, weighty and grounded. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 1026
+}

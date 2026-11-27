@@ -1,0 +1,10 @@
+{
+ "action": "throwin",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 11,
+ "dt": 0.1,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: throw-in, side view: both hands bring the ball behind his head with back arched, both feet down, throw forward, arms finish straight out in front, but draw no ball, short throw, quick. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 1012
+}

@@ -1,0 +1,10 @@
+{
+ "action": "gk_dive_high",
+ "body": "NK1",
+ "first": "south/gk_ready",
+ "loop": false,
+ "frames": 15,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit goalkeeper, blue shirt with long magenta sleeves, grey gloves, green shorts, red socks: goalkeeper diving high to his right (to the left of the picture), facing the camera: set his weight, push off, fly through the air with his body angled 35 degrees up, top arm reaching high, head visible below the top arm, land on his side, lie, then kneel and get up, fingertip save to the top corner, smooth, clean motion. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 991
+}

@@ -1,0 +1,10 @@
+{
+ "action": "gk_catch",
+ "body": "NK1",
+ "first": "south/gk_ready",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.1,
+ "prompt": "a stocky retro 16-bit goalkeeper, blue shirt with long magenta sleeves, grey gloves, green shorts, red socks: goalkeeper catching a ball at his chest facing the camera, elbows in, shoulders rounded over it, but draw no ball, stepping forward into the catch. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 977
+}

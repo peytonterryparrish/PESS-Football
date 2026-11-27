@@ -1,0 +1,624 @@
+490 jobs
+D:\PIXFootball\PESS-Football\Tools\pixellab\anim_candidates.py:112: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  moved = max(ImageChops.difference(ims[0], im).getbbox() is not None and sum(1 for p in ImageChops.difference(ims[0], im).getchannel("A").point(lambda v: 255 if v > 100 else 0).getdata() if p) for im in ims[1:])
+idle 3 9
+idle 10 9
+idle 1 9
+idle 4 9
+idle 2 9
+idle 6 9
+idle 13 9
+idle 5 9
+idle 15 9
+idle 9 9
+idle 8 9
+idle 11 9
+idle 7 9
+idle 0 9
+idle 17 9
+walk 0 9
+idle 16 9
+idle 18 9
+walk 6 9
+walk 5 9
+walk 2 9
+walk 8 9
+walk 4 9
+idle 12 9
+walk 3 9
+run 0 kept
+run 1 kept
+idle 19 9
+walk 1 9
+idle 14 9
+walk 7 9
+walk 10 9
+walk 11 9
+walk 14 9
+walk 15 9
+walk 18 9
+walk 12 9
+walk 13 9
+walk 16 9
+walk 9 9
+walk 17 9
+run 2 9
+run 3 9
+run 6 9
+walk 19 9
+run 8 9
+run 4 9
+run 5 9
+run 12 9
+run 17 9
+run 16 9
+run 18 9
+run 11 9
+run 7 9
+run 15 9
+run 9 9
+run 10 9
+run 13 9
+sprint 0 7
+sprint 1 7
+sprint 3 7
+sprint 2 7
+sprint 4 7
+sprint 10 7
+sprint 7 7
+sprint 11 7
+sprint 6 7
+sprint 13 7
+sprint 5 7
+sprint 12 7
+run 19 9
+sprint 14 7
+run 14 9
+sprint 8 7
+sprint 18 7
+sprint 9 7
+sprint 15 7
+sprint 19 7
+sprint 17 7
+dribble 2 9
+sprint 16 7
+  re-roll dribble 3 size 1.20
+dribble 1 9
+  re-roll dribble 5 size 1.22
+  re-roll dribble 0 size 1.23
+  re-roll dribble 4 size 1.25
+  re-roll dribble 8 size 1.23
+dribble 6 9
+dribble 9 9
+  re-roll dribble 10 size 1.25
+  re-roll dribble 11 size 1.28
+dribble 7 9
+dribble 13 9
+  re-roll dribble 16 size 1.20
+  re-roll dribble 14 size 1.22
+  re-roll dribble 15 size 1.25
+dribble 12 9
+  re-roll dribble 17 size 1.34
+dribble 18 9
+  re-roll dribble 4 size 1.23
+dribble 5 9
+dribble 8 9
+  re-roll dribble 3 size 1.39
+dribble 19 9
+  re-roll dribble 10 size 1.23
+  re-roll dribble 0 size 1.27
+  re-roll pass 0 size 1.30
+  re-roll dribble 11 size 1.22
+pass 1 9
+dribble 17 9
+  re-roll dribble 14 size 1.25
+pass 3 9
+  re-roll dribble 4 size 1.23
+dribble 4 9
+  re-roll pass 4 size 1.24
+pass 2 9
+dribble 15 9
+  re-roll dribble 10 size 1.34
+dribble 10 9
+  re-roll pass 5 size 1.24
+dribble 11 9
+pass 6 9
+  re-roll dribble 14 size 1.31
+dribble 14 9
+dribble 0 9
+pass 7 9
+dribble 3 9
+pass 12 9
+  re-roll pass 11 size 1.26
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 20 concurrent background jobs allowed (Tier 3). You have 20 active jobs."}
+  re-roll pass 4 size 1.29
+pass 13 9
+  re-roll dribble 16 size 1.30
+  re-roll pass 0 size 1.29
+pass 10 9
+  re-roll pass 5 size 1.32
+  re-roll pass 9 size 1.36
+  re-roll pass 14 size 1.23
+  re-roll pass 18 size 1.24
+  re-roll pass 15 size 1.36
+  re-roll pass 17 size 1.26
+  re-roll pass 16 size 1.29
+  re-roll pass 19 size 1.27
+pass 0 9
+shot 0 11
+shot 1 11
+shot 2 11
+pass 14 9
+  re-roll pass 11 size 1.29
+  re-roll pass 4 size 1.36
+pass 4 9
+  re-roll dribble 16 size 1.22
+dribble 16 9
+pass 17 9
+  re-roll pass 18 size 1.30
+shot 3 11
+  re-roll pass 15 size 1.30
+  re-roll pass 5 size 1.29
+pass 5 9
+shot 5 11
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 20 concurrent background jobs allowed (Tier 3). You have 20 active jobs."}
+shot 7 11
+shot 4 11
+pass 16 9
+  re-roll pass 9 size 1.24
+shot 8 11
+shot 9 11
+shot 12 11
+shot 6 11
+  re-roll pass 15 size 1.23
+pass 15 9
+pass 11 9
+pass 18 9
+shot 10 11
+shot 11 11
+pass 9 9
+shot 16 11
+shot 13 11
+shot 14 11
+shot 15 11
+shot 17 11
+volley 2 9
+shot 18 11
+volley 0 9
+shot 19 11
+volley 3 9
+volley 8 9
+volley 7 9
+volley 10 9
+volley 12 9
+volley 1 9
+volley 11 9
+volley 9 9
+volley 4 9
+volley 16 9
+volley 14 9
+volley 6 9
+volley 13 9
+volley 19 9
+volley 5 9
+volley 17 9
+volley 15 9
+header 1 9
+header 3 9
+header 5 9
+header 6 9
+header 0 9
+header 9 9
+header 2 9
+header 8 9
+volley 18 9
+header 13 9
+header 15 9
+header 14 9
+header 7 9
+header 4 9
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 20 concurrent background jobs allowed (Tier 3). You have 20 active jobs."}
+header 11 9
+header 19 9
+header 18 9
+header 10 9
+header 17 9
+chest 3 9
+chest 1 9
+chest 0 9
+header 16 9
+chest 5 9
+  re-roll chest 2 size 1.26
+chest 6 9
+chest 7 9
+chest 4 9
+chest 9 9
+chest 8 9
+chest 10 9
+chest 15 9
+chest 11 9
+chest 14 9
+chest 17 9
+chest 18 9
+chest 16 9
+chest 19 9
+chest 2 9
+chest 13 9
+tackle 0 9
+chest 12 9
+tackle 3 9
+tackle 2 9
+  re-roll tackle 5 size 1.35
+tackle 8 9
+tackle 4 9
+tackle 6 9
+  re-roll tackle 10 size 0.77
+  re-roll tackle 11 size 0.74
+tackle 14 9
+  re-roll tackle 15 size 1.36
+  re-roll tackle 12 size 1.33
+tackle 13 9
+  re-roll tackle 16 size 0.79
+  re-roll tackle 9 size 1.23
+  re-roll tackle 17 size 1.21
+tackle 1 9
+  re-roll tackle 7 size 1.21
+tackle 18 9
+tackle 19 9
+tackle 5 9
+  re-roll tackle 10 size 0.79
+tackle 11 9
+  re-roll tackle 15 size 1.36
+slide 0 13
+tackle 12 9
+slide 2 13
+tackle 17 9
+slide 3 13
+tackle 7 9
+  re-roll tackle 16 size 0.76
+tackle 10 9
+tackle 9 9
+slide 4 13
+slide 1 13
+  re-roll tackle 15 size 1.36
+tackle 15 9
+slide 5 13
+slide 6 13
+  re-roll tackle 16 size 1.23
+tackle 16 9
+slide 9 13
+slide 12 13
+slide 11 13
+slide 13 13
+slide 14 13
+slide 8 13
+slide 16 13
+slide 17 13
+slide 7 13
+slide 10 13
+slide 15 13
+slide 18 13
+fall 1 13
+fall 0 13
+slide 19 13
+fall 4 13
+fall 5 13
+fall 6 13
+fall 7 13
+fall 2 13
+fall 11 13
+fall 10 13
+fall 13 13
+fall 9 13
+fall 14 13
+fall 3 13
+fall 12 13
+fall 15 13
+fall 16 13
+  re-roll throwin 1 size 1.23
+fall 17 13
+fall 18 13
+fall 8 13
+  re-roll throwin 2 size 1.26
+fall 19 13
+throwin 0 11
+throwin 4 11
+  re-roll throwin 3 size 1.27
+throwin 6 11
+  re-roll throwin 5 size 1.27
+  re-roll throwin 11 size 1.23
+throwin 10 11
+  re-roll throwin 9 size 1.27
+throwin 13 11
+  re-roll throwin 1 size 1.29
+  re-roll throwin 8 size 1.24
+  re-roll throwin 16 size 1.24
+throwin 15 11
+  re-roll throwin 12 size 1.24
+throwin 17 11
+throwin 2 11
+  re-roll throwin 7 size 1.24
+  re-roll throwin 11 size 1.29
+  re-roll throwin 18 size 1.24
+  re-roll throwin 9 size 1.23
+  re-roll throwin 14 size 1.35
+  re-roll throwin 19 size 1.33
+throwin 3 11
+  re-roll throwin 16 size 1.27
+  re-roll throwin 5 size 1.26
+celebrate 0 13
+  re-roll throwin 8 size 1.27
+throwin 1 11
+  re-roll throwin 12 size 1.35
+celebrate 1 13
+  re-roll throwin 18 size 1.24
+celebrate 3 13
+throwin 14 11
+  re-roll throwin 7 size 1.26
+throwin 16 11
+  re-roll throwin 19 size 1.32
+throwin 9 11
+celebrate 4 13
+  re-roll throwin 11 size 1.27
+throwin 11 11
+celebrate 2 13
+  re-roll throwin 8 size 1.35
+throwin 8 11
+  re-roll throwin 12 size 1.21
+throwin 12 11
+  re-roll throwin 18 size 1.23
+throwin 18 11
+celebrate 9 13
+throwin 7 11
+  re-roll throwin 19 size 1.27
+throwin 19 11
+celebrate 11 13
+celebrate 6 13
+  re-roll throwin 5 size 1.30
+throwin 5 11
+celebrate 5 13
+celebrate 14 13
+celebrate 7 13
+celebrate 13 13
+celebrate 16 13
+celebrate 8 13
+celebrate 15 13
+celebrate 12 13
+gk_ready 0 9
+celebrate 17 13
+gk_ready 1 9
+celebrate 10 13
+celebrate 19 13
+gk_ready 5 9
+gk_ready 3 9
+celebrate 18 13
+gk_ready 7 9
+gk_ready 6 9
+gk_ready 9 9
+gk_ready 4 9
+gk_ready 10 9
+gk_ready 2 9
+gk_ready 13 9
+gk_ready 15 9
+gk_ready 11 9
+gk_ready 16 9
+gk_ready 18 9
+gk_ready 19 9
+  re-roll gk_catch 1 size 1.57
+gk_ready 8 9
+gk_ready 12 9
+gk_ready 17 9
+  re-roll gk_catch 0 size 1.43
+gk_ready 14 9
+  re-roll gk_catch 6 size 1.43
+gk_catch 4 9
+  re-roll gk_catch 8 size 1.43
+gk_catch 10 9
+gk_catch 5 9
+  re-roll gk_catch 7 size 1.45
+  re-roll gk_catch 9 size 1.45
+gk_catch 11 9
+gk_catch 2 9
+  re-roll gk_catch 3 size 1.36
+gk_catch 13 9
+  re-roll gk_catch 6 size 1.43
+  re-roll gk_catch 14 size 1.36
+  re-roll gk_catch 8 size 1.23
+  re-roll gk_catch 16 size 1.50
+  re-roll gk_catch 1 size 1.43
+gk_catch 12 9
+  re-roll gk_catch 0 size 1.43
+  re-roll gk_catch 9 size 1.45
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 21 concurrent background jobs allowed (Tier 3). You have 21 active jobs."}
+gk_high 0 9
+gk_catch 19 9
+gk_catch 3 9
+gk_catch 17 9
+gk_catch 18 9
+  re-roll gk_catch 16 size 1.57
+  re-roll gk_catch 6 size 1.57
+gk_catch 6 9
+  re-roll gk_catch 14 size 1.43
+gk_high 1 9
+  re-roll gk_catch 8 size 1.39
+gk_catch 8 9
+gk_high 2 9
+gk_catch 9 9
+  re-roll gk_catch 7 size 1.45
+gk_high 4 9
+gk_high 3 9
+gk_catch 0 9
+gk_high 5 9
+gk_catch 1 9
+  re-roll gk_catch 14 size 1.43
+gk_catch 14 9
+gk_catch 16 9
+gk_high 6 9
+gk_high 9 9
+gk_high 11 9
+gk_high 12 9
+gk_high 7 9
+gk_high 8 9
+gk_high 15 9
+gk_high 10 9
+gk_high 13 9
+gk_high 16 9
+  re-roll gk_catch 7 size 1.55
+gk_catch 7 9
+gk_high 18 9
+gk_high 14 9
+gk_high 17 9
+gk_scoop 2 9
+gk_high 19 9
+gk_scoop 1 9
+gk_scoop 3 9
+gk_scoop 6 9
+gk_scoop 7 9
+gk_scoop 8 9
+gk_scoop 5 9
+gk_scoop 9 9
+gk_scoop 10 9
+gk_scoop 12 9
+gk_scoop 4 9
+gk_scoop 13 9
+gk_scoop 0 9
+gk_scoop 11 9
+gk_scoop 19 9
+gk_punch 2 9
+gk_punch 0 9
+gk_punch 3 9
+gk_scoop 14 9
+gk_scoop 18 9
+gk_scoop 16 9
+gk_punch 4 9
+gk_punch 5 9
+gk_scoop 15 9
+gk_scoop 17 9
+gk_punch 6 9
+gk_punch 7 9
+gk_punch 8 9
+gk_punch 9 9
+gk_punch 1 9
+gk_punch 10 9
+gk_punch 11 9
+gk_punch 13 9
+gk_punch 15 9
+gk_punch 16 9
+gk_punch 12 9
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 21 concurrent background jobs allowed (Tier 3). You have 21 active jobs."}
+gk_punch 14 9
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 21 concurrent background jobs allowed (Tier 3). You have 21 active jobs."}
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 21 concurrent background jobs allowed (Tier 3). You have 21 active jobs."}
+gk_dive_low 3 15
+gk_dive_low 0 15
+gk_dive_low 2 15
+gk_dive_low 4 15
+gk_dive_low 6 15
+gk_dive_low 8 15
+gk_dive_low 9 15
+gk_dive_low 10 15
+gk_dive_high 1 15
+gk_dive_high 2 15
+gk_dive_low 11 15
+gk_dive_low 12 15
+gk_dive_low 1 15
+gk_dive_low 13 15
+gk_dive_high 0 15
+gk_dive_high 6 15
+gk_dive_low 7 15
+gk_dive_high 4 15
+gk_dive_high 3 15
+gk_dive_high 5 15
+gk_dive_low 14 15
+gk_dive_high 7 15
+gk_dive_high 10 15
+gk_dive_high 8 15
+gk_dive_high 11 15
+gk_dive_low 5 15
+  re-roll gk_throw 0 size 0.78
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 21 concurrent background jobs allowed (Tier 3). You have 21 active jobs."}
+gk_throw 4 9
+gk_throw 3 9
+gk_dive_high 9 15
+gk_dive_high 12 15
+gk_dive_high 14 15
+gk_throw 2 9
+  re-roll gk_throw 1 size 1.24
+  re-roll gk_throw 9 size 0.79
+gk_throw 8 9
+gk_throw 6 9
+  re-roll gk_throw 12 size 0.79
+gk_throw 14 9
+gk_throw 5 9
+gk_throw 10 9
+gk_throw 7 9
+gk_throw 16 9
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 21 concurrent background jobs allowed (Tier 3). You have 21 active jobs."}
+gk_throw 15 9
+  re-roll gk_throw 9 size 0.76
+gk_throw 17 9
+  re-roll gk_throw 13 size 0.78
+gk_throw 18 9
+gk_throw 19 9
+gk_punt 0 11
+gk_punt 1 11
+gk_punt 3 11
+gk_punt 5 11
+  re-roll gk_throw 9 size 0.79
+gk_throw 9 9
+gk_throw 0 9
+  re-roll gk_throw 1 size 0.79
+  re-roll gk_throw 12 size 0.76
+gk_punt 6 11
+gk_punt 7 11
+gk_punt 4 11
+gk_punt 2 11
+gk_punt 11 11
+gk_punt 10 11
+gk_punt 9 11
+gk_punt 8 11
+gk_punt 13 11
+gk_throw 1 9
+gk_punt 14 11
+gk_throw 13 9
+gk_punt 16 11
+gk_throw 12 9
+gk_punt 12 11
+gk_punt 15 11
+gk_punt 17 11
+gk_goalkick 2 17
+  re-roll gk_goalkick 3 size 1.72
+  re-roll gk_goalkick 0 size 1.55
+gk_goalkick 5 17
+  re-roll gk_goalkick 9 size 1.83
+gk_punt 19 11
+gk_goalkick 7 17
+gk_punt 18 11
+  re-roll gk_goalkick 10 size 1.84
+gk_goalkick 8 17
+gk_goalkick 1 17
+  re-roll gk_goalkick 11 size 1.69
+gk_goalkick 4 17
+gk_goalkick 6 17
+gk_goalkick 3 17
+  re-roll gk_goalkick 0 size 0.77
+  re-roll gk_goalkick 13 size 0.77
+gk_goalkick 15 17
+gk_goalkick 14 17
+gk_goalkick 9 17
+gk_goalkick 18 17
+  re-roll gk_goalkick 17 size 1.69
+gk_goalkick 10 17
+  re-roll gk_goalkick 16 size 1.78
+  re-roll gk_goalkick 11 size 1.53
+  re-roll gk_goalkick 19 size 1.62
+  re-roll gk_goalkick 0 size 1.64
+gk_goalkick 0 17
+gk_goalkick 13 17
+gk_goalkick 12 17
+  re-roll gk_goalkick 17 size 1.67
+gk_goalkick 11 17
+  re-roll gk_goalkick 19 size 1.67
+gk_goalkick 16 17
+gk_goalkick 17 17
+gk_goalkick 19 17

@@ -4,8 +4,17 @@
 
 const TCHAR* FPFSpriteSet::DirName(EPFDir D)
 {
-	static const TCHAR* N[] = { TEXT("south"), TEXT("south-east"), TEXT("east"), TEXT("north-east"), TEXT("north"), TEXT("north-west"), TEXT("west"), TEXT("south-west") };
-	return N[FMath::Clamp(int32(D), 0, 7)];
+	// slot k is k*15 degrees clockwise from south; the 45-degree slots keep PixelLab's 8 names, the 30-degree ones are aNNN
+	static const TCHAR* N[24] = { TEXT("south"), TEXT("a015"), TEXT("a030"), TEXT("south-east"), TEXT("a060"), TEXT("a075"), TEXT("east"), TEXT("a105"),
+		TEXT("a120"), TEXT("north-east"), TEXT("a150"), TEXT("a165"), TEXT("north"), TEXT("a195"), TEXT("a210"), TEXT("north-west"), TEXT("a240"),
+		TEXT("a255"), TEXT("west"), TEXT("a285"), TEXT("a300"), TEXT("south-west"), TEXT("a330"), TEXT("a345") };
+	return N[((int32(D) % 24) + 24) % 24];
+}
+
+int32 FPFSpriteSet::SlotOf(const FString& Name)
+{
+	for (int32 k = 0; k < 24; ++k) if (Name == DirName(EPFDir(k))) return k;
+	return -1;
 }
 
 bool FPFSpriteSet::Load(const FString& InId)
@@ -47,35 +56,46 @@ bool FPFSpriteSet::Load(const FString& InId)
 			const TArray<TSharedPtr<FJsonValue>>& A = KV.Value->AsArray();
 			if (A.Num() >= 2) Hands.Add(FName(*KV.Key), FVector2D(A[0]->AsNumber(), A[1]->AsNumber()));
 		}
-	UE_LOG(LogPF, Log, TEXT("PF sprite set %s: %d frames, %d poses, %d hand anchors"), *Id, Frames.Num(), Poses.Num(), Hands.Num());
+	// v0.9.8: resolve every pose's 24 slots to the nearest direction drawn (8- or 12-direction art, or a mix)
+	TMap<FName, TArray<int32>> Have;
+	TSet<int32> AllSlots;
+	for (const auto& KV : Frames)
+	{
+		FString Dir, Pose;
+		if (!KV.Key.ToString().Split(TEXT("/"), &Dir, &Pose)) continue;
+		const int32 Sl = SlotOf(Dir);
+		if (Sl >= 0) { Have.FindOrAdd(FName(*Pose)).AddUnique(Sl); AllSlots.Add(Sl); }
+	}
+	DirStep = (AllSlots.Contains(2) || AllSlots.Contains(4) || AllSlots.Contains(8) || AllSlots.Contains(10)) ? 30.f : 45.f;
+	for (const auto& KV : Have)
+	{
+		TArray<FName>& R = Resolved.Add(KV.Key); TArray<uint8>& RS = ResolvedSlot.Add(KV.Key);
+		R.SetNum(24); RS.SetNum(24);
+		for (int32 k = 0; k < 24; ++k)
+		{
+			int32 Best = KV.Value[0], BestD = 99;
+			for (int32 Sl : KV.Value) { const int32 Dd = FMath::Min((Sl - k + 24) % 24, (k - Sl + 24) % 24); if (Dd < BestD || (Dd == BestD && Sl > Best)) { BestD = Dd; Best = Sl; } }
+			R[k] = FName(*FString::Printf(TEXT("%s/%s"), DirName(EPFDir(Best)), *KV.Key.ToString())); RS[k] = uint8(Best);
+		}
+	}
+	UE_LOG(LogPF, Log, TEXT("PF sprite set %s: %d frames, %d poses, %d hand anchors, %d-direction art"), *Id, Frames.Num(), Poses.Num(), Hands.Num(), DirStep < 40.f ? 12 : 8);
 	return true;
 }
 
-const FPFFrame& FPFSpriteSet::Get(EPFDir Dir, FName Pose) const
+const FPFFrame& FPFSpriteSet::Get(EPFDir Dir, FName Pose, uint8* OutSlot) const
 {
 	static FPFFrame None;
-	const int32 D = int32(Dir);
-	// same pose, then neighbouring directions, then idle
-	static const int32 Order[] = { 0, 1, -1, 2, -2, 3, -3, 4 };
+	const int32 D = ((int32(Dir) % 24) + 24) % 24;
 	for (FName P : { Pose, FName(TEXT("idle")) })
-		for (int32 O : Order)
-		{
-			const EPFDir DD = EPFDir((D + O + 8) % 8);
-			if (const FPFFrame* F = Frames.Find(FName(*FString::Printf(TEXT("%s/%s"), DirName(DD), *P.ToString())))) return *F;
-		}
+		if (const TArray<FName>* R = Resolved.Find(P))
+			if (const FPFFrame* F = Frames.Find((*R)[D])) { if (OutSlot) *OutSlot = ResolvedSlot[P][D]; return *F; }
 	return None;
 }
 
 const FVector2D* FPFSpriteSet::HandAt(EPFDir Dir, FName Pose) const
 {
-	const int32 D = int32(Dir);
-	static const int32 Order[] = { 0, 1, -1, 2, -2, 3, -3, 4 };
-	for (int32 O : Order)
-	{
-		const EPFDir DD = EPFDir((D + O + 8) % 8);
-		const FName K(*FString::Printf(TEXT("%s/%s"), DirName(DD), *Pose.ToString()));
-		if (Frames.Contains(K)) return Hands.Find(K);
-	}
+	const int32 D = ((int32(Dir) % 24) + 24) % 24;
+	if (const TArray<FName>* R = Resolved.Find(Pose)) return Hands.Find((*R)[D]);
 	return nullptr;
 }
 
@@ -108,6 +128,8 @@ namespace PFClips
 		// v0.9 arcade poses (Tools/pixellab/poses_base.py ARC_*): bodies without them draw the v0.8 pose instead
 		// (FPFMatch::Draw, ArcFallback). Big back-swing, strike, a long-held high follow-through.
 		Add(TEXT("shot"),     { TEXT("shot_a_plant"), TEXT("shot_a_back"), TEXT("shot_a_strike"), TEXT("shot_a_follow"), TEXT("idle") }, { 0.05f, 0.07f, 0.06f, 0.20f, 0.04f }, 2);
+		// v0.9.8 goal kick after the run-up (ISS study: plant 0.08, strike 0.06, a long follow-through 0.25)
+		Add(TEXT("goal_kick"), { TEXT("shot_a_plant"), TEXT("shot_a_back"), TEXT("shot_a_strike"), TEXT("shot_a_follow"), TEXT("idle") }, { 0.08f, 0.06f, 0.06f, 0.25f, 0.04f }, 2);
 		Add(TEXT("pass"),     { TEXT("pass_back"), TEXT("pass_strike"), TEXT("idle") }, { 0.05f, 0.09f, 0.05f }, 1);
 		Add(TEXT("lob"),      { TEXT("shot_a_back"), TEXT("shot_a_strike"), TEXT("shot_a_follow") }, { 0.06f, 0.08f, 0.14f }, 1);
 		Add(TEXT("volley"),   { TEXT("volley_strike"), TEXT("shot_follow") }, { 0.10f, 0.14f }, 0);
