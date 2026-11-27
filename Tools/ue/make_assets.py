@@ -124,7 +124,23 @@ float2 sp = UV * P1.xy;
 float2 q = floor((sp + Cam.xy) / pix);
 float2 c = q * pix + pix * 0.5 - Cam.xy;
 float2 g = G0.xy + c.x * GA.xy + c.y * GB.xy;
-if (abs(g.x) > 56.75 || g.y < -34.3 || g.y > 34.0) return float4(0, 0, 0, 0);
+// v0.9.2 (owner: "grass being in weird places and cutoffs being in weird places"): inside the lines the pitch is
+// always drawn; outside them only where the stadium art itself is grass (Tex at atlas Stad.xy + screen / zoom), so it
+// never paints over the track, the boards or the foot of a stand, and the art's own grass margin stays continuous
+bool inside = abs(g.x) <= 52.6 && g.y >= -34.1 && g.y <= 34.05;
+if (!inside)
+{
+    if (abs(g.x) > 58.0 || g.y < -38.0 || g.y > 36.0) return float4(0, 0, 0, 0);
+    // the art is dithered, so a lone green texel on the track isn't grass: 4 of the 9 texels round this one must be green
+    float2 auv = (Stad.xy + c / Stad.z) / Asz.xy;
+    int green = 0;
+    [unroll] for (int oy = -1; oy <= 1; oy++) [unroll] for (int ox = -1; ox <= 1; ox++)
+    {
+        float3 s = Texture2DSampleLevel(Tex, TexSampler, auv + float2(ox, oy) * 1.5 / Asz.xy, 0).rgb;
+        if (s.g > s.r + 0.05 && s.g > s.b + 0.05) green++;
+    }
+    if (green < 4) return float4(0, 0, 0, 0);
+}
 // clustered speckle: three octaves of a hashed block value
 float v = 0;
 [unroll] for (int k = 0; k < 3; k++)
@@ -336,11 +352,16 @@ def make_pitch_material():
     uv = MEL.create_material_expression(m, unreal.MaterialExpressionTextureCoordinate, -900, 0)
     ins = {"UV": uv}
     y = 100
-    for n in ("P1", "G0", "GA", "GB", "Cam", "Tint", "Light"):
+    for n in ("P1", "G0", "GA", "GB", "Cam", "Tint", "Light", "Stad", "Asz"):
         e = MEL.create_material_expression(m, unreal.MaterialExpressionVectorParameter, -900, y); y += 150
         e.set_editor_property("parameter_name", n)
         e.set_editor_property("default_value", unreal.LinearColor(1, 1, 1, 1))
         ins[n] = e
+    tex = MEL.create_material_expression(m, unreal.MaterialExpressionTextureObjectParameter, -900, y)
+    tex.set_editor_property("parameter_name", "Tex")
+    tex.set_editor_property("texture", unreal.load_asset("/Engine/EngineResources/DefaultTexture"))
+    tex.set_editor_property("sampler_type", unreal.MaterialSamplerType.SAMPLERTYPE_COLOR)
+    ins["Tex"] = tex
     cust = MEL.create_material_expression(m, unreal.MaterialExpressionCustom, -400, 0)
     cust.set_editor_property("code", PITCH_HLSL)
     cust.set_editor_property("output_type", unreal.CustomMaterialOutputType.CMOT_FLOAT4)
@@ -350,7 +371,7 @@ def make_pitch_material():
         ci = unreal.CustomInput(); ci.set_editor_property("input_name", n); cin.append(ci)
     cust.set_editor_property("inputs", cin)
     for n, e in ins.items():
-        if n == "UV":
+        if n in ("UV", "Tex"):
             MEL.connect_material_expressions(e, "", cust, n)
         else:
             mask = MEL.create_material_expression(m, unreal.MaterialExpressionComponentMask, -650, e.get_editor_property("material_expression_editor_y"))

@@ -1,5 +1,38 @@
 # Changelog
 
+## v0.9.3 (2026-11-27): aim where you point
+
+- **Shots go where the stick points:** the ball is aimed where the stick's line meets the goal line (near post, far post, anywhere between), kept just inside the posts; no stick aims at the far corner. The pad's random shot error is under half what it was, scaled by the shooter's rating. Aim test: 9 shots from three spots all land within about a metre of the target (75-rated shooter).
+- **Passes go where the stick points:** the target is picked by the angle on screen, as the controller sees it, inside about 37 degrees, before anything else.
+- **True 8-way movement:** the controlled player faces and runs along the chosen direction at once (no curving through a turn); reversing still costs speed.
+- **Keepers dive:** only a ball straight at him (under 0.45 m away) is caught standing; anything wider is a dive, and the passive body block only fires on a ball that hits him. Save test: 18 corner shots, he dived at all 18 (caught 4).
+- Balance: 20-match sim 2.20 goals/match (dives 3.4 per match, standing saves 1.5), 0 stuck.
+
+## v0.9.2 (2026-11-27): realism, ratings and called runs
+
+**Movement and animation**
+- Realistic 12-frame run, sprint and dribble cycles for all five outfield bodies (PixelLab, $1.51 + B01's two takes), gait-data angles instead of v0.9's exaggerated set. `-pfarcade` brings the arcade cycles back.
+- Players 40% smaller against the pitch (v0.9.1), game speed 1.05 (was 0.85).
+- Idle players stand calmly: they settle on their spot and stay there, the breathing frame shows briefly every few seconds, and the drawn view only changes once the facing is clearly in the next direction.
+
+**Play**
+- Keepers time their dives: only at real shots, they shuffle across while the ball travels and leave the ground just in time to arrive with it.
+- **LB with the ball** sends the best-placed team-mate on a forward run; **Y** plays the through ball into his path. Through balls go further (10 m + ahead of the run) and die into the space.
+- A much wider gap between bad and great players (speed 3.0–9.9 m/s, touch, passing, shooting, reactions, tackling), a ±12 spread inside each squad, and poor passers misplace some assisted passes.
+- Ball physics closer to real turf: gentler rolling deceleration, livelier bounce.
+
+**Ratings on screen:** each player's rating over his head (red under 55, amber to 69, green 70+), on the name bars, and both teams' ratings beside the clock.
+
+**Camera:** WIDE is the default (owner's pick).
+
+**Stadium fixes**
+- The camera no longer scrolls over the bare concrete below the near touchline.
+- The high-detail grass only paints where the stadium art is grass (no more green over the track, boards and stand bases).
+- Sunset no longer turns the pitch mustard.
+- Known: some stadium art has dark green specks on the track at night; left for the 3D stadium work.
+
+**Tests:** 30-minute recorded autopad session (6 matches, 20 clips), no errors; 20-match sim 1.95 goals/match, 0 stuck.
+
 ## v0.9.0 (2026-11-26): the feel pass
 
 The owner rated v0.8.1 "2 or 3 out of 10". This round goes after the reasons, measured against the ISS Deluxe study.

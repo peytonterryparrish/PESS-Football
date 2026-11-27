@@ -18,7 +18,7 @@ T0=$(date +%s)
 while true; do
     MSYS2_ARG_CONV_EXCL="*" timeout 18000 "$UAT" "${ARGS[@]}" > "$LOG" 2>&1
     RC=$?
-    if [ $RC -ne 0 ] && grep -a -q "ConflictingInstance" "$LOG" && [ $(( $(date +%s) - T0 )) -lt 14400 ]; then echo "UBT busy, retrying in 60 s"; sleep 60; continue; fi
+    if [ $RC -ne 0 ] && grep -a -q -E "ConflictingInstance|conflicting instance of AutomationTool" "$LOG" && [ $(( $(date +%s) - T0 )) -lt 14400 ]; then echo "UBT busy, retrying in 60 s"; sleep 60; continue; fi
     break
 done
 echo "UAT exit $RC ($(( $(date +%s) - T0 )) s)"

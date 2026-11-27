@@ -153,3 +153,39 @@ OUT_JOBS = OUT_JOBS + ARC2_OUT
 # gk_dive2 was generated (v0.9) but its flat flight and landing frames failed the audit (cut off at the canvas edge,
 # broken into fragments): PixelLab can't draw a horizontal body. The owner's flat R08 frames stay; it isn't built.
 # KEEP_JOBS = KEEP_JOBS + ARC2_KEEP
+
+# ---------------------------------------------------------------------------------------------------------------
+# v0.9.2 (owner: the arcade run, sprint and dribble are "way too exaggerated ... I want photorealism movement ...
+# everything needs more frames"): realistic gait angles (v0.8's natural set, nudged a third of the way toward the
+# arcade lean so the stride still reads at this size), and in-betweens: 12-frame run and sprint, 10-frame dribble.
+def _lerp(a, b, t):
+    ks = set(a) | set(b)
+    return {k: (1 - t) * a.get(k, 0) + t * b.get(k, 0) for k in ks}
+def _toward(nat, arc, t=0.33):
+    return _lerp(nat, arc, t)
+def smooth_cycle(name, keys, per=2):
+    """keys: [(suffix, pose)] for the right-leg half; adds (per-1) in-betweens after each key (the last one blends
+    into the mirrored first key of the left half), so a half has len(keys)*per frames"""
+    half = []
+    pers = per if isinstance(per, list) else [per] * len(keys)
+    for i, (suf, p) in enumerate(keys):
+        nxt = keys[i + 1][1] if i + 1 < len(keys) else mirror(keys[0][1])
+        half.append((suf, p))
+        for j in range(1, pers[i]): half.append((f"{suf}{j}", _lerp(p, nxt, j / pers[i])))
+    for suf, p in half: B[f"{name}_{suf}R"] = p; B[f"{name}_{suf}L"] = mirror(p)
+    return [f"{name}_{s}R" for s, _ in half] + [f"{name}_{s}L" for s, _ in half]
+_RN = [B[f"run_{s}R"] for s in ("contact", "down", "pass", "up")]
+_RA = [B[f"runa_{s}R"] for s in ("contact", "down", "pass", "up")]
+RUNR = smooth_cycle("runr", [(k, _toward(_RN[i], _RA[i])) for i, k in enumerate(("c", "d", "p", "u"))], per=[1, 2, 1, 2])
+_SN = [B[f"sprint_{s}R"] for s in ("contact", "down", "up")]
+_SA = [B[f"sprinta_{s}R"] for s in ("contact", "down", "up")]
+SPRINTR = smooth_cycle("sprintr", [("c", _toward(_SN[0], _SA[0])), ("d", _toward(_SN[1], _SA[1])), ("u", _toward(_SN[2], _SA[2]))], per=2)
+_DN = [B[f"dribble_{s}R"] for s in ("touch", "mid", "push")]
+_DA = [B[f"dribblea_{s}R"] for s in ("touch", "mid", "push")]
+DRIBBLER = smooth_cycle("dribbler", [(k, _toward(_DN[i], _DA[i], 0.25)) for i, k in enumerate(("t", "m", "p"))], per=2)
+ARC3_OUT = [
+    ("real_run", RUNR, "realistic football player running, natural stride, smooth motion, no ball", None),
+    ("real_sprint", SPRINTR, "realistic football player sprinting, natural powerful stride, smooth motion, no ball", None),
+    ("real_dribble", DRIBBLER, "realistic football player jogging with short steps as if dribbling, natural, smooth motion, no ball", None),
+]
+OUT_JOBS = OUT_JOBS + ARC3_OUT

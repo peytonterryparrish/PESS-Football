@@ -127,6 +127,10 @@ struct FPFPlayer
 	float FeintT = 0;          // skill move in progress (s left)
 	FVector2D FeintDir = FVector2D::ZeroVector;
 	float FooledT = 0;         // a defender who bought a feint: committed the wrong way for a moment
+	bool bSettled = false;     // v0.9.2: reached his spot; stays put until it moves well away (no stop-start jitter)
+	uint8 DrawDir = 255;       // v0.9.2: the view drawn last frame (changes only past a margin: no flicker between views)
+	float RunT = 0;            // v0.9.2 LB call: seconds left on a forward run the pad's player asked for
+	FVector2D RunTo = FVector2D::ZeroVector;
 };
 
 struct FPFBall
@@ -187,6 +191,11 @@ public:
 	TArray<FPFPlayer> P;
 	TArray<FPFPlayer> Officials;   // [0] referee, [1] [2] assistant referees (drawn, never touch the ball)
 	TArray<FPFPlayer> Managers;    // [0] home, [1] away: in their technical areas
+	TArray<FVector2D> HeadScreen;  // v0.9.2: each player's head on screen last frame (HUD ratings); X < -1e8 = not drawn
+	int32 TeamOverall(int32 Team) const;
+	// test helpers (feel test): the stick direction that points along a world direction, and the goal a team attacks
+	FVector2D StickFor(FVector2D WorldDir) const { return Proj.DirToScreen(WorldDir).GetSafeNormal(); }
+	FVector2D AttackGoal(int32 Team) const { return GoalCentre(Team, true); }
 	struct FCrew { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D Pos; };
 	TArray<FCrew> Crew;            // camera operators and ball boys (static sideline sprites from the owner's pack)
 	FPFBall Ball;
