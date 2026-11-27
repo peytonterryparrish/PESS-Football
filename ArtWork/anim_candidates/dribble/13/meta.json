@@ -1,0 +1,10 @@
+{
+ "action": "dribble",
+ "body": "N01",
+ "first": "east/dribble_touchR",
+ "loop": true,
+ "frames": 9,
+ "dt": 0.09,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: dribbling a football in place, side view, short quick steps with touches, but draw no ball, close control, tiny touches, body over the ball, smooth, clean motion. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow. The animation loops: the last frame leads back into the first.",
+ "seed": 991
+}

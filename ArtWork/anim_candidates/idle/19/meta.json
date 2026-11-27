@@ -1,0 +1,10 @@
+{
+ "action": "idle",
+ "body": "N01",
+ "first": "rot_south",
+ "loop": true,
+ "frames": 9,
+ "dt": 0.14,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: standing idle on the spot, facing the camera, breathing, tiny weight shifts, shoulders rolling, ready. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow. The animation loops: the last frame leads back into the first.",
+ "seed": 1033
+}

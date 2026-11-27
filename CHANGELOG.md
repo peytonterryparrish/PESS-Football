@@ -1,5 +1,41 @@
 # Changelog
 
+## v0.9.8 (2026-11-27): passing power bar, true-direction passing, real through balls, a 3D stadium, and 490 animations to approve
+
+**Animation approval round** (gallery: https://claude.ai/artifact/MUL6hBWZ4khtxFjWUaXH3M)
+- 490 PixelLab animations for one player (N01) and his keeper (NK1), 20 or more takes for each of 25 actions. That includes 30 keeper dives (15 low, 15 high) and 20 goal kicks where the keeper steps back four paces and runs up. Each take is recorded as a GIF at game speed. The owner marks one Best per action, and the game's art is then built from those Bests in all 12 directions (`Tools/pixellab/produce_approved.py`).
+- Made with `Tools/pixellab/anim_candidates.py` (text animation from the body's own frame; loops start and end on the same frame). Takes where the body changes size or hardly moves are re-rolled automatically. Drawn balls and stray pixels are cut out. `Tools/pixellab/rec_candidates.py` records the GIFs and builds the gallery. Cost about $21.
+- Timings and frame counts follow a fresh ISS study by a Fable advisor (keeper dives: set, push, fly, impact, lie, kneel, with the head clear of the arms).
+
+**Keeper catch frames: no more drawn ball**
+- The ball PixelLab drew into the keeper's chest catch, gather, punch and punt frames is gone. Only the ball's pixels were redrawn (PixelLab inpainting), so his gloves and sleeves are untouched (`Tools/pixellab/debake_keeper_pixen.py`).
+
+**12 directions**
+- Sprites are now looked up in 24 slots of 15°, and each sprite set resolves a slot to the nearest direction it is drawn in. 8-direction art (today's) and 12-direction art (30° apart: south, a030, a060, east, a120, a150, north, then mirrors) both work, mixed per pose.
+- Both bodies have clean 12-direction standing turns (`plclient.turns12`, PixelLab rotate). The animations are drawn in 12 directions once the owner approves them.
+
+**Passing**
+- **Power bar:** tap A for a short pass to the nearest team-mate the way you point. Hold it and a bar fills over the player (full in under half a second); the longer the hold, the further along the line the ball goes and the harder it's hit. The ball leaves on release, and a ring marks who it's going to.
+- **True direction:** the ball goes where the stick points on screen. Being off the stick line now costs far more than lane openness can win back. If nobody is near the line, the ball goes into space along it, at the bar's distance.
+- **Test results:** aimed passes reach the intended man 76-81% of the time (58-64% before), and tap versus hold finds the near or far man 12/12 each.
+
+**Through balls, as in real football**
+- Holding Y sends the runner off straight away, staying onside. Letting go plays the ball into the space ahead of him along the stick, and a longer hold plays it further ahead.
+- The ball is weighted so he meets it in stride; his first touch carries him on. The keeper comes off his line to claim one he'll reach first. LB+Y lofts it over the line.
+- **Test results:** the runner takes it in his stride 17 of 26 times (8 of 25 before). Still to improve: about a quarter are cut out when aimed into covered space.
+
+**Goal kicks**
+- The keeper steps back four paces and settles. X, Y or B runs him up for a long kick; A plays it short straight away.
+
+**A 3D stadium**
+- The ground around the pitch is now modelled in 3D and drawn through the game's own camera projection, so it lines up exactly and moves with the play.
+- **What's in it:** advertising boards, a two-tier far stand with roof and floodlit lamps, a covered east end, an open west end seen from behind, and a low near stand with dugouts. Floodlight towers stand at the far corners.
+- **Fans:** the 2D pixel fans sit on the seats facing the pitch, front views opposite the camera and back views on the near side. They stand up for goals.
+- `-pfoldstadium` brings back the old painted backdrop.
+
+**Checks**
+- 10-match sim: 2.40 goals a match, none stuck. The new pass, through-ball and goal-kick tests (`-pfpasstest`) are in the feel test.
+
 ## v0.9.7 (2026-11-27): one new model and his keeper, every animation redrawn
 
 **From the casting page to the pitch**

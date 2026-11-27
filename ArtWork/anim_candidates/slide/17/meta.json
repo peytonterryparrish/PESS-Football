@@ -1,0 +1,10 @@
+{
+ "action": "slide",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 13,
+ "dt": 0.07,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: sliding tackle, side view: drop and slide along the grass, lead leg straight, trailing leg tucked, one arm trailing, then get up, long slide on the hip. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 1019
+}

@@ -1,0 +1,10 @@
+{
+ "action": "celebrate",
+ "body": "N01",
+ "first": "rot_south",
+ "loop": false,
+ "frames": 13,
+ "dt": 0.12,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: goal celebration facing the camera, arms out wide like an aeroplane, weighty and grounded. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 963
+}

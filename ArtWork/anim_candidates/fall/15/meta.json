@@ -1,0 +1,10 @@
+{
+ "action": "fall",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 13,
+ "dt": 0.09,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: tripped and falling, side view: stumble, fall flat on the grass, lie, kneel, stand back up, dramatic fall, arms out, ISS Deluxe style SNES timing. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 1005
+}

@@ -1,0 +1,10 @@
+{
+ "action": "sprint",
+ "body": "N01",
+ "first": "east/sprint_contactR",
+ "loop": true,
+ "frames": 7,
+ "dt": 0.085,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: sprinting flat out in place, side view, a looping sprint cycle, sprinter form, arms straight and fast, weighty and grounded. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow. The animation loops: the last frame leads back into the first.",
+ "seed": 963
+}

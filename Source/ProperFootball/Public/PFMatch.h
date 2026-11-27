@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "PFCore.h"
 #include "PFSprites.h"
+#include "PFStadium3D.h"
 
 class UCanvas;
 class UTexture2D;
@@ -133,6 +134,8 @@ struct FPFPlayer
 	FVector2D RunTo = FVector2D::ZeroVector;
 	float BoostT = 0;          // v0.9.4: seconds left on the burst a through ball's runner gets (faster for better players)
 	float BoostMul = 1.f;      // top-speed multiplier while it lasts (acceleration gets twice the gain)
+	float CarryT = 0;          // v0.9.8: a through ball taken in stride: his first touch carries him on (s left, stick idle)
+	FVector2D CarryDir = FVector2D(1, 0);
 };
 
 struct FPFBall
@@ -146,6 +149,7 @@ struct FPFBall
 	float Curl = 0;
 	float GuideV = 0;   // its steady speed while guided (m/s)
 	int32 Guide = -1; // v0.8 assisted pass: the team-mate it is being steered onto (-1 = free ball)
+	FVector2D GuideDir0 = FVector2D(1, 0);   // v0.9.8: the line it was struck on (the steering stays within 6 deg of it)
 	bool bBeatsKeeper = false;   // v0.9.6: a well-struck pad shot the keeper will not get a hand to (rolled when struck)
 	FVector2D ThroughAim = FVector2D::ZeroVector;   // v0.9.4: the space a through ball was played into
 	float ThroughT = 0;                             // seconds since it was played
@@ -159,6 +163,7 @@ struct FPFPadInput
 	FVector2D Move = FVector2D::ZeroVector;   // screen space, y down
 	bool bSprint = false;
 	bool bPass = false, bLob = false, bThrough = false, bSwitch = false;  // pressed this frame
+	bool bPassHeld = false, bThroughHeld = false;                         // v0.9.8 power bar: A / Y still held (a press with neither held is a tap)
 	bool bShootHeld = false, bShootReleased = false, bShootPressed = false;
 	bool bChipMod = false;                    // LB held: B becomes a chip shot
 	bool bFeintL = false, bFeintR = false;   // right stick flicked left / right this frame
@@ -174,6 +179,7 @@ public:
 	// -pfautopad: a scripted player drives the human side through the real pad input (long playtests, owner v0.7)
 	FPFPadInput AutoPad(float Dt);
 	bool bAutoPad = false; float AutoT = 0, AutoHold = 0; bool bAutoChip = false;
+	float AutoPassHold = 0; bool bAutoPassY = false;   // v0.9.8: the bot holds A / Y for the power bar
 	// playtest log (-pfautopad): what the pad's side did and what went wrong
 	int32 PT_Passes = 0, PT_PassOK = 0, PT_Shots = 0, PT_Chips = 0, PT_Crosses = 0, PT_Feints = 0, PT_FeintBeat = 0, PT_KeeperThrows = 0, PT_ThrowIns = 0;
 	int32 AnyPassFrom = -1, AnyPassTo = -1; float AnyPassT = 0, AnyPassMin = 99; FVector2D AnyPassFromPos;
@@ -231,6 +237,31 @@ public:
 	static float GameSpeed;     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
 	float Highlight = 0;
 	float HitStop = 0, ShakeT = 9.f, ShakeAmp = 0;
+	// v0.9.8 pass power bar (owner: "if I tap it, it's a very short pass to the closest player. But the longer I hold it,
+	// the further the ball will travel to a different player"): A / Y held fill it; the charge picks the distance
+	// (ISS study numbers: it fills in 0.45 s like the shot; under 0.12 s is a tap = the nearest man that way; then
+	// 12 .. 42 m; the ball goes on release, or by itself when the bar is full)
+	static constexpr float PassTapT = 0.12f;    // released sooner: a tap
+	static constexpr float PassFullT = 0.45f;   // seconds from the press to a full bar
+	static constexpr float PassMinD = 12.f;     // A: the distance the bar asks for just past a tap ..
+	static constexpr float PassMaxD = 42.f;     // .. and full
+	static constexpr float ThroughMinLead = 5.f;   // Y: how far ahead of the runner the ball is played, just past a tap ..
+	static constexpr float ThroughMaxLead = 24.f;  // .. and full (a tap: 5.5 m, slipped in)
+	float PassCharge = 0.f;          // the bar, 0..1 (HUD)
+	bool bPassCharging = false;      // A or Y held with the ball (or one on its way)
+	bool bPassChargeThrough = false; // it is Y's bar (through ball)
+	float PassHoldT = 0.f;           // seconds held
+	float PendHoldT = 0.f;           // the released hold, buffered with BufPass / BufThrough until the ball is at his feet
+	int32 ChargeOwner = -1;          // who was controlled when it started (a switch cancels it)
+	int32 PassPick = -1;             // live: who the bar and the stick pick right now (HUD ring), -1 = into space
+	FVector2D PassPickPt = FVector2D::ZeroVector;   // live: where a ball into space / a through ball would go
+	float PassPickT = 0.f;           // through: seconds until the next re-pick (it is costly)
+	float PassDistFor(float Held) const { return PassMinD + (PassMaxD - PassMinD) * FMath::Clamp((Held - PassTapT) / (PassFullT - PassTapT), 0.f, 1.f); }
+	float ThroughLeadFor(float Held) const { return Held < PassTapT ? 5.5f : ThroughMinLead + (ThroughMaxLead - ThroughMinLead) * FMath::Clamp((Held - PassTapT) / (PassFullT - PassTapT), 0.f, 1.f); }
+	// v0.9.8 the pad's choices (tests read them too): the receiver for a pass along a world direction with A held HoldT
+	// seconds (-1 = none near the line: OutSpace is where it is played), and the runner and space for a through ball
+	int32 PadPassTarget(const FPFPlayer& From, FVector2D Aim, float Held, FVector2D& OutSpace) const;
+	int32 PadThroughPick(const FPFPlayer& From, FVector2D Aim, float Held, bool bLoftOnly, FVector2D& OutPt, float& OutT) const;
 	float PadShotQ = -1.f;   // v0.9.6: the quality of the pad's shot being struck (0 scuffed .. 1 perfect), -1 none
 	FString LastShotNote;    // v0.9.6: "far post, good" etc. (tests, captures)
 	// v0.9 turf and dust kicked up by slides and keeper landings (owner: "it's really hard to see how the slide tackles are looking")
@@ -254,6 +285,8 @@ private:
 	FGoalLayer GoalShadow[2], GoalRear[2], GoalFront[2];
 	TObjectPtr<UMaterialInstanceDynamic> PitchMid = nullptr;
 	TObjectPtr<UMaterialInstanceDynamic> StadiumMid = nullptr;   // M_PFStadium: the owner's stadium art, sharp-bilinear (even pixels at 6.24x)
+	FPFStadium3D Stadium3D;                    // v0.9.8: the 3D ground round the 2D pitch (PFStadium3D.cpp)
+	bool bStadium3D = true;                    // false with -pfoldstadium: the v0.9.7 painted plate
 	TObjectPtr<UTexture2D> FanTex = nullptr;   // the owner's ISS Deluxe supporters (GameData/Fans/fans.png: 20 fans, seated row + standing row)
 	TArray<FIntVector> Fans;                   // this stadium's seats: atlas x, y (the hips) and which fan (Tools/pipeline/fans.py)   // M_PFPitch: dithered grass + markings, drawn over the plate's grass
 	FLinearColor PitchTint = FLinearColor::White;
@@ -315,10 +348,22 @@ private:
 	FVector2D ThroughSpace(const FPFPlayer& From, const FPFPlayer& R, float& OutRunT) const;
 	float RunnerSpeed(const FPFPlayer& R, bool bWithBoost) const;
 	float ThroughBoostFor(const FPFPlayer& R) const;
-	FVector2D ThroughMeet(const FPFPlayer& R) const;
+	FVector2D ThroughMeet(const FPFPlayer& R, float* OutT = nullptr) const;
+	float ThroughPace(const FPFPlayer& R, float Dist, float T) const;
+	// v0.9.8: the race for one point (the first moment a defender or keeper can reach the ball against the runner);
+	// false when a lofted ball would be blocked at the passer's feet
+	bool ThroughRace(const FPFPlayer& R, FVector2D BallP, FVector2D Pt, bool bLoft, float& OutMargin, float& OutTr, float& OutTf, float* OutWait = nullptr) const;
 	float PendThroughT = 0.f;
+	mutable bool bRaceShape = false;   // v0.9.8: ThroughRace for the pad's pick (only the two nearest defenders chase)
+	bool bPendSpace = false;          // v0.9.8: the pad's pass goes into space along the stick (no guide)
+	bool bPadThroughFixed = false;    // v0.9.8: the pad chose the through ball's space already (PadThroughT is its timing)
+	float PadThroughT = 0.f;
+	float PendPassCharge = -1.f;      // v0.9.8: the pad's bar for the pass being struck (pace), -1 none
+	// v0.9.8 goal kick (owner: "the keeper steps back about four steps, then runs up and kicks when the button is
+	// pressed"): -1 off, else seconds into the routine; the queued long kick and where the stick aimed it
+	float GKT = -1.f, GKRunT = -1.f; bool bGKQueued = false; FVector2D GKLine = FVector2D(1, 0), GKAim = FVector2D::ZeroVector;
 public:
-	mutable float DbgThroughMargin = 0, DbgThroughRun = 0;   // test: the chosen space's predicted margin over the defence and the runner's time
+	mutable float DbgThroughMargin = 0, DbgThroughRun = 0, DbgMaxM = 0;   // test: the chosen space's predicted margin over the defence and the runner's time
 private:
 	int32 NearestToBall(int32 Team, bool bOutfieldOnly) const;
 	FVector2D FormationSpot(const FPFPlayer& Pl) const;

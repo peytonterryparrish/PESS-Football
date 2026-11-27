@@ -1,0 +1,10 @@
+{
+ "action": "gk_ready",
+ "body": "NK1",
+ "first": "south/gk_ready",
+ "loop": true,
+ "frames": 9,
+ "dt": 0.12,
+ "prompt": "a stocky retro 16-bit goalkeeper, blue shirt with long magenta sleeves, grey gloves, green shorts, red socks: goalkeeper ready stance facing the camera: wide stance, knees bent, hands at hip height out in front, bouncing lightly on his toes, calm small bounce, exaggerated anticipation and follow-through. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow. The animation loops: the last frame leads back into the first.",
+ "seed": 928
+}
