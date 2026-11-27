@@ -306,3 +306,82 @@ The v0.6 study used a different YouTube longplay, at 60 fps.
 | Run cycle | One pose held ~4 frames at 60 fps. v0.6 read a two-step cycle as ~0.27 s; v0.8 finds 0.27 s is **one step** and the full cycle is 0.53 s. |
 | Grass | Narrow bands 0.3 to 0.5 h wide; dominant colours (160,216,80) and (140,180,58) |
 | Frame pacing | 1 in 6 frames repeated at 60 fps, which means a 50 Hz source |
+
+---
+
+## 8. v0.9.5 study: three videos frame by frame (owner's study pack)
+
+The owner supplied a study pack: 61 stills and three videos. Only the measurements are kept here; no frames are committed.
+- **V1:** Brazil v Argentina, 960×720, 59.94 fps, 17.7 min.
+- **V2:** a Portuguese tutorial on goals, shots and tactics, 1280×720, 25 fps.
+- **V3:** a 1999 Brazilian ROM hack, 1080p. It was barely used.
+
+Three studies ran in parallel (players and animation, keepers, ball and shots). Their full notes are in the session notes folder. The findings that changed the game:
+
+### 8.1 Why our players looked thin [M]
+- **Size against the pitch.**
+  - The v0.8 figure of 33 px came from a blurry 640×360 video. In V1 a standing ISS player is **38-39 native px, 17% of the screen**.
+  - Measured with the centre circle as a ruler, an ISS player stands about **3.5 pitch-metres** tall, about 2× real size. Ours stood **1.07 m** (`HeightScale` 0.6, the owner's v0.9.1 "40% smaller").
+  - The visible pitch is about the same in both games (about 47 m deep).
+- **Build** (equivalents in our 64 px figure):
+
+  | Part | ISS | Ours before |
+  |---|---|---|
+  | Head | about 12 px (1:5.1) | 7-8 px (1:8) |
+  | Shoulders and arms | about 22 px | 17-19 px |
+  | Each leg | about 5 px | 3-4 px |
+  | Filled area ÷ height² | 0.20-0.22 | 0.17-0.19 front, 0.10-0.12 side |
+
+  The v0.8 base bodies were generated as "tall slender athletic".
+- **Outline:** ISS draws no black outline. Each colour's darkest tone sits at the edge.
+
+### 8.2 Keepers [M]
+- **Dives:** one long-held stretched pose. A top-corner dive is a 35-45° diagonal held **0.47 s**, covering 2.6-2.8 m. A penalty or low dive is flat for **0.28 s**, with the body moving about 2.0 m.
+- **Take-off:** the CPU leaves the ground **0.23-0.35 s before the ball arrives**, so the dive is timed to meet it.
+- **Down time:** he lies 0.15-0.35 s (longer holding the ball), then kneels and rises in about 0.35 s. Missed dives are back up 0.35-0.5 s after landing.
+- **Saves:** 6 of the 6 balls a keeper reached were held, with no parries in this footage.
+- **Catches:** after every ground or chest catch he goes down on the ball, 0.7-1.8 s from catch to standing.
+- **Positioning:** 3-4 m off the line. On angled shots he hugs the near post, and the far post is his weakness.
+- **Distribution:** the CPU walks forward with the ball about 3.2 s, then punts. Punts have a very high hang, about 14 m/s horizontally.
+
+### 8.2b Ball, shots and flow [M]
+- **Gravity:** about **16 m/s², 1.6× real**. A 20-point parabola fit on one shot gave 16.0, and a clearance gave 16.4. The ball flies on a short, heavy arc.
+- **Shots:**
+  - Power comes from holding the button: a 0.08 s tap is weak, 0.13-0.18 s is medium.
+  - Wind-up is 3-4 frames to release, then the follow-through is held about 0.1 s.
+  - Speeds: weak 11-16 m/s, normal 15-25 m/s, power 28-34 m/s.
+  - Most shots are slightly lofted. A 34 m power shot peaked at 4.8 m and reached goal in 1.2 s.
+- **Passes:**
+  - A ground pass leaves the foot at 21 m/s and is down to 13 m/s within 0.5 s.
+  - Short 6.7 m in 0.47 s; medium 13 m in 0.83 s.
+  - Long lofted 30-43 m in 2.0-2.8 s, covering ground at a constant 15-16 m/s.
+  - Crosses 18-20 m in about 1.05 s.
+  - The receiver kills the ball in 1-2 frames.
+- **Bounces:** each keeps about 69% of the horizontal speed, with vertical restitution 0.5-0.7. There are 1-2 bounces, then a roll. The ball stops dead in the net.
+- **Flow:**
+  - A pass, shot or clearance every 2.8 s (median).
+  - Directions: 30% straight up or down the pitch, 38% diagonal, 23% square.
+  - The camera keeps the ball's shadow 55-61% down the screen and sits 1.5-2 m ahead of the ball.
+
+### 8.3 What v0.9.5 changed
+1. **Stockier base bodies** (all 7, every pose): each standing turn is widened 1.3× with a 1.25× head at the same height, then cleaned by PixelLab. Every animation is regenerated from those turns on fresh skeletons (`Tools/pixellab/widen_bodies.py`, `PF_RAW_BASE=raw_base_w`). The keepers' flat dive frames are thickened the same way (`widen_dives.py`).
+2. **PLAYER SIZE option:**
+   - SMALL is 0.6× true scale (v0.9.4).
+   - MEDIUM is 0.9×.
+   - LARGE is 1.2× and is the new default: the closest to ISS, with sprite pixels at exactly 2:1 on the WIDE camera. The A/B captures are in `ArtWork/ab_v095/`.
+3. **Keeper dives:**
+   - The flight is 0.29 s low and 0.45 s high, on one held stretch after a short reach.
+   - He lies about 0.4 s, then kneels up.
+   - He takes off at most 0.45 s before the ball arrives.
+   - A ball he reaches is held 60-95% of the time (was 45-95%).
+   - After a standing catch or pick-up he kneels on the ball.
+4. **Landing marker:** a small cross on the grass shows where a high ball will land.
+5. **Keepers dive to where the ball will be** (a little past it), not always their full reach. Full-length dives used to carry the hands a metre beyond a ball heading 2.6 m away.
+6. **Ball weight:**
+   - Gravity is now 13 m/s². That is between real (9.81) and ISS (about 16), so lofted balls, crosses and shots come down with weight.
+   - A bounce now keeps 74% of the horizontal speed (was 86%; ISS keeps 69%).
+
+| Test | v0.9.4 | v0.9.5 |
+|---|---|---|
+| Corner shots (PFSAVE, 18) | 7 goals, 9 caught | **2 goals, 13 caught** |
+| Sim | 2.40 goals/match (20 matches), 0 stuck | **2.22** (40 matches), 0 stuck |

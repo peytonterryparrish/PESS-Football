@@ -1,7 +1,7 @@
 {
  "south/gk_stand": 0,
- "south/gk_dist": 0,
- "south/gk_move": 1,
+ "south/gk_dist": 1,
+ "south/gk_move": 0,
  "south/gk_push": 0,
  "south-east/gk_stand": 0,
  "south-east/gk_dist": 0,
@@ -14,5 +14,5 @@
  "north-east/gk_move": 0,
  "north/gk_stand": 0,
  "north/gk_dist": 0,
- "north/gk_move": 1
+ "north/gk_move": 0
 }

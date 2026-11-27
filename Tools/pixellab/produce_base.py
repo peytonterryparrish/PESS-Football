@@ -12,7 +12,7 @@ sys.path[:0] = [HERE, os.path.join(ROOT, "Tools", "pipeline")]
 import plclient, poses, poses_base, kit
 from PIL import Image
 
-RAW = os.path.join(ROOT, "ArtWork", "raw_base")
+RAW = os.path.join(ROOT, "ArtWork", os.environ.get("PF_RAW_BASE", "raw_base"))   # v0.9.5: raw_base_w = the stockier bodies
 GEN = ["south", "south-east", "east", "north-east", "north"]
 IDLES = os.path.join(ROOT, "ArtSource", "Packs", "R08_93_Clubs_South_Idle_Only")
 BODIES = {

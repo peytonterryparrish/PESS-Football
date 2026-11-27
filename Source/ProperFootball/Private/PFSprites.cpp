@@ -123,13 +123,16 @@ namespace PFClips
 		Add(TEXT("dejected"), { TEXT("hands_on_head") }, { 2.0f });
 		Add(TEXT("feint"),    { TEXT("turn_plant"), TEXT("dribble_touchR") }, { 0.12f, 0.12f });   // right-stick skill move
 		// goalkeeper
-		Add(TEXT("gk_dive_low_R"), { TEXT("gk_ready"), TEXT("gk_push_R"), TEXT("gk_stretch_R"), TEXT("gk_ready") }, { 0.03f, 0.07f, 0.50f, 0.10f }, 2);   // v0.9: thrown take-off, no get-up (ISS snaps to ready)
-		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_push_R"), TEXT("gk_stretch_R"), TEXT("gk_ready") }, { 0.03f, 0.07f, 0.50f, 0.10f }, 2);   // v0.9: thrown take-off, no get-up (ISS snaps to ready)
-		Add(TEXT("gk_dive_low_L"), { TEXT("gk_ready"), TEXT("gk_push_L"), TEXT("gk_stretch_L"), TEXT("gk_ready") }, { 0.03f, 0.07f, 0.50f, 0.10f }, 2);   // v0.9: thrown take-off, no get-up (ISS snaps to ready)
-		Add(TEXT("gk_dive_high_L"), { TEXT("gk_ready"), TEXT("gk_push_L"), TEXT("gk_stretch_L"), TEXT("gk_ready") }, { 0.03f, 0.07f, 0.50f, 0.10f }, 2);   // v0.9: thrown take-off, no get-up (ISS snaps to ready)
-		Add(TEXT("gk_catch"),  { TEXT("gk_catch_chest"), TEXT("gk_hold_ball") }, { 0.18f, 0.2f });
+		// v0.9.5 (ISS frame-by-frame): spring, one long-held stretch through the flight (low 0.29 s, high 0.45 s), down
+		// flat about 0.4 s, then a kneel and up (ISS: back up 21-29 frames after landing)
+		Add(TEXT("gk_dive_low_R"), { TEXT("gk_ready"), TEXT("gk_push_R"), TEXT("gk_stretch_R"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.62f, 0.18f, 0.05f }, 2);
+		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_push_R"), TEXT("gk_stretch_R"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.74f, 0.18f, 0.05f }, 2);
+		Add(TEXT("gk_dive_low_L"), { TEXT("gk_ready"), TEXT("gk_push_L"), TEXT("gk_stretch_L"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.62f, 0.18f, 0.05f }, 2);
+		Add(TEXT("gk_dive_high_L"), { TEXT("gk_ready"), TEXT("gk_push_L"), TEXT("gk_stretch_L"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.74f, 0.18f, 0.05f }, 2);
+		// v0.9.5 (ISS: after a ground or chest catch he always goes down on the ball, 0.7-1.8 s): catch, kneel on it, up
+		Add(TEXT("gk_catch"),  { TEXT("gk_catch_chest"), TEXT("getup_kneel"), TEXT("gk_hold_ball") }, { 0.18f, 0.38f, 0.2f });
 		Add(TEXT("gk_catch_high"), { TEXT("gk_catch_high"), TEXT("gk_hold_ball") }, { 0.22f, 0.2f });
-		Add(TEXT("gk_pickup"), { TEXT("gk_scoop"), TEXT("gk_catch_chest"), TEXT("gk_hold_ball") }, { 0.16f, 0.10f, 0.15f });   // gathers a ground ball into his arms
+		Add(TEXT("gk_pickup"), { TEXT("gk_scoop"), TEXT("gk_catch_chest"), TEXT("getup_kneel"), TEXT("gk_hold_ball") }, { 0.16f, 0.10f, 0.30f, 0.15f });   // gathers a ground ball into his arms
 		Add(TEXT("gk_punt"),   { TEXT("gk_hold_ball"), TEXT("gk_punt_drop"), TEXT("gk_punt_strike"), TEXT("idle") }, { 0.15f, 0.12f, 0.16f, 0.1f }, 2);
 		Add(TEXT("gk_throw"),  { TEXT("gk_throw_back"), TEXT("gk_throw_release"), TEXT("idle") }, { 0.2f, 0.14f, 0.08f }, 1);
 		// officials

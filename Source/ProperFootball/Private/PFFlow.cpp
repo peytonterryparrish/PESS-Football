@@ -486,6 +486,7 @@ void UPFFlow::LoadOptions()
 			if (K == TEXT("sfx")) SfxVol = FMath::Clamp(FCString::Atoi(*V), 0, 10);
 			if (K == TEXT("halflen")) FriendlyLen = FMath::Clamp(FCString::Atoi(*V), 0, 3);
 			if (K == TEXT("cam7")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 5);   // v0.9.2: six zooms, WIDE the default (older keys are ignored)
+			if (K == TEXT("size")) SizeOpt = FMath::Clamp(FCString::Atoi(*V), 0, 2);
 		}
 	}
 	ApplyCamera();
@@ -497,8 +498,11 @@ void UPFFlow::ApplyCamera()
 	// at true size against the pitch (HeightScale 1, was 0.5), and the camera pulls back by the same amount, so the
 	// sprites are exactly as big on screen as before but you see twice as much of the pitch (about 28 m across, ISS
 	// shows 22 m) and the pitch is half as many screens long. -pfscale=0.5 brings back the v0.8 framing.
-	static float Hs = -1.f;
-	if (Hs < 0.f) { Hs = 0.6f; FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs); Hs = FMath::Clamp(Hs, 0.25f, 2.f); }
+	// v0.9.5 (owner: players "look too thin on the field"; the ISS study: its players stand about 2x real size against
+	// the pitch, ours 0.6x): a PLAYER SIZE option, MEDIUM the default. -pfscale=X overrides it (captures, A/B).
+	static const float Sizes[] = { 0.6f, 0.9f, 1.2f };
+	float Hs = Sizes[FMath::Clamp(SizeOpt, 0, 2)];
+	FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs); Hs = FMath::Clamp(Hs, 0.25f, 2.f);
 	FPFMatch::HeightScale = Hs;
 	// v0.9 (owner: "5 different camera angles, 2 even closer and 3 even further away"): six zooms, the v0.9 default
 	// third. Sprite pixels at 1080p: 3:1, 2.5:1, 2:1 (default), 1.67:1, 1.33:1, 1:1. -pfcam=N picks one (captures).
@@ -510,7 +514,7 @@ void UPFFlow::ApplyCamera()
 void UPFFlow::SaveOptions()
 {
 	ApplyCamera();
-	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam7=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
+	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam7=%d\nsize=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt, SizeOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
 	if (Music) Music->SetVolumeMultiplier((MusicName == TEXT("crowd_loop") ? 0.55f * SfxVol : 0.45f * MusicVol) / 10.f);
 }
 
@@ -691,6 +695,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), nullptr, [this](int32 D) { SfxVol = FMath::Clamp(SfxVol + D, 0, 10); SaveOptions(); PlaySfx(TEXT("ui_select")); } });
 		Items.Add({ TEXT("HALF LENGTH"), nullptr, [this](int32 D) { FriendlyLen = (FriendlyLen + D + 4) % 4; SaveOptions(); } });
 		Items.Add({ TEXT("CAMERA"), nullptr, [this](int32 D) { CameraOpt = (CameraOpt + D + 6) % 6; SaveOptions(); ApplyCamera(); } });
+		Items.Add({ TEXT("PLAYER SIZE"), nullptr, [this](int32 D) { SizeOpt = (SizeOpt + D + 3) % 3; SaveOptions(); ApplyCamera(); } });
 		Items.Add({ TEXT("BACK"), nullptr, nullptr, [this]() { Go(EPFScreen::Main); } });
 		MenuInput(Items, Sel, Pad);
 		if (Pad.pB) Go(EPFScreen::Main);
@@ -1014,6 +1019,9 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		static const TCHAR* CamL[] = { TEXT("CLOSEST"), TEXT("CLOSER"), TEXT("STANDARD"), TEXT("WIDE"), TEXT("WIDER"), TEXT("WIDEST") };
 		const FString Cm = CamL[FMath::Clamp(CameraOpt, 0, 5)];
 		Items.Add({ TEXT("CAMERA"), [Cm]() { return Cm; }, [](int32) {} });
+		static const TCHAR* SzL[] = { TEXT("SMALL"), TEXT("MEDIUM"), TEXT("LARGE") };
+		const FString Sz = SzL[FMath::Clamp(SizeOpt, 0, 2)];
+		Items.Add({ TEXT("PLAYER SIZE"), [Sz]() { return Sz; }, [](int32) {} });
 		Items.Add({ TEXT("BACK") });
 		DrawMenu(C, TEXT("OPTIONS"), Items, Sel, C->ClipX * 0.5f - 420 * U, C->ClipY * 0.4f, 840 * U);
 		break;
