@@ -88,6 +88,8 @@ public:
 	TWeakObjectPtr<UWorld> WorldRef;
 	bool bManageView = false;      // career "manage it": fast dots, real sprites for highlights
 	float PreMatchT = 0;
+	float ScreenT = 0;          // v0.9.4: seconds on the current screen (the result screen ignores presses for a moment)
+	bool bDotsNow = false;      // v0.9.4: the manage view drew dots this frame (no sprite positions for the ratings)
 	int32 MusicVol = 7, SfxVol = 8;     // 0..10, saved in Saved/pf_options.txt
 	void LoadOptions();
 	void SaveOptions();

@@ -1,5 +1,47 @@
 # Changelog
 
+## v0.9.4 (2026-11-27): through balls that go somewhere
+
+**Through balls (Y), rebuilt**
+- **Played into space, 14-30 m beyond the runner.** The passer tries 25 spots ahead of the run (five lengths, five angles) and follows the ball's path against every defender: when each one can read it, turn and get there, and when the runner can. He picks the longest lead the runner still wins. The spots stay inside the pitch and short of where the keeper just walks out for it.
+- **Over the top when the ground lane is shut:** a lofted through ball that lands short of the space with backspin, checks up and sits up for the runner.
+- **Weighted for the runner:** the pace is set so the ball reaches the space as he does, still rolling. A poor passer gets the weight wrong (about ±10% at 20, ±1% at 90).
+- **Runner burst:** the intended runner gets a burst while the ball travels, +10% (a plodder) to +30% (a flyer) on top speed and twice that on acceleration, scaled by Pace, Acceleration and Reactions and capped at 13.5 m/s. He sprints onto the ball where it has slowed into his stride, for the pad's side and the AI alike. Turf kicks up behind him.
+- **Defenders have to turn:** a back line can't sprint until it has read the ball and turned (reactions + 0.3 s), it gets a body to the ball rather than a stretch, and a runner level with a defender in the race wins it.
+- **LB called runs are timed:** he bends along the offside line until the pass, then goes.
+- **The AI plays through balls too** (it only ever played short passes and lobs before).
+- **HUD:** a fading ring marks where your through ball is going, and a yellow ring marks who LB sent on a run.
+- **Numbers** (new `-pffeeltest` PFTHRU test: a midfielder at or behind halfway, both sides in shape, 24 balls each). Before: 9 m average, the runner 2-3 m from where it stopped, longest 23 m. Now: the pad's side completes 15/24 (62%), averaging 33 m (longest 46 m); the AI completes 16/24 (67%), averaging 34 m (longest 53 m). Bursts average x1.23. In a 7-minute autopad playtest, 16 of 23 were completed (70%), averaging 23 m.
+
+**Fixes and improvements (24)**
+1. **Diving keepers had their hands in the wrong place.** The body travelled along the dive and his full reach was added again on top, so shots 0.3-0.5 m from a diving keeper went in. Corner-shot test: 12/18 goals before, 7/18 now (39%, about the real rate from 17 m).
+2. **Halves no longer end mid-attack.** The whistle used to go whenever the ball was loose, including with a shot in the air. It now waits for play to leave the final third (8 s at most).
+3. **Your free kicks:** B shoots (aimed with the stick, like open play), A passes, X crosses into the box. Before, any button near goal was an automatic shot.
+4. **Your goal kicks:** A plays it short to the man the stick picks; anything else launches it where the stick points (it was always a random long ball).
+5. **Your corners:** stick across the box = far post, any other way = near post, no stick = the middle, A = short to the edge of the box.
+6. **Keeper crowded fixed:** your player leaves the area at a run, by the nearest edge, when their keeper holds it. Playtest "keeper crowded ticks": 63 before, 0 now.
+7. **AI passing reads the lane:** longer balls need a wider lane, and a ground pass into a shut lane is held unless he's under pressure. Completion holds at 67% (was 68%) even though the AI now also plays through balls. The ~80% real-world figure is still open.
+8. Called runs and bursts are cleared at every restart (a called run used to carry on through a throw-in).
+9. **The playtest bot shoots** (0 shots in a match before, about 12 now) and plays LB + Y through balls. The PFPLAY log now counts through balls.
+10. **Result screen:** presses are ignored for the first second (a pass at the whistle used to skip it), each side's scorers are in their own column (a 3-3 showed only four events), and possession reads 50-50 before a ball is kicked (it read 0-100).
+11. **Friendly menu:** HALF LENGTH is saved (only the Options screen saved it), HOME and AWAY can't be the same club, and B backs out of the pre-match screen.
+12. The title screen shows the real version (it said v0.1.0).
+13. The manage view no longer floats 22 player ratings over the dots pitch.
+14. Team OVR beside the clock counts only the players still on the pitch.
+15. No control ring drawn under a sent-off player.
+16. No log warnings for officials' and managers' missing hand anchors (they never hold the ball).
+17. **Career:** your result appears in the news and, after INSTANT RESULT, in a message (it was only in FIXTURES).
+18. **Career:** NEW CAREER asks before overwriting a save, and CONTINUE says so when a save can't be loaded (it did nothing).
+19. **Career:** you can't release or sell below 16 players or 2 keepers (an empty XI was possible).
+20. **Career:** ACCEPT BEST OFFER needs an open window and a buyer who can still pay, and stale bids lapse when the window shuts.
+21. **Career:** offers no longer overlap the player-card menu, and the Prospects title no longer shows an old message ("Career saved.").
+22. **Career:** a player who changes club mid-season gets a free shirt number and is no longer "dropped" at his new club.
+23. **Career:** STAY on the Offers screen says you stay (it showed "NEW MANAGER ... TAKES CHARGE"), and fees and wages in bid notes are formatted as money.
+24. **Tests:** the sim's "shots wide/over" no longer counts passes intercepted in the air, and the feel test's dribble check measures again (it read 0.00 m).
+
+**Balance:** 20-match sim 2.40 goals/match, 0 stuck (2.20 before). Career test: 2 seasons, divisions intact, save and load round trip OK.
+**Known:** AI pass completion is 67% (real ~80%). The dark green specks on some night stadium art remain (left for the 3D stadium work).
+
 ## v0.9.3 (2026-11-27): aim where you point
 
 - **Shots go where the stick points:** the ball is aimed where the stick's line meets the goal line (near post, far post, anywhere between), kept just inside the posts; no stick aims at the far corner. The pad's random shot error is under half what it was, scaled by the shooter's rating. Aim test: 9 shots from three spots all land within about a metre of the target (75-rated shooter).

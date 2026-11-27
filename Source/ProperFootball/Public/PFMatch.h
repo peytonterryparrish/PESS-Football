@@ -131,6 +131,8 @@ struct FPFPlayer
 	uint8 DrawDir = 255;       // v0.9.2: the view drawn last frame (changes only past a margin: no flicker between views)
 	float RunT = 0;            // v0.9.2 LB call: seconds left on a forward run the pad's player asked for
 	FVector2D RunTo = FVector2D::ZeroVector;
+	float BoostT = 0;          // v0.9.4: seconds left on the burst a through ball's runner gets (faster for better players)
+	float BoostMul = 1.f;      // top-speed multiplier while it lasts (acceleration gets twice the gain)
 };
 
 struct FPFBall
@@ -144,6 +146,8 @@ struct FPFBall
 	float Curl = 0;
 	float GuideV = 0;   // its steady speed while guided (m/s)
 	int32 Guide = -1; // v0.8 assisted pass: the team-mate it is being steered onto (-1 = free ball)
+	FVector2D ThroughAim = FVector2D::ZeroVector;   // v0.9.4: the space a through ball was played into
+	float ThroughT = 0;                             // seconds since it was played
 };
 
 enum class EPFPhase : uint8 { PreKick, Play, Goal, Restart, HalfTime, FullTime };
@@ -173,6 +177,7 @@ public:
 	int32 PT_Passes = 0, PT_PassOK = 0, PT_Shots = 0, PT_Chips = 0, PT_Crosses = 0, PT_Feints = 0, PT_FeintBeat = 0, PT_KeeperThrows = 0, PT_ThrowIns = 0;
 	int32 AnyPassFrom = -1, AnyPassTo = -1; float AnyPassT = 0, AnyPassMin = 99; FVector2D AnyPassFromPos;
 	int32 PT_ShortN = 0, PT_ShortOK = 0, PT_ShortToTarget = 0, PT_ShortLost = 0, PT_PassKind = 0, PT_PassTarget = -1; FVector2D PT_PassFromPos = FVector2D::ZeroVector; float PT_PassLen = 0;   // v0.8: short (A) passes only
+	int32 PT_ThroughN = 0, PT_ThroughOK = 0; float PT_ThroughLen = 0;   // v0.9.4
 	int32 PT_KeeperCrowded = 0; float PT_MaxRoll = 0, PT_RollT = 0; int32 PT_LongRolls = 0; int32 PT_PassFrom = -1; float PT_PassT = 0;
 	void Draw(UCanvas* C, UMaterialInterface* SpriteMat);
 	void AddReferencedObjects(FReferenceCollector& Collector);
@@ -196,6 +201,19 @@ public:
 	// test helpers (feel test): the stick direction that points along a world direction, and the goal a team attacks
 	FVector2D StickFor(FVector2D WorldDir) const { return Proj.DirToScreen(WorldDir).GetSafeNormal(); }
 	FVector2D AttackGoal(int32 Team) const { return GoalCentre(Team, true); }
+	int32 AttackSign(int32 Team) const { return AttackDir(Team); }
+	// v0.9.4 test helper: everyone but the man on the ball at his formation spot, standing (a side in shape round him)
+	void TestTakeShape() { for (FPFPlayer& Pl : P) if (!Pl.bSentOff && Pl.Index != Ball.Owner) { Pl.Pos = FormationSpot(Pl); Pl.Vel = FVector2D::ZeroVector; Pl.bSettled = true; } }
+	// v0.9.4 test helper: the AI's through ball from one player, along a direction (returns the receiver, -1 = none)
+	int32 TestThroughBall(int32 From, FVector2D Dir)
+	{
+		FPFPlayer& Pl = P[From];
+		const int32 R = BestPassTarget(Pl, Dir, true);
+		if (R < 0) return -1;
+		Pl.PendingKick = EPFKick::Through; Pl.KickTarget = R; Pl.KickPower = 0.75f; Pl.KickAim = P[R].Pos;
+		FireKick(Pl);
+		return R;
+	}
 	struct FCrew { TObjectPtr<UTexture2D> Tex = nullptr; FVector2D Pos; };
 	TArray<FCrew> Crew;            // camera operators and ball boys (static sideline sprites from the owner's pack)
 	FPFBall Ball;
@@ -289,6 +307,16 @@ private:
 	void Kick(FPFPlayer& Pl, EPFKick Type, FVector2D Target, float Power, int32 Receiver = -1);
 	int32 BestPassTarget(const FPFPlayer& From, FVector2D Dir, bool bThrough) const;
 	int32 BestPassTargetCone(const FPFPlayer& From, FVector2D Dir, bool bThrough, float MinCos) const;
+	// v0.9.4 through balls: the space to play it into (the longest lead the runner wins against every defender), the
+	// runner's time to get there, his burst, and the point on the ball's path he runs to
+	FVector2D ThroughSpace(const FPFPlayer& From, const FPFPlayer& R, float& OutRunT) const;
+	float RunnerSpeed(const FPFPlayer& R, bool bWithBoost) const;
+	float ThroughBoostFor(const FPFPlayer& R) const;
+	FVector2D ThroughMeet(const FPFPlayer& R) const;
+	float PendThroughT = 0.f;
+public:
+	mutable float DbgThroughMargin = 0, DbgThroughRun = 0;   // test: the chosen space's predicted margin over the defence and the runner's time
+private:
 	int32 NearestToBall(int32 Team, bool bOutfieldOnly) const;
 	FVector2D FormationSpot(const FPFPlayer& Pl) const;
 	void Goal(int32 ScoringTeam);

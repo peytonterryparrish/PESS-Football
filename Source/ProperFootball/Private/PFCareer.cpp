@@ -20,7 +20,7 @@ UPFCareer* UPFCareer::Get(const UObject* Ctx)
 
 UPFFlow* UPFCareer::F() const { return UPFFlow::Get(this); }
 
-void UPFCareer::Enter() { Back.Reset(); Screen = EPFCScreen::Entry; Sel = 0; }
+void UPFCareer::Enter() { Back.Reset(); Screen = EPFCScreen::Entry; Sel = 0; bConfirmNew = false; }
 
 void UPFCareer::Go(EPFCScreen S, bool bPush)
 {
@@ -36,12 +36,7 @@ void UPFCareer::Pop()
 
 void UPFCareer::Msg(const FString& Text, EPFCScreen Then) { Message = Text; AfterMessage = Then; Screen = EPFCScreen::Message; }
 
-FString UPFCareer::Money(int64 V) const
-{
-	const bool bNeg = V < 0; V = FMath::Abs(V);
-	FString S = V >= 1000000 ? FString::Printf(TEXT("%.1fM"), V / 1e6) : V >= 1000 ? FString::Printf(TEXT("%lldK"), V / 1000) : FString::Printf(TEXT("%lld"), V);
-	return (bNeg ? TEXT("-") : TEXT("")) + FString(TEXT("£")) + S;
-}
+FString UPFCareer::Money(int64 V) const { return FPFCareerSim::Money(V); }   // v0.9.4: one formatter, shared with the sim's news and bid notes
 
 FString UPFCareer::Stars(int32 Ovr) const
 {
@@ -87,8 +82,11 @@ void UPFCareer::PlayUserMatch(int32 Mode)
 	PendingFixture = Fi;
 	if (Mode == 2)
 	{
+		Sim.LastUserResult.Reset();
 		Sim.QuickSim(Sim.S.Fixtures[Fi]);
 		AdvanceDay();
+		// v0.9.4: show the score before carrying on to wherever the day ended up (hub, or the summer/offers screen)
+		if (!Sim.LastUserResult.IsEmpty()) Msg(Sim.LastUserResult, Screen);
 		return;
 	}
 	FPFMatchSetup Setup = Sim.MatchSetup(Sim.S.Fixtures[Fi], Mode == 0);
@@ -163,13 +161,21 @@ void UPFCareer::Tick(float Dt, const FPFPadState& Pad)
 		const bool bHasSave = FPFCareerSim::SaveExists(SLOT);
 		const int32 N = bHasSave ? 3 : 2;
 		Nav(N);
-		if (Pad.pB) { Fl->Go(EPFScreen::Main); return; }
+		if (Pad.pUp || Pad.pDown) bConfirmNew = false;
+		if (Pad.pB) { bConfirmNew = false; Fl->Go(EPFScreen::Main); return; }
 		if (Pad.pA)
 		{
 			const int32 Choice = bHasSave ? Sel : Sel + 1;
-			if (Choice == 0 && Sim.Load(SLOT)) { bLoaded = true; Back.Reset(); Screen = S.Phase == TEXT("Offers") || S.bUnemployed ? EPFCScreen::Offers : EPFCScreen::Hub; Sel = 0; }
+			if (Choice == 0)
+			{
+				// v0.9.4: say so when the save is unreadable instead of doing nothing
+				if (Sim.Load(SLOT)) { bLoaded = true; Back.Reset(); Screen = S.Phase == TEXT("Offers") || S.bUnemployed ? EPFCScreen::Offers : EPFCScreen::Hub; Sel = 0; }
+				else Msg(TEXT("Save could not be loaded."), EPFCScreen::Entry);
+			}
+			else if (Choice == 1 && bHasSave && !bConfirmNew) bConfirmNew = true;   // v0.9.4: a second A is needed to overwrite a save
 			else if (Choice == 1)
 			{
+				bConfirmNew = false;
 				Sim.NewCareer(FPlatformTime::Cycles64(), PFWorld::RandomName(Sim.Rng, true));
 				bLoaded = true; Back.Reset(); Screen = EPFCScreen::Appointed; Sim.Save(SLOT);
 			}
@@ -181,7 +187,7 @@ void UPFCareer::Tick(float Dt, const FPFPadState& Pad)
 		if (Pad.pA || Pad.pStart) { Screen = EPFCScreen::Hub; Sel = 0; }
 		return;
 	case EPFCScreen::Message:
-		if (Pad.pA || Pad.pB) { Screen = AfterMessage; Sel = 0; }
+		if (Pad.pA || Pad.pB) { Screen = AfterMessage; Sel = 0; Message.Reset(); }   // v0.9.4: don't leave it to reappear as the Prospects title
 		return;
 	case EPFCScreen::Hub:
 	{
@@ -233,7 +239,13 @@ void UPFCareer::Tick(float Dt, const FPFPadState& Pad)
 		const FString A = Acts[Sel];
 		if (A == TEXT("BACK")) Pop();
 		else if (A == TEXT("PROMOTE TO FIRST TEAM")) { Sim.PromoteYouth(P->Id); Msg(FString::Printf(TEXT("%s moves up to the first team."), *P->Name), EPFCScreen::Academy); Back.Pop(); }
-		else if (A == TEXT("RELEASE")) { const FString N = P->Name; Sim.ReleasePlayer(P->Id); Msg(FString::Printf(TEXT("%s has been released."), *N), EPFCScreen::Hub); Back.Reset(); }
+		else if (A == TEXT("RELEASE"))
+		{
+			// v0.9.4: the sim refuses if it would leave under 16 players or under two keepers
+			const FString N = P->Name; const FString Why = Sim.ReleasePlayer(P->Id);
+			if (!Why.IsEmpty()) Msg(Why, EPFCScreen::PlayerCard);
+			else { Msg(FString::Printf(TEXT("%s has been released."), *N), EPFCScreen::Hub); Back.Reset(); }
+		}
 		else if (A.Contains(TEXT("TRANSFER LIST"))) { P->bListed = !P->bListed; }
 		else if (A == TEXT("DROP FROM THE XI") || A == TEXT("PUT BACK IN CONTENTION")) { P->bDropped = !P->bDropped; }
 		else if (A == TEXT("OFFER NEW CONTRACT")) { Msg(Sim.OfferContract(P->Id), EPFCScreen::PlayerCard); }
@@ -241,7 +253,13 @@ void UPFCareer::Tick(float Dt, const FPFPadState& Pad)
 		{
 			bool bAny = false; for (const FPFBid& B : S.Bids) if (B.Person == P->Id && B.Status == 0 && !B.bByUser) bAny = true;
 			if (!bAny) Msg(TEXT("No offers for him yet. Put him on the transfer list."), EPFCScreen::PlayerCard);
-			else { Sim.SellToBest(P->Id); Msg(TEXT("Deal done."), EPFCScreen::Hub); Back.Reset(); }
+			else
+			{
+				// v0.9.4: refused when the window is shut, the buyer can't pay, or the squad would be too thin
+				const FString Why = Sim.SellToBest(P->Id);
+				if (!Why.IsEmpty()) Msg(Why, EPFCScreen::PlayerCard);
+				else { Msg(TEXT("Deal done."), EPFCScreen::Hub); Back.Reset(); }
+			}
 		}
 		return;
 	}
@@ -336,11 +354,15 @@ void UPFCareer::Tick(float Dt, const FPFPadState& Pad)
 		const int32 N = S.Offers.Num() + (S.bUnemployed ? 0 : 1);
 		Nav(FMath::Max(1, N));
 		if (!Pad.pA) return;
+		const bool bStay = !S.bUnemployed && (Sel >= S.Offers.Num() || (S.Offers.IsValidIndex(Sel) && S.Offers[Sel].Club == S.UserClub));
 		if (Sel < S.Offers.Num()) Sim.AcceptOffer(Sel);
 		else Sim.AcceptOffer(-1);   // stay
 		if (S.bUnemployed && !S.Offers.Num()) return;
 		Sim.Save(SLOT);
-		Back.Reset(); Screen = EPFCScreen::Appointed; Sel = 0;
+		Back.Reset();
+		// v0.9.4: staying is not a new appointment
+		if (bStay) Msg(FString::Printf(TEXT("You stay at %s for another season."), *Sim.UserClub().Name), EPFCScreen::Hub);
+		else { Screen = EPFCScreen::Appointed; Sel = 0; }
 		return;
 	}
 	default: if (Pad.pB) Pop(); return;
@@ -477,6 +499,7 @@ void UPFCareer::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		Fl->Text(C, TEXT("CAREER"), CX, 140 * U, 2.4f, FLinearColor::White, EPFAlign::Center);
 		Fl->Text(C, TEXT("START AT A RANDOM LEAGUE TWO CLUB. GET RELEGATED AND YOU ARE OUT."), CX, 260 * U, 0.75f, Pale, EPFAlign::Center, true);
 		Fl->DrawMenu(C, TEXT("MANAGER"), MI, Sel, CX - 260 * U, C->ClipY * 0.45f, 520 * U);
+		if (bConfirmNew) Fl->Text(C, TEXT("A AGAIN TO OVERWRITE YOUR SAVED CAREER"), CX, 320 * U, 0.8f, Bad, EPFAlign::Center, true);   // v0.9.4
 		break;
 	}
 	case EPFCScreen::Appointed:
@@ -536,7 +559,7 @@ void UPFCareer::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		if (P->bAcademy) { MI.Add({ TEXT("PROMOTE TO FIRST TEAM") }); MI.Add({ TEXT("RELEASE") }); MI.Add({ TEXT("BACK") }); }
 		else { MI.Add({ P->bDropped ? TEXT("PUT BACK IN CONTENTION") : TEXT("DROP FROM THE XI") }); MI.Add({ TEXT("OFFER NEW CONTRACT") }); MI.Add({ P->bListed ? TEXT("TAKE OFF TRANSFER LIST") : TEXT("TRANSFER LIST") }); MI.Add({ TEXT("ACCEPT BEST OFFER") }); MI.Add({ TEXT("RELEASE") }); MI.Add({ TEXT("BACK") }); }
 		Fl->DrawMenu(C, TEXT("OPTIONS"), MI, Sel, 1000 * U, 320 * U, 700 * U);
-		float Y = 600 * U;
+		float Y = 320 * U + 58 * U * MI.Num() + 50 * U;   // v0.9.4: below the options box (it ends ~30 under its last row), ~720 for six rows
 		for (const FPFBid& B : S.Bids) if (B.Person == P->Id && B.Status == 0 && !B.bByUser)
 		{ Fl->Text(C, FString::Printf(TEXT("%s OFFER %s"), *S.Clubs[B.FromClub].Name.ToUpper(), *Money(B.Fee)), 1000 * U, Y, 0.65f, Gold, EPFAlign::Left, true); Y += 40 * U; }
 		break;
