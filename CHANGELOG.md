@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.9.7 (2026-11-27): one new model and his keeper, every animation redrawn
+
+**From the casting page to the pitch**
+- The owner marked all 16 ISS-inspired stocky sprites (batch C) Yes. Each was turned in 8 directions on PixelLab ($1.27, `Tools/pixellab/idle_rotations.py`, `ArtWork/idle_rotations/`). C00 held up best from every side and became the one outfield model.
+- **Same man in goal.** The keeper (NK1) is C00 in goalkeeper kit: long sleeves and grey gloves, same face and build (`Tools/pixellab/reset_bodies.py`).
+- Both were recoloured into the template kit by PixelLab, so every club's kit still colours them in.
+
+**Every animation, all 8 directions**
+- 67 PixelLab jobs ($3.33, none failed). Outfield: run, sprint, walk, dribble, tackles and slides, passes and shots, volleys, headers, throw-ins, celebrations. Keeper: ready stance, shuffles, catches, punch, scoop, throws, punts, dives, running and walking.
+- Five directions are drawn and the other three are their mirror images. Atlases: N01 has 487 cells, NK1 has 174.
+- **Balls removed from the art.** PixelLab drew a ball into 30 outfield frames and 6 keeper frames. They're cut out by `Tools/pixellab/debake_ball.py`; the originals are kept under `_baked/`. The game draws its own ball.
+- Every player on the pitch is now N01 and every keeper NK1. `-pfbody=mixed` brings back the five older bodies.
+
 ## v0.9.6 (2026-11-27): size back, closer camera, near/far post shooting, art reset started
 
 **Players back to their old size, camera a touch closer**

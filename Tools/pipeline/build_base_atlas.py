@@ -209,7 +209,7 @@ def build(bid, sheets=False):
         have = dict(cells)
         for n in ("gk_push", "gk_load", "gk_reach", "gk_fly", "gk_land"):
             if f"south/{n}_R" in have and f"south/{n}_L" not in have: add(f"south/{n}_L", have[f"south/{n}_R"].transpose(Image.FLIP_LEFT_RIGHT))
-    if keeper:   # the owner's audited flat dives (R08 pack), recoloured into the template kit
+    if keeper and body.get("src"):   # the owner's audited flat dives (R08 pack), recoloured into the template kit (v0.9.6: bodies with their own dive only)
         kits = {k["slug"]: k for k in json.load(open(os.path.join(produce_base.IDLES, "Club_Kit_Palettes.json")))}
         player = os.path.splitext(os.path.basename(body["src"]))[0]
         for name, cell in BC.pack_dives(body["club"], player, body["kit"]):
