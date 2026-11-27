@@ -83,7 +83,7 @@ public:
 	bool bPause = false;
 	int32 PauseSel = 0;
 	int32 FriendlyHome = 0, FriendlyAway = 1, FriendlySide = 0, FriendlyStage = 0, FriendlyLen = 1, CameraOpt = 3;   // v0.9.2: WIDE (owner's pick)
-	int32 SizeOpt = 2;   // v0.9.5: PLAYER SIZE - SMALL 0.6 (v0.9.1-v0.9.4), MEDIUM 0.9, LARGE 1.2 (default, ISS-like; A/B in ArtWork/ab_v095)
+	int32 SizeOpt = 0;   // v0.9.5 PLAYER SIZE; v0.9.6 removed the option (always the v0.9.1 size), kept only so old option files still load
 	TFunction<void(const FPFMatch&)> MatchDone;
 	FPFMatch* LastMatch = nullptr;
 	TWeakObjectPtr<UWorld> WorldRef;

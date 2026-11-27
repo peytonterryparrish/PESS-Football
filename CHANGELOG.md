@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.9.6 (2026-11-27): size back, closer camera, near/far post shooting, art reset started
+
+**Players back to their old size, camera a touch closer**
+- LARGE made the players far too big for the pitch. They are back to the v0.9.1-v0.9.4 size, and the PLAYER SIZE option is gone.
+- Every camera setting is 15% closer than before.
+
+**One model on the pitch**
+- Everyone is drawn in one outfield body (B01) and one keeper body (BK2) until the new art is approved. `-pfbody=mixed` brings back the five bodies.
+
+**Shooting: near post, far post, and the shot's quality decides it**
+- Before, the shot followed the stick's line to the goal line, so running at goal from the side always went near post.
+- Now the stick picks the post: pushed up or down the screen, that post; toward goal or let go, the far post.
+- The shot's quality comes from timing (B held about a third of a second is clean; a tap is weak; held to the end is snatched), the shooter, distance, angle, a defender close by, and sprinting.
+  - **Bad:** at the keeper, or dragged wide. Never beats him.
+  - **Good:** toward the corner, the better the closer. The keeper dives and saves it or doesn't (beaten 20-60% of the time, less by a good keeper).
+  - **Amazing:** into the top of the corner at full pace; beats the keeper nine times in ten.
+- New `PFPLACE` test (54 pad shots against a keeper): near post 14, far post 40; bad 0 goals of 8, good 9 of 39, amazing 6 of 7.
+
+**Art reset: south idle casting**
+- 112 south idle candidates from PixelLab ($0.58), one kit, all 64×64 and styled from the owner's R08 south idle pack: relaxed, A-pose, T-pose, stockier, ready stance (`Tools/pixellab/idle_candidates.py`, `ArtWork/idle_candidates/`).
+- They are on an approval page for Yes / No / Best. The approved one becomes the single model: 8 directions, then each animation, checked before it goes in.
+
+**Tests:** 20-match sim 2.30 goals a match, 0 stuck.
+
 ## v0.9.5 (2026-11-27): studied from ISS Deluxe, frame by frame
 
 The owner sent an ISS Deluxe study pack (61 stills, three gameplay videos). The keepers, the players' size and build, the shots, the ball and the flow of play were all measured frame by frame (`docs/ISS_STUDY.md` section 8). Nothing from it is copied: only timings, proportions and behaviour.

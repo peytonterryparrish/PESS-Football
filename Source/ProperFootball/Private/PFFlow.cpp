@@ -236,6 +236,59 @@ void UPFFlow::RunFeelTest()
 			float T = 0; while (T < 3.f && FMath::Abs(M.Ball.Pos.X) < FMath::Abs(G.X)) { M.Tick(1.f / 120.f, Q); T += 1.f / 120.f; }
 			UE_LOG(LogPF, Display, TEXT("PFAIM from y %+.0f aiming y %+.1f: crossed the line at y %+.2f (z %.1f) after %.2f s; shots %d, last kick %d, owner %d, phase %d, stick %.2f %.2f"), H.Pos.Y, Target.Y, M.Ball.Pos.Y, M.Ball.Pos.Z, T, M.Shots[0] + M.Shots[1], M.Ball.LastKind, M.Ball.Owner, int32(M.Phase), M.StickFor(Target - H.Pos).X, M.StickFor(Target - H.Pos).Y);
 		}
+	// v0.9.6 placement test (owner: "everything goes near post ... far post or near post ... bad shot right at the goalie
+	// ... good: left or right, the goalie saves it or misses it ... amazing: in the goal"): 54 shots against a real keeper
+	// from the left, centre and right at 17 m, the stick toward goal / up / down, B tapped, held right, or held to the end
+	{
+		int32 N = 0, Near = 0, Far = 0, Gl[3] = { 0, 0, 0 }, Nn[3] = { 0, 0, 0 };
+		for (int32 k = 0; k < 54; ++k)
+		{
+			const int32 Spot = k % 3, Stk = (k / 3) % 3, Hold = (k / 9) % 3, Shooter = (k / 27) % 2;
+			FPFMatch M;
+			FPFMatchSetup S; S.Seed = 900 + k;
+			S.Home = PFWorld::FriendlyTeam(C[0], false, 11); S.Away = PFWorld::FriendlyTeam(C[1], true, 13);
+			S.Home.bHuman = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[0].Stadium;
+			M.Init(S);
+			{ FPFPadInput In; In.bPass = true; M.Tick(1.f / 120.f, In); }
+			FPFPadInput In; for (int32 f = 0; f < 60; ++f) M.Tick(1.f / 120.f, In);
+			FPFPlayer& H = M.P[M.Human];
+			const FVector2D G = M.AttackGoal(H.Team);
+			const float Sg = G.X > 0 ? 1.f : -1.f;
+			int32 Kp = -1;
+			for (FPFPlayer& O : M.P)
+				if (O.Index != M.Human)
+				{
+					O.Act = EPFAct::None; O.PendingKick = EPFKick::None;
+					if (O.bKeeper && O.Team != H.Team) { Kp = O.Index; O.Pos = FVector2D(G.X - Sg * 1.5f, 0); O.Vel = FVector2D::ZeroVector; }
+					else { O.bSentOff = true; O.Pos = FVector2D(0, -60); }
+				}
+			H.Setup.Stats.Shooting = Shooter ? 85 : 60; H.A = PFAbility(H.Setup.Stats, false);
+			H.Pos = FVector2D(G.X - Sg * 17.f, (Spot - 1) * 8.f); H.Vel = FVector2D::ZeroVector; H.Act = EPFAct::None; H.Facing = FVector2D(Sg, 0);
+			M.Ball.Owner = M.Human; M.Ball.Pos = FVector(H.Pos, 0.11f); M.Ball.Vel = FVector::ZeroVector; M.Phase = EPFPhase::Play;
+			const FVector2D StickW = Stk == 0 ? FVector2D(Sg, 0) : FVector2D(Sg * 0.5f, Stk == 1 ? 1.f : -1.f);
+			FPFPadInput Q; Q.Move = M.StickFor(StickW);
+			Q.bShootPressed = true; Q.bShootHeld = true; M.Tick(1.f / 120.f, Q); Q.bShootPressed = false;
+			const int32 Frames = Hold == 0 ? 8 : Hold == 1 ? 37 : 60;
+			for (int32 f = 0; f < Frames && M.Ball.Owner == M.Human; ++f) M.Tick(1.f / 120.f, Q);
+			Q.bShootHeld = false; Q.bShootReleased = true; M.Tick(1.f / 120.f, Q); Q.bShootReleased = false; Q.Move = FVector2D::ZeroVector;
+			const FString Note = M.LastShotNote; const int32 Sc0 = M.Score[H.Team];
+			float LineY = 99, LineZ = 0;
+			for (int32 f = 0; f < 300; ++f)
+			{
+				M.Tick(1.f / 120.f, Q);
+				if (FMath::Abs(M.Ball.Pos.X) > FMath::Abs(G.X) - 0.2f && LineY > 98.f) { LineY = M.Ball.Pos.Y; LineZ = M.Ball.Pos.Z; }
+				if (M.Score[H.Team] != Sc0 || (M.Ball.Owner == Kp && Kp >= 0)) break;
+			}
+			const bool bGoal = M.Score[H.Team] != Sc0;
+			const int32 Gr = Note.Contains(TEXT("amazing")) ? 2 : Note.Contains(TEXT("good")) ? 1 : 0;
+			++N; Near += Note.StartsWith(TEXT("near")); Far += Note.StartsWith(TEXT("far")); Nn[Gr]++; Gl[Gr] += bGoal;
+			UE_LOG(LogPF, Display, TEXT("PFPLACE  from y %+.0f stick %s hold %d shooting %d: %s -> %s, at the line y %+.1f z %.1f"),
+				H.Pos.Y, Stk == 0 ? TEXT("goal") : Stk == 1 ? TEXT("up  ") : TEXT("down"), Frames, H.Setup.Stats.Shooting, *Note,
+				bGoal ? TEXT("GOAL") : M.Ball.Owner == Kp ? TEXT("caught") : TEXT("no goal"), LineY, LineZ);
+		}
+		UE_LOG(LogPF, Display, TEXT("PFPLACE %d shots: near post %d, far post %d; bad %d (goals %d), good %d (goals %d), amazing %d (goals %d)"),
+			N, Near, Far, Nn[0], Gl[0], Nn[1], Gl[1], Nn[2], Gl[2]);
+	}
 	// v0.9.3 save test (owner: saves should be "a proper dive, catching the ball"): 18 shots at the near and far post
 	// against a real keeper; how he deals with each
 	{
@@ -500,13 +553,14 @@ void UPFFlow::ApplyCamera()
 	// shows 22 m) and the pitch is half as many screens long. -pfscale=0.5 brings back the v0.8 framing.
 	// v0.9.5 (owner: players "look too thin on the field"; the ISS study: its players stand about 2x real size against
 	// the pitch, ours 0.6x): a PLAYER SIZE option, MEDIUM the default. -pfscale=X overrides it (captures, A/B).
-	static const float Sizes[] = { 0.6f, 0.9f, 1.2f };
-	float Hs = Sizes[FMath::Clamp(SizeOpt, 0, 2)];
+	// v0.9.6 (owner: LARGE made the players "way too big for the field"; "revert back to the same size ... and zoom in a
+	// touch more"): the v0.9.1-v0.9.4 size again, no PLAYER SIZE option, and every camera 15% closer.
+	float Hs = 0.6f;
 	FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs); Hs = FMath::Clamp(Hs, 0.25f, 2.f);
 	FPFMatch::HeightScale = Hs;
 	// v0.9 (owner: "5 different camera angles, 2 even closer and 3 even further away"): six zooms, the v0.9 default
 	// third. Sprite pixels at 1080p: 3:1, 2.5:1, 2:1 (default), 1.67:1, 1.33:1, 1:1. -pfcam=N picks one (captures).
-	static const float Z[] = { 4.68f, 3.90f, 3.12f, 2.60f, 2.08f, 1.56f };
+	static const float Z[] = { 4.68f * 1.15f, 3.90f * 1.15f, 3.12f * 1.15f, 2.60f * 1.15f, 2.08f * 1.15f, 1.56f * 1.15f };
 	{ int32 Cf = -1; if (FParse::Value(FCommandLine::Get(), TEXT("pfcam="), Cf)) CameraOpt = FMath::Clamp(Cf, 0, 5); }
 	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 5)];   // v0.9.1: the zoom frames the pitch; HeightScale alone sets the players' size (owner: "players 40% smaller")
 }
@@ -695,7 +749,6 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), nullptr, [this](int32 D) { SfxVol = FMath::Clamp(SfxVol + D, 0, 10); SaveOptions(); PlaySfx(TEXT("ui_select")); } });
 		Items.Add({ TEXT("HALF LENGTH"), nullptr, [this](int32 D) { FriendlyLen = (FriendlyLen + D + 4) % 4; SaveOptions(); } });
 		Items.Add({ TEXT("CAMERA"), nullptr, [this](int32 D) { CameraOpt = (CameraOpt + D + 6) % 6; SaveOptions(); ApplyCamera(); } });
-		Items.Add({ TEXT("PLAYER SIZE"), nullptr, [this](int32 D) { SizeOpt = (SizeOpt + D + 3) % 3; SaveOptions(); ApplyCamera(); } });
 		Items.Add({ TEXT("BACK"), nullptr, nullptr, [this]() { Go(EPFScreen::Main); } });
 		MenuInput(Items, Sel, Pad);
 		if (Pad.pB) Go(EPFScreen::Main);
@@ -1019,9 +1072,6 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		static const TCHAR* CamL[] = { TEXT("CLOSEST"), TEXT("CLOSER"), TEXT("STANDARD"), TEXT("WIDE"), TEXT("WIDER"), TEXT("WIDEST") };
 		const FString Cm = CamL[FMath::Clamp(CameraOpt, 0, 5)];
 		Items.Add({ TEXT("CAMERA"), [Cm]() { return Cm; }, [](int32) {} });
-		static const TCHAR* SzL[] = { TEXT("SMALL"), TEXT("MEDIUM"), TEXT("LARGE") };
-		const FString Sz = SzL[FMath::Clamp(SizeOpt, 0, 2)];
-		Items.Add({ TEXT("PLAYER SIZE"), [Sz]() { return Sz; }, [](int32) {} });
 		Items.Add({ TEXT("BACK") });
 		DrawMenu(C, TEXT("OPTIONS"), Items, Sel, C->ClipX * 0.5f - 420 * U, C->ClipY * 0.4f, 840 * U);
 		break;
