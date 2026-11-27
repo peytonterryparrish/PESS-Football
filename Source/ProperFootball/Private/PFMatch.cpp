@@ -12,7 +12,7 @@ namespace
 	// GoalH: the owner's goal art is drawn at the players' half height (Tools/pipeline/goals.py), like the ball, so the
 	// real 2.44 m bar is where it's drawn (owner v0.7: goals at realistic size)
 	constexpr float HalfLen = 52.5f, HalfWid = 34.f, GoalHalf = 3.66f, GoalH = 2.44f;
-	constexpr float G = 9.81f;
+	constexpr float G = 13.0f;   // v0.9.5 (ISS study: its ball falls at ~16 m/s2, 1.6x real, so it flies and lands with weight): between the two
 	inline float T01(uint8 S) { return FMath::Clamp((float(S) - 1.f) / 98.f, 0.f, 1.f); }
 	inline FVector2D V2(const FVector& V) { return FVector2D(V.X, V.Y); }
 	inline FVector2D SafeN(FVector2D V, FVector2D Def = FVector2D(1, 0)) { const double L = V.Size(); return L > 1e-4 ? V / L : Def; }
@@ -28,7 +28,7 @@ int32 FPFStats::Overall(bool bKeeper) const
 }
 
 float FPFMatch::CamZoom = 3.12f;   // NEAR: 2 * 64 / (22.533 * 0.5 * 1.82), so a sprite pixel is exactly 2x2 screen pixels at 1080p (ISS framing)
-float FPFMatch::HeightScale = 0.6f;   // v0.9.1: players 40% smaller than true size against the pitch (owner); -pfscale=1 is v0.9.0
+float FPFMatch::HeightScale = 1.2f;   // v0.9.5: LARGE by default (UPFFlow::ApplyCamera sets it from the PLAYER SIZE option); -pfscale=X overrides
 float FPFMatch::GameSpeed = 1.05f;   // v0.9.2: a little faster again (owner); 0.95 at v0.9.1, 0.85 before
 int64 FPFMatch::Diag[48] = {};
 
@@ -90,6 +90,10 @@ int32 FPFMatch::SpriteFor(const FString& Id)
 // ------------------------------------------------------------------------------------------------ laws of the game
 static constexpr float DiveMoveT = 0.35f;     // keeper dive: seconds to cover his reach (v0.7 balance; he lands and slides the rest)
 static constexpr float DiveFlightT = 0.22f;   // keeper dive: seconds in the air (ISS: a short lunge, then he lies flat; docs/ISS_STUDY.md)
+// v0.9.5 (ISS Deluxe frame-by-frame study, docs/ISS_STUDY.md 8): one long-held stretched pose in the air - a flat
+// low/penalty dive 0.28 s, a top-corner dive 0.47 s on a 35-45 degree diagonal - covering about 2-2.8 m, then down
+static float DiveFlightFor(const FPFPlayer& Pl) { return Pl.Clip.ToString().Contains(TEXT("high")) ? 0.45f : 0.29f; }
+static float DiveMoveFor(const FPFPlayer& Pl) { return DiveFlightFor(Pl) + 0.08f; }
 static float PFCadA = 1.f, PFCadB = 0.44f;   // run cadence scale and stride growth (s), see MovePlayers; -pfcada= / -pfcadb= to tune
 static bool PFAB(int32 N) { static int32 V = -1; if (V < 0) { V = 0; FParse::Value(FCommandLine::Get(), TEXT("pfab="), V); } return V == N; }   // A/B test switches (simtest only)
 
@@ -1655,7 +1659,9 @@ void FPFMatch::KeeperAI(FPFPlayer& K, float Dt)
 			const bool bOnTarget = FMath::Abs(Y) < GoalHalf + 1.f && InOwnBox(K.Team, K.Pos) && bShotKind;
 			if (bOnTarget && K.ReactWait == 0 && TimeTo < 1.6f) K.ReactWait = K.A.KeeperReact;   // > 0: reading it
 			if (K.ReactWait > 0) { K.ReactWait -= Dt; if (K.ReactWait <= 0) K.ReactWait = -1.f; }  // -1: read, waiting for the moment
-			const float Need = FMath::Abs(Off) < 0.45f ? 0.12f : DiveMoveT * FMath::Clamp(FMath::Abs(Off) / FMath::Max(K.A.KeeperReach, 0.5f), 0.45f, 1.f) + 0.04f;
+			// v0.9.5 (ISS: the CPU keeper leaves the ground 0.23-0.35 s before the ball arrives, a high dive a little sooner)
+			const float MoveT = Z > 1.3f ? 0.53f : 0.37f;
+			const float Need = FMath::Abs(Off) < 0.45f ? 0.12f : FMath::Min(0.45f, MoveT * FMath::Clamp(FMath::Abs(Off) / FMath::Max(K.A.KeeperReach, 0.5f), 0.45f, 1.f) + 0.04f);
 			if (K.ReactWait < 0 && bOnTarget && TimeTo > Need)
 			{
 				K.Wish = FVector2D(0, FMath::Sign(Off)) * FMath::Clamp(FMath::Abs(Off) / 4.f, 0.f, 0.45f);   // set feet, a short shuffle (he dives for the rest)
@@ -1675,7 +1681,9 @@ void FPFMatch::KeeperAI(FPFPlayer& K, float Dt)
 					{
 						const FName C = bHigh ? (bRight ? TEXT("gk_dive_high_R") : TEXT("gk_dive_high_L")) : (bRight ? TEXT("gk_dive_low_R") : TEXT("gk_dive_low_L"));
 						StartClip(K, C); K.Act = EPFAct::Dive; Diag[8]++; UE_LOG(LogPF, Verbose, TEXT("PF dive %s at %.1f"), *C.ToString(), MatchClock);
-						K.DiveDir = FVector2D(0, FMath::Sign(Off));
+						// v0.9.5: he dives to where the ball will be (a little past it), not always his full reach: a full-length
+						// dive at a ball 2.6 m away carried his hands a metre beyond it (ISS: 2.0-2.8 m dives, hands at the ball)
+						K.DiveDir = FVector2D(0, FMath::Sign(Off)) * FMath::Clamp((FMath::Abs(Off) + 0.3f) / FMath::Max(K.A.KeeperReach, 0.5f), 0.25f, 1.f);
 					}
 					K.Facing = FVector2D(-FMath::Sign(Goal.X), 0);
 				}
@@ -1780,16 +1788,20 @@ void FPFMatch::MovePlayers(float Dt)
 			}
 			if (Pl.Act == EPFAct::Dive)
 			{
-				const float Prog = FMath::Clamp(Pl.ActT / DiveMoveT, 0.f, 1.f);
+				const float MoveT = Pl.DiveDir.IsNearlyZero() ? DiveMoveT : DiveMoveFor(Pl);
+				const float Prog = FMath::Clamp(Pl.ActT / MoveT, 0.f, 1.f);
 				// v0.9.4 (save test: balls 0.3-0.5 m from a diving keeper went in): he already travels along the dive (below),
 				// so the hands lead the body by half a metre, not by his whole reach a second time
-				const FVector2D Body = Pl.Pos + Pl.DiveDir * 0.5f * Prog;
+				const FVector2D Lead = (Pl.DiveDir.X == 0.f && !Pl.DiveDir.IsZero()) ? SafeN(Pl.DiveDir) : Pl.DiveDir;   // v0.9.5: a side dive's length is in DiveDir; the hands still lead by half a metre
+				const FVector2D Body = Pl.Pos + Lead * 0.5f * Prog;
 				(void)Prog;
 				const float ReachZ = (Pl.Clip.ToString().Contains(TEXT("high")) || Pl.Clip == TEXT("gk_catch_high")) ? 2.6f : 1.4f;
-				if (Ball.Owner < 0 && Pl.NoTouch <= 0 && FVector2D::Distance(Body, V2(Ball.Pos)) < (Pl.DiveDir.IsZero() ? 1.3f : 0.72f) && Ball.Pos.Z < ReachZ)
+				if (Ball.Owner < 0 && Pl.NoTouch <= 0 && FVector2D::Distance(Body, V2(Ball.Pos)) < (Pl.DiveDir.IsZero() ? 1.3f : 0.66f) && Ball.Pos.Z < ReachZ)
 				{
 					const float Speed = Ball.Vel.Size();
-					const bool bCatch = InOwnBox(Pl.Team, Body) && Speed < 16.f + 12.f * T01(Pl.Setup.Stats.Keeping) && Rng.Unit() < 0.45f + 0.5f * T01(Pl.Setup.Stats.Keeping);
+					// v0.9.5 (ISS: 6 of 6 balls a keeper got to were held, and after a catch he goes down on it): a ball he
+					// reaches is mostly held; a fierce one or a weak keeper still spills it
+					const bool bCatch = InOwnBox(Pl.Team, Body) && Speed < 18.f + 12.f * T01(Pl.Setup.Stats.Keeping) && Rng.Unit() < 0.6f + 0.35f * T01(Pl.Setup.Stats.Keeping);
 						if (bCatch) { GiveKeeperHands(Pl); SetBanner(TEXT("SAVE!"), 1.0f); Sfx.Add(TEXT("catch")); Diag[10]++; }
 						else
 						{
@@ -1799,8 +1811,9 @@ void FPFMatch::MovePlayers(float Dt)
 					}
 					Ball.LastTouch = Pl.Index; Ball.LastTeam = Pl.Team; Pl.NoTouch = 0.4f;
 				}
-				if (Prog < 1.f) Pl.Pos += Pl.DiveDir * Pl.A.KeeperReach / DiveMoveT * Dt;
-				if (Pl.ActT - Dt < DiveFlightT && Pl.ActT >= DiveFlightT && !Pl.DiveDir.IsNearlyZero()) SpawnDust(Pl.Pos, Pl.DiveDir, 10, 2.5f);   // he lands
+				if (Prog < 1.f) Pl.Pos += Pl.DiveDir * Pl.A.KeeperReach / MoveT * Dt;
+				const float FlT = DiveFlightFor(Pl);
+				if (Pl.ActT - Dt < FlT && Pl.ActT >= FlT && !Pl.DiveDir.IsNearlyZero()) SpawnDust(Pl.Pos, Pl.DiveDir, 10, 2.5f);   // he lands
 				Pl.Vel = FVector2D::ZeroVector;
 			}
 			if (Pl.ActT >= Pl.ActLen)
@@ -2100,7 +2113,7 @@ FVector2D FPFMatch::ThroughMeet(const FPFPlayer& R) const
 		if (Bp.Z > 0.12f || Bv.Z > 0.1f)
 		{
 			Bv.Z -= G * 0.05f; Bp += Bv * 0.05f;
-			if (Bp.Z < 0.11f) { Bp.Z = 0.11f; if (Bv.Z < -1.8f) { Bv.Z = -Bv.Z * 0.6f; Bv.X *= 0.86f; Bv.Y *= 0.86f; } else Bv.Z = 0.f; }
+			if (Bp.Z < 0.11f) { Bp.Z = 0.11f; if (Bv.Z < -1.8f) { Bv.Z = -Bv.Z * 0.6f; Bv.X *= 0.74f; Bv.Y *= 0.74f; } else Bv.Z = 0.f; }
 		}
 		else
 		{
@@ -2383,7 +2396,7 @@ void FPFMatch::BallPhysics(float Dt)
 		{
 			if (V.Z < -4.f) Sfx.Add(TEXT("ball_bounce"));
 			// v0.9.4: a ball played over the top has backspin: it checks when it lands and sits up for the runner
-			const float Skid = (Ball.LastKind == int32(EPFKick::Through) && Ball.Owner < 0) ? 0.55f : 0.86f;
+			const float Skid = (Ball.LastKind == int32(EPFKick::Through) && Ball.Owner < 0) ? 0.55f : 0.74f;   // v0.9.5: ISS keeps ~69% per bounce (was 0.86)
 			V.Z = -V.Z * 0.6f; V.X *= Skid; V.Y *= Skid;
 		}
 		else V.Z = 0;
@@ -3142,6 +3155,25 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		C->DrawItem(T);
 	}
 
+	// v0.9.5 (ISS Deluxe): a small cross on the grass where a high ball will come down, until it lands
+	if (Ball.Owner < 0 && Ball.Pos.Z > 1.5f && Phase == EPFPhase::Play)
+	{
+		FVector Bp = Ball.Pos, Bv = Ball.Vel; float T = 0.f;
+		while (Bp.Z > 0.11f && T < 4.f) { Bv.Z -= G * 0.02f; Bv -= Bv * (0.012f * Bv.Size()) * 0.02f; Bp += Bv * 0.02f; T += 0.02f; }
+		if (T > 0.2f)
+		{
+			const FVector2D S = ToScreen(Proj.GroundToAtlas(V2(Bp)));
+			const float Px = FMath::Max(1.f, FMath::RoundToFloat(SpriteScale));
+			const FLinearColor Col(1.f, 0.95f, 0.4f, FMath::Clamp(T * 2.f, 0.3f, 0.85f));
+			for (int32 k = -3; k <= 3; ++k)
+				for (int32 sgn = -1; sgn <= 1; sgn += 2)
+				{
+					FCanvasTileItem Dt(FVector2D(S.X + k * Px - Px * 0.5f, S.Y + k * sgn * Px * 0.5f - Px * 0.5f), GWhiteTexture, FVector2D(Px, Px), Col);
+					Dt.BlendMode = SE_BLEND_Translucent; C->DrawItem(Dt);
+				}
+		}
+	}
+
 	// sort sprites by ground depth (atlas y of the feet)
 	struct FDrawItem { float Depth; int32 Kind; int32 Idx; };
 	TArray<FDrawItem> Items;
@@ -3274,7 +3306,7 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 				if (Set.Has(TEXT("gk_fly_R")) && Set.Has(TEXT("gk_land_L")))
 				{
 					const TCHAR* Sd = DS.X < 0 ? TEXT("R") : TEXT("L");   // facing the camera, his right is screen-left
-					const float Pr = FMath::Clamp(Pl.ActT / DiveFlightT, 0.f, 1.f);
+					const float Pr = FMath::Clamp(Pl.ActT / DiveFlightFor(Pl), 0.f, 1.f);
 					const bool bLanded = Pr >= 1.f;
 					const FName FP(*FString::Printf(TEXT("%s_%s"), bLanded ? TEXT("gk_land") : Pr < 0.62f ? TEXT("gk_reach") : TEXT("gk_fly"), Sd));
 					const FPFFrame& FF = Set.Get(EPFDir::S, FP);
@@ -3293,12 +3325,12 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 				{
 					// v0.8 ISS-style dive: take-off, a flat flight on an arc (higher for a high dive), then he lands
 					// full length on the turf (the smother frame) and the clip's get-up follows
-					const float Pr = FMath::Clamp(Pl.ActT / DiveFlightT, 0.f, 1.f);   // airborne part only; the body keeps moving to DiveMoveT
+					const float Pr = FMath::Clamp(Pl.ActT / DiveFlightFor(Pl), 0.f, 1.f);   // airborne part only; the body keeps moving to DiveMoveT
 					const bool bLanded = Pr >= 1.f && Set.Has(TEXT("gk_smother"));
 					FName FP = bLanded ? FName(TEXT("gk_smother")) : Fly;
 					// v0.9: the body's own reach frame (arms out past his head) as he leaves the ground, then the flat flight
 					bool bReach = false;
-					if (!bLanded && Pr < 0.45f && Set.Has(TEXT("gk_reach_R")) && Set.Has(TEXT("gk_reach_L"))) { FP = DS.X < 0 ? FName(TEXT("gk_reach_R")) : FName(TEXT("gk_reach_L")); bReach = true; }
+					if (!bLanded && Pr < 0.22f && Set.Has(TEXT("gk_reach_R")) && Set.Has(TEXT("gk_reach_L"))) { FP = DS.X < 0 ? FName(TEXT("gk_reach_R")) : FName(TEXT("gk_reach_L")); bReach = true; }
 					const FPFFrame& FF = Set.Get(EPFDir::S, FP);
 					// the smother frame lies with the hands to screen-left; mirror it for a dive to the right
 					const bool bMir = bLanded && DS.X >= 0 && !bReach;

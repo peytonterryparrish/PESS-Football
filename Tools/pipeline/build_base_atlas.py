@@ -15,7 +15,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 sys.path[:0] = [os.path.join(ROOT, "Tools", "pipeline"), os.path.join(ROOT, "Tools", "pixellab")]
 import build_atlas as BA, build_club_atlas as BC, kit, poses_base, produce_base
 
-RAW = os.path.join(ROOT, "ArtWork", "raw_base"); OUTD = os.path.join(ROOT, "GameData", "Sprites")
+RAW = os.path.join(ROOT, "ArtWork", os.environ.get("PF_RAW_BASE", "raw_base")); OUTD = os.path.join(ROOT, "GameData", "Sprites")
 PILOT = os.path.join(ROOT, "ArtWork", "base_pilot")
 CELL, COLS = 96, 20
 DIRS8 = ["south", "south-east", "east", "north-east", "north", "north-west", "west", "south-west"]
@@ -214,6 +214,8 @@ def build(bid, sheets=False):
         player = os.path.splitext(os.path.basename(body["src"]))[0]
         for name, cell in BC.pack_dives(body["club"], player, body["kit"]):
             cell, _ = kit.to_template(cell, kits[body["club"]][body["kit"]])
+            wide = os.path.join(d, "pack", name + ".png")    # v0.9.5: the stocky version (Tools/pixellab/widen_dives.py)
+            if os.path.exists(wide): cell = Image.open(wide).convert("RGBA")
             add(f"south/{name}", cell)
     rows = (len(cells) + COLS - 1) // COLS
     atlas = Image.new("RGBA", (COLS * CELL, rows * CELL), (0, 0, 0, 0)); frames = {}

@@ -1,5 +1,46 @@
 # Changelog
 
+## v0.9.5 (2026-11-27): studied from ISS Deluxe, frame by frame
+
+The owner sent an ISS Deluxe study pack (61 stills, three gameplay videos). The keepers, the players' size and build, the shots, the ball and the flow of play were all measured frame by frame (`docs/ISS_STUDY.md` section 8). Nothing from it is copied: only timings, proportions and behaviour.
+
+**Players no longer look thin**
+- **Why they did.** An ISS player stands about 3.5 pitch-metres tall (2× real), ours 1.07 m. Our bodies were also built "tall and slender": the head about 1/8 of the height (ISS 1/5) and 3-4 px legs (ISS about 5 px).
+- **New stocky bodies, every pose redrawn with PixelLab.**
+  - All 5 outfield bodies and both keepers.
+  - Each standing turn was widened 1.3× with a 1.25× head at the same height, then cleaned up. Every animation was regenerated from those turns on fresh skeletons: run, sprint, dribble, tackle, slide, kicks, celebrations, throw-ins and all the keeper's sets.
+  - That is 282 jobs, $6.16.
+  - The keepers' flat dive frames are thickened to match.
+  - Four frames with a ball baked into the art were redone, so the ball no longer appears twice.
+- **PLAYER SIZE option:**
+  - **LARGE (1.2×, the new default)**: sprite pixels exactly 2:1 at the WIDE camera, the closest to ISS.
+  - MEDIUM (0.9×).
+  - SMALL (0.6×, the v0.9.4 size).
+  - The A/B captures are in `ArtWork/ab_v095/`.
+
+**Goalkeepers, as ISS does them**
+- **One long-held stretch in the air:** a low dive flies 0.29 s, a top-corner dive 0.45 s (ISS 0.28 s and 0.47 s).
+- **Dives to where the ball will be.** Every dive used to cover his full reach, which carried his hands a metre past a ball heading 2.6 m away.
+- **Timed to meet the ball:** he leaves the ground at most 0.45 s before it arrives (ISS 0.23-0.35 s).
+- **Down and up:** he lies about 0.4 s, then kneels and gets up (he used to snap straight back to his feet).
+- **Safe hands:** a ball he gets to is held 60-95% of the time (was 45-95%). ISS held 6 of 6.
+- **After a standing catch or pick-up he goes down on the ball** for a moment, as ISS keepers always do.
+- **BK1's dives were black for every club** (its source kit was black, so it never took the club colours). It now dives in the club's kit.
+- Corner-shot test (PFSAVE, 18 shots): 7 goals and 9 caught before, now 2 goals and 13 caught.
+
+**The ball**
+- **Heavier flight:** gravity is 13 m/s². ISS's ball falls at about 16 m/s², real is 9.81. Lofted balls, crosses and shots now come down with weight.
+- **Deader bounces:** a bounce keeps 74% of the ball's pace (was 86%; ISS 69%).
+- **Landing cross:** a small cross on the grass marks where a high ball will come down, until it lands (ISS).
+
+**Balance:**
+- 40-match sim: 2.22 goals/match, 17.7 shots, 0 stuck.
+- Through balls: the pad's side completes 71%, the AI 75%.
+- Career test passes.
+
+**Known:**
+- The new art keeps every pose the game draws. The older arcade run cycles (`runa`/`runb`) aren't regenerated: the game draws the v0.9.2 realistic cycles first, so nothing visible is lost.
+
 ## v0.9.4 (2026-11-27): through balls that go somewhere
 
 **Through balls (Y), rebuilt**
