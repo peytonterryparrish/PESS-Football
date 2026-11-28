@@ -1,0 +1,10 @@
+{
+ "action": "pass_long",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 11,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: a long driven pass, side view: two-step approach, plant, kicking leg swings back then through with the laces, body leaning back slightly, high follow-through, lofted switch of play. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 942
+}

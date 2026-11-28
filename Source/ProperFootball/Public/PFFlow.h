@@ -82,7 +82,8 @@ public:
 	int32 Sel = 0;
 	bool bPause = false;
 	int32 PauseSel = 0;
-	int32 FriendlyHome = 0, FriendlyAway = 1, FriendlySide = 0, FriendlyStage = 0, FriendlyLen = 1, CameraOpt = 3;   // v0.9.2: WIDE (owner's pick)
+	int32 FriendlyHome = 0, FriendlyAway = 1, FriendlySide = 0, FriendlyStage = 0, FriendlyLen = 1, CameraOpt = 3;
+	int32 SpeedOpt = 1;   // v0.10 GAME SPEED: 0 slow, 1 normal (FPFMatch::NormalSpeed), 2 fast (the v0.9.9 pace)   // v0.9.2: WIDE (owner's pick)
 	int32 SizeOpt = 0;   // v0.9.5 PLAYER SIZE; v0.9.6 removed the option (always the v0.9.1 size), kept only so old option files still load
 	TFunction<void(const FPFMatch&)> MatchDone;
 	FPFMatch* LastMatch = nullptr;

@@ -1,0 +1,10 @@
+{
+ "action": "cross",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 11,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: crossing the ball from the wing, side view: run-up, plant, wraps his foot around the ball, body leaning back and away, kicking leg swings across his body, arms out wide, early cross on the run. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 921
+}

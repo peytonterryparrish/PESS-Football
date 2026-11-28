@@ -1,0 +1,10 @@
+{
+ "action": "block",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: defender blocking a shot, side view: steps across, turns his body side-on, leg stretched out to block, arms tucked behind his back, brave sliding block, ISS Deluxe style SNES timing. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 1040
+}

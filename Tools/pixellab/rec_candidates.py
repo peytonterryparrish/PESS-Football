@@ -6,15 +6,23 @@ from PIL import Image
 sys.path.insert(0, os.path.dirname(__file__))
 from anim_candidates import SPEC
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-SRC = os.path.join(ROOT, "ArtWork", "anim_candidates"); OUT = os.path.join(ROOT, "ArtWork", "anim_gallery")
+SRC = os.path.join(ROOT, "ArtWork", "anim_candidates")
+ROUND3 = "--round3" in sys.argv   # v0.10.0: its own page (one artifact holds at most 511 files)
+OUT = os.path.join(ROOT, "ArtWork", "anim_gallery3" if ROUND3 else "anim_gallery")
 GRASS = (61, 125, 63)
 TITLE = {"idle": "Idle", "walk": "Walk", "run": "Run", "sprint": "Sprint", "dribble": "Dribble", "pass": "Pass", "shot": "Shot",
          "volley": "Volley", "header": "Header", "chest": "Chest control", "tackle": "Standing tackle", "slide": "Slide tackle",
          "fall": "Fall and get up", "throwin": "Throw-in", "celebrate": "Goal celebration", "gk_ready": "Keeper ready stance",
          "gk_catch": "Keeper chest catch", "gk_high": "Keeper high catch", "gk_scoop": "Keeper low gather", "gk_punch": "Keeper punch",
          "gk_dive_low": "Keeper dive, low", "gk_dive_high": "Keeper dive, high", "gk_throw": "Keeper throw", "gk_punt": "Keeper punt",
-         "gk_goalkick": "Keeper goal kick", "slide2": "Slide tackle, new takes", "gk_punt2": "Keeper punt, new takes"}
-GROUP = [("New takes: your first 20 were all No", ["slide2", "gk_punt2"]), ("Moving", ["idle", "walk", "run", "sprint", "dribble"]), ("Goalkeeper dives", ["gk_dive_low", "gk_dive_high"]),
+         "gk_goalkick": "Keeper goal kick", "dribble2": "Dribble, more takes", "pass_short": "Short pass", "pass_long": "Long driven pass",
+         "through_ball": "Through ball", "cross": "Cross", "corner": "Corner kick", "jockey": "Jockeying (defending)", "block": "Shot block",
+         "getup": "Getting up off the ground", "stop": "Stopping from a run", "turn": "Turning back", "gk_goalkick2": "Keeper goal kick, more takes",
+         "gk_hold_walk": "Keeper walking with the ball", "gk_getup": "Keeper getting up after a dive", "slide2": "Slide tackle, new takes", "gk_punt2": "Keeper punt, new takes"}
+GROUP = [("Round 3: on the ball", ["dribble2", "pass_short", "pass_long", "through_ball", "cross", "corner"]),
+         ("Round 3: defending", ["jockey", "block"]), ("Round 3: goalkeeper", ["gk_goalkick2", "gk_hold_walk", "gk_getup"]),
+         ("Round 3: transitions", ["getup", "stop", "turn"]),
+         ("New takes: your first 20 were all No", ["slide2", "gk_punt2"]), ("Moving", ["idle", "walk", "run", "sprint", "dribble"]), ("Goalkeeper dives", ["gk_dive_low", "gk_dive_high"]),
          ("Goal kick", ["gk_goalkick"]), ("On the ball", ["pass", "shot", "volley", "header", "chest", "throwin"]),
          ("Defending and falls", ["tackle", "fall"]), ("Goalkeeper", ["gk_ready", "gk_catch", "gk_high", "gk_scoop", "gk_punch", "gk_throw"]),
          ("Celebrations", ["celebrate"])]
@@ -43,6 +51,9 @@ def gif(d, out):
     return m
 
 if __name__ == "__main__":
+    os.makedirs(os.path.join(OUT, "img"), exist_ok=True)
+    if ROUND3: GROUP = [g for g in GROUP if g[0].startswith(("Round 3", "New takes"))]
+    else: GROUP = [g for g in GROUP if not g[0].startswith("Round 3")]
     secs = []; n = 0
     for gname, acts in GROUP:
         parts = []

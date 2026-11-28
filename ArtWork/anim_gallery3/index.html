@@ -1,0 +1,116 @@
+<title>Animation Approval Round 3</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a casting board. Each sprite stands on its own patch of pitch and gets a Yes / No / Best. */
+:root{--bg:#eef1ea;--card:#ffffff;--fg:#17201a;--muted:#5d6a60;--line:#d5dcd3;--grass:#3d7d3f;--grass2:#367238;--yes:#1f7a3a;--no:#b23a2e;--best:#a87200;--on:#ffffff;--accent:#1d5f8a;
+--disp:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121813;--card:#1b231d;--fg:#e6ece6;--muted:#97a59a;--line:#2c3a2f;--yes:#3fae60;--no:#e0604f;--best:#e0a72a;--on:#0d120e;--accent:#6fb3e0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121813;--card:#1b231d;--fg:#e6ece6;--muted:#97a59a;--line:#2c3a2f;--yes:#3fae60;--no:#e0604f;--best:#e0a72a;--on:#0d120e;--accent:#6fb3e0;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:30px}
+h1,h2{font-family:var(--disp);text-wrap:balance;margin:0}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.1}
+h2{font-size:1.2rem}
+p{margin:0;max-width:68ch;color:var(--muted)}
+.lab{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.85rem}
+.cy{color:var(--yes)}.cn{color:var(--no)}.cb{color:var(--best)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+button{font:inherit;cursor:pointer}
+.f{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:4px 12px;font-size:.85rem}
+.f[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.status{font-size:.8rem;color:var(--muted)}
+section{display:grid;gap:12px}
+.head{display:grid;gap:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:10px}
+.nav{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:.88rem}.nav a{color:var(--accent)}
+section{scroll-margin-top:64px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:grid}
+.c.v-yes{border-color:var(--yes);box-shadow:0 0 0 1px var(--yes)}
+.c.v-best{border-color:var(--best);box-shadow:0 0 0 2px var(--best)}
+.c.v-no .pitch img{opacity:.28}
+.pitch{background:repeating-linear-gradient(90deg,var(--grass) 0 24px,var(--grass2) 24px 48px);display:grid;place-items:center;aspect-ratio:1;max-width:100%}
+.pitch img{width:100%;height:auto;max-width:240px;image-rendering:pixelated}
+.meta{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;gap:4px}
+.id{font-family:var(--mono);font-size:.8rem}
+.vb{display:flex;gap:3px}
+.vb button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:5px;padding:2px 6px;font-size:.72rem}
+.vb button:focus-visible,.f:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.vb .y[aria-pressed="true"]{background:var(--yes);border-color:var(--yes);color:var(--on)}
+.vb .n[aria-pressed="true"]{background:var(--no);border-color:var(--no);color:var(--on)}
+.vb .b[aria-pressed="true"]{background:var(--best);border-color:var(--best);color:var(--on)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.how div{border-left:3px solid var(--line);padding-left:12px;display:grid;gap:2px}
+.how b{font-family:var(--disp)}
+@media (prefers-reduced-motion:no-preference){.c{transition:box-shadow .15s,border-color .15s}}
+</style>
+<div class="wrap">
+<header style="display:grid;gap:12px">
+<span class="lab">Proper Football · v0.9.8 · one model, every action</span>
+<h1>Round 3: pick one per action</h1>
+<p>390 animations made on PixelLab for one player and his keeper, each recorded as it plays at game speed. Round 3 adds passes, crosses, corners, through balls, defending, keeper handling and the transitions between moves, 25 takes each, plus 20 new slide tackles and keeper punts. Mark the one you want in the game <b>Best</b>. Mark any others you'd be happy to mix in <b>Yes</b>, and the rest <b>No</b> if you like. Marks save as you go and I read them back to build the game's art from your Bests.</p>
+<div class="how">
+<div><b>One direction shown</b><span class="status">Each take is shown from one side. The one you pick gets drawn in all 12 directions.</span></div>
+<div><b>Template kit</b><span class="status">Blue, green and red are the colour keys the game swaps for each club's kit.</span></div>
+<div><b>Shown at 2×</b><span class="status">Each art pixel is 2×2 here. Drawn balls are removed; the game draws its own ball.</span></div>
+</div>
+<nav class="nav"><a href="#s-dribble2">Dribble, more takes</a> <a href="#s-pass_short">Short pass</a> <a href="#s-pass_long">Long driven pass</a> <a href="#s-through_ball">Through ball</a> <a href="#s-cross">Cross</a> <a href="#s-corner">Corner kick</a> <a href="#s-jockey">Jockeying (defending)</a> <a href="#s-block">Shot block</a> <a href="#s-gk_goalkick2">Keeper goal kick, more takes</a> <a href="#s-gk_hold_walk">Keeper walking with the ball</a> <a href="#s-gk_getup">Keeper getting up after a dive</a> <a href="#s-getup">Getting up off the ground</a> <a href="#s-stop">Stopping from a run</a> <a href="#s-turn">Turning back</a> <a href="#s-slide2">Slide tackle, new takes</a> <a href="#s-gk_punt2">Keeper punt, new takes</a></nav>
+</header>
+<div class="bar">
+<span class="count" id="count"></span>
+<span class="status" id="status">Connecting…</span>
+<div class="filters" role="group" aria-label="Show">
+<button class="f" id="f-all" data-f="all" aria-pressed="true">All</button>
+<button class="f" id="f-todo" data-f="todo" aria-pressed="false">Not marked</button>
+<button class="f" id="f-yes" data-f="yes" aria-pressed="false">Yes + Best</button>
+<button class="f" id="f-best" data-f="best" aria-pressed="false">Best</button>
+</div>
+</div>
+<section id="s-dribble2"><div class="head"><span class="lab">Round 3: on the ball · 25 takes · loop · 8 frames at 90 ms</span><h2>Dribble, more takes</h2><p>Dribbling a football in place, side view, close control with quick touches, but draw no ball.</p></div><div class="grid" data-ids="dribble2_00,dribble2_01,dribble2_02,dribble2_03,dribble2_04,dribble2_05,dribble2_06,dribble2_07,dribble2_08,dribble2_09,dribble2_10,dribble2_11,dribble2_12,dribble2_13,dribble2_14,dribble2_15,dribble2_16,dribble2_17,dribble2_18,dribble2_19,dribble2_20,dribble2_21,dribble2_22,dribble2_23,dribble2_24"></div></section>
+<section id="s-pass_short"><div class="head"><span class="lab">Round 3: on the ball · 25 takes · plays once · 8 frames at 80 ms</span><h2>Short pass</h2><p>A short side-foot pass, side view: small step, plant the standing foot beside the ball, open the hips, push the ball with the inside of the foot, short follow-through.</p></div><div class="grid" data-ids="pass_short_00,pass_short_01,pass_short_02,pass_short_03,pass_short_04,pass_short_05,pass_short_06,pass_short_07,pass_short_08,pass_short_09,pass_short_10,pass_short_11,pass_short_12,pass_short_13,pass_short_14,pass_short_15,pass_short_16,pass_short_17,pass_short_18,pass_short_19,pass_short_20,pass_short_21,pass_short_22,pass_short_23,pass_short_24"></div></section>
+<section id="s-pass_long"><div class="head"><span class="lab">Round 3: on the ball · 25 takes · plays once · 10 frames at 80 ms</span><h2>Long driven pass</h2><p>A long driven pass, side view: two-step approach, plant, kicking leg swings back then through with the laces, body leaning back slightly, high follow-through.</p></div><div class="grid" data-ids="pass_long_00,pass_long_01,pass_long_02,pass_long_03,pass_long_04,pass_long_05,pass_long_06,pass_long_07,pass_long_08,pass_long_09,pass_long_10,pass_long_11,pass_long_12,pass_long_13,pass_long_14,pass_long_15,pass_long_16,pass_long_17,pass_long_18,pass_long_19,pass_long_20,pass_long_21,pass_long_22,pass_long_23,pass_long_24"></div></section>
+<section id="s-through_ball"><div class="head"><span class="lab">Round 3: on the ball · 25 takes · plays once · 8 frames at 80 ms</span><h2>Through ball</h2><p>A disguised through ball, side view: head up looking, small plant, slides the ball forward with the inside of the foot into space, follow-through pointing where it goes.</p></div><div class="grid" data-ids="through_ball_00,through_ball_01,through_ball_02,through_ball_03,through_ball_04,through_ball_05,through_ball_06,through_ball_07,through_ball_08,through_ball_09,through_ball_10,through_ball_11,through_ball_12,through_ball_13,through_ball_14,through_ball_15,through_ball_16,through_ball_17,through_ball_18,through_ball_19,through_ball_20,through_ball_21,through_ball_22,through_ball_23,through_ball_24"></div></section>
+<section id="s-cross"><div class="head"><span class="lab">Round 3: on the ball · 25 takes · plays once · 10 frames at 80 ms</span><h2>Cross</h2><p>Crossing the ball from the wing, side view: run-up, plant, wraps his foot around the ball, body leaning back and away, kicking leg swings across his body, arms out wide.</p></div><div class="grid" data-ids="cross_00,cross_01,cross_02,cross_03,cross_04,cross_05,cross_06,cross_07,cross_08,cross_09,cross_10,cross_11,cross_12,cross_13,cross_14,cross_15,cross_16,cross_17,cross_18,cross_19,cross_20,cross_21,cross_22,cross_23,cross_24"></div></section>
+<section id="s-corner"><div class="head"><span class="lab">Round 3: on the ball · 25 takes · plays once · 14 frames at 90 ms</span><h2>Corner kick</h2><p>Taking a corner kick, side view facing right: stands by the ball, raises one arm, steps back, short run-up, plants and swings his kicking leg to curl the ball in, follow-through.</p></div><div class="grid" data-ids="corner_00,corner_01,corner_02,corner_03,corner_04,corner_05,corner_06,corner_07,corner_08,corner_09,corner_10,corner_11,corner_12,corner_13,corner_14,corner_15,corner_16,corner_17,corner_18,corner_19,corner_20,corner_21,corner_22,corner_23,corner_24"></div></section>
+<section id="s-jockey"><div class="head"><span class="lab">Round 3: defending · 25 takes · loop · 8 frames at 100 ms</span><h2>Jockeying (defending)</h2><p>Defender jockeying in place, side view: low side-on stance, knees bent, arms out, small shuffling steps, ready to tackle.</p></div><div class="grid" data-ids="jockey_00,jockey_01,jockey_02,jockey_03,jockey_04,jockey_05,jockey_06,jockey_07,jockey_08,jockey_09,jockey_10,jockey_11,jockey_12,jockey_13,jockey_14,jockey_15,jockey_16,jockey_17,jockey_18,jockey_19,jockey_20,jockey_21,jockey_22,jockey_23,jockey_24"></div></section>
+<section id="s-block"><div class="head"><span class="lab">Round 3: defending · 25 takes · plays once · 8 frames at 80 ms</span><h2>Shot block</h2><p>Defender blocking a shot, side view: steps across, turns his body side-on, leg stretched out to block, arms tucked behind his back.</p></div><div class="grid" data-ids="block_00,block_01,block_02,block_03,block_04,block_05,block_06,block_07,block_08,block_09,block_10,block_11,block_12,block_13,block_14,block_15,block_16,block_17,block_18,block_19,block_20,block_21,block_22,block_23,block_24"></div></section>
+<section id="s-gk_goalkick2"><div class="head"><span class="lab">Round 3: goalkeeper · 25 takes · plays once · 16 frames at 150 ms</span><h2>Keeper goal kick, more takes</h2><p>Goalkeeper taking a goal kick, side view, facing right: walks backwards to the left for four steps while still facing right, settles, then runs forward three strides, plants his standing foot and kicks long with a big follow-through.</p></div><div class="grid" data-ids="gk_goalkick2_00,gk_goalkick2_01,gk_goalkick2_02,gk_goalkick2_03,gk_goalkick2_04,gk_goalkick2_05,gk_goalkick2_06,gk_goalkick2_07,gk_goalkick2_08,gk_goalkick2_09,gk_goalkick2_10,gk_goalkick2_11,gk_goalkick2_12,gk_goalkick2_13,gk_goalkick2_14,gk_goalkick2_15,gk_goalkick2_16,gk_goalkick2_17,gk_goalkick2_18,gk_goalkick2_19,gk_goalkick2_20,gk_goalkick2_21,gk_goalkick2_22,gk_goalkick2_23,gk_goalkick2_24"></div></section>
+<section id="s-gk_hold_walk"><div class="head"><span class="lab">Round 3: goalkeeper · 25 takes · loop · 8 frames at 120 ms</span><h2>Keeper walking with the ball</h2><p>Goalkeeper walking in place, side view, holding the football in both hands against his chest, calm steady steps.</p></div><div class="grid" data-ids="gk_hold_walk_00,gk_hold_walk_01,gk_hold_walk_02,gk_hold_walk_03,gk_hold_walk_04,gk_hold_walk_05,gk_hold_walk_06,gk_hold_walk_07,gk_hold_walk_08,gk_hold_walk_09,gk_hold_walk_10,gk_hold_walk_11,gk_hold_walk_12,gk_hold_walk_13,gk_hold_walk_14,gk_hold_walk_15,gk_hold_walk_16,gk_hold_walk_17,gk_hold_walk_18,gk_hold_walk_19,gk_hold_walk_20,gk_hold_walk_21,gk_hold_walk_22,gk_hold_walk_23,gk_hold_walk_24"></div></section>
+<section id="s-gk_getup"><div class="head"><span class="lab">Round 3: goalkeeper · 25 takes · plays once · 10 frames at 100 ms</span><h2>Keeper getting up after a dive</h2><p>Goalkeeper lying on his side on the grass after a dive, facing the camera: stays down a moment, pushes up onto one knee, then stands back up into his ready stance.</p></div><div class="grid" data-ids="gk_getup_00,gk_getup_01,gk_getup_02,gk_getup_03,gk_getup_04,gk_getup_05,gk_getup_06,gk_getup_07,gk_getup_08,gk_getup_09,gk_getup_10,gk_getup_11,gk_getup_12,gk_getup_13,gk_getup_14,gk_getup_15,gk_getup_16,gk_getup_17,gk_getup_18,gk_getup_19,gk_getup_20,gk_getup_21,gk_getup_22,gk_getup_23,gk_getup_24"></div></section>
+<section id="s-getup"><div class="head"><span class="lab">Round 3: transitions · 25 takes · plays once · 10 frames at 100 ms</span><h2>Getting up off the ground</h2><p>Football player lying flat on the grass, side view: pushes up onto his hands and knees, gets one foot under him and stands back up, ready.</p></div><div class="grid" data-ids="getup_00,getup_01,getup_02,getup_03,getup_04,getup_05,getup_06,getup_07,getup_08,getup_09,getup_10,getup_11,getup_12,getup_13,getup_14,getup_15,getup_16,getup_17,getup_18,getup_19,getup_20,getup_21,getup_22,getup_23,getup_24"></div></section>
+<section id="s-stop"><div class="head"><span class="lab">Round 3: transitions · 25 takes · plays once · 8 frames at 80 ms</span><h2>Stopping from a run</h2><p>Running player coming to a stop, side view: braking steps, leaning back, arms out, settling into a balanced standing stance.</p></div><div class="grid" data-ids="stop_00,stop_01,stop_02,stop_03,stop_04,stop_05,stop_06,stop_07,stop_08,stop_09,stop_10,stop_11,stop_12,stop_13,stop_14,stop_15,stop_16,stop_17,stop_18,stop_19,stop_20,stop_21,stop_22,stop_23,stop_24"></div></section>
+<section id="s-turn"><div class="head"><span class="lab">Round 3: transitions · 25 takes · plays once · 8 frames at 80 ms</span><h2>Turning back</h2><p>Running player turning around to run the other way, side view: plants his foot, drops his hips, swivels round and pushes off in the new direction.</p></div><div class="grid" data-ids="turn_00,turn_01,turn_02,turn_03,turn_04,turn_05,turn_06,turn_07,turn_08,turn_09,turn_10,turn_11,turn_12,turn_13,turn_14,turn_15,turn_16,turn_17,turn_18,turn_19,turn_20,turn_21,turn_22,turn_23,turn_24"></div></section>
+<section id="s-slide2"><div class="head"><span class="lab">New takes: your first 20 were all No · 20 takes · plays once · 12 frames at 70 ms</span><h2>Slide tackle, new takes</h2><p>Slide tackle seen from the side: he runs in, drops onto his left hip and slides feet-first along the grass to the right, body low and leaning back, right leg straight out in front at ankle height, left leg bent under him, left hand trailing on the grass, then he stops and pushes himself back up.</p></div><div class="grid" data-ids="slide2_00,slide2_01,slide2_02,slide2_03,slide2_04,slide2_05,slide2_06,slide2_07,slide2_08,slide2_09,slide2_10,slide2_11,slide2_12,slide2_13,slide2_14,slide2_15,slide2_16,slide2_17,slide2_18,slide2_19"></div></section>
+<section id="s-gk_punt2"><div class="head"><span class="lab">New takes: your first 20 were all No · 20 takes · plays once · 10 frames at 80 ms</span><h2>Keeper punt, new takes</h2><p>Goalkeeper punt seen from the side, facing right: holding the ball out in front with both hands, he takes two quick steps, drops the ball and swings his right leg through hard, kicking leg finishing up at chest height, arms out wide, then he lands.</p></div><div class="grid" data-ids="gk_punt2_00,gk_punt2_01,gk_punt2_02,gk_punt2_03,gk_punt2_04,gk_punt2_05,gk_punt2_06,gk_punt2_07,gk_punt2_08,gk_punt2_09,gk_punt2_10,gk_punt2_11,gk_punt2_12,gk_punt2_13,gk_punt2_14,gk_punt2_15,gk_punt2_16,gk_punt2_17,gk_punt2_18,gk_punt2_19"></div></section>
+</div>
+<script>
+const votes={};let db=null,filter="all";
+const $=s=>document.querySelector(s);
+const VALID=new Set(["yes","no","best"]);
+function card(id){return `<div class="c" id="c-${id}" data-id="${id}"><div class="pitch"><img src="img/${id}.gif" alt="Take ${id}" loading="lazy"></div><div class="meta"><span class="id">${id.replace(/^.*_(\d+)$/,"#$1")}</span><span class="vb"><button class="y" id="y-${id}" data-v="yes" aria-pressed="false">Yes</button><button class="n" id="n-${id}" data-v="no" aria-pressed="false">No</button><button class="b" id="b-${id}" data-v="best" aria-pressed="false">Best</button></span></div></div>`}
+document.querySelectorAll(".grid[data-ids]").forEach(gr=>gr.innerHTML=gr.dataset.ids.split(",").map(card).join(""));
+function paint(){let y=0,n=0,b=0,t=0;
+ document.querySelectorAll('.c[data-id]').forEach(el=>{const v=votes[el.dataset.id]||"";t++;
+  if(v==="yes")y++;if(v==="no")n++;if(v==="best")b++;
+  el.className="c"+(v?" v-"+v:"");
+  el.querySelectorAll('.vb button').forEach(bt=>bt.setAttribute('aria-pressed',String(bt.dataset.v===v)));
+  el.hidden=!(filter==="all"||(filter==="todo"&&!v)||(filter==="yes"&&(v==="yes"||v==="best"))||(filter==="best"&&v==="best"));});
+ $('#count').innerHTML=`<span class="cb">${b} best</span> · <span class="cy">${y} yes</span> · <span class="cn">${n} no</span> · ${t-y-n-b} to go`;}
+document.addEventListener('click',async e=>{
+ const f=e.target.closest('.f');if(f){filter=f.dataset.f;document.querySelectorAll('.f').forEach(x=>x.setAttribute('aria-pressed',String(x===f)));paint();return}
+ const bt=e.target.closest('.vb button');if(!bt)return;
+ const id=bt.closest('.c').dataset.id;const v=votes[id]===bt.dataset.v?"":bt.dataset.v;
+ votes[id]=v;paint();
+ if(db){try{await db.doc("picks/"+id).set({v,at:Date.now()});$('#status').textContent="Saved";}catch(err){$('#status').textContent="Not saved: this view can't write. Marks stay on this screen.";}}
+});
+paint();
+(async()=>{const t=setTimeout(()=>{$('#status').textContent="Marks stay on this screen only (no connection)."},10000);
+ try{db=await window.claude?.use?.("db");}catch(e){db=null}
+ if(!db){clearTimeout(t);$('#status').textContent="Marks stay on this screen only.";return}
+ db.collection("picks").onSnapshot(s=>{clearTimeout(t);s.docs.forEach(d=>{const v=d.data().v;votes[d.id]=VALID.has(v)?v:"";});paint();$('#status').textContent="Marks save automatically";},
+  ()=>{clearTimeout(t);$('#status').textContent="Couldn't load saved marks. New marks stay on this screen."});
+})();
+</script>

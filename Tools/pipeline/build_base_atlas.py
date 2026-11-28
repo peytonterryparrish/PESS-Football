@@ -63,6 +63,7 @@ def strip_ball(im):
         xs = [p[0] for p in comp]; ys = [p[1] for p in comp]
         w, h = max(xs) - min(xs) + 1, max(ys) - min(ys) + 1
         if not (5 <= len(comp) <= 120 and 3 <= w <= 13 and 3 <= h <= 13 and 0.5 <= w / h <= 2.0): continue
+        if kit.WIDE and sum(px[q][0] - px[q][2] for q in comp) / len(comp) > 40: continue   # v0.10: warm = a lit knee or calf, not a ball (it left gaps in the legs)
         cy = (min(ys) + max(ys)) / 2
         cx = (min(xs) + max(xs)) / 2; wid = bb[2] - bb[0]
         dense = len(comp) >= 0.4 * w * h and 4 <= w <= 10 and 4 <= h <= 10
@@ -126,6 +127,66 @@ def kit_fill(im, passes=3, need=3):
         if not ch: break
     return im, n
 
+def audit_clean(im, keeper=False):
+    """v0.10 (ArtWork/audit_v100): after the snap and tidy, (1) loose debris goes: islands apart from the body that are
+    not a detached hand/foot (skin, or a keeper's light glove, close to the body): ball crumbs, speckle, a ball kicked
+    away; (2) thin dark/brown lines sticking UP out of the silhouette (the PixelLab hair-line / "antenna" above the head)
+    go: 1-2 px wide runs a 3x3 opening removes, with nothing of the body above them, reaching >= 3 px from it.
+    Returns (image, removed pixel count)."""
+    import numpy as np
+    from scipy import ndimage as ND
+    a = np.array(im); op = a[..., 3] > 0
+    if not op.any(): return im, 0
+    key = op & (a[..., 2] == 1) & np.isin(a[..., 0], list(kit.REGION_CODE.values()))
+    rgb = a[..., :3].astype(int); mx = rgb.max(-1); mn = rgb.min(-1)
+    sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1), 0); val = mx / 255
+    warm = (rgb[..., 0] >= rgb[..., 1]) & (rgb[..., 1] >= rgb[..., 2] - 4)
+    skin = op & ~key & warm & (val > 0.55) & (sat > 0.12) & (sat < 0.62)
+    light = op & ~key & (sat < 0.2) & (val > 0.6)
+    E8 = np.ones((3, 3), bool); n0 = int(op.sum())
+    lab, n = ND.label(op, E8)
+    if n > 1:
+        sizes = ND.sum(op, lab, range(1, n + 1)); main = lab == (1 + int(np.argmax(sizes)))
+        dist = ND.distance_transform_cdt(~main, metric="chessboard")
+        for i in range(1, n + 1):
+            m = lab == i
+            if m is main or (m & main).any(): continue
+            k = int(m.sum()); d = int(dist[m].min())
+            if k >= 120 or (k >= 30 and d <= 8): continue        # a limb (a foot PixelLab drew apart), not debris
+            sk = (skin & m).sum() / k; lt = (light & m).sum() / k
+            keep = (d <= 6 and k >= 4 and sk >= 0.5) or (keeper and d <= 6 and k >= 6 and lt >= 0.5) or (d <= 2 and k >= 4)
+            if not keep: op[m] = False
+    opened = ND.binary_opening(op, E8)
+    if opened.any():
+        top = np.nonzero(op.any(1))[0].min()
+        tl, tn = ND.label(op & ~opened, E8)
+        far = ND.distance_transform_cdt(~opened, metric="chessboard")
+        for i in range(1, tn + 1):
+            m = tl == i; k = int(m.sum())
+            if k < 3 or k > 24: continue
+            ys, xs = np.nonzero(m)
+            if ys.min() > top + 20 or far[m].max() < 3: continue
+            if opened[:ys.min(), xs.min():xs.max() + 1].any(): continue          # the body goes on above it: not on top
+            if (skin & m).sum() / k > 0.4: continue                             # a finger, not a hair line
+            if (light & m).sum() / k > 0.3: continue                            # a glove's fingertips
+            op[m] = False
+    a[~op] = 0
+    # sock shading PixelLab drew in a dull red the snap sent to the body's palette (lips/skin shadow colours): red-hued
+    # pixels touching sock keys become sock keys too (two passes, so a 2-px band fills from its edges)
+    import colorsys
+    for _ in range(2):
+        sock = (a[..., 3] > 0) & (a[..., 2] == 1) & (a[..., 0] == kit.REGION_CODE["socks"])
+        nb = ND.convolve(sock.astype(int), np.ones((3, 3), int), mode="constant")
+        ys, xs = np.nonzero((a[..., 3] > 0) & ~sock & (a[..., 2] != 1) & (nb >= 2))
+        ch = 0
+        for y, x in zip(ys, xs):
+            r, g, b = (int(v) for v in a[y, x, :3])
+            h, s_, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255); h *= 360
+            if (h <= 12 or h >= 338) and s_ > 0.5 and v > 0.25:
+                a[y, x] = (kit.REGION_CODE["socks"], kit.SHADES[kit.shade_index((r, g, b), "socks")], 1, 255); ch += 1
+        if not ch: break
+    return Image.fromarray(a), n0 - int(op.sum())
+
 def no_sash(im):
     """v0.8.1: in back views of a body whose turns drifted (produce_base BODIES[...]["sash"]), trim on the torso (above
     the waistband) becomes shirt, and the sash's bright yellow and pink leftovers too. Only for dark-skinned bodies:
@@ -174,6 +235,7 @@ def score(frames, idle_n):
 
 def build(bid, sheets=False):
     body = produce_base.BODIES[bid]; keeper = body["kind"] == "keeper"; d = os.path.join(RAW, bid)
+    kit.WIDE = bid in kit.WIDE_BODIES
     picks = json.load(open(os.path.join(PILOT, "picks.json"))) if os.path.exists(os.path.join(PILOT, "picks.json")) else {}
     rots = {x: Image.open(os.path.join(d, f"rot_{x}.png")).convert("RGBA") for x in DIRS8}
     pal = BA.palette_for(rots.values(), True)
@@ -185,6 +247,7 @@ def build(bid, sheets=False):
         if key.split("/")[0] in body.get("sash", ()): im, _ = no_sash(im)
         im, _ = kit_fill(im)
         im, _ = BC.tidy(im, fill=True)
+        if kit.WIDE: im, _ = audit_clean(im, keeper)
         cells.append((key, im))
     for x in DIRS8:
         im, _ = BA.clean(rots[x], rots[x].getbbox(), specks=False)

@@ -1,0 +1,10 @@
+{
+ "action": "gk_hold_walk",
+ "body": "NK1",
+ "first": "east/gk_hold_ball",
+ "loop": true,
+ "frames": 9,
+ "dt": 0.12,
+ "prompt": "a stocky retro 16-bit goalkeeper, blue shirt with long magenta sleeves, grey gloves, green shorts, red socks: goalkeeper walking in place, side view, holding the football in both hands against his chest, calm steady steps, looking up the pitch as he walks, snappy, readable key poses. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow. The animation loops: the last frame leads back into the first.",
+ "seed": 1033
+}

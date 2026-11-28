@@ -37,7 +37,8 @@ def one(action, take, d12, key=None):
     ff = start_frame(action, d12)
     side = {"south": "facing the camera", "north": "seen from behind", "east": "side view facing right"}.get(d12, "three-quarter view")
     prompt = m["prompt"] if d12 == TURN_SRC(action) else m["prompt"].replace("seen from the side", side).replace("side view", side).replace("facing the camera", side)
-    body = {"first_frame": pl.b64img(ff), "action": prompt[:1000], "frame_count": SPEC[action][3], "seed": m["seed"], "no_background": True}
+    prompt += os.environ.get("PF_EXTRA", "")   # e.g. ". Empty hands: draw no ball at all." for a regeneration
+    body = {"first_frame": pl.b64img(ff), "action": prompt[:1000], "frame_count": SPEC[action][3], "seed": m["seed"] + int(os.environ.get("PF_SEED_OFF", "0")), "no_background": True}
     if m["loop"]: body["last_frame"] = pl.b64img(ff)
     for attempt in range(3):
         r = pl.run_job("/animate-with-text-v3", body, tag=f"appr_{action}_{d12}")

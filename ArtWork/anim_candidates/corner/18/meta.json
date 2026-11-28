@@ -1,0 +1,10 @@
+{
+ "action": "corner",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 15,
+ "dt": 0.09,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: taking a corner kick, side view facing right: stands by the ball, raises one arm, steps back, short run-up, plants and swings his kicking leg to curl the ball in, follow-through, longer run-up, big swing, smooth, clean motion. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 1026
+}

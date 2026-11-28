@@ -1,0 +1,10 @@
+{
+ "action": "stop",
+ "body": "N01",
+ "first": "east/run_contactR",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: running player coming to a stop, side view: braking steps, leaning back, arms out, settling into a balanced standing stance, skidding stop. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 942
+}
