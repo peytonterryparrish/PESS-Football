@@ -90,7 +90,7 @@
   - **Transitions:** getting up, stopping, turning.
   - **Keeper:** goal kick, walking with the ball, getting up after a dive.
   - **Count:** 25 takes each, plus 20 new slide tackles and keeper punts.
-- **Cost:** about $49 on PixelLab this round.
+- **Cost:** about $15 on PixelLab this round (balance $335.86).
 
 **Checks**
 - **20-match sim:** 2.05 goals a match (150 matches: 2.16), 0 stuck. Goals are a little under the 2.3 target; that's balance (keepers save about 75% of the shots they dive at), not a bug.
