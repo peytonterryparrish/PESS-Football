@@ -13,10 +13,10 @@ TITLE = {"idle": "Idle", "walk": "Walk", "run": "Run", "sprint": "Sprint", "drib
          "fall": "Fall and get up", "throwin": "Throw-in", "celebrate": "Goal celebration", "gk_ready": "Keeper ready stance",
          "gk_catch": "Keeper chest catch", "gk_high": "Keeper high catch", "gk_scoop": "Keeper low gather", "gk_punch": "Keeper punch",
          "gk_dive_low": "Keeper dive, low", "gk_dive_high": "Keeper dive, high", "gk_throw": "Keeper throw", "gk_punt": "Keeper punt",
-         "gk_goalkick": "Keeper goal kick"}
-GROUP = [("Moving", ["idle", "walk", "run", "sprint", "dribble"]), ("Goalkeeper dives", ["gk_dive_low", "gk_dive_high"]),
+         "gk_goalkick": "Keeper goal kick", "slide2": "Slide tackle, new takes", "gk_punt2": "Keeper punt, new takes"}
+GROUP = [("New takes: your first 20 were all No", ["slide2", "gk_punt2"]), ("Moving", ["idle", "walk", "run", "sprint", "dribble"]), ("Goalkeeper dives", ["gk_dive_low", "gk_dive_high"]),
          ("Goal kick", ["gk_goalkick"]), ("On the ball", ["pass", "shot", "volley", "header", "chest", "throwin"]),
-         ("Defending and falls", ["tackle", "slide", "fall"]), ("Goalkeeper", ["gk_ready", "gk_catch", "gk_high", "gk_scoop", "gk_punch", "gk_throw", "gk_punt"]),
+         ("Defending and falls", ["tackle", "fall"]), ("Goalkeeper", ["gk_ready", "gk_catch", "gk_high", "gk_scoop", "gk_punch", "gk_throw"]),
          ("Celebrations", ["celebrate"])]
 
 def gif(d, out):
@@ -50,6 +50,8 @@ if __name__ == "__main__":
             ds = sorted(glob.glob(os.path.join(SRC, a, "[0-9][0-9]")))
             ids = []
             for d in ds:
+                if os.path.exists(os.path.join(OUT, "img", f"{a}_{os.path.basename(d)}.gif")) and "--all" not in sys.argv:
+                    ids.append(f"{a}_{os.path.basename(d)}"); n += 1; continue
                 if not os.path.exists(os.path.join(d, "meta.json")): continue
                 cid = f"{a}_{os.path.basename(d)}"
                 m = gif(d, os.path.join(OUT, "img", cid + ".gif")); ids.append(cid); n += 1

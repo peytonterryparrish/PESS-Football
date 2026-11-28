@@ -51,6 +51,9 @@ SPEC = {
                ["body 20 degrees off the grass", "long slide on the hip", "aggressive slide, both legs low", "clean slide, hand down then spring up"]),
  "fall":      ("N01", "rot_east", False, 12, 128, 0.09, "tripped and falling, side view: stumble, fall flat on the grass, lie, kneel, stand back up",
                ["falls forward onto his front", "falls sideways and rolls", "stumbles and goes down hard", "dramatic fall, arms out"]),
+ "slide2":    ("N01", "rot_east", False, 12, 160, 0.07, "slide tackle seen from the side: he runs in, drops onto his left hip and slides feet-first along the grass to the right, body low and leaning back, right leg straight out in front at ankle height, left leg bent under him, left hand trailing on the grass, then he stops and pushes himself back up",
+               ["fast and low, a long clean slide", "aggressive slide, studs showing", "controlled slide, arm out for balance", "sliding block, both legs together",
+                "classic 1990s slide tackle", "late lunge into a slide"]),
  "throwin":   ("N01", "rot_east", False, 10, 96, 0.1, "throw-in, side view: both hands bring the ball behind his head with back arched, both feet down, throw forward, arms finish straight out in front, but draw no ball",
                ["long throw, big arch", "short throw, quick", "step-in throw"]),
  "celebrate": ("N01", "rot_south", False, 12, 96, 0.12, "goal celebration facing the camera",
@@ -76,17 +79,23 @@ SPEC = {
                ["bowling overarm throw", "javelin-style throw", "quick roll-out underarm"]),
  "gk_punt":   ("NK1", "rot_east", False, 10, 96, 0.08, "goalkeeper punt kick, side view: holding the ball at waist height, drops it, kicks it on the volley with the laces, kicking leg finishes at chest height, but draw no ball",
                ["big booming punt", "drop-kick", "low driven punt"]),
+ "gk_punt2":  ("NK1", "east/gk_hold_ball", False, 10, 128, 0.08, "goalkeeper punt seen from the side, facing right: holding the ball out in front with both hands, he takes two quick steps, drops the ball and swings his right leg through hard, kicking leg finishing up at chest height, arms out wide, then he lands",
+               ["big booming punt up the field", "drop-kick, ball and foot meet at the grass", "low driven punt, flat follow-through", "side-volley clearance",
+                "relaxed rhythmic punt", "powerful punt, body leaning back"]),
  "gk_goalkick": ("NK1", "rot_east", False, 16, 160, 0.15, "goalkeeper taking a goal kick, side view, always facing right: he walks BACKWARDS to the left of the picture for four clear steps while still facing right, stops and settles, then runs forward to the right for three strides, plants his standing foot and swings his kicking leg through with a big follow-through",
                ["measured steps back, then an accelerating run-up", "relaxed back-pedal, then a powerful strike", "short sharp steps back, arms wide on the kick",
                 "slow deliberate walk back, confident run-up", "big plant, follow-through carries him forward"]),
 }
-FIGX = {"gk_goalkick": 0.62, "slide": 0.3, "fall": 0.35}
+FIGX = {"slide2": 0.25, "gk_punt2": 0.35, "gk_goalkick": 0.62, "slide": 0.3, "fall": 0.35}
 COUNT = {"gk_dive_low": 15, "gk_dive_high": 15}
 
-def first_frame(body, src, canvas, action=""):
+def first_frame(body, src, canvas, action="", turn=None):
+    """the body's own frame (96 px) for `src`, optionally turned by `turn(im)` (12-direction production), placed on the
+    action's canvas"""
     if src.startswith("rot_"): im = Image.open(os.path.join(RAW, body, src + ".png")).convert("RGBA")
     else:
         d, p = src.split("/"); im = Image.open(os.path.join(RAW, body, d, "t0", p + ".png")).convert("RGBA")
+    if turn: im = turn(im)
     if canvas == 96: return im
     l, t, r, b = im.getbbox(); cv = Image.new("RGBA", (canvas, canvas if canvas < 160 else 128), (0, 0, 0, 0))
     W, H = cv.size; fig = im.crop((l, t, r, b)); cx = int(W * FIGX.get(action, 0.5))

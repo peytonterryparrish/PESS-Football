@@ -233,6 +233,7 @@ public:
 	// test diagnostics: 0 shots, 1 shot dist sum (dm), 2 saves (dive+standing), 3 AI tackles tried, 4 won, 5 slides, 6 lost on cut, 7 passes, 8 intercept/loose pickups, 9 shots inside 12 m
 	static int64 Diag[48];      // stadium pixels -> screen pixels at 1080p (options: near / medium / far)
 	static constexpr float PlayerHeightM = 1.82f;   // the sprite figure (64 px tall) is drawn at this real height
+	static inline bool bOldAnims = false;   // v0.9.9: -pfoldanims draws the v0.9.7 poses instead of the approved animations
 	static float HeightScale;
 	static float GameSpeed;     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
 	float Highlight = 0;
