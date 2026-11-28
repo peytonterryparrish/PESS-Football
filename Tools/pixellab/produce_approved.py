@@ -22,18 +22,21 @@ def start_frame(action, d12):
     base, deg = TURN[d12]
     if src.startswith("rot_"): s2 = "rot_" + base
     else: s2 = base + "/" + src.split("/")[1]
-    im = first_frame(body, s2, canvas, action)
-    if deg:
-        im = pl.lone(pl.rotate(im, deg, seed=5, tag=f"appr_turn_{action}_{d12}")) if max(im.size) <= 128 else im
-    return im
+    turn = (lambda im: pl.lone(pl.rotate(im, deg, seed=5, tag=f"appr_turn_{action}_{d12}"))) if deg else None
+    return first_frame(body, s2, canvas, action, turn)
 
-def one(action, take, d12):
+def one(action, take, d12, key=None):
     m = json.load(open(os.path.join(CAND, action, take, "meta.json")))
-    d = os.path.join(OUT, m["body"], d12, action)
+    d = os.path.join(OUT, m["body"], d12, key or action)
     if os.path.exists(os.path.join(d, "take.json")): return action, d12, "kept"
+    if d12 == TURN_SRC(action):   # the direction the owner approved: his exact frames
+        os.makedirs(d, exist_ok=True)
+        for f in sorted(glob.glob(os.path.join(CAND, action, take, "f*.png"))): Image.open(f).save(os.path.join(d, os.path.basename(f)))
+        json.dump({"take": take, "seed": m["seed"], "loop": m["loop"], "dt": m["dt"], "frames": len(glob.glob(os.path.join(d, "f*.png"))), "approved": True}, open(os.path.join(d, "take.json"), "w"))
+        return action, d12, "approved frames"
     ff = start_frame(action, d12)
     side = {"south": "facing the camera", "north": "seen from behind", "east": "side view facing right"}.get(d12, "three-quarter view")
-    prompt = m["prompt"].replace("side view", side).replace("facing the camera", side) if d12 != TURN_SRC(action) else m["prompt"]
+    prompt = m["prompt"] if d12 == TURN_SRC(action) else m["prompt"].replace("seen from the side", side).replace("side view", side).replace("facing the camera", side)
     body = {"first_frame": pl.b64img(ff), "action": prompt[:1000], "frame_count": SPEC[action][3], "seed": m["seed"], "no_background": True}
     if m["loop"]: body["last_frame"] = pl.b64img(ff)
     for attempt in range(3):
@@ -51,8 +54,16 @@ def TURN_SRC(action):
     return src[4:] if src.startswith("rot_") else src.split("/")[0]
 
 if __name__ == "__main__":
+    # picks.json: {action: [take, ...]}; several takes of one action become <action>_<take> (mixed in game)
     picks = json.load(open(sys.argv[1])); acts = [a for a in sys.argv[2:]] or list(picks)
-    with cf.ThreadPoolExecutor(12) as ex:
-        for f in cf.as_completed([ex.submit(one, a, picks[a], d) for a in acts for d in pl.DRAWN12]):
+    jobs = []
+    for a in acts:
+        takes = picks[a] if isinstance(picks[a], list) else [picks[a]]
+        dirs = ["south"] if a.startswith("gk_dive") else pl.DRAWN12    # dives are drawn front-on and mirrored for every facing
+        for t in takes:
+            for d in dirs: jobs.append((a, t, d, a if len(takes) == 1 else f"{a}_{t}"))
+    print(len(jobs), "jobs", flush=True)
+    with cf.ThreadPoolExecutor(int(os.environ.get("PF_PAR", "12"))) as ex:
+        for f in cf.as_completed([ex.submit(one, *j) for j in jobs]):
             try: print(*f.result(), flush=True)
             except Exception as e: print("FAILED", str(e)[:300], flush=True)

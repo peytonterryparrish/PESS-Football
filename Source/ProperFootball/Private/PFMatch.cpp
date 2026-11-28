@@ -245,6 +245,7 @@ void FPFMatch::Init(const FPFMatchSetup& InSetup)
 	Rng = PF::FRng(Setup.Seed);
 	FParse::Value(FCommandLine::Get(), TEXT("pfcada="), PFCadA); FParse::Value(FCommandLine::Get(), TEXT("pfcadb="), PFCadB);
 	{ float Hs = HeightScale; if (FParse::Value(FCommandLine::Get(), TEXT("pfscale="), Hs)) HeightScale = FMath::Clamp(Hs, 0.25f, 2.f); }
+	bOldAnims = FParse::Param(FCommandLine::Get(), TEXT("pfoldanims"));
 	Proj.Load();
 	bStadium3D = !FParse::Param(FCommandLine::Get(), TEXT("pfoldstadium"));   // v0.9.8: one 3D ground for every match; -pfoldstadium = the painted plate
 	if (!bStadium3D) Stadium = PF::LoadTexture(FString::Printf(TEXT("ArtSource/Packs/R08_Final_93_Club_Stadiums_4K/Clubs/%s/%s_Stadium_4K.png"), *Setup.StadiumSlug, *Setup.Stage));   // full size, point-sampled (M_PFStadium blends the edges)
@@ -3117,9 +3118,44 @@ EPFDir FPFMatch::ScreenDir(FVector2D WorldDir) const
 
 FName FPFMatch::PoseFor(const FPFPlayer& Pl) const
 {
+	const FPFSpriteSet* AS = Sets.IsValidIndex(Pl.SpriteSet) ? &Sets[Pl.SpriteSet] : nullptr;
 	if (Pl.Act != EPFAct::None)
 	{
 		const FPFClip& C = PFClips::Get(Pl.Clip);
+		// v0.9.9: the owner's approved animation for this clip, if the body has one. The clip keeps its own timing (the
+		// ball still leaves on its EventIndex); the animation's frames are spread over it with its contact frame
+		// lined up on the clip's event.
+		static const TMap<FName, FName> ClipAnim = {
+			{ TEXT("shot"), TEXT("shot") }, { TEXT("lob"), TEXT("shot") }, { TEXT("goal_kick"), TEXT("gk_goalkick") }, { TEXT("pass"), TEXT("pass") },
+			{ TEXT("volley"), TEXT("volley") }, { TEXT("header"), TEXT("header") }, { TEXT("tackle"), TEXT("tackle") }, { TEXT("fall"), TEXT("fall") },
+			{ TEXT("celebrate"), TEXT("celebrate") }, { TEXT("chest"), TEXT("chest") }, { TEXT("throwin"), TEXT("throwin") },
+			{ TEXT("gk_dive_low_R"), TEXT("gk_dive_low") }, { TEXT("gk_dive_low_L"), TEXT("gk_dive_low") }, { TEXT("gk_dive_high_R"), TEXT("gk_dive_high") },
+			{ TEXT("gk_dive_high_L"), TEXT("gk_dive_high") }, { TEXT("gk_catch"), TEXT("gk_catch") }, { TEXT("gk_catch_high"), TEXT("gk_high") },
+			{ TEXT("gk_pickup"), TEXT("gk_scoop") }, { TEXT("gk_throw"), TEXT("gk_throw") }, { TEXT("slide"), TEXT("slide") }, { TEXT("gk_punt"), TEXT("gk_punt") } };
+		if (AS && !bOldAnims)
+			if (const FName* AN = ClipAnim.Find(Pl.Clip))
+			{
+				// which take: a dive by its direction, everything else by the player (each man has his own header, his own celebration)
+				const int32 Seed = Pl.Act == EPFAct::Dive ? int32(FMath::Abs(Pl.DiveDir.X * 977.f + Pl.DiveDir.Y * 613.f)) + Pl.Index : Pl.Index;
+				FName Take;
+				if (const FPFAnim* A = AS->FindAnim(*AN, Seed, &Take))
+				{
+					if (Pl.Act == EPFAct::Celebrate && Pl.Clip == TEXT("celebrate"))
+						return FPFSpriteSet::AnimFrame(Take, int32(Pl.ActT / FMath::Max(0.05f, A->Dt)) % A->N);
+					const float L = FMath::Max(0.01f, C.Length());
+					const float T = FMath::Clamp(Pl.ActT * Pl.A.AnimRate / L, 0.f, 1.f);
+					float Ce = -1.f;   // the clip's event as a fraction of it
+					if (C.EventIndex >= 0) { float Acc = 0; for (int32 i = 0; i < C.EventIndex && i < C.Times.Num(); ++i) Acc += C.Times[i]; Ce = Acc / L; }
+					// the goal kick clip is only the strike after the run-up: the last part of the approved routine
+					const float A0 = Pl.Clip == TEXT("goal_kick") ? 0.55f : 0.f;
+					const float Ae = A->Ev >= 0 && A->N > 1 ? float(A->Ev) / (A->N - 1) : -1.f;
+					float F;
+					if (Ce > 0.f && Ce < 1.f && Ae > A0 && Ae < 1.f)
+						F = T < Ce ? A0 + (Ae - A0) * T / Ce : Ae + (1.f - Ae) * (T - Ce) / (1.f - Ce);
+					else F = A0 + (1.f - A0) * T;
+					return FPFSpriteSet::AnimFrame(Take, FMath::Clamp(FMath::RoundToInt(F * (A->N - 1)), 0, A->N - 1));
+				}
+			}
 		if (Pl.Act == EPFAct::Celebrate && Pl.Clip == TEXT("celebrate"))
 			return C.At(FMath::Fmod(Pl.ActT, C.Length()));
 		return C.At(Pl.ActT * Pl.A.AnimRate);
@@ -3128,14 +3164,32 @@ FName FPFMatch::PoseFor(const FPFPlayer& Pl) const
 	const float S = Pl.Vel.Size();
 	if (S < 0.35f)
 	{
-		if (Pl.bKeeper && FVector2D::Distance(Pl.Pos, V2(Ball.Pos)) < 30.f) return TEXT("gk_ready");
+		const float Tm = MatchClock * 60.f + Pl.Index * 0.37f;
+		if (Pl.bKeeper && FVector2D::Distance(Pl.Pos, V2(Ball.Pos)) < 30.f)
+		{
+			if (AS && !bOldAnims) if (const FPFAnim* A = AS->Anims.Find(TEXT("gk_ready"))) return FPFSpriteSet::AnimFrame(TEXT("gk_ready"), int32(Tm / FMath::Max(0.05f, A->Dt)) % A->N);
+			return TEXT("gk_ready");
+		}
+		if (AS && !bOldAnims) if (const FPFAnim* A = AS->Anims.Find(TEXT("idle"))) return FPFSpriteSet::AnimFrame(TEXT("idle"), int32(Tm / FMath::Max(0.05f, A->Dt)) % A->N);
 		// v0.9.2 (owner: idle players "twerking out ... stuttering ... shaking"): a calm stance - the breathing frame
 		// only briefly every few seconds, not every 0.8 s
 		return FMath::Fmod(Pl.Index * 0.73f + MatchClock * 60.f, 4.5f) < 3.6f ? FName(TEXT("idle")) : FName(TEXT("idle_breathe"));
 	}
-	if (Pl.bCharging) return TEXT("shot_a_plant");
+	// v0.9.9: while a shot is charged he holds the approved shot's wind-up (just before contact)
+	if (Pl.bCharging)
+	{
+		if (AS && !bOldAnims) if (const FPFAnim* A = AS->Anims.Find(TEXT("shot"))) if (A->Ev > 0) return FPFSpriteSet::AnimFrame(TEXT("shot"), FMath::Max(0, A->Ev - 2));
+		return TEXT("shot_a_plant");
+	}
 	// distance-driven cycles: the feet stay planted because frames advance with ground covered
 	const float Ph = FMath::Frac(Pl.Gait);
+	// v0.9.9: the owner's approved cycles (walk, run, sprint, dribble), one full two-step cycle per Gait unit
+	if (AS && !bOldAnims && AS->Anims.Contains(TEXT("run")))
+	{
+		const bool bSpr = Pl.bSprint && S > Pl.A.MaxSpeed * 0.9f && !Pl.bKeeper;
+		const TCHAR* Nm = S < 2.2f ? TEXT("walk") : (Ball.Owner == Pl.Index && S < 5.5f) ? TEXT("dribble") : bSpr ? TEXT("sprint") : TEXT("run");
+		if (const FPFAnim* A = AS->Anims.Find(Nm)) return FPFSpriteSet::AnimFrame(Nm, FMath::Min(A->N - 1, int32(Ph * A->N)));
+	}
 	if (S < 2.2f)
 	{
 		if (Sets.IsValidIndex(Pl.SpriteSet) && Sets[Pl.SpriteSet].Has(TEXT("walk_passR")))
@@ -3718,6 +3772,22 @@ void FPFMatch::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		UMaterialInstanceDynamic* Mid = MidFor(SpriteMat, Pl.SpriteSet, Kit);
 		FVector2D UV0 = F.UV0, UV1 = F.UV1;
 		if (F.bFlip) Swap(UV0.X, UV1.X);
+		if (It.Kind == 0 && Pl.Act == EPFAct::Dive && !Pl.DiveDir.IsNearlyZero() && Pose.ToString().StartsWith(TEXT("gk_dive_")) && Pose.ToString().Contains(TEXT("_f")))
+		{
+			// v0.9.9: the owner's approved dive, drawn as it was approved (front-on, diving to screen-left = his right);
+			// a dive to screen-right is the same take mirrored. The game moves him; the art carries the height.
+			const FPFFrame& DF = Set.Get(EPFDir::S, Pose);
+			if (DF.bValid)
+			{
+				const bool bRight = Proj.DirToScreen(Pl.DiveDir).X >= 0;
+				FVector2D U0 = DF.UV0, U1 = DF.UV1;
+				if (bRight != DF.bFlip) Swap(U0.X, U1.X);
+				FCanvasTileItem DT(Pos, Mid->GetRenderProxy(), Size, U0, U1);
+				C->DrawItem(DT);
+				if (bHolds) HeldBall(Set, EPFDir::S, Pose, Pos, bRight, false);
+				continue;
+			}
+		}
 		if (It.Kind == 0 && Pl.Act == EPFAct::Dive && !Pl.DiveDir.IsNearlyZero())
 		{
 			const FString ClipPose = PFClips::Get(Pl.Clip).At(Pl.ActT * Pl.A.AnimRate).ToString();

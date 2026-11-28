@@ -1,0 +1,5 @@
+{"idle": "04", "walk": "18", "run": "10", "sprint": "16", "dribble": "06", "pass": "16", "shot": "04", "volley": "13",
+ "header": ["02", "16"], "chest": "00", "tackle": "13", "fall": "18", "throwin": "15",
+ "celebrate": ["01", "04", "05", "06", "07", "12", "13"],
+ "gk_ready": "08", "gk_catch": "15", "gk_high": "02", "gk_scoop": "15", "gk_punch": "02",
+ "gk_dive_low": "01", "gk_dive_high": ["00", "07", "08", "12"], "gk_throw": "08", "gk_goalkick": "04"}

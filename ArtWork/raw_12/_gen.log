@@ -1,0 +1,202 @@
+201 jobs
+walk east approved frames
+idle south approved frames
+walk north 9
+walk south 9
+idle north 9
+idle a030 9
+run east approved frames
+walk a030 9
+walk a150 9
+idle a120 9
+idle a150 9
+walk a060 9
+idle a060 9
+sprint east approved frames
+idle east 9
+sprint south 7
+run south 9
+walk a120 9
+run a030 9
+run a120 9
+dribble east approved frames
+run a060 9
+sprint a060 7
+sprint a030 7
+run a150 9
+sprint a120 7
+sprint north 7
+pass east approved frames
+run north 9
+dribble south 9
+pass south 9
+dribble north 9
+dribble a150 9
+sprint a150 7
+shot east approved frames
+dribble a030 9
+dribble a060 9
+pass north 9
+pass a120 9
+dribble a120 9
+shot south 11
+volley east approved frames
+pass a150 9
+pass a030 9
+pass a060 9
+shot a060 11
+shot a120 11
+volley south 9
+header east approved frames
+shot a030 11
+volley a060 9
+volley north 9
+volley a120 9
+shot a150 11
+volley a150 9
+header east approved frames
+header south 9
+volley a030 9
+header a060 9
+header a030 9
+shot north 11
+header north 9
+chest east approved frames
+header a120 9
+header a150 9
+header south 9
+header a030 9
+header a150 9
+chest south 9
+tackle east approved frames
+header north 9
+header a060 9
+chest a030 9
+chest a120 9
+chest north 9
+chest a150 9
+fall east approved frames
+chest a060 9
+tackle south 9
+header a120 9
+tackle a030 9
+tackle north 9
+tackle a120 9
+throwin east approved frames
+tackle a150 9
+tackle a060 9
+fall south 13
+celebrate south approved frames
+throwin south 11
+fall a030 13
+fall north 13
+throwin a030 11
+throwin north 11
+fall a120 13
+celebrate south approved frames
+throwin a150 11
+throwin a060 11
+fall a060 13
+fall a150 13
+throwin a120 11
+celebrate a060 13
+celebrate south approved frames
+celebrate east 13
+celebrate a030 13
+celebrate a120 13
+celebrate a150 13
+celebrate east 13
+celebrate a060 13
+celebrate south approved frames
+celebrate north 13
+celebrate east 13
+celebrate a030 13
+celebrate a150 13
+celebrate a030 13
+celebrate a060 13
+celebrate south approved frames
+celebrate north 13
+celebrate a120 13
+celebrate a150 13
+celebrate a120 13
+celebrate north 13
+celebrate east 13
+celebrate south approved frames
+celebrate north 13
+celebrate a030 13
+celebrate east 13
+celebrate a150 13
+celebrate a030 13
+celebrate a120 13
+celebrate south approved frames
+celebrate a120 13
+celebrate a060 13
+celebrate a150 13
+celebrate a030 13
+celebrate east 13
+celebrate a060 13
+gk_ready south approved frames
+celebrate north 13
+celebrate a060 13
+celebrate a150 13
+celebrate north 13
+celebrate a120 13
+celebrate east 13
+gk_catch south approved frames
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 20 concurrent background jobs allowed (Tier 3). You have 20 active jobs."}
+celebrate a120 13
+gk_ready a030 9
+celebrate a030 13
+celebrate north 13
+celebrate a150 13
+gk_high south approved frames
+gk_ready a150 9
+gk_ready north 9
+gk_catch east 9
+gk_catch a060 9
+gk_ready a120 9
+gk_ready a060 9
+gk_scoop south approved frames
+gk_catch north 9
+gk_ready east 9
+gk_high a060 9
+gk_high a030 9
+gk_high a120 9
+gk_high east 9
+gk_punch south approved frames
+gk_high a150 9
+gk_scoop a030 9
+gk_scoop a120 9
+gk_scoop east 9
+gk_catch a030 9
+gk_scoop a060 9
+gk_dive_low south approved frames
+gk_dive_high south approved frames
+gk_dive_high south approved frames
+gk_dive_high south approved frames
+gk_dive_high south approved frames
+gk_high north 9
+gk_catch a120 9
+gk_scoop north 9
+gk_throw east approved frames
+gk_scoop a150 9
+gk_punch a030 9
+gk_catch a150 9
+gk_throw south 9
+gk_punch a060 9
+gk_punch a150 9
+gk_goalkick east approved frames
+gk_punch east 9
+gk_punch a120 9
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 20 concurrent background jobs allowed (Tier 3). You have 20 active jobs."}
+gk_throw a150 9
+gk_throw a030 9
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 20 concurrent background jobs allowed (Tier 3). You have 20 active jobs."}
+gk_goalkick a030 17
+gk_throw a060 9
+gk_goalkick a150 17
+gk_throw north 9
+gk_goalkick a120 17
+gk_goalkick a060 17
+gk_goalkick north 17
+gk_throw a120 9

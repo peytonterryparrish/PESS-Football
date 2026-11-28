@@ -1,0 +1,10 @@
+{
+ "action": "gk_punt2",
+ "body": "NK1",
+ "first": "east/gk_hold_ball",
+ "loop": false,
+ "frames": 11,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit goalkeeper, blue shirt with long magenta sleeves, grey gloves, green shorts, red socks: goalkeeper punt seen from the side, facing right: holding the ball out in front with both hands, he takes two quick steps, drops the ball and swings his right leg through hard, kicking leg finishing up at chest height, arms out wide, then he lands, side-volley clearance, weighty and grounded. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 1005
+}

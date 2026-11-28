@@ -19,6 +19,16 @@ struct FPFFrame
 	bool bValid = false;
 };
 
+// v0.9.9: an approved animation (Tools/pipeline/build_anim_atlas.py): frames "<anim>_fNN", played at Dt a frame,
+// Ev = the contact frame (ball struck / reached), lined up with the game's own clip timing
+struct FPFAnim
+{
+	int32 N = 0;
+	float Dt = 0.1f;
+	bool bLoop = false;
+	int32 Ev = -1;
+};
+
 struct FPFSpriteSet
 {
 	FString Id;
@@ -34,6 +44,12 @@ struct FPFSpriteSet
 	TMap<FName, TArray<FName>> Resolved;   // v0.9.8: pose -> the "dir/pose" key drawn for each of the 24 slots (nearest direction it has)
 	TMap<FName, TArray<uint8>> ResolvedSlot; // pose -> the slot that key's direction sits in
 	float DirStep = 45.f;         // degrees between the directions this set is drawn in (45 or 30)
+	TMap<FName, FPFAnim> Anims;   // v0.9.9: approved animations by name ("run", "header_02", ...)
+	TMap<FName, TArray<FName>> AnimTakes;   // several approved takes of one action: "header" -> header_02, header_16
+
+	// the approved animation for an action (one of its takes, chosen by Seed), or null
+	const FPFAnim* FindAnim(FName Action, int32 Seed, FName* OutName) const;
+	static FName AnimFrame(FName Anim, int32 I) { return FName(*FString::Printf(TEXT("%s_f%02d"), *Anim.ToString(), I)); }
 
 	bool Load(const FString& InId);
 	// Frame for a direction + pose; falls back to the same pose in the nearest direction, then the idle.

@@ -1,0 +1,43 @@
+40 jobs
+D:\PIXFootball\PESS-Football\Tools\pixellab\anim_candidates.py:121: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  moved = max(ImageChops.difference(ims[0], im).getbbox() is not None and sum(1 for p in ImageChops.difference(ims[0], im).getchannel("A").point(lambda v: 255 if v > 100 else 0).getdata() if p) for im in ims[1:])
+slide2 0 13
+slide2 3 13
+FAILED POST /animate-with-text-v3 -> 429: {"detail":"Maximum 20 concurrent background jobs allowed (Tier 3). You have 20 active jobs."}
+slide2 6 13
+slide2 4 13
+slide2 1 13
+slide2 2 13
+slide2 7 13
+slide2 11 13
+slide2 9 13
+slide2 13 13
+slide2 8 13
+slide2 14 13
+slide2 15 13
+slide2 12 13
+slide2 16 13
+slide2 10 13
+slide2 18 13
+slide2 17 13
+gk_punt2 0 11
+slide2 19 13
+gk_punt2 1 11
+gk_punt2 3 11
+gk_punt2 4 11
+gk_punt2 5 11
+gk_punt2 2 11
+gk_punt2 7 11
+gk_punt2 6 11
+gk_punt2 10 11
+gk_punt2 11 11
+gk_punt2 8 11
+gk_punt2 9 11
+gk_punt2 13 11
+gk_punt2 14 11
+gk_punt2 12 11
+gk_punt2 16 11
+gk_punt2 15 11
+gk_punt2 17 11
+gk_punt2 18 11
+gk_punt2 19 11

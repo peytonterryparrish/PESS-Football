@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.9.9 (2026-11-28): the owner's picked animations, in 12 directions
+
+**Your picks are in the game** (from the approval gallery, https://claude.ai/artifact/MUL6hBWZ4khtxFjWUaXH3M)
+- **Outfield, one take each:** idle 04, walk 18, run 10, sprint 16, dribble 06, pass 16, shot 04, volley 13, chest control 00, standing tackle 13, fall 18, throw-in 15.
+- **Header:** two Bests (02 and 16); each player always uses the same one.
+- **Celebration:** no Best, so the seven you marked Yes are shared out among the players.
+- **Keeper, one take each:** ready stance 08, chest catch 15, high catch 02, low gather 15, punch 02, throw 08, goal kick 04.
+- **Keeper dives:** low dive 01; high dive has four Bests (00, 07, 08, 12), and a different one is picked per dive.
+- **12 directions:** each take is drawn in 12 directions. The side you approved is your exact frames. The other six drawn sides are made from the same prompt and seed, starting from his frame turned to that side; the remaining five are mirror images. Cost $19 for 201 jobs (`Tools/pixellab/produce_approved.py`).
+- **Dives** are drawn front-on as approved, mirrored for a dive to the other side, with his head clear the whole way. No more turned standing frame.
+- **Timing unchanged:** each clip keeps the game's own timing, so the ball leaves at the same moment, with the take's contact frame lined up on it. Walk, run, sprint and dribble step by ground covered, as before. While a shot is charged, he holds the shot's wind-up.
+- **Atlases:** N01 and NK1 now carry 12-direction art (`Tools/pipeline/build_anim_atlas.py`: palette snap, kit keys, drawn balls cut out). `-pfoldanims` shows the v0.9.8 poses.
+
+**Still to pick**
+- **Slide tackle and keeper punt:** all 20 of the first takes of each were No, so 20 new takes of each are at the top of the gallery. Until you pick, the old frames stay.
+
+**Checks**
+- **10-match sim:** 2.40 goals a match, none stuck. Gameplay timing is the same as v0.9.8.
+
 ## v0.9.8 (2026-11-27): passing power bar, true-direction passing, real through balls, a 3D stadium, and 490 animations to approve
 
 **Animation approval round** (gallery: https://claude.ai/artifact/MUL6hBWZ4khtxFjWUaXH3M)

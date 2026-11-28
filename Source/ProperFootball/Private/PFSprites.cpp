@@ -56,6 +56,22 @@ bool FPFSpriteSet::Load(const FString& InId)
 			const TArray<TSharedPtr<FJsonValue>>& A = KV.Value->AsArray();
 			if (A.Num() >= 2) Hands.Add(FName(*KV.Key), FVector2D(A[0]->AsNumber(), A[1]->AsNumber()));
 		}
+	// v0.9.9: approved animations
+	if (J->HasField(TEXT("anims")))
+		for (const auto& KV : J->GetObjectField(TEXT("anims"))->Values)
+		{
+			const TSharedPtr<FJsonObject>& O = KV.Value->AsObject();
+			FPFAnim A; A.N = O->GetIntegerField(TEXT("n")); A.Dt = O->GetNumberField(TEXT("dt")); A.bLoop = O->GetBoolField(TEXT("loop")); A.Ev = O->GetIntegerField(TEXT("ev"));
+			if (A.N > 0) Anims.Add(FName(*KV.Key), A);
+		}
+	for (const auto& KV : Anims)
+	{
+		// "header_02" with no plain "header": a take of the action "header"
+		FString K = KV.Key.ToString(), Base, Num;
+		if (K.Split(TEXT("_"), &Base, &Num, ESearchCase::IgnoreCase, ESearchDir::FromEnd) && Num.Len() == 2 && Num.IsNumeric() && !Anims.Contains(FName(*Base)))
+			AnimTakes.FindOrAdd(FName(*Base)).Add(KV.Key);
+	}
+	for (auto& KV : AnimTakes) KV.Value.Sort([](const FName& A, const FName& B) { return A.LexicalLess(B); });
 	// v0.9.8: resolve every pose's 24 slots to the nearest direction drawn (8- or 12-direction art, or a mix)
 	TMap<FName, TArray<int32>> Have;
 	TSet<int32> AllSlots;
@@ -78,7 +94,7 @@ bool FPFSpriteSet::Load(const FString& InId)
 			R[k] = FName(*FString::Printf(TEXT("%s/%s"), DirName(EPFDir(Best)), *KV.Key.ToString())); RS[k] = uint8(Best);
 		}
 	}
-	UE_LOG(LogPF, Log, TEXT("PF sprite set %s: %d frames, %d poses, %d hand anchors, %d-direction art"), *Id, Frames.Num(), Poses.Num(), Hands.Num(), DirStep < 40.f ? 12 : 8);
+	UE_LOG(LogPF, Log, TEXT("PF sprite set %s: %d frames, %d poses, %d hand anchors, %d-direction art, %d approved animations"), *Id, Frames.Num(), Poses.Num(), Hands.Num(), DirStep < 40.f ? 12 : 8, Anims.Num());
 	return true;
 }
 
@@ -90,6 +106,19 @@ const FPFFrame& FPFSpriteSet::Get(EPFDir Dir, FName Pose, uint8* OutSlot) const
 		if (const TArray<FName>* R = Resolved.Find(P))
 			if (const FPFFrame* F = Frames.Find((*R)[D])) { if (OutSlot) *OutSlot = ResolvedSlot[P][D]; return *F; }
 	return None;
+}
+
+const FPFAnim* FPFSpriteSet::FindAnim(FName Action, int32 Seed, FName* OutName) const
+{
+	if (const FPFAnim* A = Anims.Find(Action)) { if (OutName) *OutName = Action; return A; }
+	if (const TArray<FName>* T = AnimTakes.Find(Action))
+		if (T->Num())
+		{
+			const FName N = (*T)[((Seed % T->Num()) + T->Num()) % T->Num()];
+			if (OutName) *OutName = N;
+			return Anims.Find(N);
+		}
+	return nullptr;
 }
 
 const FVector2D* FPFSpriteSet::HandAt(EPFDir Dir, FName Pose) const
