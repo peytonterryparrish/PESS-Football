@@ -1,0 +1,10 @@
+{
+ "action": "pass_short",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: a short side-foot pass, side view: small step, plant the standing foot beside the ball, open the hips, push the ball with the inside of the foot, short follow-through, relaxed one-touch pass. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 1019
+}

@@ -1,0 +1,10 @@
+{
+ "action": "turn",
+ "body": "N01",
+ "first": "east/run_contactR",
+ "loop": false,
+ "frames": 9,
+ "dt": 0.08,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: running player turning around to run the other way, side view: plants his foot, drops his hips, swivels round and pushes off in the new direction, quick spin, exaggerated anticipation and follow-through. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 970
+}

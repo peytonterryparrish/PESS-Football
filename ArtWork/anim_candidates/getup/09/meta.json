@@ -1,0 +1,10 @@
+{
+ "action": "getup",
+ "body": "N01",
+ "first": "raw12:east/fall/f06",
+ "loop": false,
+ "frames": 11,
+ "dt": 0.1,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: football player lying flat on the grass, side view: pushes up onto his hands and knees, gets one foot under him and stands back up, ready, quick and sharp back on his feet, ISS Deluxe style SNES timing. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 963
+}

@@ -156,17 +156,17 @@ namespace PFClips
 		// timings in seconds at animation rate 1.0; the ball leaves on EventIndex
 		// v0.9 arcade poses (Tools/pixellab/poses_base.py ARC_*): bodies without them draw the v0.8 pose instead
 		// (FPFMatch::Draw, ArcFallback). Big back-swing, strike, a long-held high follow-through.
-		Add(TEXT("shot"),     { TEXT("shot_a_plant"), TEXT("shot_a_back"), TEXT("shot_a_strike"), TEXT("shot_a_follow"), TEXT("idle") }, { 0.05f, 0.07f, 0.06f, 0.20f, 0.04f }, 2);
+		Add(TEXT("shot"),     { TEXT("shot_a_plant"), TEXT("shot_a_back"), TEXT("shot_a_strike"), TEXT("shot_a_follow"), TEXT("idle") }, { 0.05f, 0.07f, 0.06f, 0.14f, 0.04f }, 2);   // v0.10: the lock ends 0.18 s after contact; the follow-through finishes drawing (PFPresent.cpp)
 		// v0.9.8 goal kick after the run-up (ISS study: plant 0.08, strike 0.06, a long follow-through 0.25)
 		Add(TEXT("goal_kick"), { TEXT("shot_a_plant"), TEXT("shot_a_back"), TEXT("shot_a_strike"), TEXT("shot_a_follow"), TEXT("idle") }, { 0.08f, 0.06f, 0.06f, 0.25f, 0.04f }, 2);
-		Add(TEXT("pass"),     { TEXT("pass_back"), TEXT("pass_strike"), TEXT("idle") }, { 0.05f, 0.09f, 0.05f }, 1);
+		Add(TEXT("pass"),     { TEXT("pass_back"), TEXT("pass_strike"), TEXT("idle") }, { 0.06f, 0.08f, 0.02f }, 1);   // v0.10: wind-up f03-f04 0.06, contact held, the rest at the take's pace (PFPresent.cpp)
 		Add(TEXT("lob"),      { TEXT("shot_a_back"), TEXT("shot_a_strike"), TEXT("shot_a_follow") }, { 0.06f, 0.08f, 0.14f }, 1);
 		Add(TEXT("volley"),   { TEXT("volley_strike"), TEXT("shot_follow") }, { 0.10f, 0.14f }, 0);
 		Add(TEXT("header"),   { TEXT("header_stand"), TEXT("header"), TEXT("header_stand") }, { 0.10f, 0.18f, 0.10f }, 1);
 		// ISS slide (docs/ISS_STUDY.md 5.3): drop 0.05 s, one held flat slide 0.33 s, hand down, crouch up: ~0.73 s
 		Add(TEXT("slide"),    { TEXT("slide_go"), TEXT("slide_flat"), TEXT("slide_hand"), TEXT("slide_up"), TEXT("idle") }, { 0.06f, 0.38f, 0.14f, 0.18f, 0.03f }, 1);   // v0.9: the flat slide held a little longer than ISS so it reads
 		Add(TEXT("tackle"),   { TEXT("tackle_lunge"), TEXT("tackle_poke"), TEXT("idle") }, { 0.07f, 0.15f, 0.05f }, 0);
-		Add(TEXT("fall"),     { TEXT("stumble"), TEXT("fall_ground"), TEXT("fall_ground"), TEXT("getup_kneel"), TEXT("idle") }, { 0.12f, 0.35f, 0.35f, 0.25f, 0.05f });
+		Add(TEXT("fall"),     { TEXT("stumble"), TEXT("fall_ground"), TEXT("fall_ground"), TEXT("getup_kneel"), TEXT("idle") }, { 0.15f, 0.45f, 0.45f, 0.35f, 0.15f });   // v0.10: down 0.80 s, then up (fable section 4: fouled 1.3 s)
 		Add(TEXT("celebrate"),{ TEXT("celebrate_arms_up"), TEXT("celebrate_fist"), TEXT("celebrate_arms_up"), TEXT("celebrate_point") }, { 0.4f, 0.4f, 0.4f, 0.8f });   // v0.8: the airplane frames failed the sprite audit (66 broken cells)
 		Add(TEXT("knee_slide"),{ TEXT("celebrate_knee_slide"), TEXT("celebrate_arms_up") }, { 1.0f, 1.0f });
 		Add(TEXT("chest"),    { TEXT("chest_control"), TEXT("idle") }, { 0.20f, 0.05f });
@@ -176,10 +176,12 @@ namespace PFClips
 		// goalkeeper
 		// v0.9.5 (ISS frame-by-frame): spring, one long-held stretch through the flight (low 0.29 s, high 0.45 s), down
 		// flat about 0.4 s, then a kneel and up (ISS: back up 21-29 frames after landing)
-		Add(TEXT("gk_dive_low_R"), { TEXT("gk_ready"), TEXT("gk_push_R"), TEXT("gk_stretch_R"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.62f, 0.18f, 0.05f }, 2);
-		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_push_R"), TEXT("gk_stretch_R"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.74f, 0.18f, 0.05f }, 2);
-		Add(TEXT("gk_dive_low_L"), { TEXT("gk_ready"), TEXT("gk_push_L"), TEXT("gk_stretch_L"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.62f, 0.18f, 0.05f }, 2);
-		Add(TEXT("gk_dive_high_L"), { TEXT("gk_ready"), TEXT("gk_push_L"), TEXT("gk_stretch_L"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.74f, 0.18f, 0.05f }, 2);
+		// v0.10 (owner: "if we miss and the goalie dives, make him stay down for like a second"): flight, 0.70 s down, a
+		// 0.40 s get-up and a 0.15 s settle (a missed dive); a held or parried ball shortens it (FPFMatch::OnDiveTouch)
+		Add(TEXT("gk_dive_low_R"), { TEXT("gk_ready"), TEXT("gk_push_R"), TEXT("gk_stretch_R"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.95f, 0.35f, 0.15f }, 2);
+		Add(TEXT("gk_dive_high_R"), { TEXT("gk_ready"), TEXT("gk_push_R"), TEXT("gk_stretch_R"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 1.11f, 0.35f, 0.15f }, 2);
+		Add(TEXT("gk_dive_low_L"), { TEXT("gk_ready"), TEXT("gk_push_L"), TEXT("gk_stretch_L"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 0.95f, 0.35f, 0.15f }, 2);
+		Add(TEXT("gk_dive_high_L"), { TEXT("gk_ready"), TEXT("gk_push_L"), TEXT("gk_stretch_L"), TEXT("getup_kneel"), TEXT("gk_ready") }, { 0.03f, 0.06f, 1.11f, 0.35f, 0.15f }, 2);
 		// v0.9.5 (ISS: after a ground or chest catch he always goes down on the ball, 0.7-1.8 s): catch, kneel on it, up
 		Add(TEXT("gk_catch"),  { TEXT("gk_catch_chest"), TEXT("getup_kneel"), TEXT("gk_hold_ball") }, { 0.18f, 0.38f, 0.2f });
 		Add(TEXT("gk_catch_high"), { TEXT("gk_catch_high"), TEXT("gk_hold_ball") }, { 0.22f, 0.2f });

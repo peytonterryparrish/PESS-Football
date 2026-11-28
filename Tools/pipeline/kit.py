@@ -28,9 +28,18 @@ def hsv(c):
 
 def hue_d(a, b): d = abs(a - b) % 360; return min(d, 360 - d)
 
+# v0.10 (audit_v100): bodies whose PixelLab takes drew the template socks a touch orange (hue 0-10, not 342-360) and the
+# keeper's template trim a touch pink (hue 318-336): those pixels stayed raw and showed red socks / magenta sleeves in
+# every club kit. build_base_atlas / build_anim_atlas set WIDE for these bodies only (older sets are left as they were).
+WIDE_BODIES = {"N01", "NK1"}
+WIDE = False
+
 def kit_region(c, min_sat=0.45, max_hue=28):
     """Return region name if colour c is a template-kit colour, else None."""
     h, s, v = hsv(c)
+    if WIDE:
+        if (h >= 338 or h <= 10) and s > 0.82 and v > 0.3: return "socks"     # skin/lips/hair/the throw-in ball sit below s 0.8
+        if 280 <= h <= 336 and s > 0.5 and v > 0.25: return "trim"
     # magenta trim: nothing natural on a footballer is magenta, so light/pale trim pinks count too
     if 282 <= h <= 318 and s > 0.20 and v > 0.25: return "trim"
     # template-green shorts: nothing natural on a footballer is green either, so pale/blended greens at the shorts'

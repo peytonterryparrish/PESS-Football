@@ -54,6 +54,38 @@ SPEC = {
  "slide2":    ("N01", "rot_east", False, 12, 160, 0.07, "slide tackle seen from the side: he runs in, drops onto his left hip and slides feet-first along the grass to the right, body low and leaning back, right leg straight out in front at ankle height, left leg bent under him, left hand trailing on the grass, then he stops and pushes himself back up",
                ["fast and low, a long clean slide", "aggressive slide, studs showing", "controlled slide, arm out for balance", "sliding block, both legs together",
                 "classic 1990s slide tackle", "late lunge into a slide"]),
+
+ # ---- v0.10.0 approval round: more takes for play on the ball, defending, keepers and transitions (25 each) ----
+ "dribble2":  ("N01", "east/dribble_touchR", True, 8, 96, 0.09, "dribbling a football in place, side view, close control with quick touches, but draw no ball",
+               ["head down, slightly crouched, arms out wide for balance", "dribbling at pace, pushing the ball ahead with the laces", "tight close control, body over the ball",
+                "shifting weight side to side, ready to beat a man", "upright dribble, head up scanning the pitch", "skilful light-footed dribble", "powerful driving run with the ball"]),
+ "pass_short": ("N01", "rot_east", False, 8, 96, 0.08, "a short side-foot pass, side view: small step, plant the standing foot beside the ball, open the hips, push the ball with the inside of the foot, short follow-through",
+               ["crisp and compact", "relaxed one-touch pass", "weighted pass, arms out for balance", "quick pass while moving"]),
+ "pass_long": ("N01", "rot_east", False, 10, 96, 0.08, "a long driven pass, side view: two-step approach, plant, kicking leg swings back then through with the laces, body leaning back slightly, high follow-through",
+               ["raking 40-yard pass", "driven low pass", "lofted switch of play", "powerful long ball"]),
+ "through_ball": ("N01", "rot_east", False, 8, 96, 0.08, "a disguised through ball, side view: head up looking, small plant, slides the ball forward with the inside of the foot into space, follow-through pointing where it goes",
+               ["clever reverse pass", "weighted through pass", "quick threaded pass", "chipped through ball"]),
+ "cross":     ("N01", "rot_east", False, 10, 96, 0.08, "crossing the ball from the wing, side view: run-up, plant, wraps his foot around the ball, body leaning back and away, kicking leg swings across his body, arms out wide",
+               ["whipped in-swinging cross", "high hanging cross", "low driven cross", "early cross on the run"]),
+ "corner":    ("N01", "rot_east", False, 14, 128, 0.09, "taking a corner kick, side view facing right: stands by the ball, raises one arm, steps back, short run-up, plants and swings his kicking leg to curl the ball in, follow-through",
+               ["arm raised to signal, then a curling delivery", "short run-up, whipped corner", "longer run-up, big swing", "calm, deliberate corner"]),
+ "jockey":    ("N01", "rot_east", True, 8, 96, 0.1, "defender jockeying in place, side view: low side-on stance, knees bent, arms out, small shuffling steps, ready to tackle",
+               ["patient jockey, eyes on the ball", "aggressive closing down", "staying on his toes, side-stepping", "crouched and ready"]),
+ "block":     ("N01", "rot_east", False, 8, 96, 0.08, "defender blocking a shot, side view: steps across, turns his body side-on, leg stretched out to block, arms tucked behind his back",
+               ["brave sliding block", "standing block, leg out", "throws his body in the way", "hands behind back, side-on block"]),
+ "getup":     ("N01", "raw12:east/fall/f06", False, 10, 128, 0.1, "football player lying flat on the grass, side view: pushes up onto his hands and knees, gets one foot under him and stands back up, ready",
+               ["slowly, a bit dazed", "quick and sharp back on his feet", "rolls over then stands", "pushes up with both arms"]),
+ "stop":      ("N01", "east/run_contactR", False, 8, 96, 0.08, "running player coming to a stop, side view: braking steps, leaning back, arms out, settling into a balanced standing stance",
+               ["sharp stop, plant and brake", "gradual slow-down to a jog then stand", "skidding stop", "controlled stop, ready to move again"]),
+ "turn":      ("N01", "east/run_contactR", False, 8, 96, 0.08, "running player turning around to run the other way, side view: plants his foot, drops his hips, swivels round and pushes off in the new direction",
+               ["sharp 180 degree turn", "rounded turn, staying low", "quick spin", "check back on the plant foot"]),
+ "gk_goalkick2": ("NK1", "rot_east", False, 16, 160, 0.15, "goalkeeper taking a goal kick, side view, facing right: walks backwards to the left for four steps while still facing right, settles, then runs forward three strides, plants his standing foot and kicks long with a big follow-through",
+               ["measured steps back, then an accelerating run-up", "relaxed back-pedal, then a powerful strike", "short sharp steps back, arms wide on the kick",
+                "slow deliberate walk back, confident run-up", "big plant, follow-through carries him forward"]),
+ "gk_hold_walk": ("NK1", "east/gk_hold_ball", True, 8, 96, 0.12, "goalkeeper walking in place, side view, holding the football in both hands against his chest, calm steady steps",
+               ["ball tucked into his chest", "ball held out in front with both gloves", "relaxed walk, ball in one hand at his side then both", "looking up the pitch as he walks"]),
+ "gk_getup":  ("NK1", "raw12:south/gk_dive_low/f10", False, 10, 160, 0.1, "goalkeeper lying on his side on the grass after a dive, facing the camera: stays down a moment, pushes up onto one knee, then stands back up into his ready stance",
+               ["frustrated, slow to get up", "springs straight back up", "rolls and rises onto one knee first", "pushes up with both hands"]),
  "throwin":   ("N01", "rot_east", False, 10, 96, 0.1, "throw-in, side view: both hands bring the ball behind his head with back arched, both feet down, throw forward, arms finish straight out in front, but draw no ball",
                ["long throw, big arch", "short throw, quick", "step-in throw"]),
  "celebrate": ("N01", "rot_south", False, 12, 96, 0.12, "goal celebration facing the camera",
@@ -86,12 +118,15 @@ SPEC = {
                ["measured steps back, then an accelerating run-up", "relaxed back-pedal, then a powerful strike", "short sharp steps back, arms wide on the kick",
                 "slow deliberate walk back, confident run-up", "big plant, follow-through carries him forward"]),
 }
-FIGX = {"slide2": 0.25, "gk_punt2": 0.35, "gk_goalkick": 0.62, "slide": 0.3, "fall": 0.35}
+FIGX = {"gk_goalkick2": 0.62, "corner": 0.4, "slide2": 0.25, "gk_punt2": 0.35, "gk_goalkick": 0.62, "slide": 0.3, "fall": 0.35}
 COUNT = {"gk_dive_low": 15, "gk_dive_high": 15}
 
 def first_frame(body, src, canvas, action="", turn=None):
     """the body's own frame (96 px) for `src`, optionally turned by `turn(im)` (12-direction production), placed on the
-    action's canvas"""
+    action's canvas. "raw12:<dir>/<anim>/fNN" starts from a frame of an approved animation (already on its canvas)."""
+    if src.startswith("raw12:"):
+        im = Image.open(os.path.join(ROOT, "ArtWork", "raw_12", body, src[6:] + ".png")).convert("RGBA")
+        return turn(im) if turn else im
     if src.startswith("rot_"): im = Image.open(os.path.join(RAW, body, src + ".png")).convert("RGBA")
     else:
         d, p = src.split("/"); im = Image.open(os.path.join(RAW, body, d, "t0", p + ".png")).convert("RGBA")

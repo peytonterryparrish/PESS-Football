@@ -1,0 +1,10 @@
+{
+ "action": "gk_getup",
+ "body": "NK1",
+ "first": "raw12:south/gk_dive_low/f10",
+ "loop": false,
+ "frames": 11,
+ "dt": 0.1,
+ "prompt": "a stocky retro 16-bit goalkeeper, blue shirt with long magenta sleeves, grey gloves, green shorts, red socks: goalkeeper lying on his side on the grass after a dive, facing the camera: stays down a moment, pushes up onto one knee, then stands back up into his ready stance, rolls and rises onto one knee first. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow.",
+ "seed": 914
+}

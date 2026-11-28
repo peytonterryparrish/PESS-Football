@@ -2,6 +2,7 @@
 #include "PFGame.h"
 #include "PFWorld.h"
 #include "PFCareer.h"
+#include "PFPresent.h"
 #include "Engine/Canvas.h"
 #include "Engine/Texture2D.h"
 #include "Engine/World.h"
@@ -17,6 +18,7 @@
 #include "Misc/ConfigCacheIni.h"
 
 static void PFPassTests();   // v0.9.8 (RunFeelTest)
+static void PFAttackTests();   // v0.10 (RunFeelTest, -pfattacktest)
 
 // ------------------------------------------------------------------------------------------------ font
 bool FPFFont::Load(const FString& Name)
@@ -108,7 +110,9 @@ void UPFFlow::Begin(UWorld* World)
 	int32 TestMatches = 0;
 	if (FParse::Value(FCommandLine::Get(), TEXT("pfsimtest="), TestMatches)) { RunMatchTest(TestMatches); return; }
 	if (FParse::Param(FCommandLine::Get(), TEXT("pffeeltest"))) { RunFeelTest(); return; }
+	if (FParse::Param(FCommandLine::Get(), TEXT("pfattacktest"))) { PFAttackTests(); QuitAt = Time + 0.5f; return; }   // v0.10: attacking runs and the cross bar
 	if (FParse::Param(FCommandLine::Get(), TEXT("pfpasstest"))) { PFPassTests(); QuitAt = Time + 0.5f; return; }   // v0.9.8: only the pad passing tests
+	if (FParse::Param(FCommandLine::Get(), TEXT("pfsetpiecetest"))) { PFSetPieceTests(); QuitAt = Time + 0.5f; return; }   // v0.10: the pad's set pieces (PFSetPiece.cpp)
 	int32 TestSeasons = 0;
 	if (FParse::Value(FCommandLine::Get(), TEXT("pfcareertest="), TestSeasons)) { RunCareerTest(TestSeasons); return; }
 	FString CScreen;
@@ -138,6 +142,141 @@ void UPFFlow::Begin(UWorld* World)
 static float PFPassHoldFor(float Dist) { return Dist < FPFMatch::PassMinD + 1.f ? 0.05f : FPFMatch::PassTapT + (FPFMatch::PassFullT - FPFMatch::PassTapT) * FMath::Clamp((Dist - FPFMatch::PassMinD) / (FPFMatch::PassMaxD - FPFMatch::PassMinD), 0.f, 1.f); }
 static float PFThroughHoldFor(float Lead) { return Lead < 6.5f ? 0.05f : FPFMatch::PassTapT + (FPFMatch::PassFullT - FPFMatch::PassTapT) * FMath::Clamp((Lead - FPFMatch::ThroughMinLead) / (FPFMatch::ThroughMaxLead - FPFMatch::ThroughMinLead), 0.f, 1.f); }
 static FVector2D PFRotScreen(FVector2D S, float Deg) { const float R = FMath::DegreesToRadians(Deg), Cc = FMath::Cos(R), Ss = FMath::Sin(R); return FVector2D(S.X * Cc - S.Y * Ss, S.X * Ss + S.Y * Cc); }
+// v0.10 attacking play and the cross bar (owner: "nobody's making runs ... X should have a power bar as well")
+// PFATTACK: the pad's man has the ball with his side in its defending shape and the opponents live; how the team-mates
+// move in the next 3 s (wide men up, strikers split, men ahead of the ball, runs). PFCROSS: from the wing, X tapped,
+// held to the middle, held full - who it picks, how high it goes, where it comes down, who wins it.
+static void PFAttackTests()
+{
+	const TArray<FPFClub>& C = PFWorld::Clubs();
+	auto NewMatch = [&C](FPFMatch& M, uint64 Seed, int32 Ci)
+	{
+		FPFMatchSetup S; S.Seed = Seed;
+		S.Home = PFWorld::FriendlyTeam(C[(Ci * 5) % C.Num()], false, 11 + Ci); S.Away = PFWorld::FriendlyTeam(C[(Ci * 7 + 3) % C.Num()], true, 13 + Ci);
+		S.Home.bHuman = true; S.HalfSeconds = 150.f; S.StadiumSlug = C[0].Stadium;
+		M.Init(S);
+		{ FPFPadInput In; In.bPass = true; M.Tick(1.f / 120.f, In); }
+		FPFPadInput In; for (int32 f = 0; f < 60; ++f) M.Tick(1.f / 120.f, In);
+		for (FPFPlayer& Q : M.P) { Q.Act = EPFAct::None; Q.PendingKick = EPFKick::None; Q.NoTouch = 0; Q.RunT = 0; Q.BoostT = 0; Q.AtkRun = 0; Q.AtkRunCool = 0; }
+	};
+	auto GiveBall = [](FPFMatch& M, int32 Who, FVector2D At)
+	{
+		FPFPlayer& H = M.P[Who];
+		H.Pos = At; H.Vel = FVector2D::ZeroVector; H.Facing = FVector2D(M.AttackSign(0), 0);
+		M.Human = Who; M.Phase = EPFPhase::Play;
+		M.Ball = FPFBall(); M.Ball.Owner = Who; M.Ball.Pos = FVector(H.Pos, 0.11f); M.Ball.LastTouch = Who; M.Ball.LastTeam = 0;
+	};
+	// ---- PFATTACK
+	{
+		int32 N = 0; float WideUp = 0, Split = 0, Ahead0 = 0, Ahead1 = 0, Line0 = 0, Line1 = 0; int64 Runs = 0, RunsHold = 0; int32 Kept = 0;
+		static const float Starts[] = { -15.f, 0.f, 15.f };
+		for (int32 s = 0; s < 3; ++s)
+			for (int32 k = 0; k < 6; ++k)
+			{
+				FPFMatch M; NewMatch(M, 7100 + s * 10 + k, k);
+				const int32 Ad = M.AttackSign(0);
+				int32 Cm = -1;   // a centre mid has it (owner: "my left mid and right mid should be moving up the field as my center mids have the ball")
+				for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && Q.Setup.Role == EPFRole::MID && FMath::Abs(Q.Setup.Slot.Y) < 0.5f && (Cm < 0 || (k & 1))) Cm = Q.Index;
+				GiveBall(M, Cm, FVector2D(Ad * Starts[s], (k % 3 - 1) * 6.f));
+				M.TestTakeShape();
+				auto Snap = [&](float& Ahead, float& Line)
+				{
+					int32 A = 0; float L = 0; int32 Nn = 0;
+					for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && !Q.bKeeper && !Q.bSentOff) { L += Q.Pos.X * Ad; Nn++; if (Q.Index != M.Ball.Owner && (Q.Pos.X - M.Ball.Pos.X) * Ad > 3.f) A++; }
+					Ahead += A; Line += Nn ? L / Nn : 0.f;
+				};
+				TMap<int32, float> X0;
+				for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && Q.Setup.Role == EPFRole::MID && FMath::Abs(Q.Setup.Slot.Y) >= 0.6f) X0.Add(Q.Index, Q.Pos.X * Ad);
+				float A0 = 0, L0 = 0, A1 = 0, L1 = 0;
+				Snap(A0, L0); Ahead0 += A0; Line0 += L0;
+				const int64 R0 = FPFMatch::AtkDiag[10] + FPFMatch::AtkDiag[12] + FPFMatch::AtkDiag[13] + FPFMatch::AtkDiag[14] + FPFMatch::AtkDiag[17];
+				// he shields it (stick idle) for 2.5 s, then holds A for 0.4 s (a forward should set off for a long pass)
+				FPFPadInput In; bool bLost = false;
+				for (int32 f = 0; f < 300 && !bLost; ++f) { M.Tick(1.f / 120.f, In); if (M.Ball.Owner < 0 || M.P[M.Ball.Owner].Team != 0) bLost = true; }
+				const int64 R1 = FPFMatch::AtkDiag[10] + FPFMatch::AtkDiag[12] + FPFMatch::AtkDiag[13] + FPFMatch::AtkDiag[14] + FPFMatch::AtkDiag[17];
+				int64 R2 = R1;
+				if (!bLost)
+				{
+					Kept++;
+					FPFPadInput Q; Q.bPass = true; Q.bPassHeld = true;
+					M.Tick(1.f / 120.f, Q); Q.bPass = false;
+					for (int32 f = 0; f < 40 && M.Ball.Owner == Cm; ++f) M.Tick(1.f / 120.f, Q);
+					R2 = FPFMatch::AtkDiag[10] + FPFMatch::AtkDiag[12] + FPFMatch::AtkDiag[13] + FPFMatch::AtkDiag[14] + FPFMatch::AtkDiag[17];
+				}
+				Snap(A1, L1); Ahead1 += A1; Line1 += L1;
+				float Wu = 0; for (const auto& KV : X0) Wu += M.P[KV.Key].Pos.X * Ad - KV.Value;
+				WideUp += X0.Num() ? Wu / X0.Num() : 0.f;
+				TArray<float> SY; for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && Q.Setup.Role == EPFRole::FWD) SY.Add(Q.Pos.Y);
+				if (SY.Num() >= 2) Split += FMath::Abs(SY[0] - SY[1]);
+				Runs += R1 - R0; RunsHold += R2 - R1; N++;
+				UE_LOG(LogPF, Display, TEXT("PFATTACK %2d: ball at %+.0f m, %s; wide mids moved up %.1f m, strikers %.1f m apart, men ahead of the ball %d -> %d, runs %lld (+%lld with A held)"),
+					N, Starts[s], bLost ? TEXT("lost it") : TEXT("kept it"), X0.Num() ? Wu / X0.Num() : 0.f, SY.Num() >= 2 ? FMath::Abs(SY[0] - SY[1]) : 0.f, int32(A0), int32(A1), R1 - R0, R2 - R1);
+			}
+		UE_LOG(LogPF, Display, TEXT("PFATTACK total %d cases (kept it %d): wide mids moved up %.1f m on average in 2.5 s, strikers %.1f m apart, men ahead of the ball %.1f -> %.1f, team line %+.1f -> %+.1f m, runs started %.2f a case, %.2f more with A held"),
+			N, Kept, N ? WideUp / N : 0.f, N ? Split / N : 0.f, N ? Ahead0 / N : 0.f, N ? Ahead1 / N : 0.f, N ? Line0 / N : 0.f, N ? Line1 / N : 0.f, N ? float(Runs) / N : 0.f, Kept ? float(RunsHold) / Kept : 0.f);
+	}
+	// ---- PFCROSS
+	{
+		static const float Holds[] = { 0.05f, 0.22f, 0.5f };
+		static const TCHAR* Names[] = { TEXT("tap"), TEXT("middle"), TEXT("full") };
+		for (int32 h = 0; h < 3; ++h)
+		{
+			int32 N = 0, Near = 0, Mid = 0, Far = 0, None = 0, Won = 0, Heads = 0; float PeakSum = 0, LandSum = 0;
+			for (int32 k = 0; k < 8; ++k)
+			{
+				FPFMatch M; NewMatch(M, 7300 + h * 20 + k, k);
+				const int32 Ad = M.AttackSign(0);
+				const float Side = (k & 1) ? 1.f : -1.f;
+				int32 Wm = -1; for (const FPFPlayer& Q : M.P) if (Q.Team == 0 && Q.Setup.Role == EPFRole::MID && FMath::Sign(Q.Setup.Slot.Y * Ad) == Side && FMath::Abs(Q.Setup.Slot.Y) >= 0.6f) Wm = Q.Index;
+				if (Wm < 0) continue;
+				GiveBall(M, Wm, FVector2D(Ad * (52.5f - 9.f - (k % 3) * 3.f), Side * 25.f));
+				M.TestTakeShape();
+				// three in the box: near post, the spot, far post; the rest of ours and theirs out of the way but their keeper
+				TArray<int32> Box;
+				for (FPFPlayer& Q : M.P)
+				{
+					if (Q.Index == Wm || Q.bKeeper) continue;
+					if (Q.Team == 0 && Box.Num() < 3 && (Q.Setup.Role == EPFRole::FWD || Q.Setup.Role == EPFRole::MID)) { Box.Add(Q.Index); continue; }
+					if (Q.Team == 1 && Q.Setup.Role == EPFRole::DEF && k >= 4) { Q.Pos = FVector2D(Ad * (52.5f - 7.f), (Q.Setup.Slot.Y) * 10.f); Q.Vel = FVector2D::ZeroVector; continue; }   // half the cases: their back four in the box
+					if (Q.Team == 1 && Q.Setup.Role == EPFRole::DEF && FMath::Abs(Q.Setup.Slot.Y) > 0.6f) { Q.Pos = FVector2D(Ad * 51.5f, FMath::Sign(Q.Setup.Slot.Y) * 31.f); Q.Vel = FVector2D::ZeroVector; continue; }   // else two on the goal line out wide (an onside line, out of the way)
+					Q.bSentOff = true; Q.Pos = FVector2D(0, 90);
+				}
+				if (Box.Num() < 3) continue;
+				const FVector2D Spots[3] = { FVector2D(Ad * 47.5f, Side * 2.f), FVector2D(Ad * 41.5f, 0.f), FVector2D(Ad * 46.5f, -Side * 6.7f) };
+				for (int32 i = 0; i < 3; ++i) { FPFPlayer& Q = M.P[Box[i]]; Q.Pos = Spots[i]; Q.Vel = FVector2D::ZeroVector; Q.bSettled = true; }
+				FPFPadInput Q; Q.bLob = true; Q.bLobHeld = true;
+				M.Tick(1.f / 120.f, Q); Q.bLob = false;
+				float T = 1.f / 120.f;
+				while (T < Holds[h] && M.Ball.Owner == Wm) { M.Tick(1.f / 120.f, Q); T += 1.f / 120.f; }
+				Q.bLobHeld = false;
+				for (int32 f = 0; f < 4 && M.Ball.Owner == Wm; ++f) M.Tick(1.f / 120.f, Q);
+				if (M.Ball.Owner == Wm) continue;
+				N++;
+				const int32 Pick = M.P[Wm].KickTarget;
+				if (Pick == Box[0]) Near++; else if (Pick == Box[1]) Mid++; else if (Pick == Box[2]) Far++; else None++;
+				const FVector2D K0(M.Ball.Pos.X, M.Ball.Pos.Y);
+				float Peak = 0, Land = 0; bool bLanded = false; FPFPadInput Idle;
+				for (int32 f = 0; f < 480; ++f)
+				{
+					M.Tick(1.f / 120.f, Idle);
+					Peak = FMath::Max(Peak, (float)M.Ball.Pos.Z);
+					if (!bLanded && M.Ball.Vel.Z < 0.f && M.Ball.Pos.Z < 1.8f) { bLanded = true; Land = FVector2D::Distance(K0, FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y)); }
+					if (M.Ball.LastTouch != Wm) break;
+				}
+				if (!bLanded) Land = FVector2D::Distance(K0, FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y));   // touched before it dropped to head height
+				PeakSum += Peak; LandSum += Land;
+				const int32 Lt = M.Ball.LastTouch;
+				if (M.P.IsValidIndex(Lt) && M.P[Lt].Team == 0 && Lt != Wm) { Won++; if (M.Ball.LastKind == int32(EPFKick::Header)) Heads++; }
+				UE_LOG(LogPF, Display, TEXT("PFCROSS %s %d: picked %s, peak %.1f m, came down to head height %.1f m out, won by %s (kind %d)"), Names[h], k,
+					Pick == Box[0] ? TEXT("near post") : Pick == Box[1] ? TEXT("the spot") : Pick == Box[2] ? TEXT("far post") : TEXT("nobody"), Peak, Land,
+					!M.P.IsValidIndex(Lt) || Lt == Wm ? TEXT("nobody") : M.P[Lt].Team == 0 ? TEXT("us") : M.P[Lt].bKeeper ? TEXT("their keeper") : TEXT("them"), M.Ball.LastKind);
+			}
+			UE_LOG(LogPF, Display, TEXT("PFCROSS %s total %d crosses: near post %d, the spot %d, far post %d, nobody %d; peak %.1f m, head height reached %.1f m from the crosser; won by us %d (headers %d)"),
+				Names[h], N, Near, Mid, Far, None, N ? PeakSum / N : 0.f, N ? LandSum / N : 0.f, Won, Heads);
+		}
+	}
+}
+
 static void PFPassTests()
 {
 	const TArray<FPFClub>& C = PFWorld::Clubs();
@@ -329,7 +468,7 @@ static void PFPassTests()
 	}
 	// ---- E: the goal kick routine (owner: "the keeper steps back about four steps, then runs up and kicks when the button
 	// is pressed"): the ball goes out off an opponent over our goal line; the keeper's steps and when it is struck. Pad
-	// (X pressed at once, or A for a short one) and AI.
+	// (B held and let go, or A tapped for a short one) and AI.
 	for (int32 Mode = 0; Mode < 3; ++Mode)
 	{
 		FPFMatch M; NewMatch(M, 8100 + Mode, Mode);
@@ -344,19 +483,23 @@ static void PFPassTests()
 		{
 			FPFPadInput Q;
 			if (M.Phase == EPFPhase::Restart && !bSeen) { bSeen = true; for (const FPFPlayer& K : M.P) if (K.Team == 0 && K.bKeeper) { Kp = K.Index; Start = K.Pos; } T = 0; }
-			if (bSeen && Mode < 2 && !bPressed && T > 0.3f) { bPressed = true; if (Mode == 0) Q.bLob = true; else Q.bPass = true; }
+			// v0.10 bug pass: since the set-piece bar (PFSetPiece.cpp) X only lowers the kick; the long goal kick is B held and
+			// let go (here 0.45 s: about half a bar), which starts the run-up - X never struck it, so this case read -1.00 s
+			if (bSeen && Mode < 2 && !bPressed && T > 0.3f) { bPressed = true; if (Mode == 0) { Q.bShootPressed = true; Q.bShootHeld = true; } else Q.bPass = true; }
+			if (bSeen && Mode == 0 && bPressed && T < 0.75f) Q.bShootHeld = true;
 			M.Tick(1.f / 120.f, Q); T += 1.f / 120.f;
 			if (bSeen && Kp >= 0) MaxBack = FMath::Max(MaxBack, (float)FVector2D::Distance(M.P[Kp].Pos, Start));
 			if (bSeen && KickAt < 0 && M.Ball.Owner < 0 && M.Phase == EPFPhase::Play && FVector2D(M.Ball.Vel.X, M.Ball.Vel.Y).Size() > 3.f) { KickAt = T; Launch = M.Ball.Vel.Size(); break; }
 		}
 		UE_LOG(LogPF, Display, TEXT("PFGK %s: goal kick seen %d, keeper stepped back up to %.1f m, ball struck %.2f s after the restart at %.1f m/s (kind %d)"),
-			Mode == 0 ? TEXT("pad X ") : Mode == 1 ? TEXT("pad A ") : TEXT("AI    "), bSeen ? 1 : 0, MaxBack, KickAt, Launch, M.Ball.LastKind);
+			Mode == 0 ? TEXT("pad B ") : Mode == 1 ? TEXT("pad A ") : TEXT("AI    "), bSeen ? 1 : 0, MaxBack, KickAt, Launch, M.Ball.LastKind);
 	}
 }
 
 void UPFFlow::RunFeelTest()
 {
 	// headless: the human player in a friendly, stick scripted. Measures how fast the controls answer, for a slow and a fast player.
+	FPFMatch::GameSpeed = FPFMatch::NormalSpeed;   // v0.10: tests run at the default pace
 	const TArray<FPFClub>& C = PFWorld::Clubs();
 	for (int32 Variant = 0; Variant < 4; ++Variant)
 	{
@@ -498,7 +641,11 @@ void UPFFlow::RunFeelTest()
 			Q.bShootPressed = true; Q.bShootHeld = true; M.Tick(1.f / 120.f, Q); Q.bShootPressed = false;
 			const int32 Frames = Hold == 0 ? 8 : Hold == 1 ? 37 : 60;
 			for (int32 f = 0; f < Frames && M.Ball.Owner == M.Human; ++f) M.Tick(1.f / 120.f, Q);
-			Q.bShootHeld = false; Q.bShootReleased = true; M.Tick(1.f / 120.f, Q); Q.bShootReleased = false; Q.Move = FVector2D::ZeroVector;
+			Q.bShootHeld = false; Q.bShootReleased = true; M.Tick(1.f / 120.f, Q); Q.bShootReleased = false;
+			// v0.10 bug pass: at GameSpeed 0.89 about one frame in nine runs no 120 Hz step, so the release can be struck on the
+			// next frame; the note was read before it (blank = graded "bad": 26 of 54). Stick held until the ball has gone.
+			for (int32 f = 0; f < 6 && M.Ball.Owner == M.Human; ++f) M.Tick(1.f / 120.f, Q);
+			Q.Move = FVector2D::ZeroVector;
 			const FString Note = M.LastShotNote; const int32 Sc0 = M.Score[H.Team];
 			float LineY = 99, LineZ = 0;
 			for (int32 f = 0; f < 300; ++f)
@@ -646,6 +793,7 @@ void UPFFlow::RunFeelTest()
 			Mode == 0 ? TEXT("pad") : TEXT("ai"), N, Done, N ? 100.f * Done / N : 0.f, ToMan, ByDef, ByKeeper, Off, OutN, Dead, Done ? BallSum / Done : 0.f, BallMax, Done ? TSum / Done : 0.f, Done ? RunSum / Done : 0.f, N ? LeadSum / N : 0.f, N ? BoostSum / N : 0.f);
 	}
 	PFPassTests();   // v0.9.8
+	PFAttackTests();   // v0.10
 	QuitAt = Time + 0.5f;
 }
 
@@ -657,6 +805,8 @@ void UPFFlow::RunMatchTest(int32 N)
 	TMap<int32, int32> GoalHist;
 	const double T0 = FPlatformTime::Seconds();
 	FMemory::Memzero(FPFMatch::Diag, sizeof(FPFMatch::Diag));
+	FMemory::Memzero(FPFMatch::AtkDiag, sizeof(FPFMatch::AtkDiag));
+	FPFMatch::GameSpeed = FPFMatch::NormalSpeed;   // v0.10: the sim always runs at the default pace (not the player's option)
 	for (int32 m = 0; m < N; ++m)
 	{
 		FPFMatch M;
@@ -691,7 +841,20 @@ void UPFFlow::RunMatchTest(int32 N)
 		UE_LOG(LogPF, Display, TEXT("PFSIM goal ball: loose %lld, carried in by attacker %lld, by defender %lld; blocks per match %.1f"), Dg[26], Dg[27], Dg[28], Dg[29] / Nn);
 		UE_LOG(LogPF, Display, TEXT("PFSIM laws per match: offsides %.1f, keeper 8 s corners %.1f, keeper hand pick-ups %.1f; kicks %.1f with %.1f players offside; goals ruled out %lld; shots gathered by keeper %.1f, shots wide/over %.1f, shots taken by a defender %.1f / by a team-mate %.1f"), Dg[32] / Nn, Dg[33] / Nn, Dg[34] / Nn, Dg[36] / Nn, Dg[35] / Nn, Dg[37], Dg[38] / Nn, Dg[39] / Nn, Dg[40] / Nn, Dg[41] / Nn);
 		UE_LOG(LogPF, Display, TEXT("PFSIM passes per match %.1f: completed %.0f%%, intercepted %.0f%%, dead %.0f%%, avg length %.1f m; of the intercepted, never came within 2 m of the receiver %lld, taken in the air %lld"), Dg[42] / Nn, Dg[42] ? 100.f * Dg[43] / Dg[42] : 0.f, Dg[42] ? 100.f * Dg[45] / Dg[42] : 0.f, Dg[42] ? 100.f * Dg[46] / Dg[42] : 0.f, Dg[42] ? float(Dg[44]) / Dg[42] : 0.f, Dg[47], Dg[30]);
+		{
+			// v0.10 attack (owner: "nobody's making runs"): the side in possession, both teams together
+			const int64* Ak = FPFMatch::AtkDiag; const float Tk = float(FMath::Max<int64>(1, Ak[0]));
+			UE_LOG(LogPF, Display, TEXT("PFATTACK sim per match: line height in possession %+.1f m (mean of the ten, + = their half), width %.1f m, depth spread %.1f m, men ahead of the ball %.2f; runs seen %.1f; completed passes %.1f, to a man on a run %.1f (%.0f%%), received beyond their line %.1f; crosses %.1f won %.1f; AI runs started: in behind %.1f, check short %.1f, channel %.1f, overlap %.1f, third man %.1f, pass and go %.1f, recycled %.1f"),
+				Ak[1] / 100.f / Tk, Ak[2] / 100.f / Tk, Ak[9] / 100.f / Tk, Ak[16] / Tk, Ak[3] / Nn, Ak[4] / Nn, Ak[5] / Nn, Ak[4] ? 100.f * Ak[5] / Ak[4] : 0.f, Ak[6] / Nn, Ak[7] / Nn, Ak[8] / Nn,
+				Ak[10] / Nn, Ak[11] / Nn, Ak[12] / Nn, Ak[13] / Nn, Ak[14] / Nn, Ak[17] / Nn, Ak[15] / Nn);
+			UE_LOG(LogPF, Display, TEXT("PFATTACK sim ball: in possession it is at %+.1f m on average, %.0f%% of the time in the final third, %.1f entries into it a match, %.2f shots an entry"),
+				Ak[18] / 100.f / Tk, 100.f * Ak[19] / Tk, Ak[20] / Nn, Ak[20] ? float(Dg[0]) / Ak[20] : 0.f);
+		}
 		UE_LOG(LogPF, Display, TEXT("PFSIM presser: ticks %lld, avg dist to ball %.2f m, in reach %.1f%%, avg speed %.2f"), Dg[12], Dg[12] ? Dg[13] / 100.f / Dg[12] : 0.f, Dg[12] ? 100.f * Dg[14] / Dg[12] : 0.f, Dg[12] ? Dg[15] / 100.f / Dg[12] : 0.f);
+		// v0.10 bug pass (match logic): own goals and keeper-touched goals have their own slots now (they were folded into the
+		// cut and pass counts above); carriers over their own goal line; sliders next to a loose ball; penalty keeper guesses
+		UE_LOG(LogPF, Display, TEXT("PFSIM bugpass: own goals %lld, goals last touched by a keeper %lld, ball carried over own goal line %lld (AI %lld), slider-by-loose-ball ticks %lld, penalties %lld (goals %lld)"),
+			Dg[48], Dg[49], Dg[51], Dg[52], Dg[50], Dg[53], Dg[54]);
 	}
 	UE_LOG(LogPF, Display, TEXT("PFSIM total: %d matches, %.2f goals/match, %.1f shots/match, stuck %d, %.1fs"), N, TotGoals / float(FMath::Max(1, N)), TotShots / float(FMath::Max(1, N)), Stuck, FPlatformTime::Seconds() - T0);
 	QuitAt = Time + 0.5f;
@@ -769,6 +932,7 @@ void UPFFlow::LoadOptions()
 			if (K == TEXT("halflen")) FriendlyLen = FMath::Clamp(FCString::Atoi(*V), 0, 3);
 			if (K == TEXT("cam7")) CameraOpt = FMath::Clamp(FCString::Atoi(*V), 0, 5);   // v0.9.2: six zooms, WIDE the default (older keys are ignored)
 			if (K == TEXT("size")) SizeOpt = FMath::Clamp(FCString::Atoi(*V), 0, 2);
+			if (K == TEXT("speed")) SpeedOpt = FMath::Clamp(FCString::Atoi(*V), 0, 2);
 		}
 	}
 	ApplyCamera();
@@ -791,13 +955,15 @@ void UPFFlow::ApplyCamera()
 	// third. Sprite pixels at 1080p: 3:1, 2.5:1, 2:1 (default), 1.67:1, 1.33:1, 1:1. -pfcam=N picks one (captures).
 	static const float Z[] = { 4.68f * 1.15f, 3.90f * 1.15f, 3.12f * 1.15f, 2.60f * 1.15f, 2.08f * 1.15f, 1.56f * 1.15f };
 	{ int32 Cf = -1; if (FParse::Value(FCommandLine::Get(), TEXT("pfcam="), Cf)) CameraOpt = FMath::Clamp(Cf, 0, 5); }
+	// v0.10 GAME SPEED (owner: "a touch too fast, probably 15% too fast"): NORMAL is 15% slower than v0.9.9, FAST is v0.9.9
+	{ static const float Sp[] = { 0.80f, FPFMatch::NormalSpeed, 1.05f }; FPFMatch::GameSpeed = Sp[FMath::Clamp(SpeedOpt, 0, 2)]; }
 	FPFMatch::CamZoom = Z[FMath::Clamp(CameraOpt, 0, 5)];   // v0.9.1: the zoom frames the pitch; HeightScale alone sets the players' size (owner: "players 40% smaller")
 }
 
 void UPFFlow::SaveOptions()
 {
 	ApplyCamera();
-	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam7=%d\nsize=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt, SizeOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
+	FFileHelper::SaveStringToFile(FString::Printf(TEXT("music=%d\nsfx=%d\nhalflen=%d\ncam7=%d\nsize=%d\nspeed=%d\n"), MusicVol, SfxVol, FriendlyLen, CameraOpt, SizeOpt, SpeedOpt), *(FPaths::ProjectSavedDir() / TEXT("pf_options.txt")));
 	if (Music) Music->SetVolumeMultiplier((MusicName == TEXT("crowd_loop") ? 0.55f * SfxVol : 0.45f * MusicVol) / 10.f);
 }
 
@@ -884,6 +1050,13 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		if (--ShotsLeft == 0) QuitAt = Time + 1.5f;
 	}
 	if (QuitAt > 0 && Time > QuitAt && WorldRef.IsValid()) { QuitAt = -1; UKismetSystemLibrary::QuitGame(WorldRef.Get(), nullptr, EQuitPreference::Quit, false); }
+	// test hooks (v0.10 HUD bug hunt): -pfbanner=SOME_TEXT (underscores for spaces) holds that banner up in the match (long-banner captures);
+	// -pfscreen=main|options|friendly opens that menu screen (menu captures with -pfshots)
+	{
+		static FString TestBanner; static bool bRead = false;
+		if (!bRead) { bRead = true; FParse::Value(FCommandLine::Get(), TEXT("pfbanner="), TestBanner); TestBanner.ReplaceCharInline(TEXT('_'), TEXT(' ')); FString Sc; if (FParse::Value(FCommandLine::Get(), TEXT("pfscreen="), Sc)) { Screen = Sc == TEXT("options") ? EPFScreen::Options : Sc == TEXT("friendly") ? EPFScreen::Friendly : EPFScreen::Main; Sel = 0; FParse::Value(FCommandLine::Get(), TEXT("pfsel="), Sel); } }
+		if (!TestBanner.IsEmpty() && Screen == EPFScreen::Match && MatchActor) { MatchActor->Match.Banner = TestBanner; MatchActor->Match.BannerT = 1.f; }
+	}
 	const TArray<FPFClub>& C = PFWorld::Clubs();
 	switch (Screen)
 	{
@@ -934,9 +1107,9 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		In.Move = Pad.Move; In.bSprint = Pad.bSprint;
 		// v0.7 (owner): A pass, B shoot (hold for power), X cross, Y through ball, LB + B chip, LB on its own switches; right stick flicks = skills
 		In.bPass = Pad.pA; In.bLob = Pad.pX; In.bThrough = Pad.pY; In.bSwitch = Pad.pLB;
-		In.bPassHeld = Pad.bA; In.bThroughHeld = Pad.bY;   // v0.9.8: hold A / Y to fill the pass power bar
+		In.bPassHeld = Pad.bA; In.bThroughHeld = Pad.bY; In.bLobHeld = Pad.bX;   // v0.10: hold X to fill the cross bar   // v0.9.8: hold A / Y to fill the pass power bar
 		In.bShootHeld = Pad.bB; In.bShootPressed = Pad.pB; In.bShootReleased = Pad.rB; In.bChipMod = Pad.bLB;
-		In.bFeintL = Pad.pFlickL; In.bFeintR = Pad.pFlickR;
+		In.bFeintL = Pad.pFlickL; In.bFeintR = Pad.pFlickR; In.Look = Pad.Look;   // v0.10: right stick up / down = set-piece height
 		const int32 Sub = (bManageView && M.Highlight <= 0.f) ? 8 : 1;
 		for (int32 k = 0; k < Sub && !M.bFinished; ++k) M.Tick(Dt, k == 0 ? In : FPFPadInput());
 		// sounds (muted while a managed match runs at speed, except the big moments)
@@ -979,6 +1152,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 		Items.Add({ TEXT("SOUND EFFECTS & CROWD"), nullptr, [this](int32 D) { SfxVol = FMath::Clamp(SfxVol + D, 0, 10); SaveOptions(); PlaySfx(TEXT("ui_select")); } });
 		Items.Add({ TEXT("HALF LENGTH"), nullptr, [this](int32 D) { FriendlyLen = (FriendlyLen + D + 4) % 4; SaveOptions(); } });
 		Items.Add({ TEXT("CAMERA"), nullptr, [this](int32 D) { CameraOpt = (CameraOpt + D + 6) % 6; SaveOptions(); ApplyCamera(); } });
+		Items.Add({ TEXT("GAME SPEED"), nullptr, [this](int32 D) { SpeedOpt = (SpeedOpt + D + 3) % 3; SaveOptions(); } });
 		Items.Add({ TEXT("BACK"), nullptr, nullptr, [this]() { Go(EPFScreen::Main); } });
 		MenuInput(Items, Sel, Pad);
 		if (Pad.pB) Go(EPFScreen::Main);
@@ -987,7 +1161,7 @@ void UPFFlow::Tick(float Dt, const FPFPadState& Pad)
 	case EPFScreen::PreMatch:
 		PreMatchT += Dt;
 		if (Pad.pB && !MatchDone && ShotsLeft <= 0) { Go(EPFScreen::Friendly); break; }   // v0.9.4: back out of a friendly before kick-off
-		if (Pad.pA || Pad.pStart || (MatchActor && MatchActor->Match.Setup.bWatchOnly && PreMatchT > 2.f) || ShotsLeft > 0 || (FParse::Param(FCommandLine::Get(), TEXT("pfautopad")) && PreMatchT > 2.f)) { Go(EPFScreen::Match); PlaySfx(TEXT("whistle_short"), 0.7f); }
+		if (Pad.pA || Pad.pStart || (MatchActor && MatchActor->Match.Setup.bWatchOnly && PreMatchT > 2.f) || ShotsLeft > 0 || ((FParse::Param(FCommandLine::Get(), TEXT("pfautopad")) || FCString::Strifind(FCommandLine::Get(), TEXT("pfrestart=")) != nullptr) && PreMatchT > 2.f)) { Go(EPFScreen::Match); PlaySfx(TEXT("whistle_short"), 0.7f); }
 		break;
 	case EPFScreen::Career:
 		if (UPFCareer* Car = UPFCareer::Get(this)) Car->Tick(Dt, Pad);
@@ -1099,47 +1273,91 @@ void UPFFlow::DrawTitle(UCanvas* C)
 void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
 {
 	const float W = C->ClipX, H = C->ClipY;
-	// scoreboard (top-left): badge, short codes, score, clock
-	const float X = 40 * U, Y = 34 * U;
-	Box(C, X, Y, 540 * U, 64 * U, FLinearColor(0.02f, 0.04f, 0.14f, 0.85f));
-	Box(C, X, Y + 60 * U, 540 * U, 4 * U, FLinearColor(0.2f, 0.45f, 1.f, 1));
-	Tex(C, M.Setup.Home.BadgePath, X + 6 * U, Y + 4 * U, 56 * U, 56 * U);
-	Text(C, M.Setup.Home.Short, X + 70 * U, Y + 12 * U, 1.1f);
-	Text(C, FString::Printf(TEXT("%d - %d"), M.Score[0], M.Score[1]), X + 270 * U, Y + 12 * U, 1.1f, FLinearColor(1, 0.9f, 0.4f), EPFAlign::Center);
-	Text(C, M.Setup.Away.Short, X + 470 * U, Y + 12 * U, 1.1f, FLinearColor::White, EPFAlign::Right);
-	Tex(C, M.Setup.Away.BadgePath, X + 478 * U, Y + 4 * U, 56 * U, 56 * U);
-	const int32 Min = FMath::FloorToInt(M.MatchClock), Sec = FMath::FloorToInt(FMath::Fmod(M.MatchClock, 1.f) * 60.f);
-	Box(C, X, Y + 70 * U, 160 * U, 50 * U, FLinearColor(0.02f, 0.04f, 0.14f, 0.85f));
-	Text(C, FString::Printf(TEXT("%02d:%02d"), Min, Sec), X + 80 * U, Y + 76 * U, 1.f, FLinearColor(0.5f, 1.f, 0.6f), EPFAlign::Center);
-	// v0.9.2 (owner: "overall of the players, overall of the teams ... who's good, who sucks"): team ratings beside the
-	// clock, each player's rating over his head (red under 55, amber to 69, green 70 and up)
+	// v0.10 goal show: during the replay only the REPLAY tag (and the fade) are drawn (PFPresent.cpp)
+	if (M.InReplay()) { float Ny = 0.f; PFPresent::DrawGoalOverlay(C, M, U, Ny); return; }
+	// the scale Text() really draws at (half-pixel steps) and the width of a string in the score font at it
+	auto TextSc = [&](float Scale) { return FMath::Max(1.f, FMath::RoundToFloat(Scale * U * 2.f)) / 2.f; };
+	auto TextW = [&](const FString& S, float Scale) { return FontScore.Tex ? FontScore.Measure(S, TextSc(Scale)) : S.Len() * 20.f * Scale * U; };
+	auto Outlined = [&](const FString& S, float TX, float TY, float Sc, FLinearColor Col, EPFAlign Al)
+	{
+		const float O = FMath::Max(1.f, FMath::RoundToFloat(2 * U));
+		for (int32 k = 0; k < 4; ++k) Text(C, S, TX + (k == 0 ? -O : k == 1 ? O : 0.f), TY + (k == 2 ? -O : k == 3 ? O : 0.f), Sc, FLinearColor(0.05f, 0.04f, 0.1f, 0.95f), Al);
+		Text(C, S, TX, TY, Sc, Col, Al);
+	};
+	// v0.10 (ISS layout, fable advice v2 section 8): top-left straight on the grass, no box - badge, code under it, the
+	// score in yellow with a dark edge, badge, code
+	const float X = 36 * U, Y = 24 * U;
+	Tex(C, M.Setup.Home.BadgePath, X, Y, 48 * U, 48 * U);
+	Outlined(M.Setup.Home.Short, X + 24 * U, Y + 52 * U, 0.6f, FLinearColor::White, EPFAlign::Center);
+	// v0.10 bug fix: during the goal show the corner score keeps the old score until the card's digit ticks up (it used
+	// to show the new score while the big card in the middle still read the old one)
+	const bool bScoreWas = M.GoalT >= 0.f && M.GoalT < FPFMatch::GoalScore0 + 0.3f;
+	Outlined(FString::Printf(TEXT("%d - %d"), bScoreWas ? M.GoalScoreWas[0] : M.Score[0], bScoreWas ? M.GoalScoreWas[1] : M.Score[1]), X + 142 * U, Y + 6 * U, 1.3f, FLinearColor(1.f, 0.88f, 0.2f), EPFAlign::Center);
+	Tex(C, M.Setup.Away.BadgePath, X + 236 * U, Y, 48 * U, 48 * U);
+	Outlined(M.Setup.Away.Short, X + 260 * U, Y + 52 * U, 0.6f, FLinearColor::White, EPFAlign::Center);
+	// v0.9.2 (owner: "overall of the players, overall of the teams ... who's good, who sucks"): team ratings, small, under
+	// the score; each player's rating over his head (red under 55, amber to 69, green 70 and up)
 	auto RCol = [](int32 R) { return R >= 70 ? FLinearColor(0.45f, 1.f, 0.45f) : R >= 55 ? FLinearColor(1.f, 0.8f, 0.3f) : FLinearColor(1.f, 0.38f, 0.32f); };
 	{
 		const int32 H0 = M.TeamOverall(0), A0 = M.TeamOverall(1);
-		Box(C, X + 170 * U, Y + 70 * U, 370 * U, 50 * U, FLinearColor(0.02f, 0.04f, 0.14f, 0.85f));
-		Text(C, TEXT("OVR"), X + 190 * U, Y + 80 * U, 0.7f, FLinearColor(0.7f, 0.75f, 0.9f));
-		Text(C, FString::Printf(TEXT("%d"), H0), X + 330 * U, Y + 76 * U, 1.f, RCol(H0), EPFAlign::Center);
-		Text(C, FString::Printf(TEXT("%d"), A0), X + 470 * U, Y + 76 * U, 1.f, RCol(A0), EPFAlign::Center);
+		// v0.10 bug fix (1280x720: "73OVR67"): text snaps to half-pixel scales, so small text is relatively bigger on a
+		// small screen and the three fixed positions ran together; the numbers now sit off the measured "OVR"
+		const float Gap = FMath::Max(6.f, 8 * U), Half = TextW(TEXT("OVR"), 0.5f) * 0.5f;
+		Outlined(TEXT("OVR"), X + 142 * U, Y + 56 * U, 0.5f, FLinearColor(0.8f, 0.82f, 0.9f), EPFAlign::Center);
+		Outlined(FString::FromInt(H0), X + 142 * U - Half - Gap, Y + 56 * U, 0.5f, RCol(H0), EPFAlign::Right);
+		Outlined(FString::FromInt(A0), X + 142 * U + Half + Gap, Y + 56 * U, 0.5f, RCol(A0), EPFAlign::Left);
 	}
+	// the clock, top-right, with a small clock face
+	{
+		const int32 Min = FMath::FloorToInt(M.MatchClock), Sec = FMath::FloorToInt(FMath::Fmod(M.MatchClock, 1.f) * 60.f);
+		const float CX = W - 40 * U, CY = Y + 8 * U, R = 15 * U, O = FMath::Max(1.f, FMath::RoundToFloat(3 * U));
+		const FString Clk = FString::Printf(TEXT("%02d:%02d"), Min, Sec);
+		Outlined(Clk, CX, CY, 1.1f, FLinearColor::White, EPFAlign::Right);
+		// v0.10 bug fix: the face sat a fixed 170 px left of the edge, a wide gap from the smaller 720p digits
+		const float IX = CX - TextW(Clk, 1.1f) - R - O - 14 * U, IY = CY + FontScore.Line * TextSc(1.1f) * 0.5f;
+		Box(C, IX - R - O, IY - R - O, 2 * (R + O), 2 * (R + O), FLinearColor(0.05f, 0.04f, 0.1f, 0.9f));
+		Box(C, IX - R, IY - R, 2 * R, 2 * R, FLinearColor(0.95f, 0.95f, 0.98f, 1.f));
+		Box(C, IX - O * 0.5f, IY - R * 0.8f, O, R * 0.8f, FLinearColor(0.1f, 0.1f, 0.2f, 1.f));
+		Box(C, IX, IY - O * 0.5f, R * 0.6f, O, FLinearColor(0.1f, 0.1f, 0.2f, 1.f));
+	}
+	// v0.10 bug fix (owner's screenshots: "63" over every head): the rating sat on top of the controlled man's cursor and
+	// the ball in a thrower's hands, and twenty-two numbers cluttered the pitch. Now only the controlled man, the man on
+	// the ball and the man the pass bar picks carry one, stacked above the cursor; none in the goal show. The bars over
+	// the head stack above the rating (TagTop).
+	const bool bPadMan = M.Human >= 0 && !M.Setup.bWatchOnly && M.P.IsValidIndex(M.Human);
+	const float SS = M.DrawSpriteScale;
+	const float TagH = FontSquad.Tex ? FontSquad.Line * FMath::Max(1.f, FMath::RoundToFloat(0.55f * U * 2.f)) / 2.f : 16 * U;
+	auto TagTop = [&](int32 i) -> float
+	{
+		// the cursor's top is 18 sprite pixels over his head (bobbing 2 more); the tag sits a little above it
+		const FVector2D Hs = M.HeadScreen[i];
+		const bool bCursor = bPadMan && i == M.Human && !M.P[i].bSentOff;
+		return Hs.Y - (bCursor ? 21.f : 3.f) * SS;
+	};
+	auto ShowRating = [&](int32 i) { return M.GoalT < 0.f && ((bPadMan && i == M.Human) || i == M.Ball.Owner || (M.bPassCharging && i == M.PassPick)); };
 	for (int32 i = 0; i < M.P.Num() && i < M.HeadScreen.Num() && !bDotsNow; ++i)   // v0.9.4: not over the manage view's dots
 	{
 		const FVector2D Hs = M.HeadScreen[i];
-		if (Hs.X < -1e8f || M.P[i].bSentOff) continue;
+		if (Hs.X < -1e8f || M.P[i].bSentOff || !ShowRating(i)) continue;
 		const int32 R = M.P[i].Setup.Stats.Overall(M.P[i].bKeeper);
-		Text(C, FString::Printf(TEXT("%d"), R), Hs.X, Hs.Y - 26 * U, 0.55f, RCol(R), EPFAlign::Center, true);
+		Text(C, FString::Printf(TEXT("%d"), R), Hs.X, TagTop(i) - TagH, 0.55f, RCol(R), EPFAlign::Center, true);
 	}
+	// where a bar over a man's head goes: above his rating (or the cursor)
+	auto BarY = [&](int32 i, float BH) { return FMath::RoundToFloat(TagTop(i) - (ShowRating(i) ? TagH + 2 * U : 0.f) - 4 * U - BH); };
 	// v0.9.8 pass power bar, over the controlled player while A / Y is held: three bands (a tap: the nearest man that way;
 	// medium; long and driven), ticks where they meet; green for a pass, cyan for a through ball
 	if (M.bPassCharging && M.Human >= 0 && M.HeadScreen.IsValidIndex(M.Human) && M.HeadScreen[M.Human].X > -1e8f && !bDotsNow && !M.Setup.bWatchOnly)
 	{
 		const FVector2D Hs = M.HeadScreen[M.Human];
 		const float BW = FMath::RoundToFloat(72 * U), BH = FMath::RoundToFloat(10 * U), Px = FMath::Max(1.f, FMath::RoundToFloat(2 * U));
-		const float X0 = FMath::RoundToFloat(Hs.X - BW * 0.5f), Y0 = FMath::RoundToFloat(Hs.Y - 50 * U);
-		const float T1 = FPFMatch::PassTapT / FPFMatch::PassFullT, T2 = 0.28f / FPFMatch::PassFullT;
+		const float X0 = FMath::RoundToFloat(Hs.X - BW * 0.5f), Y0 = BarY(M.Human, BH);
+		const bool bCross = M.bPassChargeLob;   // v0.10: X's cross bar (orange): low / head height / high and long
+		const float T1 = FPFMatch::PassTapT / M.BarFullT(), T2 = (bCross ? FPFMatch::CrossMidT : 0.28f) / M.BarFullT();
 		const float Ch = FMath::Clamp(M.PassCharge, 0.f, 1.f);
-		const bool bThru = M.bPassChargeThrough;
-		const FLinearColor Band = Ch < T1 ? (bThru ? FLinearColor(0.55f, 0.95f, 1.f) : FLinearColor(0.55f, 1.f, 0.45f))
+		const bool bThru = M.bPassChargeThrough && !bCross;
+		FLinearColor Band = Ch < T1 ? (bThru ? FLinearColor(0.55f, 0.95f, 1.f) : FLinearColor(0.55f, 1.f, 0.45f))
 			: Ch < T2 ? (bThru ? FLinearColor(0.3f, 0.75f, 1.f) : FLinearColor(1.f, 0.88f, 0.25f)) : (bThru ? FLinearColor(0.35f, 0.45f, 1.f) : FLinearColor(1.f, 0.45f, 0.2f));
+		if (bCross) Band = Ch < T1 ? FLinearColor(1.f, 0.8f, 0.45f) : Ch < T2 ? FLinearColor(1.f, 0.6f, 0.15f) : FLinearColor(0.95f, 0.32f, 0.1f);
 		Box(C, X0 - Px, Y0 - Px, BW + 2 * Px, BH + 2 * Px, FLinearColor(0.f, 0.f, 0.f, 0.85f));
 		Box(C, X0, Y0, BW, BH, FLinearColor(0.08f, 0.1f, 0.16f, 0.9f));
 		Box(C, X0, Y0, FMath::RoundToFloat(BW * FMath::Max(Ch, 0.04f)), BH, Band);
@@ -1147,43 +1365,151 @@ void UPFFlow::DrawMatchHUD(UCanvas* C, const FPFMatch& M)
 		Box(C, FMath::RoundToFloat(X0 + BW * T1), Y0, Px, BH, FLinearColor(0.f, 0.f, 0.f, 0.85f));
 		Box(C, FMath::RoundToFloat(X0 + BW * T2), Y0, Px, BH, FLinearColor(0.f, 0.f, 0.f, 0.85f));
 	}
-	// banner
-	if (M.BannerT > 0 && !M.Banner.IsEmpty())
+	// v0.10 set pieces: over the taker, the bar (the pass bar's look, in orange) and a three-step height meter beside it;
+	// a line of the controls under the minimap's top edge
+	if (M.bSPAim && M.Human >= 0 && M.HeadScreen.IsValidIndex(M.Human) && M.HeadScreen[M.Human].X > -1e8f && !bDotsNow && !M.Setup.bWatchOnly)
 	{
-		const float Big = M.Banner == TEXT("GOAL!") ? 3.f : 1.4f;
-		Box(C, W * 0.5f - 400 * U, H * 0.22f - 10 * U, 800 * U, (Big * 38 + 30) * U, FLinearColor(0.02f, 0.03f, 0.1f, 0.75f));
+		const FVector2D Hs = M.HeadScreen[M.Human];
+		const bool bThrow = M.SetPieceKind() == EPFRestart::ThrowIn;
+		const float BW = FMath::RoundToFloat(72 * U), BH = FMath::RoundToFloat(10 * U), Px = FMath::Max(1.f, FMath::RoundToFloat(2 * U));
+		const float X0 = FMath::RoundToFloat(Hs.X - BW * 0.5f), Y0 = BarY(M.Human, BH);
+		const float Ch = FMath::Clamp(M.SPCharge, 0.f, 1.f);
+		const FLinearColor Fill = Ch < 0.5f ? FLinearColor(1.f, 0.78f, 0.2f) : Ch < 0.85f ? FLinearColor(1.f, 0.55f, 0.1f) : FLinearColor(1.f, 0.3f, 0.12f);
+		Box(C, X0 - Px, Y0 - Px, BW + 2 * Px, BH + 2 * Px, FLinearColor(0.f, 0.f, 0.f, 0.85f));
+		Box(C, X0, Y0, BW, BH, FLinearColor(0.08f, 0.1f, 0.16f, 0.9f));
+		if (M.bSPCharging) { Box(C, X0, Y0, FMath::RoundToFloat(BW * FMath::Max(Ch, 0.04f)), BH, Fill); Box(C, X0, Y0, FMath::RoundToFloat(BW * FMath::Max(Ch, 0.04f)), Px, FLinearColor(1.f, 1.f, 1.f, 0.35f)); }
+		if (M.SetPieceKind() == EPFRestart::Penalty || M.bSPShot) Box(C, FMath::RoundToFloat(X0 + BW * 0.8f), Y0, Px, BH, FLinearColor(1.f, 0.2f, 0.15f, 0.95f));   // past here it can fly over
+		if (!bThrow)
+		{
+			// LOW / MED / HIGH: three steps rising to the right of the bar, lit up to the chosen one
+			const float SX = X0 + BW + 8 * U, SW = FMath::RoundToFloat(7 * U);
+			for (int32 k = 0; k < 3; ++k)
+			{
+				const float SH = FMath::RoundToFloat((6 + 6 * k) * U), XX = FMath::RoundToFloat(SX + k * (SW + 3 * U)), YY = Y0 + BH - SH;
+				Box(C, XX - Px, YY - Px, SW + 2 * Px, SH + 2 * Px, FLinearColor(0.f, 0.f, 0.f, 0.85f));
+				Box(C, XX, YY, SW, SH, k <= M.SPHeight ? FLinearColor(1.f, 0.55f, 0.08f) : FLinearColor(0.2f, 0.22f, 0.28f, 0.9f));
+			}
+			static const TCHAR* HN[3] = { TEXT("LOW"), TEXT("MED"), TEXT("HIGH") };
+			const FString Lbl = M.bSPShot ? FString::Printf(TEXT("SHOT  %s"), HN[FMath::Clamp(M.SPHeight, 0, 2)]) : FString(HN[FMath::Clamp(M.SPHeight, 0, 2)]);
+			Text(C, Lbl, Hs.X, Y0 - TagH - 4 * U, 0.55f, FLinearColor(1.f, 0.75f, 0.3f), EPFAlign::Center, true);
+		}
+		const FString Help = bThrow ? FString(TEXT("STICK AIM    TAP A SHORT    HOLD A LONGER"))
+			: M.SetPieceKind() == EPFRestart::Penalty ? FString(TEXT("STICK AIM    Y / X HEIGHT    HOLD B POWER"))
+			: FString(TEXT("STICK AIM    Y / X HEIGHT    HOLD B POWER    TAP A SHORT"));
+		const float HW = 760 * U, HY = 120 * U;   // top centre: the ground below the taker stays clear
+		Box(C, W * 0.5f - HW * 0.5f, HY, HW, 36 * U, FLinearColor(0.02f, 0.04f, 0.14f, 0.75f));
+		Text(C, Help, W * 0.5f, HY + 8 * U, 0.6f, FLinearColor(1.f, 0.8f, 0.4f), EPFAlign::Center, true);
+	}
+	// banner
+	if (M.BannerT > 0 && !M.Banner.IsEmpty() && !(M.GoalT >= 0.f && M.Banner == TEXT("GOAL!")))   // v0.10: the goal show draws its own letters
+	{
+		float Big = M.Banner == TEXT("GOAL!") ? 3.f : 1.4f;
+		// v0.10 bug fix: a long banner ("PENALTY!  SECOND YELLOW - RED CARD") ran out of its fixed 800-pixel box; the box
+		// now fits the text, and the text steps down a size if it would not fit the screen
+		auto BannerW = [&](float Sc) { return FontScore.Tex ? FontScore.Measure(M.Banner, FMath::Max(1.f, FMath::RoundToFloat(Sc * U * 2.f)) / 2.f) : M.Banner.Len() * 26.f * Sc * U; };
+		while (Big > 0.6f && BannerW(Big) > W - 120 * U) Big -= 0.2f;
+		const float BoxW = FMath::Max(800 * U, BannerW(Big) + 80 * U);
+		Box(C, W * 0.5f - BoxW * 0.5f, H * 0.22f - 10 * U, BoxW, (Big * 38 + 30) * U, FLinearColor(0.02f, 0.03f, 0.1f, 0.75f));
 		Text(C, M.Banner, W * 0.5f, H * 0.22f, Big, M.Banner == TEXT("GOAL!") ? FLinearColor(1, 0.85f, 0.2f) : FLinearColor::White, EPFAlign::Center);
 	}
-	// controlled player nameplate (bottom-left) and the ball carrier (bottom-right)
-	if (M.Human >= 0 && !M.Setup.bWatchOnly && M.P.IsValidIndex(M.Human))
+	// v0.10 (ISS layout): one translucent grey band across the bottom - my man left (name, position and number, stamina),
+	// the radar in the middle standing up out of it, the opponent nearest the ball right
 	{
-		const FPFPlayer& Hp = M.P[M.Human];
-		Box(C, 40 * U, H - 110 * U, 470 * U, 60 * U, FLinearColor(0.05f, 0.12f, 0.45f, 0.85f));
-		Text(C, FString::Printf(TEXT("%d  %s"), Hp.Setup.Number, *Hp.Setup.Name.ToUpper()), 56 * U, H - 100 * U, 1.f);
-		{ const int32 R = Hp.Setup.Stats.Overall(Hp.bKeeper); Text(C, FString::Printf(TEXT("%d"), R), 490 * U, H - 100 * U, 1.f, RCol(R), EPFAlign::Right); }
-		if (Hp.bCharging)
+		const float BH = FMath::RoundToFloat(H * 0.09f), BY = H - BH;
+		// v0.10 bug fix (owner's screenshots: the band and the radar sat over players near the bottom): who is on screen
+		// behind a part of the HUD - a man's body runs from his head to his feet (66 sprite pixels), the ball is a point
+		auto Behind = [&](float X0, float Y0, float X1, float Y1)
 		{
-			Box(C, 40 * U, H - 44 * U, 470 * U, 18 * U, FLinearColor(0, 0, 0, 0.7f));
-			Box(C, 42 * U, H - 42 * U, 466 * U * Hp.Charge, 14 * U, FLinearColor(1, 0.75f, 0.1f, 1));
+			for (int32 i = 0; i < M.HeadScreen.Num(); ++i)
+			{
+				const FVector2D Hs = M.HeadScreen[i];
+				if (Hs.X < -1e8f) continue;
+				if (Hs.X > X0 - 10 * U && Hs.X < X1 + 10 * U && Hs.Y + 66.f * M.DrawSpriteScale > Y0 && Hs.Y < Y1) return true;
+			}
+			return false;
+		};
+		// the band goes see-through on the side a man is behind (ISS: the pitch shows through)
+		const bool bBandL = Behind(0, BY, W * 0.5f, H), bBandR = Behind(W * 0.5f, BY, W, H);
+		Box(C, 0, BY, W * 0.5f, BH, FLinearColor(0.5f, 0.5f, 0.55f, bBandL ? 0.2f : 0.55f));
+		Box(C, W * 0.5f, BY, W - W * 0.5f, BH, FLinearColor(0.5f, 0.5f, 0.55f, bBandR ? 0.2f : 0.55f));
+		Box(C, 0, BY, W, FMath::Max(1.f, 2 * U), FLinearColor(1.f, 1.f, 1.f, 0.35f));
+		auto Nearest = [&](int32 Team) { int32 Bi = -1; float Bd = 1e9f; for (const FPFPlayer& Q : M.P) if (Q.Team == Team && !Q.bSentOff) { const float D = FVector2D::DistSquared(Q.Pos, FVector2D(M.Ball.Pos.X, M.Ball.Pos.Y)); if (D < Bd) { Bd = D; Bi = Q.Index; } } return Bi; };
+		const bool bPad = M.Human >= 0 && !M.Setup.bWatchOnly && M.P.IsValidIndex(M.Human);
+		const int32 L = bPad ? M.Human : Nearest(0);
+		const int32 R = M.P.IsValidIndex(L) ? Nearest(1 - M.P[L].Team) : Nearest(1);
+		auto Plate = [&](int32 Idx, bool bLeft)
+		{
+			if (!M.P.IsValidIndex(Idx)) return;
+			const FPFPlayer& Q = M.P[Idx];
+			static const TCHAR* Pos[] = { TEXT("GK"), TEXT("DF"), TEXT("MF"), TEXT("FW") };
+			const float TX = bLeft ? 40 * U : W - 40 * U; const EPFAlign Al = bLeft ? EPFAlign::Left : EPFAlign::Right;
+			// the name in yellow over a brown drop (ISS's yellow-to-brown lettering)
+			Text(C, Q.Setup.Name.ToUpper(), TX + 2 * U, BY + 14 * U, 1.f, FLinearColor(0.45f, 0.25f, 0.08f, 1.f), Al);
+			Text(C, Q.Setup.Name.ToUpper(), TX, BY + 12 * U, 1.f, FLinearColor(1.f, 0.86f, 0.25f), Al);
+			const FString Sub = FString::Printf(TEXT("%s %d"), Pos[FMath::Clamp(int32(Q.Setup.Role), 0, 3)], Q.Setup.Number);
+			Text(C, Sub, TX, BY + 54 * U, 0.6f, FLinearColor(0.95f, 0.95f, 1.f), Al, true);
+			const int32 Rt = Q.Setup.Stats.Overall(Q.bKeeper);
+			Text(C, FString::FromInt(Rt), bLeft ? TX + 110 * U : TX - 110 * U, BY + 54 * U, 0.6f, RCol(Rt), Al, true);
+			const float SW = 160 * U, SX = bLeft ? TX + 170 * U : TX - 170 * U - SW;
+			Box(C, SX, BY + 60 * U, SW, 8 * U, FLinearColor(0.f, 0.f, 0.f, 0.6f));
+			Box(C, SX + U, BY + 61 * U, (SW - 2 * U) * FMath::Clamp(Q.Stamina, 0.f, 1.f), 6 * U, FLinearColor(0.4f, 0.95f, 0.4f, 0.95f));
+		};
+		Plate(L, true); Plate(R, false);
+		// radar: 36% of the width, standing up out of the band; fades when someone on the pitch is behind it
+		const float MW = FMath::RoundToFloat(W * 0.36f), MH = FMath::RoundToFloat(MW * 0.3f), MX = FMath::RoundToFloat(W * 0.5f - MW * 0.5f), MY = H - MH - 8 * U;
+		const bool bBehind = Behind(MX, MY, MX + MW, MY + MH);
+		const float Al = bBehind ? 0.3f : 1.f;
+		const float Ad = bBehind ? 0.8f : 1.f;   // v0.10 bug fix: the dots stay readable when the box fades (they went to 0.3 with it)
+		Box(C, MX, MY, MW, MH, FLinearColor(0.5f, 0.5f, 0.55f, 0.55f * Al));
+		const FLinearColor Ln(1, 1, 1, 0.7f * Al);
+		const float Lw = FMath::Max(1.f, FMath::RoundToFloat(2 * U));
+		auto RS = [&](float WX, float WY) { return FVector2D(MX + (WX / 105.f + 0.5f) * MW, MY + (0.5f - WY / 68.f) * MH); };
+		Box(C, MX, MY, MW, Lw, Ln); Box(C, MX, MY + MH - Lw, MW, Lw, Ln); Box(C, MX, MY, Lw, MH, Ln); Box(C, MX + MW - Lw, MY, Lw, MH, Ln);
+		Box(C, MX + MW * 0.5f - Lw * 0.5f, MY, Lw, MH, Ln);
+		{ const FVector2D A = RS(-9.15f, 9.15f), B = RS(9.15f, -9.15f); Box(C, A.X, A.Y, B.X - A.X, Lw, Ln); Box(C, A.X, B.Y - Lw, B.X - A.X, Lw, Ln); Box(C, A.X, A.Y, Lw, B.Y - A.Y, Ln); Box(C, B.X - Lw, A.Y, Lw, B.Y - A.Y, Ln); }   // the centre circle, square at this size
+		for (int32 g = -1; g <= 1; g += 2)
+		{
+			const FVector2D A = RS(g * 52.5f, 20.15f), B = RS(g * (52.5f - 16.5f), -20.15f);
+			const float X0 = FMath::Min(A.X, B.X), X1 = FMath::Max(A.X, B.X);
+			Box(C, X0, A.Y, X1 - X0, Lw, Ln); Box(C, X0, B.Y - Lw, X1 - X0, Lw, Ln); Box(C, g < 0 ? X1 - Lw : X0, A.Y, Lw, B.Y - A.Y, Ln);
+		}
+		const float Dd = FMath::Max(3.f, FMath::RoundToFloat(6 * U));
+		const bool bBlink = FMath::Fmod(M.MatchClock * 60.f, 0.5f) < 0.3f;
+		for (const FPFPlayer& Pl : M.P)
+		{
+			if (Pl.bSentOff) continue;
+			const FVector2D S = RS(Pl.Pos.X, Pl.Pos.Y);
+			if (bPad && Pl.Index == M.Human && bBlink) Box(C, S.X - Dd * 0.5f - Lw, S.Y - Dd * 0.5f - Lw, Dd + 2 * Lw, Dd + 2 * Lw, FLinearColor(1, 1, 1, Ad));
+			else if (bBehind) Box(C, S.X - Dd * 0.5f - 1.f, S.Y - Dd * 0.5f - 1.f, Dd + 2.f, Dd + 2.f, FLinearColor(0, 0, 0, 0.5f));   // a dark edge over the pitch
+			Box(C, S.X - Dd * 0.5f, S.Y - Dd * 0.5f, Dd, Dd, Pl.Team == 0 ? FLinearColor(0.25f, 0.45f, 1.f, Ad) : FLinearColor(1.f, 0.25f, 0.2f, Ad));
+		}
+		const FVector2D Bs = RS(M.Ball.Pos.X, M.Ball.Pos.Y);
+		if (bBehind) Box(C, Bs.X - Dd * 0.4f - 1.f, Bs.Y - Dd * 0.4f - 1.f, Dd * 0.8f + 2.f, Dd * 0.8f + 2.f, FLinearColor(0, 0, 0, 0.5f));
+		Box(C, Bs.X - Dd * 0.4f, Bs.Y - Dd * 0.4f, Dd * 0.8f, Dd * 0.8f, FLinearColor(1, 1, 1, Ad));
+	}
+	// the shot bar over the shooter's head, like the pass bar (fable section 8)
+	if (M.Human >= 0 && !M.Setup.bWatchOnly && M.P.IsValidIndex(M.Human) && M.P[M.Human].bCharging && M.HeadScreen.IsValidIndex(M.Human) && M.HeadScreen[M.Human].X > -1e8f && !bDotsNow)
+	{
+		const FVector2D Hs = M.HeadScreen[M.Human];
+		const float BW = FMath::RoundToFloat(72 * U), BH = FMath::RoundToFloat(10 * U), Px = FMath::Max(1.f, FMath::RoundToFloat(2 * U));
+		const float X0 = FMath::RoundToFloat(Hs.X - BW * 0.5f), Y0 = BarY(M.Human, BH);
+		Box(C, X0 - Px, Y0 - Px, BW + 2 * Px, BH + 2 * Px, FLinearColor(0.f, 0.f, 0.f, 0.85f));
+		Box(C, X0, Y0, BW, BH, FLinearColor(0.08f, 0.1f, 0.16f, 0.9f));
+		Box(C, X0, Y0, FMath::RoundToFloat(BW * FMath::Clamp(M.P[M.Human].Charge, 0.04f, 1.f)), BH, FLinearColor(1.f, 0.75f, 0.1f, 1.f));
+	}
+	// v0.10 goal show: G-O-A-L, the score card with the scorer under it, the fade to the kick-off (PFPresent.cpp)
+	{
+		float Ny = 0.f;
+		if (PFPresent::DrawGoalOverlay(C, M, U, Ny))
+		{
+			Text(C, M.GoalWho, W * 0.5f + 2 * U, Ny + 2 * U, 1.2f, FLinearColor(0.02f, 0.04f, 0.2f, 0.9f), EPFAlign::Center);
+			Text(C, M.GoalWho, W * 0.5f, Ny, 1.2f, FLinearColor::White, EPFAlign::Center);
+			// v0.10 bug fix: the badge goes beside the name (under it, it stood on the celebrating players' heads)
+			const FString& Bp = M.GoalTeam == 0 ? M.Setup.Home.BadgePath : M.Setup.Away.BadgePath;
+			const float NW = FontScore.Tex ? FontScore.Measure(M.GoalWho, FMath::Max(1.f, FMath::RoundToFloat(1.2f * U * 2.f)) / 2.f) : 300 * U;
+			Tex(C, Bp, W * 0.5f - NW * 0.5f - 76 * U, Ny - 12 * U, 60 * U, 60 * U);
 		}
 	}
-	if (M.Ball.Owner >= 0)
-	{
-		const FPFPlayer& O = M.P[M.Ball.Owner];
-		Box(C, W - 510 * U, H - 110 * U, 470 * U, 60 * U, O.Team == 0 ? FLinearColor(0.05f, 0.12f, 0.45f, 0.85f) : FLinearColor(0.5f, 0.08f, 0.06f, 0.85f));
-		Text(C, FString::Printf(TEXT("%s  %d"), *O.Setup.Name.ToUpper(), O.Setup.Number), W - 56 * U, H - 100 * U, 1.f, FLinearColor::White, EPFAlign::Right);
-		{ const int32 R = O.Setup.Stats.Overall(O.bKeeper); Text(C, FString::Printf(TEXT("%d"), R), W - 490 * U, H - 100 * U, 1.f, RCol(R)); }
-	}
-	// minimap (bottom centre)
-	const float MW = 300 * U, MH = 194 * U, MX = W * 0.5f - MW * 0.5f, MY = H - MH - 30 * U;
-	Box(C, MX, MY, MW, MH, FLinearColor(0.02f, 0.1f, 0.18f, 0.7f));
-	Box(C, MX + MW * 0.5f - 1, MY, 2, MH, FLinearColor(1, 1, 1, 0.35f));
-	for (const FPFPlayer& Pl : M.P)
-	{
-		const float PX = MX + (Pl.Pos.X / 105.f + 0.5f) * MW, PY = MY + (0.5f - Pl.Pos.Y / 68.f) * MH;
-		Box(C, PX - 4 * U, PY - 4 * U, 8 * U, 8 * U, Pl.Team == 0 ? FLinearColor(0.3f, 0.55f, 1.f) : FLinearColor(1.f, 0.3f, 0.25f));
-	}
-	Box(C, MX + (M.Ball.Pos.X / 105.f + 0.5f) * MW - 3 * U, MY + (0.5f - M.Ball.Pos.Y / 68.f) * MH - 3 * U, 6 * U, 6 * U, FLinearColor::White);
 }
 
 void UPFFlow::DrawDots(UCanvas* C, const FPFMatch& M)
@@ -1321,6 +1647,9 @@ void UPFFlow::Draw(UCanvas* C, UMaterialInterface* SpriteMat)
 		static const TCHAR* CamL[] = { TEXT("CLOSEST"), TEXT("CLOSER"), TEXT("STANDARD"), TEXT("WIDE"), TEXT("WIDER"), TEXT("WIDEST") };
 		const FString Cm = CamL[FMath::Clamp(CameraOpt, 0, 5)];
 		Items.Add({ TEXT("CAMERA"), [Cm]() { return Cm; }, [](int32) {} });
+		static const TCHAR* SpL[] = { TEXT("SLOW"), TEXT("NORMAL"), TEXT("FAST") };
+		const FString Spd = SpL[FMath::Clamp(SpeedOpt, 0, 2)];
+		Items.Add({ TEXT("GAME SPEED"), [Spd]() { return Spd; }, [](int32) {} });
 		Items.Add({ TEXT("BACK") });
 		DrawMenu(C, TEXT("OPTIONS"), Items, Sel, C->ClipX * 0.5f - 420 * U, C->ClipY * 0.4f, 840 * U);
 		break;

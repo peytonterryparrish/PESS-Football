@@ -1,5 +1,101 @@
 # Changelog
 
+## v0.10.0 (2026-11-28): slower game, attacking runs, cross bar, set-piece aiming, keeper handling, goal show, finished stadium, 27 bug fixes, round 3 of animations
+
+**Pace**
+- **GAME SPEED option:** Slow, Normal or Fast. Normal is 15% slower than v0.9.9; Fast is the old pace.
+- **Kicks you can see:** the pass and shot wind-ups were squeezed into 0.19 s. Now the wind-up shows while you hold the button, the contact frame holds, and the follow-through plays at the take's own pace. A pass reads in about 0.34 s and a shot in about 0.55 s. The ball still leaves on contact.
+
+**Attack**
+- **Shape in possession:** the team pushes up as a block. Wide mids go up the touchlines when a centre mid has it; the strikers split along the last defender; two team-mates always show for a short pass.
+- **Runs:**
+  - **Types:** in behind and into the channels (held onside until the pass), overlapping full-backs, third-man runs, and one-twos.
+  - **Your team:** they now go even when you're closely marked.
+  - **Holding A** sends a striker in behind.
+- **Effect:** off-ball runs went from 16 to 68 a match, and passes received behind the back line from 0 to 2.
+- **X is a power bar.**
+  - Tap: low, to the nearest man you aim at.
+  - Middle hold: head height, to the penalty spot.
+  - Full hold: high, to the far post or the far winger.
+  - A ring shows who you're picking.
+
+**Set pieces**
+- **Throw-ins:** the thrower holds the ball over his head. A dotted line on the grass shows where it will land and a ring marks the man who'll get it. Tap A throws short; hold A to throw further. Three team-mates come to offer.
+- **Goal kicks, corners, free kicks and penalties:** an orange arrow on the grass at the ball. The stick aims it; Y and X raise or lower the height (one to three chevrons: low, medium, high); hold B for power and release to kick. A taps it short.
+  - **Free kicks:** pointed at goal within 35 m, B is a shot, with aftertouch curl.
+  - **Penalties:** aim between the posts. Past the red 80% tick, a high one goes over. The keeper guesses a side.
+  - **Goal kicks:** the keeper still steps back four paces and runs up.
+
+**Keeper and the ball**
+- **Ball in his gloves:** after a save the ball sits in his gloves through the catch, lying on it, getting up, walking and the throw. The free ball is hidden.
+- **Smaller ball:** about 9 sprite pixels across (11.5 before).
+- **Rest after actions:**
+  - **Keeper dives:** after a missed dive he stays down about 1.25 s, then gets up using the end of his approved dive. A catch takes 1.05 s and a parry 0.75 s.
+  - **Outfield:** falls take 1.55 s, a slide that misses stays down longer, and a hard stop shows a plant frame.
+
+**Goals**
+- **The sequence:** an ISS-style goal show of about 9.7 s, which any button skips after 1.5 s.
+  - **GOAL! and the score:** big gold G-O-A-L letters drop in with a freeze and a shake; the score ticks up with the scorer's name, minute and badge; a second crowd roar.
+  - **Celebration:** the camera follows the scorer into one of your approved celebrations, with team-mates running to him.
+  - **Replay:** the last 2.4 s at 0.7× speed, with a REPLAY tag.
+  - **Kick-off:** a fade, then back to kick-off.
+
+**HUD:** restyled like ISS.
+- **Top:** score and badges top-left, clock top-right.
+- **Bottom band:** names, positions and stamina, with a radar in the middle. The band and radar fade when play is behind them.
+- **Ratings:** shown only for your man, the man on the ball and the pass target.
+
+**Stadium:** fully pixel-textured and checked from every corner.
+- **Stands:** concrete steps, plastic seats in the club colour, brick side walls on every stand end, and corrugated roofs with steel trusses.
+- **Around the pitch:** A-frame ad boards with crisp lettering, a big screen showing the score and GOAL, photographers behind the goals, club banners and waving flags.
+- **Outside:** terraced streets, trees and a car park, with floodlight pylons outside the far corners. At night the ground is floodlit and the town is dark with lit windows.
+- **Screenshots:** a 20-image tour is in `Saved/Screenshots/stadium3d_v100/`.
+
+**Sprites:** a full audit of N01 and NK1 (`ArtWork/audit_v100/FINDINGS.md`).
+- **The brown streak:** a stalk PixelLab drew out of the back of the head in the 60-degree run, walk and sprint, plus a blade above the keeper's head in his back-right view. Both are fixed.
+- **Kit colours:** the socks and the keeper's sleeves now take the club colours; they stayed red and magenta before.
+- **Repairs:** 76 frames repaired, and the worst 119 regenerated on PixelLab.
+
+**27 bugs fixed**
+- **Logic (16):**
+  - the ball became untouchable after a "beats the keeper" shot came back off the woodwork;
+  - AI carriers dribbled toward their own goal (own goals: 4 in 60 matches → 1 in 150);
+  - the penalty keeper dived the right way even when beaten;
+  - a goal in added time skipped half-time;
+  - the pad's man ran off during restarts;
+  - a crowded box emptied at corners and the keeper wandered off his line at penalties;
+  - first-time passes were lost while the ball was in flight;
+  - long throw-ins landed behind a man coming short;
+  - a cross setting leaked into the next lob;
+  - a sliding player could freeze holding the ball;
+  - a stale parry flag on the next dive;
+  - a slow set-piece bar;
+  - broken sim counters (725 "passes") and three broken tests.
+- **Visual (11):**
+  - ratings over every head and over the cursor;
+  - a ball shadow under a held ball;
+  - the HUD and the big screen showing the new score before the goal card did;
+  - GOAL letters covering the scorer;
+  - unreadable radar dots;
+  - the bottom band hiding players;
+  - banner text overflowing its box;
+  - the keeper's back-view blade still in the shipped atlas;
+  - 720p HUD text running together;
+  - off-screen team-mate arrows hidden under the HUD.
+
+**Animation round 3** (gallery: https://claude.ai/artifact/CMzQ23KFd8y5fSMo3PnNYG)
+- **390 takes to approve.**
+  - **On the ball:** short pass, long pass, through ball, cross, corner, dribble.
+  - **Defending:** jockey, block.
+  - **Transitions:** getting up, stopping, turning.
+  - **Keeper:** goal kick, walking with the ball, getting up after a dive.
+  - **Count:** 25 takes each, plus 20 new slide tackles and keeper punts.
+- **Cost:** about $49 on PixelLab this round.
+
+**Checks**
+- **20-match sim:** 2.05 goals a match (150 matches: 2.16), 0 stuck. Goals are a little under the 2.3 target; that's balance (keepers save about 75% of the shots they dive at), not a bug.
+- **Feel tests:** aimed passes 88-97%; through-ball runner gets it 78-81%; every set piece follows its arrow; throw-ins reach the ringed man 8 of 8.
+
 ## v0.9.9 (2026-11-28): the owner's picked animations, in 12 directions
 
 **Your picks are in the game** (from the approval gallery, https://claude.ai/artifact/MUL6hBWZ4khtxFjWUaXH3M)

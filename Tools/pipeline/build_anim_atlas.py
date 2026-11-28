@@ -50,6 +50,7 @@ def contact(frames, anim):
     return -1
 
 def build(bid):
+    kit.WIDE = bid in kit.WIDE_BODIES
     meta = json.load(open(os.path.join(OUTD, bid + ".json"))); old = Image.open(os.path.join(OUTD, bid + ".png")).convert("RGBA")
     rots = {x: Image.open(os.path.join(RAWN, bid, f"rot_{x}.png")).convert("RGBA") for x in BB.DIRS8}
     pal = BA.palette_for(rots.values(), True)
@@ -65,7 +66,9 @@ def build(bid):
     keeper = meta.get("kind") == "keeper"
     def add(key, im):
         if not keeper: im, _ = BB.strip_ball(im)   # a ball PixelLab drew at his feet (dribble) or by his head
-        im, _ = kit.snap_frame(im, pal); im, _ = BB.kit_fill(im); im, _ = BC.tidy(im, fill=True); cells.append((key, im))
+        im, _ = kit.snap_frame(im, pal); im, _ = BB.kit_fill(im); im, _ = BC.tidy(im, fill=True)
+        if kit.WIDE: im, _ = BB.audit_clean(im, keeper)      # v0.10 audit: loose debris and hair-lines sticking up
+        cells.append((key, im))
     # the 12-direction turns replace the 8-direction idle stills where a 12-direction idle exists
     for x in pl.DRAWN12:
         f = os.path.join(RAWN, bid, f"rot12_{x}.png")

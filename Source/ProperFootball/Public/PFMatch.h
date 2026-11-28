@@ -124,6 +124,11 @@ struct FPFPlayer
 	bool bBooked = false;
 	bool bSentOff = false;
 	bool bWonBallThisSlide = false;
+	// v0.10 presentation (PFPresent.cpp): what is drawn between actions. PresClip/PresT/PlantT/PrevSpeed are drawing only
+	// (advanced per frame, never read by the sim); bRestAdded marks an action whose rest hold was added (sim)
+	FName PresClip; float PresT = 9.f;   // the kick that just ended: its follow-through finishes drawing while he stands or jogs
+	float PlantT = 0.f, PrevSpeed = 0.f; // a brake / plant pose after a fast run stops
+	bool bRestAdded = false;
 	float AIThink = 0;
 	float FeintT = 0;          // skill move in progress (s left)
 	FVector2D FeintDir = FVector2D::ZeroVector;
@@ -136,6 +141,11 @@ struct FPFPlayer
 	float BoostMul = 1.f;      // top-speed multiplier while it lasts (acceleration gets twice the gain)
 	float CarryT = 0;          // v0.9.8: a through ball taken in stride: his first touch carries him on (s left, stick idle)
 	FVector2D CarryDir = FVector2D(1, 0);
+	float RunSeenT = 9.f;      // v0.10 attack stats: seconds since he was last seen on a forward run off the ball (sim measure)
+	// v0.10 attacking runs (TeamAI): the run he is on (0 none, 1 in behind, 2 checking short, 3 channel, 4 overlap, 5 third man),
+	// its target, time left, and the cool-down before he may start another
+	uint8 AtkRun = 0; FVector2D AtkRunTo = FVector2D::ZeroVector; float AtkRunT = 0.f, AtkRunCool = 0.f, AtkRunAge = 0.f;
+	float CrossPeak = -1.f, CrossZa = 1.7f;   // v0.10: the cross being struck: its peak height and the height it reaches the target at (-1 = an ordinary lob)
 };
 
 struct FPFBall
@@ -164,9 +174,11 @@ struct FPFPadInput
 	bool bSprint = false;
 	bool bPass = false, bLob = false, bThrough = false, bSwitch = false;  // pressed this frame
 	bool bPassHeld = false, bThroughHeld = false;                         // v0.9.8 power bar: A / Y still held (a press with neither held is a tap)
+	bool bLobHeld = false;                                                // v0.10 cross bar: X still held
 	bool bShootHeld = false, bShootReleased = false, bShootPressed = false;
 	bool bChipMod = false;                    // LB held: B becomes a chip shot
 	bool bFeintL = false, bFeintR = false;   // right stick flicked left / right this frame
+	FVector2D Look = FVector2D::ZeroVector;  // v0.10: the right stick (screen space, y down): set-piece height up / down
 };
 
 struct FPFMatchEvent { float Minute; int32 Team; FString Text; };
@@ -179,7 +191,7 @@ public:
 	// -pfautopad: a scripted player drives the human side through the real pad input (long playtests, owner v0.7)
 	FPFPadInput AutoPad(float Dt);
 	bool bAutoPad = false; float AutoT = 0, AutoHold = 0; bool bAutoChip = false;
-	float AutoPassHold = 0; bool bAutoPassY = false;   // v0.9.8: the bot holds A / Y for the power bar
+	float AutoPassHold = 0; bool bAutoPassY = false, bAutoPassX = false;   // v0.9.8: the bot holds A / Y for the power bar
 	// playtest log (-pfautopad): what the pad's side did and what went wrong
 	int32 PT_Passes = 0, PT_PassOK = 0, PT_Shots = 0, PT_Chips = 0, PT_Crosses = 0, PT_Feints = 0, PT_FeintBeat = 0, PT_KeeperThrows = 0, PT_ThrowIns = 0;
 	int32 AnyPassFrom = -1, AnyPassTo = -1; float AnyPassT = 0, AnyPassMin = 99; FVector2D AnyPassFromPos;
@@ -204,6 +216,7 @@ public:
 	TArray<FPFPlayer> Officials;   // [0] referee, [1] [2] assistant referees (drawn, never touch the ball)
 	TArray<FPFPlayer> Managers;    // [0] home, [1] away: in their technical areas
 	TArray<FVector2D> HeadScreen;  // v0.9.2: each player's head on screen last frame (HUD ratings); X < -1e8 = not drawn
+	float DrawSpriteScale = 1.f;   // v0.10 bug fix: screen pixels per sprite pixel last frame (the HUD stacks its tags above the cursor)
 	int32 TeamOverall(int32 Team) const;
 	// test helpers (feel test): the stick direction that points along a world direction, and the goal a team attacks
 	FVector2D StickFor(FVector2D WorldDir) const { return Proj.DirToScreen(WorldDir).GetSafeNormal(); }
@@ -226,16 +239,48 @@ public:
 	FPFBall Ball;
 	FString Banner;            // "GOAL!", "CORNER KICK" ...
 	float BannerT = 0;
+	// ---- v0.10 presentation (PFPresent.cpp): the goal sequence, the replay, rests and transitions
+	float GoalT = -1.f;              // sim seconds into the goal sequence (-1: none); the HUD draws the letters and score off it
+	int32 GoalTeam = -1, GoalScorer = -1, GoalMinute = 0, GoalCeleb = 0;
+	int32 GoalScoreWas[2] = { 0, 0 };   // the score before this goal (the HUD ticks the scorers' digit up)
+	FString GoalWho;                 // "23' SURNAME"
+	FVector2D GoalRunTo = FVector2D::ZeroVector;
+	float FadeA = 0.f;               // black over the pitch (the cut back to the kick-off)
+	bool bGoalSkippable = false;
+	// goal sequence timeline (sim seconds): letters, score card, replay, fade to the kick-off
+	static constexpr float GoalLetters0 = 0.15f;
+	static constexpr float GoalLettersEnd = 2.3f;
+	static constexpr float GoalScore0 = 2.3f;
+	static constexpr float GoalScoreEnd = 4.3f;
+	static constexpr float GoalReplay0 = 6.0f;
+	static constexpr float GoalFade0 = 9.4f;
+	static constexpr float GoalEnd = 9.7f;
+	bool InReplay() const { return ReplayIdx >= 0; }
+	void PresentTick(float Dt);      // per drawn frame: brake poses, follow-through clocks, the replay recorder
+	struct FSnap { TArray<FPFPlayer> P; FPFBall Ball; bool bKeeperHands = false; float T = 0; };
+	TArray<FSnap> Replay;            // ring of snapshots (30 Hz, about 4 s), recorded while drawing open play
+	int32 ReplayHead = 0, ReplayN = 0, ReplayIdx = -1; float RecAcc = 0, ReplayClock = 0;
+	bool bInReplayDraw = false;
 	bool bFinished = false;
 	bool bQuit = false;        // left from the pause menu (career: the rest is simulated)
 	FVector2D CamCenter;       // atlas px
 	static float CamZoom;
 	// test diagnostics: 0 shots, 1 shot dist sum (dm), 2 saves (dive+standing), 3 AI tackles tried, 4 won, 5 slides, 6 lost on cut, 7 passes, 8 intercept/loose pickups, 9 shots inside 12 m
-	static int64 Diag[48];      // stadium pixels -> screen pixels at 1080p (options: near / medium / far)
+	static int64 Diag[64];   // (v0.10 bug pass: 48 own goals, 49 goals last touched by a keeper - they used to be added into 6 and 7 as x1000 / x100000, which made the per-match "lost on cut" and "passes" read 150 and 725)
+	// v0.10 attack stats (sim): 0 possession ticks, 1 sum of the side's mean line height (cm, + = toward their goal), 2 sum of
+	// width (cm), 3 runs seen (off-ball forward sprints near their line), 4 completed passes, 5 completed passes to a man on
+	// a run, 6 passes received beyond the defence's line, 7 crosses, 8 crosses won by the crossing side, 9 sum of the
+	// deepest-to-highest spread (cm), 10 AI runs started (in behind), 11 checking short, 12 channel, 13 overlap, 14 third man,
+	// 15 recycled (passed back after no run was found), 16 ticks a team-mate was beyond the ball in the final third
+	static int64 AtkDiag[24];
+	int32 AtkPrevOwner = -1; bool bAtkFlight = false; int32 AtkCrossTeam = -1;
+	void AttackStats(int32 Team, float Dt);      // stadium pixels -> screen pixels at 1080p (options: near / medium / far)
+	static constexpr float BallDrawK = 0.56f;      // v0.10: drawn ball = 16 x this sprite pixels (was 0.72)
 	static constexpr float PlayerHeightM = 1.82f;   // the sprite figure (64 px tall) is drawn at this real height
 	static inline bool bOldAnims = false;   // v0.9.9: -pfoldanims draws the v0.9.7 poses instead of the approved animations
 	static float HeightScale;
-	static float GameSpeed;     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
+	static float GameSpeed;
+	static constexpr float NormalSpeed = 0.89f;   // v0.10: the default GameSpeed (Options GAME SPEED: SLOW 0.80, NORMAL, FAST 1.05 = v0.9.9); tests always run at it     // sim seconds per real second: 0.85 matches ISS Deluxe's on-screen pace at half-size players (v0.6 footage study)   // drawn heights (people, ball flight, goals) vs the stadium's projection: 0.5 = owner's "half the size" (v0.4)
 	float Highlight = 0;
 	float HitStop = 0, ShakeT = 9.f, ShakeAmp = 0;
 	// v0.9.8 pass power bar (owner: "if I tap it, it's a very short pass to the closest player. But the longer I hold it,
@@ -251,6 +296,17 @@ public:
 	float PassCharge = 0.f;          // the bar, 0..1 (HUD)
 	bool bPassCharging = false;      // A or Y held with the ball (or one on its way)
 	bool bPassChargeThrough = false; // it is Y's bar (through ball)
+	bool bPassChargeLob = false;     // v0.10: it is X's bar (cross / lofted ball): fills in CrossFullT
+	// v0.10 cross bar (owner: "the longer you hold it, the higher the ball goes and the further it goes to a player. If
+	// you just tap it, it'll go to the nearest player"): a tap is a low ball to the nearest man on the aim line, then head
+	// height to the middle man, and a full bar a high hanging ball to the farthest man (far post or the far winger)
+	static constexpr float CrossFullT = 0.5f;
+	static constexpr float CrossMidT = 0.30f;   // the bar's second tick (head-height balls below it, high ones above)
+	float PendLobHoldT = 0.25f;                 // the released X hold, buffered with BufLob
+	float BarFullT() const { return bPassChargeLob ? CrossFullT : PassFullT; }
+	float CrossChargeFor(float Held) const { return FMath::Clamp((Held - PassTapT) / (CrossFullT - PassTapT), 0.f, 1.f); }
+	int32 PadCrossPick(const FPFPlayer& From, FVector2D Aim, float Held, FVector2D& OutPt) const;
+	void SetCross(FPFPlayer& Pl, FVector2D Target, float C, bool bTap);
 	float PassHoldT = 0.f;           // seconds held
 	float PendHoldT = 0.f;           // the released hold, buffered with BufPass / BufThrough until the ball is at his feet
 	int32 ChargeOwner = -1;          // who was controlled when it started (a switch cancels it)
@@ -273,6 +329,51 @@ public:
 	int32 CrowdMood = 0; int32 CrowdTeam = 0; float CrowdT = 0;   // v0.9 impact: a few frames' freeze and a camera kick when a shot is struck
 	TArray<FName> Sfx;         // sound cues raised this frame (the flow plays and clears them)
 	FLinearColor CardColor = FLinearColor::Yellow;   // the card the referee is holding up (while his ref_card clip plays)       // >0 while something worth watching happens (manage mode slows down and shows sprites)
+
+	// ---- v0.10 set pieces (PFSetPiece.cpp). Owner: "an orange arrow on the ball ... left of the field, right of the field,
+	// middle ... how high do we want the kick, high, medium, low, and then how much power is up to us" and, for throw-ins,
+	// "arrows and lines on the ground to see where we're about to throw the ball". The pad's taker turns a small arrow at the
+	// ball with the left stick, picks the height with Y (higher) / X (lower) or the right stick, holds B (or A) to fill the
+	// bar and lets go to strike. A tap of A plays it short to the ringed man. AI takers keep their own routine.
+	enum : int32 { SPLow = 0, SPMed = 1, SPHigh = 2 };
+	static constexpr float SPFullT = 0.8f;   // seconds from the press to a full set-piece bar
+	bool bSPAim = false;                     // the pad's man is lining one up (drawing, HUD)
+	FVector2D SPDir = FVector2D(1, 0);       // the arrow (world, unit)
+	int32 SPHeight = SPMed;
+	float SPCharge = 0.f;                    // the bar 0..1
+	bool bSPCharging = false;
+	float SPHoldT = 0.f;
+	int32 SPPick = -1;                       // the team-mate it will reach (ring), -1 none
+	FVector2D SPLand = FVector2D::ZeroVector;   // where it comes down (throw-in line end, landing mark while charging)
+	bool bSPShot = false;                    // free kick / penalty: the arrow is on goal (a shot)
+	EPFRestart SetPieceKind() const { return Restart; }
+	// the last set piece the pad's man struck (tests): kind, arrow, height step, power, launch velocity, receiver, landing
+	struct FSPLast { int32 Kind = -1; FVector2D Dir = FVector2D::ZeroVector; int32 Height = 0; float Power = 0; FVector Vel = FVector::ZeroVector; FVector From = FVector::ZeroVector; int32 Receiver = -1; FVector2D Land = FVector2D::ZeroVector; bool bShot = false, bShort = false; int32 N = 0; } SPLast;
+	// test hook: a restart of this kind for Team at Spot (-1 kinds: none), as a foul / the ball going out would place it
+	void TestRestart(EPFRestart Kind, int32 Team, FVector2D Spot);
+	FVector2D TestRestartSpot(EPFRestart Kind, int32 Team, int32 Variant) const;
+
+private:
+	bool bSPReleased = false, bSPByA = false, bSPShort = false; float SPIdleT = 0.f, SPPower = 0.f; int32 SPLookStep = 0;
+	int32 SPDemoN = 0; float SPDemoT = 0.f; int32 SPShotsTaken = 0;
+	FVector2D SPTarget = FVector2D::ZeroVector;   // throw-in: the point the throw is aimed at when released
+	bool bSPLaunch = false;                       // FireKick: the pad's set piece is the kick being struck (SetPieceLaunch sets the flight)
+	bool bSPHandsDone = false;
+	void SetPieceBegin(FPFPlayer& T);
+	bool SetPieceHuman(FPFPlayer& T, const FPFPadInput& Pad, float Dt, bool bGKGo);
+	void SetPieceGo(FPFPlayer& T);
+	void SetPieceLaunch(FPFPlayer& T);
+	void SetPiecePreview(const FPFPlayer& T);
+	void SetPieceMates(float Dt);
+	bool SetPieceAutoPad(float Dt, FPFPadInput& In);
+	void SetPieceDemo(float Dt, FPFPadInput& In);
+	FVector2D SPClampDir(FVector2D D) const;
+	int32 SPMateNear(FVector2D At, float MaxD, int32 Team, int32 Except) const;
+	int32 SPShortPick(const FPFPlayer& T) const;
+	FVector SPPlanVel(const FPFPlayer& T, FVector From, int32 Height, float Power, bool bShot, FVector2D Dir, FVector2D* OutLand) const;
+	FName SetPiecePose(const FPFPlayer& Pl) const;
+	void SetPieceHands();
+	void DrawSetPiece(UCanvas* C, TFunctionRef<FVector2D(float, float, float)> W2S, float SpriteScale);
 
 private:
 	FPFProjection Proj;
@@ -363,10 +464,24 @@ private:
 	// v0.9.8 goal kick (owner: "the keeper steps back about four steps, then runs up and kicks when the button is
 	// pressed"): -1 off, else seconds into the routine; the queued long kick and where the stick aimed it
 	float GKT = -1.f, GKRunT = -1.f; bool bGKQueued = false; FVector2D GKLine = FVector2D(1, 0), GKAim = FVector2D::ZeroVector;
+	// v0.10 bug pass: the penalty just struck - the side the keeper guessed (-1 / 0 stay / +1, world y) and the side it went;
+	// PenShotT >= 0 while it is on its way (KeeperAI dives where he guessed)
+	int32 PenGuess = 0, PenWent = 0; float PenShotT = -1.f;
 public:
 	mutable float DbgThroughMargin = 0, DbgThroughRun = 0, DbgMaxM = 0;   // test: the chosen space's predicted margin over the defence and the runner's time
 private:
 	int32 NearestToBall(int32 Team, bool bOutfieldOnly) const;
+	// v0.10 attacking play: the side's shape on the ball (by role, round the ball and their back line), the runs off it
+	enum EAtkKind : uint8 { AK_GK, AK_CB, AK_FB, AK_DM, AK_CM, AK_WM, AK_ST, AK_WF };
+	enum EAtkRun : uint8 { AR_None, AR_Behind, AR_Short, AR_Channel, AR_Overlap, AR_Third, AR_PassGo };
+	EAtkKind AtkKindOf(const FPFPlayer& Pl) const;
+	FVector2D AttackSpot(const FPFPlayer& Pl, float& OutUrgency) const;
+	void PlanRuns(int32 Team, float Dt);
+	int32 AtkRunCount(int32 Team) const;
+	void StartAtkRun(FPFPlayer& Pl, uint8 Kind, FVector2D To, float T);
+	int32 BestRunner(const FPFPlayer& From) const;
+	bool OurPassInFlight(int32 Team) const;
+	float AtkFreeT[2] = { 0.f, 0.f }, AtkPlanT[2] = { 0.f, 0.f };
 	FVector2D FormationSpot(const FPFPlayer& Pl) const;
 	void Goal(int32 ScoringTeam);
 	void Foul(FPFPlayer& Offender, FPFPlayer& Victim, bool bIndirect = false);
@@ -382,6 +497,13 @@ private:
 	void SwitchHuman(int32 NewIdx);
 	EPFDir ScreenDir(FVector2D WorldDir) const;
 	FName PoseFor(const FPFPlayer& Pl) const;
+	// v0.10 presentation (PFPresent.cpp)
+	FName PresentPose(const FPFPlayer& Pl, const FPFSpriteSet& S, bool& bHandled) const;   // timelines, follow-throughs, rests, transitions
+	void GoalStart(int32 ScoringTeam, bool bOwnGoal);   // from Goal(): the celebration cast and the sequence clock
+	void GoalScene(float Dt, const FPFPadInput& Pad);  // EPFPhase::Goal, every step
+	void OnActEnd(FPFPlayer& Pl);                       // an action's clip ran out: rest holds, follow-through
+	void OnDiveTouch(FPFPlayer& K, bool bHeld);         // a diving keeper got to the ball (held or parried): his time down
+	bool DrawReplaySwap(bool bIn);                      // Draw: swap the replay frame in (and back out)
 	UMaterialInstanceDynamic* MidFor(UMaterialInterface* M, int32 Set, const FPFKit* Kit);
 	void SetBanner(const FString& S, float T = 1.6f)
 	{
@@ -392,3 +514,6 @@ private:
 	}
 	void Log(int32 Team, const FString& S);
 };
+
+// v0.10 -pfsetpiecetest: the pad's set pieces (PFSetPiece.cpp), PFSETPIECE lines in the log
+void PFSetPieceTests();

@@ -1,0 +1,10 @@
+{
+ "action": "jockey",
+ "body": "N01",
+ "first": "rot_east",
+ "loop": true,
+ "frames": 9,
+ "dt": 0.1,
+ "prompt": "a stocky retro 16-bit footballer, blue shirt, green shorts, red socks, black boots: defender jockeying in place, side view: low side-on stance, knees bent, arms out, small shuffling steps, ready to tackle, crouched and ready, ISS Deluxe style SNES timing. Keep his exact look, colours, size and pixel style. His head stays clearly visible in every frame. No ball, no shadow. The animation loops: the last frame leads back into the first.",
+ "seed": 1005
+}
