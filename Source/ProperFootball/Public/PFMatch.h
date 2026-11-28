@@ -216,6 +216,7 @@ public:
 	TArray<FPFPlayer> Officials;   // [0] referee, [1] [2] assistant referees (drawn, never touch the ball)
 	TArray<FPFPlayer> Managers;    // [0] home, [1] away: in their technical areas
 	TArray<FVector2D> HeadScreen;  // v0.9.2: each player's head on screen last frame (HUD ratings); X < -1e8 = not drawn
+	float DrawSpriteScale = 1.f;   // v0.10 bug fix: screen pixels per sprite pixel last frame (the HUD stacks its tags above the cursor)
 	int32 TeamOverall(int32 Team) const;
 	// test helpers (feel test): the stick direction that points along a world direction, and the goal a team attacks
 	FVector2D StickFor(FVector2D WorldDir) const { return Proj.DirToScreen(WorldDir).GetSafeNormal(); }
@@ -265,7 +266,7 @@ public:
 	FVector2D CamCenter;       // atlas px
 	static float CamZoom;
 	// test diagnostics: 0 shots, 1 shot dist sum (dm), 2 saves (dive+standing), 3 AI tackles tried, 4 won, 5 slides, 6 lost on cut, 7 passes, 8 intercept/loose pickups, 9 shots inside 12 m
-	static int64 Diag[48];
+	static int64 Diag[64];   // (v0.10 bug pass: 48 own goals, 49 goals last touched by a keeper - they used to be added into 6 and 7 as x1000 / x100000, which made the per-match "lost on cut" and "passes" read 150 and 725)
 	// v0.10 attack stats (sim): 0 possession ticks, 1 sum of the side's mean line height (cm, + = toward their goal), 2 sum of
 	// width (cm), 3 runs seen (off-ball forward sprints near their line), 4 completed passes, 5 completed passes to a man on
 	// a run, 6 passes received beyond the defence's line, 7 crosses, 8 crosses won by the crossing side, 9 sum of the
@@ -463,6 +464,9 @@ private:
 	// v0.9.8 goal kick (owner: "the keeper steps back about four steps, then runs up and kicks when the button is
 	// pressed"): -1 off, else seconds into the routine; the queued long kick and where the stick aimed it
 	float GKT = -1.f, GKRunT = -1.f; bool bGKQueued = false; FVector2D GKLine = FVector2D(1, 0), GKAim = FVector2D::ZeroVector;
+	// v0.10 bug pass: the penalty just struck - the side the keeper guessed (-1 / 0 stay / +1, world y) and the side it went;
+	// PenShotT >= 0 while it is on its way (KeeperAI dives where he guessed)
+	int32 PenGuess = 0, PenWent = 0; float PenShotT = -1.f;
 public:
 	mutable float DbgThroughMargin = 0, DbgThroughRun = 0, DbgMaxM = 0;   // test: the chosen space's predicted margin over the defence and the runner's time
 private:

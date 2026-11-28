@@ -460,6 +460,13 @@ void FPFMatch::GoalScene(float Dt, const FPFPadInput& Pad)
 		for (FPFPlayer& Pl : P) if (Pl.Act == EPFAct::Celebrate) { Pl.Act = EPFAct::None; Pl.Vel = FVector2D::ZeroVector; }
 		PlaceForKickoff(KickoffTeam);
 		CamCenter = Proj.ToAtlas(FVector(Ball.Pos.X, Ball.Pos.Y, 0.f));
+		// v0.10 bug pass: a goal in the half's added seconds used to cut to a kick-off that was taken and whistled up at once
+		// (the half-time check runs on the first step of play); the whistle goes now, as the show ends
+		if (HalfT >= Setup.HalfSeconds)
+		{
+			if (Half == 1) { Phase = EPFPhase::HalfTime; PhaseT = 0; SetBanner(TEXT("HALF TIME"), 3.f); Sfx.Add(TEXT("whistle_long")); }
+			else { Phase = EPFPhase::FullTime; PhaseT = 0; SetBanner(TEXT("FULL TIME"), 3.f); Sfx.Add(TEXT("whistle_three")); }
+		}
 	}
 }
 
@@ -550,7 +557,9 @@ bool PFPresent::DrawGoalOverlay(UCanvas* C, const FPFMatch& M, float U, float& O
 		static const TCHAR* L[] = { TEXT("G"), TEXT("O"), TEXT("A"), TEXT("L") };
 		const float Px = FMath::RoundToFloat(H * 0.22f / 7.f);
 		const float Step = 6.f * Px, Total = 4.f * Step - Px;
-		const float Y0 = H * 0.40f - 3.5f * Px;
+		// v0.10 bug fix: the letters and the score card stood in the middle of the screen, right where the celebration
+		// camera puts the scorer and his team-mates (the card's dash covered them); both now sit in the upper part
+		const float Y0 = H * 0.25f - 3.5f * Px;
 		if (T >= FPFMatch::GoalLetters0 && T < FPFMatch::GoalLettersEnd)
 		{
 			const bool bFlash = (T > 1.90f && T < 1.97f) || (T > 2.04f && T < 2.11f);
@@ -577,7 +586,7 @@ bool PFPresent::DrawGoalOverlay(UCanvas* C, const FPFMatch& M, float U, float& O
 			const int32 S0 = bNew ? M.Score[0] : M.GoalScoreWas[0], S1 = bNew ? M.Score[1] : M.GoalScoreWas[1];
 			const float Pop = bNew ? 1.f + 0.4f * FMath::Clamp(1.f - (T - FPFMatch::GoalScore0 - 0.3f) / 0.18f, 0.f, 1.f) : 1.f;
 			const float In = FMath::Clamp((T - FPFMatch::GoalScore0) / 0.12f, 0.f, 1.f);
-			const float Yc = H * 0.40f;
+			const float Yc = H * 0.21f;   // v0.10 bug fix: above the celebration (was 0.40, over the scorer)
 			const FLinearColor Face(1, 1, 1, In), Side(Blue.R, Blue.G, Blue.B, In), Sh(0, 0, 0.1f, 0.7f * In);
 			const float Gap = 9.f * SPx;
 			PixelText(C, TEXT("-"), W * 0.5f + SPx * 0.5f, Yc - 3.5f * SPx, SPx, Face, Side, Sh);

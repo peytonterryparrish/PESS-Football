@@ -128,7 +128,15 @@ FVector FPFMatch::SPPlanVel(const FPFPlayer& T, FVector From, int32 Height, floa
 	{
 		// from over his head to the man's feet (where he will be), or to the spot the bar asked for
 		FVector2D To = SPTarget;
-		if (P.IsValidIndex(SPPick)) { const FPFPlayer& R = P[SPPick]; To = R.Pos + SafeN(V2(From) - R.Pos) * 0.4f; }   // at his feet, the thrower's side
+		if (P.IsValidIndex(SPPick))
+		{
+			// at his feet, the thrower's side - where he will be when it comes down (v0.10 bug pass: it went to where he stood
+			// when it was let go, so a long throw to a man still coming short dropped behind him and nobody took it)
+			const FPFPlayer& R = P[SPPick];
+			const float Te = FMath::Clamp(0.42f + (float)FVector2D::Distance(R.Pos, V2(From)) * 0.034f, 0.5f, 1.35f);
+			const FVector2D Rp = R.Pos + R.Vel * Te * 0.8f;
+			To = Rp + SafeN(V2(From) - Rp) * 0.4f;
+		}
 		const FVector2D Rel = To - V2(From);
 		const float D = FMath::Max(1.5f, (float)Rel.Size());
 		const FVector2D Dh = SafeN(Rel, Dir);
@@ -272,7 +280,7 @@ bool FPFMatch::SetPieceHuman(FPFPlayer& T, const FPFPadInput& Pad, float Dt, boo
 		bool bRelease = false;
 		if (bSPCharging)
 		{
-			SPHoldT += Dt; SPCharge = FMath::Clamp(SPHoldT / SPFullT, 0.f, 1.f);
+			SPHoldT += Dt / GameSpeed; SPCharge = FMath::Clamp(SPHoldT / SPFullT, 0.f, 1.f);   // v0.10 bug pass: real seconds, like the pass, cross and shot bars (at GameSpeed 0.89 it filled 11% slow: a 0.62 s hold gave 0.69, not the 0.78 the test expects)
 			bRelease = !bHeld || SPHoldT > SPFullT + 0.4f;
 		}
 		// nobody at the pad: it is taken for him (a long wait never stalls the match)
@@ -383,6 +391,7 @@ void FPFMatch::SetPieceLaunch(FPFPlayer& T)
 			const float Ys = F.AtX.Y - Gc.Y;
 			const int32 Went = Y < 0.9f ? 0 : (Ys > 0.f ? 1 : -1);
 			if (Guess != Went && SPPower > 0.3f) bBeat = true;
+			PenGuess = SPPower > 0.3f ? Guess : Went; PenWent = Went; PenShotT = 0.f; Diag[53]++;   // v0.10 bug pass: KeeperAI dives this way (it read the ball before); a tame roll he reads
 		}
 		Ball.bBeatsKeeper = bOn && bBeat;
 	}
@@ -796,13 +805,44 @@ void PFSetPieceTests()
 			if ((Lr == 0 && FMath::Abs(Y) < 1.4f) || (Lr != 0 && FMath::Sign(Y) == Lr && FMath::Abs(Y) > 1.2f)) ++Side;
 			const int32 S0 = M.Score[0];
 			float MaxZ = 0; bool bOver = false;
-			for (int32 f = 0; f < 360 && M.Phase == EPFPhase::Play; ++f) { M.Tick(Dt, FPFPadInput()); if (FMath::Abs(M.Ball.Pos.X) > 52.5f && M.Ball.Pos.Z > 2.44f) bOver = true; MaxZ = FMath::Max(MaxZ, (float)M.Ball.Pos.Z); }
+			int32 KeeperWent = 0; bool bKDived = false;   // v0.10 bug pass: which way the keeper went (+1 / -1 world y, 0 stayed)
+			for (int32 f = 0; f < 360 && M.Phase == EPFPhase::Play; ++f)
+			{
+				M.Tick(Dt, FPFPadInput()); if (FMath::Abs(M.Ball.Pos.X) > 52.5f && M.Ball.Pos.Z > 2.44f) bOver = true; MaxZ = FMath::Max(MaxZ, (float)M.Ball.Pos.Z);
+				for (const FPFPlayer& K : M.P) if (K.bKeeper && K.Team == 1 && K.Act == EPFAct::Dive && !bKDived) { bKDived = true; KeeperWent = K.DiveDir.IsNearlyZero() ? 0 : (K.DiveDir.Y > 0.f ? 1 : -1); }
+			}
+			UE_LOG(LogPF, Display, TEXT("PFSETPIECE pen %d keeper: %s %d, beaten flag %d"), i, bKDived ? TEXT("went") : TEXT("did not move"), KeeperWent, M.Ball.bBeatsKeeper ? 1 : 0);
 			{ const FFlight F0 = Fly(M.SPLast.From, M.SPLast.Vel, Gc.X); if (F0.ZAtX > GoalH + 0.11f) bOver = true; }   // the restart resets the ball the step it goes out
 			if (M.Score[0] > S0) ++Goals; else if (!bOver) ++Saved;
 			{ const FFlight F = Fly(M.SPLast.From, M.SPLast.Vel, Gc.X); UE_LOG(LogPF, Display, TEXT("PFSETPIECE pen %d: aim %d height %d power %.2f -> crosses y %.2f z %.2f, beats keeper %d, %s"), i, Lr, M.SPLast.Height, M.SPLast.Power, F.AtX.Y - Gc.Y, F.ZAtX, M.Ball.bBeatsKeeper ? 1 : 0, M.Score[0] > S0 ? TEXT("GOAL") : bOver ? TEXT("over") : TEXT("kept out")); }
 			if (bBlast) { ++OverN; if (bOver) ++Over; }
 		}
 		UE_LOG(LogPF, Display, TEXT("PFSETPIECE penalty: %d taken, placed on the aimed side %d, scored %d, kept out %d; high + full power over the bar %d / %d"), N, Side, Goals, Saved, Over, OverN);
+	}
+	// ---- v0.10 bug pass: a "beats the keeper" shot back off the post: somebody must be able to take the rebound (it used to
+	// stay untouchable: the keeper, nearest, made Possession give up for everyone)
+	{
+		int32 N = 0, Taken = 0, ByKeeper = 0;
+		for (int32 i = 0; i < 6; ++i)
+		{
+			FPFMatch M; NewMatch(M, 8500 + i, i);
+			M.Phase = EPFPhase::Play;
+			const FVector2D Gc = M.AttackGoal(0); const float Sg = FMath::Sign(Gc.X), Py = (i % 2 ? 1.f : -1.f) * GoalHalf;
+			int32 Kp = -1, Sh = -1;
+			for (FPFPlayer& Q : M.P)
+			{
+				Q.Act = EPFAct::None; Q.PendingKick = EPFKick::None;
+				if (Q.bKeeper && Q.Team == 1) { Kp = Q.Index; Q.Pos = FVector2D(Gc.X - Sg * 2.f, Py * 0.4f); }
+				else if (Q.Team == 0 && !Q.bKeeper && Sh < 0) { Sh = Q.Index; Q.Pos = FVector2D(Gc.X - Sg * 14.f, Py); }
+				else { Q.Pos = FVector2D(0.f, Q.Team == 0 ? 20.f : -20.f); }
+			}
+			M.Human = Sh;
+			M.Ball = FPFBall(); M.Ball.Pos = FVector(Gc.X - Sg * 4.f, Py, 0.6f); M.Ball.Vel = FVector(Sg * 20.f, 0.f, 0.5f);
+			M.Ball.LastKind = int32(EPFKick::Shot); M.Ball.LastTeam = 0; M.Ball.LastTouch = Sh; M.Ball.bBeatsKeeper = true;
+			for (int32 f = 0; f < 600 && M.Ball.Owner < 0 && M.Phase == EPFPhase::Play; ++f) M.Tick(Dt, FPFPadInput());
+			++N; if (M.Ball.Owner >= 0) { ++Taken; ByKeeper += M.Ball.Owner == Kp; }
+		}
+		UE_LOG(LogPF, Display, TEXT("PFSETPIECE post rebound (beats-keeper shot): %d, taken by someone %d (keeper %d)"), N, Taken, ByKeeper);
 	}
 	// ---- throw-ins: aim at each of the three nearest team-mates (a tap, or held for the far ones); is he the ringed man,
 	// and does the throw reach him?

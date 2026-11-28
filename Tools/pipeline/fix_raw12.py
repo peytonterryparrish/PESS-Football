@@ -4,6 +4,10 @@ ArtWork/audit_v100/raw_backup/ before the first write, so the script is re-runna
 from the backup, never from an already-fixed frame).
 
   python -I Tools/pipeline/fix_raw12.py [--dry]      # then rebuild: build_base_atlas.py + build_anim_atlas.py
+  python -I Tools/pipeline/fix_raw12.py --only=NK1/a150 --refresh
+        only the ops on that body/direction; --refresh first re-copies their backups from the current takes (after an
+        animation was regenerated: otherwise the fix would restore the old take). v0.10 bug hunt: the round-3 NK1 a150
+        takes were written over the fixed frames, so the keeper's blade and stick were back in the game.
 
 Ops:
   stalk  the owner's "long brown streak above their head" in N01 a060 run/walk/sprint: PixelLab grew a thin skin/brown
@@ -28,10 +32,12 @@ BACK = os.path.join(ROOT, "ArtWork", "audit_v100", "raw_backup")
 OPS = [
     ("stalk", "N01", "a060", "run", None), ("stalk", "N01", "a060", "walk", None), ("stalk", "N01", "a060", "sprint", None),
     ("idle", "NK1", "a150", "gk_ready", None),
+    # v0.10 bug hunt: the round-3 a150 takes (written over the fixed frames) carry the blade a frame longer in the scoop
+    # (f02) and a grey blob beside the body in high f02-f03 and punch f02; held frames picked again on those takes
     ("hold", "NK1", "a150", "gk_catch", (range(0, 5), 5)),
-    ("hold", "NK1", "a150", "gk_high", (range(0, 3), 3)),
+    ("hold", "NK1", "a150", "gk_high", (range(0, 4), 4)),
     ("hold", "NK1", "a150", "gk_punch", (range(0, 3), 3)),
-    ("hold", "NK1", "a150", "gk_scoop", (range(0, 2), 2)),
+    ("hold", "NK1", "a150", "gk_scoop", (range(0, 3), 3)),
     ("unball", "N01", "north", "chest", [2, 3]),
     ("head", "N01", "north", "chest", ([2, 3], 1)),
     ("head", "N01", "a150", "chest", ([2, 3, 4, 5], 1)),
@@ -161,15 +167,22 @@ def grass(a):
     b = a.copy(); b[thin] = 0
     return b
 
-def run(dry=False):
+def run(dry=False, only=None, refresh=False):
     done = []
+    ops = [o for o in OPS if not only or f"{o[1]}/{o[2]}" == only]
+    if refresh:
+        import glob
+        for _, b, d, an, _ in ops:
+            for f in glob.glob(os.path.join(RAW12, b, d, an, "f*.png")):
+                bk = os.path.join(BACK, os.path.relpath(f, RAW12))
+                if not dry: os.makedirs(os.path.dirname(bk), exist_ok=True); shutil.copy2(f, bk)
     cache = {}
     def get(b, d, an, i):
         k = (b, d, an, i)
         if k not in cache: cache[k] = original(path(b, d, an, i))
         return cache[k]
     out = {}
-    for op, b, d, an, arg in OPS:
+    for op, b, d, an, arg in ops:
         idx = frames(b, d, an)
         cur = lambda i: out.get((b, d, an, i), get(b, d, an, i))
         if op == "stalk":
@@ -192,7 +205,7 @@ def run(dry=False):
         elif op == "box":
             i, bx, mode = arg; out[(b, d, an, i)] = box(cur(i), bx, mode)   # cur(): boxes on one frame stack
         done.append(f"{op} {b}/{d}/{an} {arg if op not in ('stalk', 'idle') else 'all ' + str(len(idx))}")
-    for b, rel, bx, mode in BASE_OPS:
+    for b, rel, bx, mode in (BASE_OPS if not only else []):
         p = os.path.join(RAWN, b, *rel.split("/")) + ".png"
         bk = os.path.join(BACK, "raw_base_n", b, *rel.split("/")) + ".png"
         if not os.path.exists(bk): os.makedirs(os.path.dirname(bk), exist_ok=True); shutil.copy2(p, bk)
@@ -205,4 +218,5 @@ def run(dry=False):
     return out
 
 if __name__ == "__main__":
-    run("--dry" in sys.argv)
+    only = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--only=")), None)
+    run("--dry" in sys.argv, only, "--refresh" in sys.argv)
